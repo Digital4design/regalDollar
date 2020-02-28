@@ -1,0 +1,22 @@
+<!-- HTML generated using hilite.me -->
+        <div style="background: #f5f5f5; overflow:auto;width:auto;border:solid gray;border-width:0px;padding:1.6em;"><pre style="margin: 0; line-height: 125%">
+         
+          namespace App\Http\Controllers;
+          use Illuminate\Http\Request;
+          
+          class VeltrixController extends Controller
+          {
+              public function index($id)
+              {
+                  if(view()->exists($id))
+                  {
+                      return view($id);
+                  }
+                  else
+                  {
+                      return view('pages-404');
+                  }
+              }
+          }
+          
+</div>
