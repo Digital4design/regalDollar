@@ -122,11 +122,7 @@
                   <label for="description">Date of Birth</label><br/>
                   <input type="text"  value="" class="form-control"  id="SSN" name="SSN" placeholder="___-__-____"/>
                </div>
-               <!-- <div class="form-group">
-                  <label for="description">Product Description</label>
-                  <textarea type="text"  class="form-control" id="taskDescription" name="description"></textarea>
-                  </div>  -->
-               <button type="submit" class="btn btn-primary">Add Product Image</button> 
+               <button type="submit" class="btn btn-primary">Next</button>
             </form>
          </div>
       </section>

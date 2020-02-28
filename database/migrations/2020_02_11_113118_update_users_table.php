@@ -18,11 +18,12 @@ class UpdateUsersTable extends Migration
             $table->text('address')->nullable();
             $table->string('plan_start_date')->nullable();
             $table->string('plan_end_date')->nullable();
-            $table->text('address2')->nullable(); 
+            $table->text('address2')->nullable();
             $table->integer('country_id')->unsigned()->nullable();
             $table->integer('state_id')->unsigned()->nullable();
             $table->integer('city_id')->unsigned()->nullable();
             $table->string('zipcode')->nullable();
+            $table->string('accountType')->nullable();
         });
     }
 

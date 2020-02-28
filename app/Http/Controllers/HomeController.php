@@ -34,7 +34,7 @@ class HomeController extends Controller
         Auth::logout();
         return redirect('/');
     }
-    public function getData()
+    public function getPlanData()
     {
         $planData = Plan::get();
         return view('public.home')->with(['planData' => $planData]);
