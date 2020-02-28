@@ -14,7 +14,7 @@
                 </ul>
             </div>
             <div class="block bottom_nav">
-                <h2 class="nav_title">Plans</h2>
+                <h2 class="nav_title">Plans</h2> 
                 <ul>
                     <li><a href="{{ url('/') }}">Starter</a></li>
                     <li><a href="{{ url('/') }}">Supplemental Income</a></li>
