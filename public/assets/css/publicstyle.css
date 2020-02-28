@@ -3482,6 +3482,8 @@ section.kode-map {
 section.kode-pagesection {
 	background: #f5f5f5;
 	padding: 100px 0;
+	float:left;
+	width:100%;
 }
 /* Couses List */
 
@@ -3823,7 +3825,7 @@ section.why-us-section .heading-4 p:after {
 	background: #fff !important;
 }
 .why-us-option .col-md-4,
-.how-section .col-md-4 {
+.how-section .col-md-6 {
 	text-align: center;
 }
 .why-us-option .col-md-4 img {
@@ -3834,13 +3836,13 @@ section.why-us-section .heading-4 p:after {
 	/*    background: #fff;    box-shadow: 0 2px 4px #cccccc7a; */
 }
 .why-us-option .col-md-4 h3,
-.how-section .col-md-4 h3 {
+.how-section .col-md-6 h3 {
 	font-family: Roboto;
 	font-weight: 500;
 	margin-bottom: 8px;
 }
 .why-us-option .col-md-4 p,
-.how-section .col-md-4 p {
+.how-section .col-md-6 p {
 	font-size: 16px;
 }
 section.why-us-section .heading.heading-4 h2,
@@ -3881,7 +3883,7 @@ section.why-us-section .heading-4 h2:after,
 section.how-section .heading-4 h2:after {
 	display: none;
 }
-.how-section .col-md-4 img {
+.how-section .col-md-6 img {
 	width: auto;
 	margin-bottom: 26px;
 }
@@ -4016,10 +4018,15 @@ body.faq section.thumb-with-text, body.about_us section.thumb-with-text, body.co
     cursor: pointer;
     -webkit-transition: .25s;
     transition: .25s;
-    width: 32%;
+    width: 100%;
     margin: 0 2% 2% 0;
     padding: 14px;
     float: left;
+}
+.faq_block .block h3 {
+    margin: 0 0 8px;
+    font-size: 18px;
+    font-family: Roboto !important;
 }
 .faq_block .block:hover {
     -webkit-transform: translateY(-2px);
@@ -4037,7 +4044,7 @@ body.faq section.thumb-with-text, body.about_us section.thumb-with-text, body.co
     padding: 10px;
 }
 .faq_block .block .top h2 {
-    font-size: 20px;
+    font-size: 24px;
     margin: 0 0 10px 0;
     font-family: Roboto;
     font-weight: 500;
@@ -4069,12 +4076,30 @@ body.faq section.thumb-with-text, body.about_us section.thumb-with-text, body.co
 .faq_block .block .bottom p {
     width: 100%;
     float: left;
-    margin: 0 0 25px 0;
+    margin: 0;
     padding: 0;
 }
 .faq_block .block:nth-child(4), .faq_block .block:nth-child(5) {
     margin-bottom: 0;
 }
+.faq_block .block .bottom {
+    margin-bottom: 12px;
+    padding-bottom: 15px;
+    padding-top: 18px;
+    margin-left: 10px;
+    box-sizing: border-box;
+    float: left;
+    width: 98%;
+    background: #f7f7f7;
+    border-radius: 5px;
+    padding-left: 15px;
+}
+.faq_block .block .top {
+    margin-bottom: 15px;
+}
+
+
+
 body.about_us .inner_page_banner {
     background: url(../images/about-us-banner.jpg);
     background-size: cover;
@@ -4386,7 +4411,7 @@ body.about_us .overlay {
     padding: 0;
 }
 .show_investors_member .investors .block {
-    width: 25%;
+    width: 33%;
     float: left;
     margin: 0 0 50px 0;
     padding: 0;
@@ -5567,3 +5592,158 @@ div#Strategy {
 .stacked-step__body.col-sec {
     margin: 2em 0;
 }
+.why-us-option .col-md-4 p {
+    height: 70px;
+}
+.why-us-option .col-md-4 {
+    margin: 20px 0;
+}
+.how-option .col-md-12 {
+    text-align: center;
+    padding: 40px 0 0;
+}
+.how-section .col-md-6 p {
+    padding: 0 0 10px 0;
+}
+section.Referral-section {
+    background: #f7f7f7;
+} 
+section.Referral-section h3 {
+    font-size: 28px;
+    font-family: 'Roboto', sans-serif;
+    margin-bottom: 20px;
+    color: #0e223a !important;
+    font-weight: 700;
+}
+section.Referral-section p {
+    font-size: 20px;
+    line-height: 32px;
+    font-weight: 100;
+    padding: 0 8em;
+	    margin: 0;
+}
+section.abt-section {
+    float: left;
+    width: 100%;
+    background: #f7f7f7;
+    padding: 100px 0;
+}
+.abt-option .col-md-4 img {
+    width: 80px;
+    background: #0e223a;
+    border-radius: 40px;
+    padding: 20px;
+	    margin-bottom: 30px;
+}
+.abt-option .col-md-4 {
+    text-align: center;
+}
+.abt-option .col-md-4 p {
+    padding: 0 1.5em;
+    margin-bottom: 20px;
+}
+
+section.mission-section {
+    background: #0e223a;
+    color: #fff;
+    padding: 100px 0;
+}
+section.mission-section h2 {
+    color: #fff;
+}
+section.mission-section h2::after {
+    background: #fff;
+}
+section.mission-section .heading p {
+    color: #fff;
+}
+.miss-option {
+    float: left;
+    width: 100%;
+}
+.miss-option>p {
+    font-size: 20px;
+    text-align: center;
+    line-height: 30px;
+    margin-bottom: 50px;
+    float: left;
+    width: 100%;
+}
+.miss-option .col-md-4 img {
+    width: 65px;
+    margin-bottom: 30px;
+}
+.miss-option .col-md-4 h3 {
+    color: #fff;
+    font-size: 24px;
+}
+.miss-option .col-md-4 {
+    text-align: center;
+	margin-top: 12px;
+}
+
+/********** Responsive ****************/ 
+
+@media only screen and ( max-width:1280px ){
+	
+	.logo {	padding-right: 0;width: 100px;	}
+	.logo img {	width: 100%;float: left;	}
+	.logo img:nth-child(1) {width: 74px;height: 40px !important;margin-left: 12px;margin-bottom: 6px;}
+	.nav-container .nav-content {width: auto;margin: 27px 0px;}
+	.navigation ul li a {padding: 0 10px !important;}
+	
+	.plans_section .block .detail_sec p {padding: 0px 8%;line-height: 22px;	}
+	.plans_section .block .detail_sec .progress_bar span.bar_title { width: auto;}
+	.plans_section .block .detail_sec .progress_bar .track {width: 100px;float: right;height: 6px;	}
+	.plans_section .block .detail_sec h2.title {margin-bottom: 5px;}
+	.kode-event-list-2 .kode-text {min-height: 402px;}
+		
+}
+
+@media only screen and ( max-width:991px ){
+	
+   .plans_section .block {width: 100%;margin-bottom:30px;}
+   .plans_section .block .detail_sec .progress_bar .track {width: 78%;}
+   .kode-event-list-2 .kode-text {  min-height: auto;}
+   .plans .kode-text p {float: left;width: 100%;}
+   .plans .kode-text a.btn-filled {  position: unset; } 
+
+}
+
+
+@media only screen and ( max-width:980px ){
+	
+	.footer_nav .block { width: 50%;margin: 0 0 35px;text-align: center;}
+	.logo img {   width: auto;}
+	.logo {  width: auto !important; padding: 0 0;} 
+	.navigation ul li a {  padding: 0 8px !important;} 
+	.nav-container .nav-content {  margin: 15px 0px;} 
+	.nav-container { padding: 18px 0;} 
+	.inner-banner { padding: 60px 0 20px !important;}
+	.kode-team-section { height: 530px;}
+	.inner-banner h2 { font-size: 32px; line-height: 52px; padding: 20px 30px 0;}
+	.breadcrumb > li {font-size: 20px;}
+	section.Referral-section p { padding: 0 3em;} 
+	.how-option .col-md-6 { text-align: center; margin-bottom: 24px;  font-size: 18px;}
+	.how-option .col-md-6 img { margin-bottom: 14px;}
+	.how-option .col-md-12 p {text-align: center;font-size: 18px;border-top: 1px solid #ccc;padding-top: 15px;	margin-top: 8px;	}	
+	.img-abt img {	width: 100%;padding: 0 !important;}
+	.kode-pagesection .col-md-8 {	margin-top: 26px;font-size: 16px;}
+	.footer_nav .block:nth-child(2n) {	border: none;}
+	.social_icon .contact_detail { text-align: center;  width: 100%;}  
+		
+}
+
+
+@media only screen and ( max-width:767px ){
+	
+	.container { width: 95% !important;}         
+	.core_plans_section .heading-4 p { font-size: 18px;}  
+		
+}   
+
+@media only screen and ( max-width:640px ){    
+	
+	.footer_nav .block {width: 100%;text-align: center;	min-height: unset;	}
+		
+}   
