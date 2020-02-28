@@ -49,6 +49,105 @@
       </div>  
       
    </div>
+   
+   
+   <!------->
+	<section class="mission-section">
+		<div class="container">
+			
+			<div class="heading heading-4">
+				<h2>Our mission</h2> 
+				<p>Fairer growth for all.</p>
+				
+			</div>
+			
+			
+			<div class="miss-option">
+			    <p>To lead improvements to the old financial system. Where a fair and rewarding experience is achieved for everyone, and their rewards remain in balance, as we all thrive and grow together.</p>
+				<div class="row">
+					<div class="col-md-4">
+						<img src="{{ asset('public/assets/images/repair.png') }}">
+							
+						<h3>Build for you</h3>	
+						<p>We designed our platform for everybody. You can manually pick your own plans or let our automated systems manage your plans for you. And if you need help, there’s real people here to talk.</p> 
+					</div>
+					
+					<div class="col-md-4">
+						<img src="{{ asset('public/assets/images/deal.png') }}">
+							
+						<h3>Fair for all</h3>	
+						<p>When it comes to earning returns on our plans, Members make the highest percentage from the interest that they select. We are a facilitator's delivering the most value to your money and keeping a lower percentage of what you earned is our fee’s.</p>
+						 
+					</div>
+					
+					<div class="col-md-4">
+						<img src="{{ asset('public/assets/images/world.png') }}">
+							
+						<h3>Good for Society</h3>	
+						<p>We provide the platform. You provide the capital. Businesses get support. Together, we’re growing our communities and our economies – funding new initiatives, powering new industry, and creating new jobs.</p> 
+					</div>
+					
+					</div>
+					
+					
+					
+				</div>
+			</div>
+		</div>
+	</section>
+	<!------->
+   
+   
+   
+   
+   
+   
+   
+   
+   
+	<!------->
+	<section class="abt-section">
+		<div class="container">
+			
+			<div class="abt-option">
+				<div class="row">
+					<div class="col-md-4">
+						<img src="{{ asset('public/assets/images/group.png') }}">
+							
+						<h3>Team</h3>	
+						<p>Regal dollars are more than just working together: Bound by common interest and close friendship as family, an inspiring atmosphere is fostered. This allows new ideas to constantly develop and keeps our motivation high to serve our community.</p> 
+					</div>
+					
+					<div class="col-md-4">
+						<img src="{{ asset('public/assets/images/world.png') }}">
+							
+						<h3>Offices</h3>	
+						<p>Our notebooks are our steady companions. So, working from anywhere is possible. In addition, we are always keen on getting to know exciting new people. Therefore, you can often find us at events like Gartner CFO & Finance Executive Conference in Phoenix.</p>
+						<p>Whoever we have an office in Scottsdale. (888)888-5666 Schedule appointment to see us in person.</p> 
+					</div>
+					
+					<div class="col-md-4">
+						<img src="{{ asset('public/assets/images/workflow.png') }}">
+							
+						<h3>Workflow</h3>	
+						<p>It goes without saying that agile software development is implemented seamlessly in our workflow. In every step we take, user experience comes first. Guided by this principle, we are steadily improving our platform.</p> 
+					</div>
+					
+					</div>
+					
+					
+					
+				</div>
+			</div>
+		</div>
+	</section>
+	<!------->
+   
+   
+   
+   
+   
+   
 
    <div class="team_section">
          <div clasS="banner">
@@ -180,45 +279,7 @@
                   <span>CEO, Western Development</span>
                </div>
 
-               <div class="block">
-                  <div class="user_img">
-                      <img src="{{ URL::asset('public/assets/images/user_2.jpg') }}" />
-                  </div>
-                  <h2>Jen Miller</h2>
-                  <span>Co-Founder and CEO</span>
-               </div>
-
-               <div class="block">
-                  <div class="user_img">
-                      <img src="{{ URL::asset('public/assets/images/user_3.jpg') }}" />
-                  </div>
-                  <h2>Jen Miller</h2>
-                  <span>CEO, Western Development</span>
-               </div>
-
-               <div class="block">
-                  <div class="user_img">
-                      <img src="{{ URL::asset('public/assets/images/user_2.jpg') }}" />
-                  </div>
-                  <h2>Jen Miller</h2>
-                  <span>Co-Founder and CEO</span>
-               </div>
-
-               <div class="block">
-                  <div class="user_img">
-                      <img src="{{ URL::asset('public/assets/images/user_4.jpg') }}" />
-                  </div>
-                  <h2>Jen Miller</h2>
-                  <span>CEO, Western Development</span>
-               </div>
-
-               <div class="block">
-                  <div class="user_img">
-                      <img src="{{ URL::asset('public/assets/images/user_3.jpg') }}" />
-                  </div>
-                  <h2>Jen Miller</h2>
-                  <span>CEO, Western Development</span>
-               </div>
+               
 
             </div>
          </div>

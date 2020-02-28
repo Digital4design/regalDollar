@@ -6,36 +6,36 @@
             <img src="{{ asset('public/assets/images/logo.png') }}" alt="">
             </div>
             <div class="block bottom_nav">
-                <h2 class="nav_title">Why Regal Dollar</h2> 
+                <h2 class="nav_title">Why Regal Dollar</h2>
                 <ul>
-                    <li><a href="{{ url('/') }}">The Service</a></li>
-                    <li><a href="{{ url('/') }}">eDirect Technology</a></li>
-                    <li><a href="{{ url('/') }}">Historical Performance</a></li>
+                    <li><a href="#">The Service</a></li>
+                    <li><a href="#">eDirect Technology</a></li>
+                    <li><a href="#">Historical Performance</a></li>
                 </ul>
             </div>
             <div class="block bottom_nav">
                 <h2 class="nav_title">Plans</h2>
                 <ul>
-                    <li><a href="{{ url('/') }}">Starter</a></li>
-                    <li><a href="{{ url('/') }}">Supplemental Income</a></li>
-                    <li><a href="{{ url('/') }}">Balanced Investing</a></li>
-                    <li><a href="{{ url('/') }}">Long-Term Growth</a></li>
+                    <li><a href="#">Starter</a></li>
+                    <li><a href="#">Supplemental Income</a></li>
+                    <li><a href="#">Balanced Investing</a></li>
+                    <li><a href="#">Long-Term Growth</a></li>
                 </ul>
             </div>
             <div class="block bottom_nav">
                 <h2 class="nav_title">Company</h2>
                 <ul>
-                    <li><a href="{{ url('/about_us') }}">About</a></li>
-                    <li><a href="{{ url('/') }}">Team</a></li>
-                    <li><a href="{{ url('/') }}">Careers</a></li>
-                    <li><a href="{{ url('/') }}">Press</a></li>
+                    <li><a href="/about_us">About</a></li>
+                    <li><a href="#">Team</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="#">Press</a></li>
                 </ul>
             </div>
             <div class="block bottom_nav">
                 <h2 class="nav_title">Resources</h2>
                 <ul>
-                    <li><a href="{{ url('/faq') }}">Help & FAQs</a></li>
-                    <li><a href="{{ url('/') }}">Articles</a></li>
+                    <li><a href="/faq">Help & FAQs</a></li>
+                    <li><a href="#">Articles</a></li>
                 </ul>
             </div>
         </div>
