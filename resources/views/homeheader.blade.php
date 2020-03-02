@@ -94,15 +94,15 @@
                        </ul>
                        </li>
                         <li class="menu-item kode-parent-menu">
-                           <a href="/faq">FAQ</a>
+                           <a href="{{ url('/faq') }}">FAQ</a>
                            <span class="nav-separator"></span>
                         </li>
                         <li class="menu-item kode-parent-menu">
-                           <a href="/about_us">About Us</a>
+                           <a href="{{ url('/about_us') }}">About Us</a>
                            <span class="nav-separator"></span>
                         </li>
                         <li>
-                           <a href="/contact_us">Contact Us</a>
+                           <a href="{{ url('/contact_us') }}">Contact Us</a>
                         </li>
                      </ul>
                      <div class="show_login_signup">
