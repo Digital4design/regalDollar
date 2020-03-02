@@ -174,7 +174,7 @@ class PlanManagementController extends Controller
      */
     public function updatePlans(Request $request, $id)
     {
-        // dd($request->all());
+
         $rules = [
             'plan_name' => 'required|min:4',
             'slogan' => 'required|min:2',
@@ -192,11 +192,16 @@ class PlanManagementController extends Controller
             return back()->withErrors($validator)->withInput();
         }
         try {
-            if ($request->plan_type == '1') {
-                $descritpion = json_encode($request->descritpion);
-            } else {
-                $descritpion = $request->descritpion;
-            }
+            // dd($request->all());
+
+            // if ($request->plan_type === '1') {
+            //     $descritpion = json_encode($request->descritpion);
+            // } else {
+            //     $descritpion = $request->descritpion;
+            // }
+
+            $descritpion = json_encode($request->descritpion);
+
 
             $planData = Plan::find(\Crypt::decrypt($id));
             $planData->plan_name = trim($request->plan_name);
