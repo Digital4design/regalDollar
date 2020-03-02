@@ -10,7 +10,7 @@
 			</div>
 			
 			<div class="plans_section">
-				<?php  
+				<?php
 				// dd($coreData); 
 					foreach ($coreData as $key=>$plan) { 
 					?>
@@ -119,7 +119,6 @@
 								</div>
 							</div>   
 						</div>
-						
 						<a class="btn">View detail</a>
 					</div>
 				</div>
@@ -139,7 +138,10 @@
 			<!--HEADER SECTION END-->
 			<div class="plans">
 				<div class="row">
-
+					<?php   
+					foreach ($investmentData as $key=>$plan) { 
+					?>
+					<div class="col-md-3">
 						<div class="kode-event-list-2">
 							<div class="kode-thumb"> <a href="#">
                      <img id="pdo" alt="" src="{{ asset('public/uploads/plan_icon') }}/{{$plan->icon}}">
@@ -164,57 +166,61 @@
 						</div>
 					</div>
 					<?php } ?>
-					<!--  <div class="col-md-3">
-               <div class="kode-event-list-2">
-                  <div class="kode-thumb">
-                     <a href="#"><img alt="" src="{{ asset('images/news-img2.png') }}"></a>
-                  </div>
-                  <div class="kode-text">
-                     <h2>24 Month Plan</h2>
-                     <p class="title">
-                     <p style="text-align: left;"><i class="fa fa-arrow-right"></i> Guaranteed return of 20% annually.</p>
-                     <p style="text-align: left;"><i class="fa fa-arrow-right"></i> Two-year commitment, you cannot cancel on the first year.</p>
-                     <p style="text-align: left;"><i class="fa fa-arrow-right"></i> $50,000 become $72,000 in 2 years.</p>
-                     </p>
-                     <a class="btn-filled" href="#">Get Started</a>
-                  </div>
-               </div>
-            </div>
-            <div class="col-md-3">
-               <div class="kode-event-list-2">
-                  <div class="kode-thumb">
-                     <a href="#"><img alt="" src="{{ asset('images/news-img3.png') }}"></a>
-                  </div>
-                  <div class="kode-text">
-                     <h2>36 Month Plan</h2>
-                     <p class="title">
-                     <p style="text-align: left;"><i class="fa fa-arrow-right"></i> Guaranteed return of 25% annually.</p>
-                     <p style="text-align: left;"><i class="fa fa-arrow-right"></i> Three-year commitment, you cannot cancel on the first year.</p>
-                     <p style="text-align: left;"><i class="fa fa-arrow-right"></i> When you finish the three years, we will bonus your account $2,500 that's our reward for your commitment.</p>
-                     <p style="text-align: left;"><i class="fa fa-arrow-right"></i> $50,000 become $90,000 in 3 years.</p>
-                     </p>
-                     <a class="btn-filled" href="#">Get Started</a>
-                  </div>
-               </div>
-            </div>
-            <div class="col-md-3">
-               <div class="kode-event-list-2">
-                  <div class="kode-thumb">
-                     <a href="#"><img alt="" src="{{ asset('images/news-img4.png') }}"></a>
-                  </div>
-                  <div class="kode-text">
-                     <h2>60 Month Plan</h2>
-                     <p class="title">
-                     <p style="text-align: left;"><i class="fa fa-arrow-right"></i> Guaranteed return 150% on completion.</p>
-                     <p style="text-align: left;"><i class="fa fa-arrow-right"></i> Five-year commitment, you cannot cancel this plan.</p>
-                     <p style="text-align: left;"><i class="fa fa-arrow-right"></i> At completion, we will bonus your account with $5,000 as gratitude of doing business with us.</p>
-                     <p style="text-align: left;"><i class="fa fa-arrow-right"></i> $50,000 become $150,000 in 5 years. Bonus and rewards only apply to $50,000 accounts</p>
-                     </p>
-                     <a class="btn-filled" href="#">Get Started</a>
-                  </div>
-               </div>
+					<!--  
+						<div class="col-md-3">
+						<div class="kode-event-list-2">
+							<div class="kode-thumb">
+								<a href="#"><img alt="" src="{{ asset('images/news-img2.png') }}"></a>
+							</div>
+							<div class="kode-text">
+								<h2>24 Month Plan</h2>
+								<p class="title">
+								<p style="text-align: left;"><i class="fa fa-arrow-right"></i> Guaranteed return of 20% annually.</p>
+								<p style="text-align: left;"><i class="fa fa-arrow-right"></i> Two-year commitment, you cannot cancel on the first year.</p>
+								<p style="text-align: left;"><i class="fa fa-arrow-right"></i> $50,000 become $72,000 in 2 years.</p>
+								</p>
+								<a class="btn-filled" href="#">Get Started</a>
+							</div>
+						</div>
+						</div>
+						<div class="col-md-3">
+						<div class="kode-event-list-2">
+							<div class="kode-thumb">
+								<a href="#"><img alt="" src="{{ asset('images/news-img3.png') }}"></a>
+							</div>
+							<div class="kode-text">
+								<h2>36 Month Plan</h2>
+								<p class="title">
+								<p style="text-align: left;"><i class="fa fa-arrow-right"></i> Guaranteed return of 25% annually.</p>
+								<p style="text-align: left;"><i class="fa fa-arrow-right"></i> Three-year commitment, you cannot cancel on the first year.</p>
+								<p style="text-align: left;"><i class="fa fa-arrow-right"></i> When you finish the three years, we will bonus your account $2,500 that's our reward for your commitment.</p>
+								<p style="text-align: left;"><i class="fa fa-arrow-right"></i> $50,000 become $90,000 in 3 years.</p>
+								</p>
+								<a class="btn-filled" href="#">Get Started</a>
+							</div>
+						</div>
+						</div>
+						<div class="col-md-3">
+						<div class="kode-event-list-2">
+							<div class="kode-thumb">
+								<a href="#"><img alt="" src="{{ asset('images/news-img4.png') }}"></a>
+							</div>
+							<div class="kode-text">
+								<h2>60 Month Plan</h2>
+								<p class="title">
+								<p style="text-align: left;"><i class="fa fa-arrow-right"></i> Guaranteed return 150% on completion.</p>
+								<p style="text-align: left;"><i class="fa fa-arrow-right"></i> Five-year commitment, you cannot cancel this plan.</p>
+								<p style="text-align: left;"><i class="fa fa-arrow-right"></i> At completion, we will bonus your account with $5,000 as gratitude of doing business with us.</p>
+								<p style="text-align: left;"><i class="fa fa-arrow-right"></i> $50,000 become $150,000 in 5 years. Bonus and rewards only apply to $50,000 accounts</p>
+								</p>
+								<a class="btn-filled" href="#">Get Started</a>
+							</div>
+						</div>
+						</div>  
             </div>  
-            --></div>
+						</div>  
+            -->
+			</div>
 			</div>
 		</div>
 	</section>
@@ -271,19 +277,19 @@
 					</div>
 					
 					<div class="col-md-4">
-						<img src="{{ asset('public/assets/images/inventory.png') }}">
+						<img src="{{ asset('public/assets/images/balance.png') }}">
 						<h3>Full control</h3>	
 						<p>Freedom to cancel at any time</p>
 					</div>
 					
 					<div class="col-md-4">
-						<img src="{{ asset('public/assets/images/graphic.png') }}">
+						<img src="{{ asset('public/assets/images/balance.png') }}">
 						<h3>Low minimum to start</h3>	
 						<p>Only $5,000 to start</p>
 					</div>
 					
 					<div class="col-md-4">
-						<img src="{{ asset('public/assets/images/cash-flow.png') }}">
+						<img src="{{ asset('public/assets/images/balance.png') }}">
 						<h3>Cash flow</h3>	
 						<p>Withdraw your earning monthly</p> 
 					</div>
@@ -293,18 +299,6 @@
 		</div>
 	</section>
 	<!------->
-	
-	<section class="Referral-section">
-		<div class="container">
-			<div class="heading heading-4">
-				<h3 style="color:#333">Help grow the community.</h3> 
-				<p>When you tell your friends and family about RegalDollars.com, you’re not just sharing new the opportunities – you’re sharing a new way to share and build wealth.</p>
-			</div>
-	
-	    </div> 
-	</section>
-	
-	
 	<!------->
 	<section class="how-section">
 		<div class="container">
@@ -316,24 +310,19 @@
 				<div class="row">
 					<div class="col-md-6">
 						<img src="{{ asset('public/assets/images/one.png') }}">
-							
-						<p>Every time you refer regaldollars.com to a friend or family member, you’ll receive a $100 Visa gift card when he or she chooses a core plan. There is no limit to how many people you can refer to.</p>
-						<p>* less than $50K</p>
+						<h3>Click Open Now</h3>	
+						<p>Begin our secure ( and fast ) account opening process.Choose term from months to years.</p>
 					</div>
-					<div class="col-md-6">
+					<div class="col-md-4">
 						<img src="{{ asset('public/assets/images/two.png') }}">
-							
-						<p>Every time you refer regaldollars.com to a friend or family member, you’ll receive a $500 Visa gift card when he or she chooses a core plan. There is no limit to how many people you can refer to.</p>
-						<p>*greater than $50K</p>
+						<h3>Enter Your Information</h3>	
+						<p>Including your name, address, date of birth and Social Security Number.</p>
 					</div>
+					<div class="col-md-4">
+						<img src="{{ asset('public/assets/images/three.png') }}">
+						<h3>Transfer Funds</h3>	
+						<p>Link to your account at another bank.</p>
 					</div>
-					
-					<div class="row">
-					<div class="col-md-12"> 
-					   <p>We are honored to work with individuals like you. Thank you for recommending us to your friends and family.</p>
-					</div>
-					</div>
-					
 				</div>
 			</div>
 		</div>
