@@ -120,8 +120,8 @@ class PlanManagementController extends Controller
     {
         //dd($request->all());
         $rules = [
-            'plan_name' => 'required|min:4|regex:/^[A-Za-z. -]+$/',
-            'slogan' => 'required|min:2|regex:/^[A-Za-z. -]+$/',
+            'plan_name' => 'required|min:4',
+            'slogan' => 'required|min:2',
             'price' => 'required|numeric',
             'duration' => 'required|numeric',
             'time_investment' => 'required|numeric',
@@ -129,7 +129,7 @@ class PlanManagementController extends Controller
             'descritpion' => 'required',
         ];
         if (empty($_POST['descritpion'][0])) {
-            $rules['descritpion'] = 'required|min:4|regex:/^[A-Za-z. -]+$';
+            $rules['descritpion'] = 'required|min:4';
         }
         $messages = [
             'plan_name.required' => 'Plan name is required.',
@@ -146,8 +146,9 @@ class PlanManagementController extends Controller
                 'slogan' => $request->slogan,
                 'price' => $request->price,
                 'duration' => $request->duration,
+                'plan_type' => $request->plan_type,
                 'time_investment' => $request->time_investment,
-                'plan_valid_from'=> $request->plan_valid_from,
+                'plan_valid_from' => $request->plan_valid_from,
                 'descritpion' => $descritpion,
             ]);
             if ($request->icon != "") {
@@ -173,9 +174,10 @@ class PlanManagementController extends Controller
      */
     public function updatePlans(Request $request, $id)
     {
+        // dd($request->all());
         $rules = [
-            'plan_name' => 'required|min:4|regex:/^[A-Za-z. -]+$/',
-            'slogan' => 'required|min:2|regex:/^[A-Za-z. -]+$/',
+            'plan_name' => 'required|min:4',
+            'slogan' => 'required|min:2',
             'price' => 'required|numeric',
             'duration' => 'required|numeric',
             'time_investment' => 'required|numeric',
@@ -190,7 +192,11 @@ class PlanManagementController extends Controller
             return back()->withErrors($validator)->withInput();
         }
         try {
-            $descritpion = json_encode($request->descritpion);
+            if ($request->plan_type == '1') {
+                $descritpion = json_encode($request->descritpion);
+            } else {
+                $descritpion = $request->descritpion;
+            }
 
             $planData = Plan::find(\Crypt::decrypt($id));
             $planData->plan_name = trim($request->plan_name);
@@ -199,6 +205,7 @@ class PlanManagementController extends Controller
             $planData->duration = trim($request->duration);
             $planData->time_investment = trim($request->time_investment);
             $planData->plan_valid_from = trim($request->plan_valid_from);
+            $planData->plan_type = $request->plan_type;
             $planData->descritpion = $descritpion;
             $planData->save();
             if ($request->icon != "") {

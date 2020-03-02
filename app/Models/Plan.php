@@ -8,14 +8,11 @@ class Plan extends Model
 {
     /**
      * The table associated with the model.
-     *
      * @var string
      */
     protected $table = 'plans';
-
     /**
      * The attributes that are mass assignable.
-     *
      * @var array
      */
     protected $fillable = [
@@ -27,11 +24,11 @@ class Plan extends Model
         'time_investment',
         'descritpion',
         'plan_valid_from',
+        'plan_type',
+        'banner',
     ];
-
     /**
      * Return current login user role here.
-     *
      * @var string
      */
 

@@ -9,7 +9,6 @@ class HomeController extends Controller
 {
     /**
      * Create a new controller instance.
-     *
      * @return void
      */
     public function __construct()
@@ -36,8 +35,10 @@ class HomeController extends Controller
     }
     public function getPlanData()
     {
-        $planData = Plan::get();
-        return view('public.home')->with(['planData' => $planData]);
+        $investmentData = Plan::where('plan_type','1')->get();
+        $coreData = Plan::where('plan_type', '2')->get();
+        //dd($planData);
+        return view('public.home')->with(['investmentData' => $investmentData,'coreData'=>$coreData]);
     }
 
 }
