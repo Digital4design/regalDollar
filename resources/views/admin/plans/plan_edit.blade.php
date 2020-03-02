@@ -94,6 +94,25 @@
                               @endif
                            </div>
                         </div>
+
+                        <div class="col-sm-4">
+                           <div class="input-group mb-3">
+                              <div class="input-group-prepend">
+                                 <label class="input-group-text" for="inputGroupSelect01">Plan Type</label>
+                              </div>
+                              <select id="country" class="form-control" name="plan_type">
+                              <option {{old('plan_type',$planData->plan_type)=="0"? 'selected':''}}  value="0">Select Plan Type</option>
+                              <option {{old('plan_type',$planData->plan_type)=="1"? 'selected':''}}  value="1">Core Plan</option>
+                              <option {{old('plan_type',$planData->plan_type)=="2"? 'selected':''}} value="2">Investment plan</option>
+                              
+                              </select>
+                              @if ($errors->has('duration'))
+                              <span style="display:initial;" class="invalid-feedback" role="alert">
+                              <strong>{{ $errors->first('duration') }}</strong>
+                              </span>
+                              @endif
+                           </div>
+                        </div>
                         <div class="col-sm-4">
                            <div class="input-group mb-3">
                               <div class="input-group-prepend">

@@ -39,29 +39,22 @@
 									<th>Plan Name</th>
 									<th>Price </th>
                                     <th>Time Investment</th>
+                                    <th>Plan Type</th>
 									<th>Action</th>
 								</tr>
 							</thead>
 						<tfoot>
-							
-							
-									<tr>
-										<th></th>
-										<th></th>
-										<th></th>
-										<th class="remove_input"></th>
-									</tr>
-									
-									
-							</tfoot>
-						</table>
-					</div>
-						
-						
-						
-						
-
-                    </div>
+                            <tr>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th class="remove_input"></th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+                </div>
 
                 </div>
             </div>
@@ -92,6 +85,17 @@ $(function() {
             { data: 'plan_name', name: 'plan_name', orderable: true , searchable: true},
             { data: 'price', name: 'price', orderable: true , searchable: true},
             { data: 'time_investment', name: 'time_investment', orderable: true , searchable: true},
+            { data: 'plan_type',	name: 'plan_type', orderable: true, render: function ( data, type, row ){
+				if(row.plan_type ==  1  ){ 
+					var status= 'success'; var text	=	'Core Plan'; 
+				}else if(row.plan_type ==  2  ){
+                    var status= 'success'; var text	=	'Investment plan';
+                }else {
+					var status	= 'danger'; var text	=	'Disabled';
+				}
+                    return '<span class="label label-'+status+'"> '+text+' </span>';
+                } 
+            },
             { data: 'action', name: 'action', orderable: false, searchable: false},
         ],
         dom: 'Blfrptip',

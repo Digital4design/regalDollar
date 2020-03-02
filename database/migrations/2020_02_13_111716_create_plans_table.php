@@ -22,6 +22,8 @@ class CreatePlansTable extends Migration
             $table->integer('duration')->unsigned();
             $table->string('time_investment');
             $table->string('plan_valid_from');
+            $table->enum('plan_type', ['0', '1','2'])->default('0')->comment = '0 = No Plan , 1 = Core plan , 2 = Investment plan';
+            $table->string('banner');
             $table->text('descritpion');
             $table->timestamps();
         });

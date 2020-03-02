@@ -38,6 +38,7 @@
                               @endif
                            </div>
                         </div>
+
                         <div class="col-sm-6">
                            <div class="input-group mb-3">
                               <div class="input-group-prepend">
@@ -56,6 +57,7 @@
                            </div>
                         </div>
                      </div>
+
                      <div class="row">
                         <div class="col-sm-12">
                            <div class="input-group mb-3">
@@ -75,6 +77,7 @@
                               @endif
                            </div>
                         </div>
+
                         <div class="col-sm-4">
                            <div class="input-group mb-3">
                               <div class="input-group-prepend">
@@ -82,10 +85,10 @@
                               </div>
                               <select id="country" class="form-control" name="duration">
                               <?php
-for ($i = 1; $i < 6; $i++) {
-    echo "<option value=" . $i . ">" . $i . " Year</option>";
-}
-?>
+                              for ($i = 1; $i < 6; $i++) {
+                                 echo "<option value=" . $i . ">" . $i . " Year</option>";
+                              }
+                              ?>
                               </select>
                               @if ($errors->has('duration'))
                               <span style="display:initial;" class="invalid-feedback" role="alert">
@@ -94,6 +97,26 @@ for ($i = 1; $i < 6; $i++) {
                               @endif
                            </div>
                         </div>
+
+                        <div class="col-sm-4">
+                           <div class="input-group mb-3">
+                              <div class="input-group-prepend">
+                                 <label class="input-group-text" for="inputGroupSelect01">Plan Type</label>
+                              </div>
+                              <select id="country" class="form-control" name="plan_type">
+                              <option value="">Select Plan Type</option>
+                              <option value="1">Core Plan</option>
+                              <option value="2">Investment plan</option>
+                             
+                              </select>
+                              @if ($errors->has('plan_type'))
+                              <span style="display:initial;" class="invalid-feedback" role="alert">
+                              <strong>{{ $errors->first('plan_type') }}</strong>
+                              </span>
+                              @endif
+                           </div>
+                        </div>
+
                         <div class="col-sm-4">
                            <div class="input-group mb-3">
                               <div class="input-group-prepend">
@@ -112,6 +135,7 @@ for ($i = 1; $i < 6; $i++) {
                               @endif
                            </div>
                         </div>
+
                         <div class="col-sm-4">
                            <div class="input-group mb-3">
                               <div class="input-group-prepend">

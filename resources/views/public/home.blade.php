@@ -10,17 +10,20 @@
 			</div>
 			
 			<div class="plans_section">
-			
+				<?php  
+				// dd($coreData); 
+					foreach ($coreData as $key=>$plan) { 
+					?>
 				<div class="block">
 					<div class="image_sec">
-						<img src="{{ asset('public/assets/images/Supplemental_Income.jpg') }}" alt="">
+						<img src="{{ asset('public/assets/images') }}/{{ $plan->banner}}" alt="">
 						<div class="icon_sec">
-							<img src="{{ asset('public/assets/images/cash.png') }}" alt="">
+							<img src="{{ asset('public/assets/images') }}/{{ $plan->icon}}" alt="">
 						</div>
 					</div>
 					<div class="detail_sec">
-						<h2 class="title">Supplemental Income</h2>
-						<p>Create an attractive,  consistent income stream.</p>
+						<h2 class="title">{{ $plan->plan_name}}</h2>
+						<p>{{ $plan->slogan}}</p>
 						
 						<div class="progress_bar Supplemental_track">
 							<div class="row">
@@ -42,11 +45,13 @@
 								</div>
 							</div>
 						</div>
-						
-						<a class="btn">View detail</a>
+						<a class="btn" href="{{ $plan->id}}">View detail</a>
 					</div>
 				</div>
-				
+				<?php } ?>
+
+
+				<!--
 				<div class="block">
 					<div class="image_sec">
 						<img src="{{ asset('public/assets/images/Balanced_Investing.jpg') }}" alt="">
@@ -118,6 +123,7 @@
 						<a class="btn">View detail</a>
 					</div>
 				</div>
+				-->
 			</div>
 		</div>
 	</div>
@@ -133,8 +139,7 @@
 			<!--HEADER SECTION END-->
 			<div class="plans">
 				<div class="row">
-					<?php  foreach ($planData as $key=>$plan) { ?>
-					<div class="col-md-6 col-lg-3">
+
 						<div class="kode-event-list-2">
 							<div class="kode-thumb"> <a href="#">
                      <img id="pdo" alt="" src="{{ asset('public/uploads/plan_icon') }}/{{$plan->icon}}">
