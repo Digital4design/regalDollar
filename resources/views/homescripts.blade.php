@@ -1,7 +1,7 @@
 <script src="{{ URL::asset('public/assets/js/publicjquery.min.js') }}"></script>
 <script src="{{ URL::asset('public/assets/js/bootstrap.min.js') }}"></script>
 <script src="{{ URL::asset('public/assets/js/jquery.bxslider.min.js') }}"></script>
-<script src="{{ URL::asset('public/assets/js/bootstrap-slider.min.js') }}"></script>
+<!-- <script src="{{ URL::asset('public/assets/js/bootstrap-slider.min.js') }}"></script> -->
 <script src="{{ URL::asset('public/assets/js/waypoints.min.js') }}"></script>
 <script src="{{ URL::asset('public/assets/js/jquery.counterup.min.js') }}"></script>
 <script src="{{ URL::asset('public/assets/js/waypoints.min.js') }}"></script>

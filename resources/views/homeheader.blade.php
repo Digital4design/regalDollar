@@ -24,10 +24,10 @@
       <link href="{{ URL::asset('public/assets/css/widget.css') }}" rel="stylesheet">
       <link href="{{ URL::asset('public/assets/css/shortcode.css') }}" rel="stylesheet">
       <link href="{{ URL::asset('public/assets/css/owl.carousel.css') }}" rel="stylesheet">
-      <link href="{{ URL::asset('public/assets/css/js/dl-menu/component.css') }}" rel="stylesheet">
+      <!-- <link href="{{ URL::asset('public/assets/css/js/dl-menu/component.css') }}" rel="stylesheet"> -->
       <link href="{{ URL::asset('public/assets/css/responsive.css') }}" rel="stylesheet">
    </head>
-   <body class="<?php if(isset($pageclass) && !empty($pageclass)) {echo $pageclass; } ?>">
+   <body class="<?php if (isset($pageclass) && !empty($pageclass)) {echo $pageclass;}?>">
       <!--WRAPPER START-->
       <div class="wrapper">
       <!--HEADER START-->
@@ -69,7 +69,7 @@
                      </li>
                      <li class="menu-item kode-parent-menu"><a href="{{ url('/faq') }}">FAQ</a></li>
                      <li class="menu-item kode-parent-menu"><a href="{{ url('/about_us') }}">About Us</a></li>
-                     <li><a href="{{ url('/contact_us') }}">Contact Us</a></li>
+                     <li class="menu-item kode-parent-menu"><a href="{{ url('/contact_us') }}">Contact Us</a></li>
                      </ul>
                   </div>
                   <div class="navigation">
@@ -85,10 +85,12 @@
                               <li><a href="#60mo">60 Month Millionaire&trade; Plan</a></li>
                            </ul>
                         </li>
-                        <li class="menu-item kode-parent-menu"><a href="{{ url('/faq') }}">FAQ</a>
+                        <li class="menu-item kode-parent-menu">
+                           <a href="{{ url('/faq') }}">FAQ</a>
                            <span class="nav-separator"></span>
                         </li>
-                        <li class="menu-item kode-parent-menu"><a href="{{ url('/about_us') }}">About Us</a>
+                        <li class="menu-item kode-parent-menu">
+                        <a href="{{ url('/about_us') }}">About Us</a>
                            <span class="nav-separator"></span>
                         </li>
                         <li class="menu-item kode-parent-menu">
