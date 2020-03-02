@@ -14,7 +14,7 @@
 				// dd($coreData); 
 					foreach ($coreData as $key=>$plan) { 
 					?>
-				<div class="block">
+				<div class="block"> 
 					<div class="image_sec">
 						<img src="{{ asset('public/assets/images') }}/{{ $plan->banner}}" alt="">
 						<div class="icon_sec">
