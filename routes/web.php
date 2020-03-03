@@ -58,6 +58,16 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function 
         Route::post('/update/{id}', 'Admin\PlanManagementController@updatePlans');
         Route::get('/delete/{id}', 'Admin\PlanManagementController@deletePlan');
     });
+    Route::group(['prefix' => 'fqa-management'], function () {
+        Route::get('/', 'Admin\FQAManagementController@index');
+        Route::get('/add-FQA', 'Admin\FQAManagementController@createViewFQA');
+        Route::get('/fqa-data', 'Admin\FQAManagementController@FQAData');
+        Route::get('/edit/{id}', 'Admin\FQAManagementController@editViewFQA');
+        Route::post('/savefqa', 'Admin\FQAManagementController@store');
+        Route::post('/update/{id}', 'Admin\FQAManagementController@updateFQA');
+        Route::get('/delete/{id}', 'Admin\FQAManagementController@destroy');
+    });
+
 });
 /**** admin routes end */
 Route::group(['prefix' => 'client', 'middleware' => ['auth', 'client']], function () {

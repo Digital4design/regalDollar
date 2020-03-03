@@ -1,6 +1,6 @@
 @section('css')
 @endsection
-@include('homeheader') 
+@include('homeheader')
 <div class="content">
 <!--SERVICES SECTION START-->
 <section class="thumb-with-text">
@@ -10,8 +10,8 @@
          <div class="container">
             <div class="banner_content">
                <h2>About Us</h2>
-               <!-- <p>We’re on a mission to revolutionize real estate investing.</p> -->
-               <p>We recruit the future to work for you</p>
+               <p>We’re on a mission to revolutionize real estate investing.</p>
+
                <i class="fa fa-angle-down" aria-hidden="true"></i>
 
             </div>
@@ -147,28 +147,16 @@
    
    
    
-   <div class="join_us_section">
-      <img src="{{ URL::asset('public/assets/images/internal_banner.jpg') }}" />
-      <div class="overlay"></div>
-         <div class="container">
-            <div class="join_contnet">
-               <h2>We are in mission to change the way you of thinking about money by action</h2>
-            </div>
-         </div>
-
-      </div>
-
-      </div>
+   
 
    <div class="team_section">
-         <!-- <div clasS="banner">
+         <div clasS="banner">
             <img src="{{ URL::asset('public/assets/images/internal_banner.jpg') }}" />
-         </div> -->
+         </div>
       <div class="container">         
          <div class="show_team_member">
-            <!-- <h2>Meet The Team</h2> -->
-            <h2>Partners and Associates</h2>
-            <!-- <p>Our backgrounds encompass real estate, finance, technology, and design.</p> -->
+            <h2>Meet The Team</h2>
+            <p>Our backgrounds encompass real estate, finance, technology, and design.</p>
 
             <div class="team">
 
@@ -241,7 +229,7 @@
       </div>      
    </div>
 
-   <div class="join_us_section joins">
+   <div class="join_us_section">
 
       <img src="{{ URL::asset('public/assets/images/join_banner.jpeg') }}" />
       
@@ -249,11 +237,9 @@
 
          <div class="container">
             <div class="join_contnet">
-               <!-- <h2>Want to build something great? Join us.</h2> -->
-               <h2>If the secret is getting ahead is getting satrted,when do you start?</h2>
-               <!-- <p>We’re reinventing how people get to invest in real estate. To do that, we’ve assembled a team built on hard work, accountability, and transparency. Come join us.</p> -->
-               <p>As a member and of regal dollrs you are always ahead because we recrute the future to work for you</p>
-               <!-- <a class="btn" href="#">View current job openings</a> -->
+               <h2>Want to build something great? Join us.</h2>
+               <p>We’re reinventing how people get to invest in real estate. To do that, we’ve assembled a team built on hard work, accountability, and transparency. Come join us.</p>
+               <a class="btn" href="#">View current job openings</a>
             </div>
          </div>
 
@@ -263,7 +249,7 @@
 
    <div class="investors_section">
       <div class="container">         
-         <!-- <div class="show_investors_member">
+         <div class="show_investors_member">
             <h2>Meet Our Investors</h2>
             <p>We’re backed by industry leaders who share our passion for real estate investing.</p>
 
@@ -292,10 +278,7 @@
                   <h2>Jen Miller</h2>
                   <span>CEO, Western Development</span>
                </div>
-
-               
-
-            </div> -->
+               </div>
          </div>
       </div>
 

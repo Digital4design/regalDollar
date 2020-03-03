@@ -6,13 +6,13 @@
 		<div class="container">
 			<div class="heading heading-4">
 				<h2 style="color:#333">Core Plans</h2>				
-				<p style="color:#333">Choose from one of three plans that best fits your goals</p>
+				<!-- <p style="color:#333">Choose from one of three plans that best fits your goals</p> -->
+				<p style="color:#333">Each plan designed and created with the goal of growing your wealth</p>
 			</div>
 			
 			<div class="plans_section">
-				<?php
-				// dd($coreData); 
-					foreach ($coreData as $key=>$plan) { 
+				<?php 
+				foreach ($coreData as $key=>$plan) { 
 					?>
 				<div class="block"> 
 					<div class="image_sec">
@@ -308,27 +308,30 @@
 			</div>
 			<div class="how-option">
 				<div class="row">
-					<div class="col-md-6">
+					<div class="col-md-4">
 						<img src="{{ asset('public/assets/images/one.png') }}">
-						<h3> Signup</h3>	
-						<p>Begin our secure ( and fast ) account opening process.Choose term from months to years.</p>
+						<h3>Signup</h3>	
+						<!-- <p>Begin our secure ( and fast ) account opening process.Choose term from months to years.</p> -->
+						<p>Inter your info</p>
 					</div>
 					<div class="col-md-4">
 						<img src="{{ asset('public/assets/images/two.png') }}">
 						<h3>Fund</h3>	
-						<p>Including your name, address, date of birth and Social Security Number.</p>
+						<!-- <p>Including your name, address, date of birth and Social Security Number.</p> -->
+						<p>contribute to a plan</p>
 					</div>
 					<div class="col-md-4">
 						<img src="{{ asset('public/assets/images/three.png') }}">
 						<h3>Earn</h3>	
-						<p>Link to your account at another bank.</p>
+						<!-- <p>Link to your account at another bank.</p> -->
+						<p>enjoy your return</p>
 					</div>
 				</div>
 			</div>
 		</div>
 	</section>
 	<!------->
-	<section class="kode-pagesection">
+	<!-- <section class="kode-pagesection">
 		<div class="container">
 			<div class="row">
 				<div class="col-md-4">
@@ -337,19 +340,16 @@
 					</div>
 				</div>
 				<div class="col-md-8">
-					<!--HEADER SECTION START-->
-					<!--<div class="heading heading-4">
-                  <h2 style="color:#333">About Us</h2>
-                </div>  -->
+					
 					<div class="content">
 						<h3>Neil Kabi, President</h3>
 						Regal House Investments started as a lending office for large government contract financing &amp; processing established 1971 in Honk Kong. The company was founded by Hadi Gul, as one of the pioneers in infrastructures financier he dealt with many governments and companies from around the globe such as Macaw-China, Kuwait, Morocco, Brazil, France, Ireland, Spain and Indonesia. The company was sold to Attard Ltd. in 1996. I have long practice my father's saying:
 						<p style="padding:10px;font-size:1.25em;">"Legacy is not what you leave behind. Legacy is what you share with the people"</p>We embody the word Regal in great way by stretching your dollars any where from 3% to 150% in value. What is unique about Regal Dollars is that we can explain our process transparently: the conventional financial structure employs many "middle-men". Often times in investment banking, or any processing capital activity in investment, there is a commission-based distribution system that involves paid intermediaries such as broker-dealers, financial planners, escrow services, and others. The total commission and fee structure related to managing capital is typically 10%-27% of the overall cost. In other words, approximately 10%-27% of the capital gets spent on commissions and related fees. With RegalDollars, there are no internal commissions paid. Simply put, that's why we are different.</div>
-					<!--HEADER SECTION END-->
+					
 				</div>
 			</div>
 		</div>
-	</section>
+	</section> -->
 	<!--
    <section class="buy-template">
       <div class="container" style="text-align: center;">

@@ -59,7 +59,7 @@
                         </ul>
                         </li>
                         <li class="menu-item kode-parent-menu">
-                           <a href="{{ url('/faq') }}">FAQ</a>
+                           <a href="/faq">FAQ</a>
                         </li>
                         <li class="menu-item kode-parent-menu">
                            <a href="#about">About Us</a>
