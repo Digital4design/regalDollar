@@ -7,7 +7,7 @@
                         <!-- Left Menu Start -->
                         <ul class="metismenu" id="side-menu">
                             <li class="menu-title">Investment Dashboard</li>
-                            
+
 							<li>
                                 <a href="{{ url('/admin') }}" class="waves-effect">
                                     <i class="ti-home"></i><span class="badge badge-primary badge-pill float-right">2</span> <span> Home </span>
@@ -22,6 +22,9 @@
                                 <a href="{{ url('/admin/plan-management') }}" class="waves-effect">
                                 <i class="fas fa-money-bill-alt"></i><span class="badge badge-primary badge-pill float-right"></span> <span> Plans </span>
                                 </a>
+                            </li>
+                            <li>
+                                <a href="{{ url('/admin/fqa-management') }}" class="waves-effect"><i class="ti-comments"></i><span> Help / FAQ </span></a>
                             </li>
                             <li>
                                 <a href="/withdraw" class="waves-effect"><i class="ti-reload"></i><span> Withdraw Money </span></a>
@@ -39,9 +42,7 @@
                                 <a href="/contact" class="waves-effect"><i class="ti-email"></i><span> Contact Us </span></a>
                             </li>
 
-                            <li>
-                                <a href="/pages-faq" class="waves-effect"><i class="ti-comments"></i><span> Help / FAQ </span></a>
-                            </li>
+
                         </ul>
 
                     </div>
