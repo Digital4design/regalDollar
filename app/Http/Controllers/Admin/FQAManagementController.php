@@ -62,7 +62,7 @@ class FQAManagementController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->all());
+       //dd($request->all());
         $rules = [
             'fqa_headding' => 'required|min:4',
             'fqa_answer' => 'required|min:2',

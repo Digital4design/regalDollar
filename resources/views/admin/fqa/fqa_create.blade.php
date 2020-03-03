@@ -63,12 +63,11 @@
                                  <label class="input-group-text" for="inputGroupSelect01">FQA Type</label>
                               </div>
                               <select id="country" class="form-control" name="fqa_type">
-                              <option value="">Select FQA Type</option>
-                              <option value="general">General</option>
-                              <option value="members">Members</option>
-                              <option value="login">Login</option>
-                              <option value="about">About</option>
-                             
+                                 <option value="">Select FQA Type</option>
+                                 <option value="general">General</option>
+                                 <option value="members">Members</option>
+                                 <option value="login">Login</option>
+                                 <option value="about">About</option>
                               </select>
                               @if ($errors->has('fqa_type'))
                               <span style="display:initial;" class="invalid-feedback" role="alert">

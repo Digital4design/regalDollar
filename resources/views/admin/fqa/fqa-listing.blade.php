@@ -79,6 +79,7 @@ $(function() {
         columns: [
             { data: 'fqa_headding', name: 'fqa_headding', orderable: true , searchable: true},
             { data: 'fqa_answer', name: 'fqa_answer', orderable: true , searchable: true},
+            
             { data: 'action', name: 'action', orderable: false, searchable: false},
         ],
         dom: 'Blfrptip',

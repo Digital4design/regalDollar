@@ -18,6 +18,7 @@ class FQAModel extends Model
     protected $fillable = [
         'fqa_headding',
         'fqa_answer',
+        'fqa_type',
     ];
     /**
      * Return current login user role here.

@@ -5,7 +5,7 @@
 <!--SERVICES SECTION START-->
 <section class="thumb-with-text">
 
-   <div class="inner_page_banner">
+   <div class="inner_page_banner"> 
       <div class="overlay"></div>
          <div class="container">
             <div class="banner_content">
