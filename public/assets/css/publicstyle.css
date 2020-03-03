@@ -3,7 +3,7 @@
 @import url(http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,300,600,700);
 @import url('https://fonts.googleapis.com/css?family=Pragati+Narrow:400,700&display=swap');
 
-/* Default Css */
+/* Default Css */ 
 
 .wrapper {
 	float: left;
@@ -5681,6 +5681,47 @@ section.mission-section .heading p {
     text-align: center;
 	margin-top: 12px;
 }
+
+
+/* style start march-3,20 */
+.plans_section{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+}
+.plans_section .block{
+    margin: 0 1% 10px 0;
+}
+.how-option{text-align: center;}
+
+.faq_block .tab-list .nav-tabs {
+    border-bottom: 0;
+    margin: 0 0 15px 0px;
+}
+.faq_block .tab-list .nav-tabs > li > a{
+	font-size: 20px;
+    margin: 0 0 10px 0;
+    font-family: Roboto;
+	font-weight: 500;
+	border-radius: 0;
+	padding: 4px 15px;
+}
+.faq_block .tab-list .nav-tabs > li.active > a, .faq_block .tab-list .nav-tabs > li.active > a:hover, .faq_block .tab-list .nav-tabs > li.active > a:focus{
+	color: #252D63 !important;
+	/* border-bottom: 2px solid #bc9c5c !important; */
+    border: 0;
+}
+li.active::before {
+    position: absolute;
+    content: "";
+    height: 3px;
+    width: 50px;
+    background: #bc9c5c;
+    bottom: 6px;
+	left: 14px;
+}
+
+.show_team_member h2{color: #252D63;}
 
 /********** Responsive ****************/ 
 

@@ -1,6 +1,6 @@
 @section('css')
 @endsection
-@include('homeheader') 
+@include('homeheader')
 <div class="content">
 <!--SERVICES SECTION START-->
 <section class="thumb-with-text">
@@ -10,8 +10,8 @@
          <div class="container">
             <div class="banner_content">
                <h2>About Us</h2>
-               <!-- <p>We’re on a mission to revolutionize real estate investing.</p> -->
-               <p>We recruit the future to work for you</p>
+               <p>We’re on a mission to revolutionize real estate investing.</p>
+
                <i class="fa fa-angle-down" aria-hidden="true"></i>
 
             </div>
@@ -155,9 +155,8 @@
          </div>
       <div class="container">         
          <div class="show_team_member">
-            <!-- <h2>Meet The Team</h2> -->
-            <h2>Partners and Associates</h2>
-            <!-- <p>Our backgrounds encompass real estate, finance, technology, and design.</p> -->
+            <h2>Meet The Team</h2>
+            <p>Our backgrounds encompass real estate, finance, technology, and design.</p>
 
             <div class="team">
 
@@ -250,7 +249,7 @@
 
    <div class="investors_section">
       <div class="container">         
-         <!-- <div class="show_investors_member">
+         <div class="show_investors_member">
             <h2>Meet Our Investors</h2>
             <p>We’re backed by industry leaders who share our passion for real estate investing.</p>
 
@@ -279,10 +278,7 @@
                   <h2>Jen Miller</h2>
                   <span>CEO, Western Development</span>
                </div>
-
-               
-
-            </div> -->
+               </div>
          </div>
       </div>
 
