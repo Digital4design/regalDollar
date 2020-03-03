@@ -310,17 +310,17 @@
 				<div class="row">
 					<div class="col-md-6">
 						<img src="{{ asset('public/assets/images/one.png') }}">
-						<h3>Click Open Now</h3>	
+						<h3> Signup</h3>	
 						<p>Begin our secure ( and fast ) account opening process.Choose term from months to years.</p>
 					</div>
 					<div class="col-md-4">
 						<img src="{{ asset('public/assets/images/two.png') }}">
-						<h3>Enter Your Information</h3>	
+						<h3>Fund</h3>	
 						<p>Including your name, address, date of birth and Social Security Number.</p>
 					</div>
 					<div class="col-md-4">
 						<img src="{{ asset('public/assets/images/three.png') }}">
-						<h3>Transfer Funds</h3>	
+						<h3>Earn</h3>	
 						<p>Link to your account at another bank.</p>
 					</div>
 				</div>
