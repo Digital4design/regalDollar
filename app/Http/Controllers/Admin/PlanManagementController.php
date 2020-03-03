@@ -194,14 +194,9 @@ class PlanManagementController extends Controller
         try {
             // dd($request->all());
 
-            // if ($request->plan_type === '1') {
-            //     $descritpion = json_encode($request->descritpion);
-            // } else {
-            //     $descritpion = $request->descritpion;
-            // }
+            
 
             $descritpion = json_encode($request->descritpion);
-
 
             $planData = Plan::find(\Crypt::decrypt($id));
             $planData->plan_name = trim($request->plan_name);
