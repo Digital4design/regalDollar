@@ -16,69 +16,69 @@ class AccountController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $result = array(
             'pageName' => 'User Listing',
             'activeMenu' => 'user-management',
         );
+        $userData = $request->session()->get('userData');
+        $userData = User::find($userData->id);
+        //dd($userData);
 
+        $data['result'] = $result;
         $data['roles'] = Role::get();
+        $data['userData'] = $userData;
 
-        return view('front.users.create-step1', $result);
+        return view('front.users.create-step1', $data);
 
     }
     public function postCreateStep1(Request $request)
     {
-
-        // $rules = [
-        //     'first_name' => 'required|min:2',
-        //     'last_name' => 'required|min:2',
-        //     'name' => 'required',
-        //     'email' => 'required',
-        // ];
-
-        // $messages = [
-        //     'first_name.required' => 'Your first name is required.',
-        //     'first_name.min' => 'First name should contain at least 2 characters.',
-        // ];
-        // $validator = Validator::make($request->all(), $rules, $messages);
-
-        // if ($validator->fails()) {
-        //     return back()->withErrors($validator)->withInput();
-        // }
-
-        // try {
-
-        $userData = User::create([
-            'first_name' => $request->first_name,
-            'last_name' => $request->last_name,
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-
-        ]);
-        $roleArray = array(
-            'user_id' => $userData->id,
-            'role_id' => 2, // customer role Id
-        );
-        /* UserRoleRelation::insert($roleArray); */
-        DB::table('role_user')->insert($roleArray);
-        $request->session()->put('userData', $userData);
-
-        // dd($userData);
-        return redirect('/front/create-step2');
-
-        //return redirect('/admin/account')->with(['pstatus' => 'success', 'pmessage' => 'your details updated successfully!']);
-
-        // } catch (\Exception $e) {
-
-        //     return back()->with(['pstatus' => 'danger', 'pmessage' => $e->getMessage()]);
-        // }
-
-        // return redirect('/front/create-step2');
-
         //dd($request->all());
+        if ($request->user_id != '') {
+            $userData = User::find($request->user_id);
+            $userData = $request->session()->get('userData');
+            $request->session()->put('userData', $userData);
+            return redirect('/front/create-step2');
+        } else {
+
+            // $rules = [
+            //     'first_name' => 'required|min:2',
+            //     'last_name' => 'required|min:2',
+            //     'name' => 'required',
+            //     'email' => 'required',
+            // ];
+
+            // $messages = [
+            //     'first_name.required' => 'Your first name is required.',
+            //     'first_name.min' => 'First name should contain at least 2 characters.',
+            // ];
+            // $validator = Validator::make($request->all(), $rules, $messages);
+
+            // if ($validator->fails()) {
+            //     return back()->withErrors($validator)->withInput();
+            // }
+
+            // try {
+
+            $userData = User::create([
+                'first_name' => $request->first_name,
+                'last_name' => $request->last_name,
+                'name' => $request->name,
+                'email' => $request->email,
+                'password' => Hash::make($request->password),
+
+            ]);
+            $roleArray = array(
+                'user_id' => $userData->id,
+                'role_id' => 2, // customer role Id
+            );
+            DB::table('role_user')->insert($roleArray);
+            $request->session()->put('userData', $userData);
+            return redirect('/front/create-step2');
+        }
+
     }
 
     public function createStep2(Request $request)
