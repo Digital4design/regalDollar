@@ -14,6 +14,7 @@ class UpdateUsersTable extends Migration
     public function up()
     {
         Schema::table('users', function ($table) {
+            $table->string('first_name')->nullable();
             $table->string('last_name')->nullable();
             $table->text('address')->nullable();
             $table->string('plan_start_date')->nullable();
@@ -23,7 +24,14 @@ class UpdateUsersTable extends Migration
             $table->integer('state_id')->unsigned()->nullable();
             $table->integer('city_id')->unsigned()->nullable();
             $table->string('zipcode')->nullable();
-            $table->string('accountType')->nullable();
+            $table->string('addressLine1')->nullable();
+            $table->string('addressLine2')->nullable();
+            $table->string('city')->nullable();
+            $table->string('country')->nullable();
+            $table->string('zipCode')->nullable();
+            $table->string('phoneNumber')->nullable();
+            $table->string('SSN')->nullable();
+
         });
     }
 
