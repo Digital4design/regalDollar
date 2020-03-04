@@ -18,28 +18,30 @@ class AccountController extends Controller
      */
     public function index(Request $request)
     {
-        $result = array(
+        $userData = $request->session()->get('userData');
+        $userData = User::find($userData->id);
+        $data['result'] = array(
             'pageName' => 'User Listing',
             'activeMenu' => 'user-management',
         );
-        $userData = $request->session()->get('userData');
-        $userData = User::find($userData->id);
-        //dd($userData);
-
-        $data['result'] = $result;
         $data['roles'] = Role::get();
         $data['userData'] = $userData;
-
         return view('front.users.create-step1', $data);
-
     }
     public function postCreateStep1(Request $request)
     {
-        //dd($request->all());
         if ($request->user_id != '') {
             $userData = User::find($request->user_id);
+            $userData->first_name = trim($request->first_name);
+            $userData->last_name = trim($request->last_name);
+            $userData->name = trim($request->name);
+            $userData->email = trim($request->email);
+            $userData->save();
+            $userData = User::find($request->user_id);
+
             $userData = $request->session()->get('userData');
             $request->session()->put('userData', $userData);
+
             return redirect('/front/create-step2');
         } else {
 
