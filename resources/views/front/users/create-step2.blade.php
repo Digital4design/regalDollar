@@ -1,18 +1,18 @@
 @include('homeheader')
 <!--CONTENT START-->
 <div class="content">
-   <div class="stepwizard-row setup-panel">
+<div class="stepwizard-row setup-panel">
       <div class="stepwizard-step">
          <a href="{{ url('front/create-details') }}" type="button" class="btn btn-primary btn-circle">1</a>
-         <p>Step 1</p>
+         <!-- <p>Step 1</p> -->
       </div>
       <div class="stepwizard-step">
          <a href="{{ url('front/create-step2') }}" type="button" class="btn btn-primary btn-circle">2</a>
-         <p>Step 2</p>
+         <!-- <p>Step 2</p> -->
       </div>
       <div class="stepwizard-step">
          <a href="#step3" type="button" class="btn btn-default btn-circle" disabled="disabled">3</a>
-         <p>Step 3</p>
+         <!-- <p>Step 3</p> -->
       </div>
    </div>
 </div>
@@ -22,7 +22,7 @@
          <!--HEADER SECTION START-->
          <h1>Add New Details - Step 2</h1>
          <?php 
-            //dd($userData);
+            // dd($userData->accountType);
             ?>
          <hr>
          <form action="{{ url('front/create-update') }}" method="post">
@@ -33,8 +33,9 @@
             <div class="form-group">
                <label for="description">Account Type</label>
                <select class="form-control" name="accountType">
-                  <option >individual</option>
-                  <option >company</option>
+                  <option value="" >Select Account Type</option>
+                  <option value="individual" {{ ( $userData->accountType == "individual" ) ? 'selected' : '' }}>Individual</option>
+                  <option value="company" {{ ( $userData->accountType == "company") ? 'selected' : '' }}>Company</option>
                </select>
             </div>
             <button type="submit" class="btn btn-primary">Next</button>

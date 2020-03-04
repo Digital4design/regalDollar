@@ -42,32 +42,25 @@ class AccountController extends Controller
             $userData->email = trim($request->email);
             $userData->save();
             $userData = User::find($request->user_id);
-
+            $userData = $request->session()->put('userData', $userData);
             $userData = $request->session()->get('userData');
-            $request->session()->put('userData', $userData);
-
             return redirect('/front/create-step2');
         } else {
-
             // $rules = [
             //     'first_name' => 'required|min:2',
             //     'last_name' => 'required|min:2',
             //     'name' => 'required',
             //     'email' => 'required',
             // ];
-
             // $messages = [
             //     'first_name.required' => 'Your first name is required.',
             //     'first_name.min' => 'First name should contain at least 2 characters.',
             // ];
             // $validator = Validator::make($request->all(), $rules, $messages);
-
             // if ($validator->fails()) {
             //     return back()->withErrors($validator)->withInput();
             // }
-
             // try {
-
             $userData = User::create([
                 'first_name' => $request->first_name,
                 'last_name' => $request->last_name,
@@ -84,13 +77,15 @@ class AccountController extends Controller
             $request->session()->put('userData', $userData);
             return redirect('/front/create-step2');
         }
-
     }
 
     public function createStep2(Request $request)
     {
         $userData = $request->session()->get('userData');
-        //$product = $request->session()->get('product');
+        $userData = User::find($userData->id);
+        $userData = $request->session()->put('userData', $userData);
+        $userData = $request->session()->get('userData');
+        //dd($userData);
         return view('front.users.create-step2', compact('userData', $userData));
     }
 
@@ -100,8 +95,28 @@ class AccountController extends Controller
         $userData->accountType = trim($request->accountType);
         $userData->save();
         $userData = User::find($request->user_id);
+        $userData = $request->session()->put('userData', $userData);
         $userData = $request->session()->get('userData');
         return view('front.users.create-step3', compact('userData', $userData));
+    }
+    public function postInfoUpdate(Request $request)
+    {
+        $userData = User::find($request->user_id);
+        $userData->address = trim($request->addressLine1);
+        $userData->address2 = trim($request->addressLine2);
+        $userData->zipcode = trim($request->zipcode);
+        // $userData->country = trim($request->country);
+        // $userData->city = trim($request->city);         
+        // $userData->phoneNumber = trim($request->phoneNumber);
+        // $userData->SSN = trim($request->SSN);
+        $userData->save();
+        $userData = User::find($request->user_id);
+        $userData = $request->session()->put('userData', $userData);
+        $userData = $request->session()->get('userData');
+        return view('front.users.create-step3', compact('userData', $userData));
+
+        //return redirect('/')->with(['status' => 'success', 'message' => 'New user Successfully created!']);
+        // return view('front.users.create-step3', compact('userData', $userData));
     }
 
     /**

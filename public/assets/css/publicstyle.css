@@ -12,6 +12,15 @@
 .content {
 	float: left;
 	width: 100%;
+	text-align: center;
+	padding: 15px 0px;
+}
+.content .stepwizard-step {
+    display: inline-block;
+    margin: 0 16px 0px 0px;
+}
+.content .stepwizard-step p{
+	color: #fff;
 }
 .content nav {
 	text-align: center;
