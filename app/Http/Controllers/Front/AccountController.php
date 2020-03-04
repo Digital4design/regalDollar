@@ -19,7 +19,11 @@ class AccountController extends Controller
     public function index(Request $request)
     {
         $userData = $request->session()->get('userData');
-        $userData = User::find($userData->id);
+        if ($userData) {
+            $userData = User::find($userData->id);
+        } else {
+            $userData = array();
+        }
         $data['result'] = array(
             'pageName' => 'User Listing',
             'activeMenu' => 'user-management',

@@ -14,6 +14,7 @@ class UpdateUsersTable extends Migration
     public function up()
     {
         Schema::table('users', function ($table) {
+            $table->string('first_name')->nullable();
             $table->string('last_name')->nullable();
             $table->text('address')->nullable();
             $table->string('plan_start_date')->nullable();
