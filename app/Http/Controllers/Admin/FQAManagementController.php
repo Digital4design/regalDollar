@@ -65,7 +65,6 @@ class FQAManagementController extends Controller
             'fqa_headding' => 'required|min:4',
             'fqa_answer' => 'required|min:2',
         ];
-
         $messages = [
             'fqa_headding.required' => 'FQA name is required.',
             'fqa_answer.min' => 'First name should contain at least 4 characters.',
@@ -75,7 +74,6 @@ class FQAManagementController extends Controller
             return back()->withErrors($validator)->withInput();
         }
         try {
-
             $planData = FQAModel::create([
                 'fqa_headding' => $request->fqa_headding,
                 'fqa_answer' => $request->fqa_answer,
