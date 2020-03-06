@@ -11,6 +11,7 @@
    <div class="col-lg-12 view_user_data">
       <div class="card">
          <div class="card-body">
+         <?php // dd($country); ?>
             <!-- end row -->
             <div class="row">
                <div class="col-xl-8">
@@ -24,10 +25,10 @@
                            <div class="input-group-prepend">
                               <label class="input-group-text" for="inputGroupSelect01">First Name</label>
                            </div>
-                           <input class="form-control" name="firstName" disabled value="{{ $user->name }}" />
-                           @if ($errors->has('firstName'))
+                           <input class="form-control" name="first_name" disabled value="{{ $user->first_name }}" />
+                           @if ($errors->has('first_name'))
                            <span style="display:initial;" class="invalid-feedback" role="alert">
-                           <strong>{{ $errors->first('firstName') }}</strong>
+                           <strong>{{ $errors->first('first_name') }}</strong>
                            </span>
                            @endif
                         </div>
@@ -37,10 +38,10 @@
                            <div class="input-group-prepend">
                               <label class="input-group-text" for="inputGroupSelect01">Last Name</label>
                            </div>
-                           <input class="form-control" name="lastName" value="{{ $user->last_name}}last" disabled />
-                           @if ($errors->has('lastName'))
+                           <input class="form-control" name="last_name" value="{{ $user->last_name}}" disabled />
+                           @if ($errors->has('last_name'))
                            <span style="display:initial;" class="invalid-feedback" role="alert">
-                           <strong>{{ $errors->first('lastName') }}</strong>
+                           <strong>{{ $errors->first('last_name') }}</strong>
                            </span>
                            @endif
                         </div>
@@ -68,10 +69,10 @@
                            <div class="input-group-prepend">
                               <label class="input-group-text" for="inputGroupSelect01">Country</label>
                            </div>
-                           <input class="form-control" name="firstName" disabled value="{{ $user->country_id }}" />
-                           @if ($errors->has('info_country'))
+                           <input class="form-control" name="countryName" disabled value="{{ $country->name }}" />
+                           @if ($errors->has('countryName'))
                            <span style="display:initial;" class="invalid-feedback" role="alert">
-                           <strong>{{ $errors->first('info_country') }}</strong>
+                           <strong>{{ $errors->first('countryName') }}</strong>
                            </span>
                            @endif
                         </div>
@@ -81,7 +82,7 @@
                            <div class="input-group-prepend">
                               <label class="input-group-text" for="inputGroupSelect01">State</label>
                            </div>
-                           <input class="form-control" name="firstName" disabled value="" />
+                           <input class="form-control" name="firstName" disabled value="{{ $states->name }}" />
                            @if ($errors->has('info_state'))
                            <span style="display:initial;" class="invalid-feedback" role="alert">
                            <strong>{{ $errors->first('info_state') }}</strong>
@@ -94,7 +95,7 @@
                            <div class="input-group-prepend">
                               <label class="input-group-text" for="inputGroupSelect01">City</label>
                            </div>
-                           <input class="form-control" name="firstName" disabled value="" />
+                           <input class="form-control" name="firstName" disabled value="{{ $city->name }}" />
                            @if ($errors->has('info_city'))
                            <span style="display:initial;" class="invalid-feedback" role="alert">
                            <strong>{{ $errors->first('info_city') }}</strong>
