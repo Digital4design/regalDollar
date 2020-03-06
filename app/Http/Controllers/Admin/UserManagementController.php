@@ -149,7 +149,7 @@ class UserManagementController extends Controller
     public function updateUsers(Request $request, $id)
     {
         $rules = [
-            'firstName' => 'required|min:2|regex:/^[A-Za-z. -]+$/',
+            'first_name' => 'required|min:2|regex:/^[A-Za-z. -]+$/',
             'lastName' => 'required|min:2|regex:/^[A-Za-z. -]+$/',
             'info_country' => 'required|numeric',
             'info_state' => 'required|numeric',
@@ -170,8 +170,8 @@ class UserManagementController extends Controller
 
         try {
             $user = User::find(\Crypt::decrypt($id));
-            $user->name = trim($request->firstName);
-            $user->last_name = trim($request->lastName);
+            $user->first_name = trim($request->first_name);
+            $user->last_name = trim($request->last_name);
             $user->address = trim($request->info_addr1);
             $user->address2 = trim($request->info_addr2);
             $user->country_id = trim($request->info_country);
@@ -200,7 +200,6 @@ class UserManagementController extends Controller
 
     public function genrateRandCode($length, $smallabc = false)
     {
-
         if ($smallabc == false) {
             $chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
         } else {

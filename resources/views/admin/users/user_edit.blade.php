@@ -37,10 +37,10 @@
                                         <div class="input-group-prepend">
                                             <label class="input-group-text" for="inputGroupSelect01">First Name</label>
                                         </div>
-                                        <input class="form-control" name="firstName" value="{{ $user->name }}" />
-										@if ($errors->has('firstName'))
+                                        <input class="form-control" name="first_name" value="{{ $user->first_name }}" />
+										@if ($errors->has('first_name'))
 											<span style="display:initial;" class="invalid-feedback" role="alert">
-												<strong>{{ $errors->first('firstName') }}</strong>
+												<strong>{{ $errors->first('first_name') }}</strong>
 											</span>
 										@endif
                                     </div>
@@ -50,10 +50,10 @@
                                         <div class="input-group-prepend">
                                             <label class="input-group-text" for="inputGroupSelect01">Last Name</label>
                                         </div>
-                                        <input class="form-control" name="lastName" value="{{ $user->last_name}}" />
-                                        @if ($errors->has('lastName'))
+                                        <input class="form-control" name="last_name" value="{{ $user->last_name}}" />
+                                        @if ($errors->has('last_name'))
 											<span style="display:initial;" class="invalid-feedback" role="alert">
-												<strong>{{ $errors->first('lastName') }}</strong>
+												<strong>{{ $errors->first('last_name') }}</strong>
 											</span>
 										@endif
                                     </div>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
+use App\Models\Country;
 use App\Models\Role;
 use App\User;
 use DB;
@@ -78,7 +79,6 @@ class AccountController extends Controller
             return redirect('/front/create-step2');
         }
     }
-
     public function createStep2(Request $request)
     {
         $userData = $request->session()->get('userData');
@@ -88,7 +88,6 @@ class AccountController extends Controller
         //dd($userData);
         return view('front.users.create-step2', compact('userData', $userData));
     }
-
     public function postCreateUpdate(Request $request)
     {
         $userData = User::find($request->user_id);
@@ -97,6 +96,7 @@ class AccountController extends Controller
         $userData = User::find($request->user_id);
         $userData = $request->session()->put('userData', $userData);
         $userData = $request->session()->get('userData');
+
         return view('front.users.create-step3', compact('userData', $userData));
     }
     public function postInfoUpdate(Request $request)
@@ -106,14 +106,18 @@ class AccountController extends Controller
         $userData->address2 = trim($request->addressLine2);
         $userData->zipcode = trim($request->zipcode);
         // $userData->country = trim($request->country);
-        // $userData->city = trim($request->city);         
+        // $userData->city = trim($request->city);
         // $userData->phoneNumber = trim($request->phoneNumber);
         // $userData->SSN = trim($request->SSN);
         $userData->save();
         $userData = User::find($request->user_id);
         $userData = $request->session()->put('userData', $userData);
         $userData = $request->session()->get('userData');
-        return view('front.users.create-step3', compact('userData', $userData));
+        $data['userData'] = $userData;
+        $data['countryData'] = Country::get();
+
+        //dd($data);
+        return view('front.users.create-step3', $data);
 
         //return redirect('/')->with(['status' => 'success', 'message' => 'New user Successfully created!']);
         // return view('front.users.create-step3', compact('userData', $userData));
