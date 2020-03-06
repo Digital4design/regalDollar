@@ -63,7 +63,7 @@
            order: [[1,'desc']],
            ajax: '{!! url("/admin/users-management/user-data") !!}',
            columns: [
-               { data: 'name', name: 'name', orderable: true },
+               { data: 'first_name', name: 'first_name', orderable: true },
                { data: 'last_name', name: 'last_name', orderable: true , searchable: true},
                { data: 'email', name: 'email', orderable: true , searchable: true},
                { data: 'action', name: 'action', orderable: false, searchable: false},
