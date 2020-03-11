@@ -30,8 +30,8 @@ class HomeController extends Controller
             return back()->withErrors($validator)->withInput();
         }
         try {
-            dd($request->all());
-            return redirect('/user/user-management')->with(['status' => 'success', 'message' => 'New user Successfully created!']);
+           // dd($request->all());
+            return redirect('/contact_us')->with(['status' => 'success', 'message' => 'Form submitted Successfully!']);
         } catch (\Exception $e) {
             //return back()->with(['status' => 'danger', 'message' => $e->getMessage()]);
             return back()->with(['status' => 'danger', 'message' => 'Some thing went wrong! Please try again later.']);
