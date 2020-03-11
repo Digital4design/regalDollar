@@ -8,20 +8,16 @@
     <div class="col-sm-6">
         <h4 class="page-title">{{ $pageName }}</h4>
     </div>
-
 @endsection
 
 @section('content')
- 
-    <div class="row">
+ <div class="row">
         <a href="{{ url('/admin/fqa-management/add-FQA') }}"><button type="button">Create FQA</button></a>
 		<div class="col-lg-12">
             <div class="card">
                 <div class="card-body">
-                    
-                    <!-- end row -->
-
-                    <div class="row">
+                <!-- end row -->
+                <div class="row">
                         <div class="col-xl-8">
                             <h4>{{ $pageName }}</h4>
 							@if(Session::has('status'))
