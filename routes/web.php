@@ -11,6 +11,8 @@
 |
  */
 Route::get('/', 'HomeController@getPlanData');
+Route::post('/contact_us', 'HomeController@contactUs');
+
 
 // Route::get('/', function () {
 //     return view('public.home');

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Plan;
 use Auth;
+use Illuminate\Http\Request;
+use Validator;
 
 class HomeController extends Controller
 {
@@ -14,6 +16,27 @@ class HomeController extends Controller
     public function __construct()
     {
         // $this->middleware('auth');
+    }
+    public function contactUs(Request $request)
+    {
+        
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|max:255',
+            'email' => 'required|max:255',
+            'phone' => 'required|min:2',
+            'message' => 'required|min:2',
+        ]);
+        if ($validator->fails()) {
+            return back()->withErrors($validator)->withInput();
+        }
+        try {
+            dd($request->all());
+            return redirect('/user/user-management')->with(['status' => 'success', 'message' => 'New user Successfully created!']);
+        } catch (\Exception $e) {
+            //return back()->with(['status' => 'danger', 'message' => $e->getMessage()]);
+            return back()->with(['status' => 'danger', 'message' => 'Some thing went wrong! Please try again later.']);
+        }
+
     }
     /**
      * Show the application dashboard.
@@ -35,10 +58,10 @@ class HomeController extends Controller
     }
     public function getPlanData()
     {
-        $investmentData = Plan::where('plan_type','1')->get();
+        $investmentData = Plan::where('plan_type', '1')->get();
         $coreData = Plan::where('plan_type', '2')->get();
         // dd($coreData);
-        return view('public.home')->with(['investmentData' => $investmentData,'coreData'=>$coreData]);
+        return view('public.home')->with(['investmentData' => $investmentData, 'coreData' => $coreData]);
     }
 
 }

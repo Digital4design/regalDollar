@@ -3,7 +3,7 @@
 
 <!-- LOGO -->
 <div class="topbar-left">
-    <a href="/admin" class="logo">
+    <a href="{{ url('/admin') }}" class="logo">
         <span>
                 <img src="{{ URL::asset('public/assets/images/logo-light.png') }}" alt="" height="18">
             </span>
