@@ -1,6 +1,6 @@
 @include('homeheader')
 <!--CONTENT START-->
-<div class="content">
+<div class="content form-steps">
    <div class="stepwizard-row setup-panel">
       <div class="stepwizard-step">
          <a href="{{ url('front/create-details') }}" type="button" class="btn btn-primary btn-circle">1</a>

@@ -17,12 +17,7 @@
       </div>
    </div>
 
-   @if(Session::has('status'))
-				<div class="alert alert-{{ Session::get('status') }}">
-					<i class="ti-user"></i> {{ Session::get('message') }}
-					<button type="button" class="close" data-dismiss="alert" aria-label="Close"> <span aria-hidden="true">×</span> </button>
-				</div>
-	@endif
+
 
    <div class="container">
          <div class="contact_section">
@@ -65,22 +60,29 @@
                </div>
 
             </div>
+
             <div class="right">
-               <form method="post" action="{{ url('/contact_us') }}" enctype="multipart/form-data">
+            @if(Session::has('status'))
+				<div class="alert alert-{{ Session::get('status') }}">
+					<i class="ti-user"></i> {{ Session::get('message') }}
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close"> <span aria-hidden="true">×</span> </button>
+				</div>
+            @endif
+               <form method="post" action="{{ url('/contact') }}" enctype="multipart/form-data">
                {{ csrf_field() }}
-                  <div class="form-group">
+                  <div class="form-group @error('name')">
                      <label for="">Name</label>
                      <input type="text" name="name">
                   </div>
-                  <div class="form-group">
+                  <div class="form-group @error('email')">
                      <label for="">Email</label>
                      <input type="text" name="email">
                   </div>
-                  <div class="form-group">
+                  <div class="form-group @error('phone')">
                      <label for="">Phone</label>
                      <input type="text" name="phone">
                   </div>
-                  <div class="form-group">
+                  <div class="form-group @error('message')">
                      <label for="">Message</label>
                      <textarea name="message" id="message"></textarea>
                   </div>

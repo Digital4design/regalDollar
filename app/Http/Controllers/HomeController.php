@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ContactUsModel;
 use App\Models\Plan;
 use Auth;
 use Illuminate\Http\Request;
@@ -19,7 +20,6 @@ class HomeController extends Controller
     }
     public function contactUs(Request $request)
     {
-        
         $validator = Validator::make($request->all(), [
             'name' => 'required|max:255',
             'email' => 'required|max:255',
@@ -30,8 +30,13 @@ class HomeController extends Controller
             return back()->withErrors($validator)->withInput();
         }
         try {
-            dd($request->all());
-            return redirect('/user/user-management')->with(['status' => 'success', 'message' => 'New user Successfully created!']);
+            $planData = ContactUsModel::create([
+                'name' => $request->name,
+                'email' => $request->email,
+                'phone' => $request->phone,
+                'message' => $request->message,
+            ]);
+            return redirect('/contact_us')->with(['status' => 'success', 'message' => 'Form submitted Successfully!']);
         } catch (\Exception $e) {
             //return back()->with(['status' => 'danger', 'message' => $e->getMessage()]);
             return back()->with(['status' => 'danger', 'message' => 'Some thing went wrong! Please try again later.']);

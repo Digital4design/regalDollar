@@ -13,10 +13,10 @@
 
 @section('content')
  
-    <div class="row">
+    <!-- <div class="row">
         <div class="col-md-12 text-right my-3">
-            <a href="{{ url('/admin/plan-management/add-plan') }}"><button class="btn btn-xs btn-primary" type="button">Create Plan</button></a>
-        </div>
+        <a href="{{ url('/admin/fqa-management/add-FQA') }}"><button class="btn btn-xs btn-primary" type="button">Create FQA</button></a>
+    </div> -->
 		<div class="col-lg-12">
             <div class="card">
                 <div class="card-body">
@@ -38,16 +38,15 @@
 							<thead>
 								<tr>
 									<!-- <th>Sr.No</th> -->
-									<th>Plan Name</th>
-									<th>Price </th>
-                                    <th>Time Investment</th>
-                                    <th>Plan Type</th>
+									<th>Name</th>
+									<th>Email</th>
+                                    <th>Phone</th>
+                                    <th>Message</th>
 									<th>Action</th>
 								</tr>
 							</thead>
 						<tfoot>
                             <tr>
-                                <th></th>
                                 <th></th>
                                 <th></th>
                                 <th></th>
@@ -81,23 +80,12 @@ $(function() {
         serverSide: true,
         lengthMenu: [10,25,50,100],
         order: [[1,'desc']],
-        ajax: '{!! url("/admin/plan-management/plan-data") !!}',
+        ajax: '{!! url("/admin/contact-management/contact-data") !!}',
         columns: [
-            //{ data: 'plan_name', name: 'plan_name', orderable: true },
-            { data: 'plan_name', name: 'plan_name', orderable: true , searchable: true},
-            { data: 'price', name: 'price', orderable: true , searchable: true},
-            { data: 'time_investment', name: 'time_investment', orderable: true , searchable: true},
-            { data: 'plan_type',	name: 'plan_type', orderable: true, render: function ( data, type, row ){
-				if(row.plan_type ==  1  ){ 
-					var status= 'success'; var text	=	'Core Plan'; 
-				}else if(row.plan_type ==  2  ){
-                    var status= 'success'; var text	=	'Investment plan';
-                }else {
-					var status	= 'danger'; var text	=	'Disabled';
-				}
-                    return '<span class="label label-'+status+'"> '+text+' </span>';
-                } 
-            },
+            { data: 'name', name: 'name', orderable: true , searchable: true},
+            { data: 'email', name: 'email', orderable: true , searchable: true},
+            { data: 'phone', name: 'phone', orderable: true , searchable: true},
+            { data: 'message', name: 'message', orderable: true , searchable: true},            
             { data: 'action', name: 'action', orderable: false, searchable: false},
         ],
         dom: 'Blfrptip',
@@ -145,7 +133,7 @@ $(function() {
 				
 				$('#sawyer-nursery-table_processing').show();
                 $.ajax({
-                    url:'{{ url("/admin/plan-management/delete") }}'+'/'+id,
+                    url:'{{ url("/admin/contact-management/delete") }}'+'/'+id,
                     type: 'GET',
                     success:function(){
 						$('#sawyer-nursery-table_processing').hide();

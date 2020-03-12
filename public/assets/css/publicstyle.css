@@ -13,8 +13,12 @@
 	float: left;
 	width: 100%;
 	text-align: center;
-	padding: 15px 0px;
 }
+.form-steps{padding: 15px 0px;}
+.how-option h1{
+    margin: 12px 0px;
+}
+.how-option p{font-size: 20px;}
 .content .stepwizard-step {
     display: inline-block;
     margin: 0 16px 0px 0px;
@@ -4105,6 +4109,10 @@ body.faq section.thumb-with-text, body.about_us section.thumb-with-text, body.co
 }
 .faq_block .block .top {
     margin-bottom: 15px;
+    text-align: left;
+}
+.block ul li {
+    list-style: none;
 }
 
 
@@ -5254,6 +5262,11 @@ div.keywords > div > div.row > div > label.active {
     font-size: 14px;
     font-weight: 400;
 	cursor: pointer;
+	 position: absolute;
+    bottom: 0;
+    left: 32%;
+    padding: 6px 15px;
+    margin: 20px auto;
 }
 .plans_section .block:hover a.btn {
 	background: #bc9c5c;
@@ -5700,6 +5713,8 @@ section.mission-section .heading p {
 }
 .plans_section .block{
     margin: 0 1% 10px 0;
+    position: relative;
+    height: 710px;
 }
 .how-option{text-align: center;}
 
@@ -5731,7 +5746,7 @@ li.active::before {
 }
 
 .show_team_member h2{color: #252D63;}
-.joins{margin-bottom: 80px;}
+.joins{margin-bottom: 0px;}
 
 /********** Responsive ****************/ 
 
