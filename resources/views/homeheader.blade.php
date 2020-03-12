@@ -27,7 +27,7 @@
     <link href="{{ URL::asset('public/assets/css/js/dl-menu/component.css') }}" rel="stylesheet">
     <link href="{{ URL::asset('public/assets/css/responsive.css') }}" rel="stylesheet">
 </head>
-<body class="<?php if(isset($pageclass) && !empty($pageclass)) {echo $pageclass; } ?>">
+<body class="<?php if (isset($pageclass) && !empty($pageclass)) {echo $pageclass;}?>">
 <!--WRAPPER START-->
 <div class="wrapper">
     <!--HEADER START-->
@@ -106,8 +106,15 @@
                         </li>
                      </ul>
                      <div class="show_login_signup">
-                        <a class="sign_up_btn" href="{{ route('register') }}">Sign UP</a>
-                        <a class="log_in_btn" href="{{ url('/login') }}">Log In</a>
+                        
+                        @if (Auth::check())
+                          {{ Auth::user()->name }} 
+                        @else
+                           <a class="sign_up_btn" href="{{ route('register') }}">Sign UP</a>
+                           <a class="log_in_btn" href="{{ url('/login') }}">Log In</a>
+                           
+                           @endif
+
                      </div>
                     </div>
                 </div>
@@ -122,8 +129,8 @@
          <h2>Flexible Investments. Guaranteed Returns.<br />Freedom to cancel at any time.</h2>
          <ol class="breadcrumb">
             <li style="color:#EFEFEF;">
-               RegalDollars is a money investment company with 
-               <span style="text-decoration:underline;">guaranteed</span> returns.<br /> 
+               RegalDollars is a money investment company with
+               <span style="text-decoration:underline;">guaranteed</span> returns.<br />
                <span style="font-size:.75em;">(some restrictions apply)</span>
             </li>
          </ol>

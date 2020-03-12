@@ -37,12 +37,11 @@
                             </li> -->
 
                             <li class="menu-title">FAQ/Contact</li>
-
-                            <li>
-                                <a href="{{ url('/admin/contact-management') }}" class="waves-effect"><i class="ti-email"></i><span> Contact Us </span></a>
-                            </li>
                             <li>
                                 <a href="{{ url('/admin/fqa-management') }}" class="waves-effect"><i class="ti-comments"></i><span> Help / FAQ </span></a>
+                            </li>
+                            <li>
+                                <a href="{{ url('/admin/contact-management') }}" class="waves-effect"><i class="ti-email"></i><span> Contact Us </span></a>
                             </li>
 
 

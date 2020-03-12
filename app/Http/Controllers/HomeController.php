@@ -51,6 +51,7 @@ class HomeController extends Controller
     {
         if (Auth::check()) {
             $Role = Auth::user()->roles->first();
+            // dd($Role);
             if (!empty($Role)) {
                 return redirect('/' . $Role->name);
             } else {
