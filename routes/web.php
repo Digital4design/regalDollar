@@ -13,7 +13,6 @@
 Route::get('/', 'HomeController@getPlanData');
 Route::post('/contact', 'HomeController@contactUs');
 
-
 // Route::get('/', function () {
 //     return view('public.home');
 // });
@@ -69,6 +68,16 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function 
         Route::post('/savefqa', 'Admin\FQAManagementController@store');
         Route::post('/update/{id}', 'Admin\FQAManagementController@updateFQA');
         Route::get('/delete/{id}', 'Admin\FQAManagementController@destroy');
+    });
+
+    Route::group(['prefix' => 'contact-management'], function () {
+        Route::get('/', 'Admin\ContactManagementController@index');
+        Route::get('/add-FQA', 'Admin\ContactManagementController@createViewFQA');
+        Route::get('/contact-data', 'Admin\ContactManagementController@contactData');
+        Route::get('/edit/{id}', 'Admin\ContactManagementController@editViewFQA');
+        Route::post('/savefqa', 'Admin\ContactManagementController@store');
+        Route::post('/update/{id}', 'Admin\ContactManagementController@updateFQA');
+        Route::get('/delete/{id}', 'Admin\ContactManagementController@destroy');
     });
 
 });

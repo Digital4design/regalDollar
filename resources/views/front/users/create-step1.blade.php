@@ -1,6 +1,6 @@
 @include('homeheader')
 <?php // dd($userData); ?>
-<div class="content">
+<div class="content form-steps">
    <div class="stepwizard-row setup-panel">
       <div class="stepwizard-step">
          <a href="#step-1" type="button" class="btn btn-primary btn-circle">1</a>

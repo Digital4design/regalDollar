@@ -36,7 +36,6 @@ class HomeController extends Controller
                 'phone' => $request->phone,
                 'message' => $request->message,
             ]);
-            // dd($request->all());
             return redirect('/contact_us')->with(['status' => 'success', 'message' => 'Form submitted Successfully!']);
         } catch (\Exception $e) {
             //return back()->with(['status' => 'danger', 'message' => $e->getMessage()]);

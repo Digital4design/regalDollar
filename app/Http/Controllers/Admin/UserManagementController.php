@@ -59,6 +59,7 @@ class UserManagementController extends Controller
     {
         try {
             $user = User::find(Crypt::decrypt($id));
+            
             $data = array(
                 'pageName' => 'View User',
                 'activeMenu' => 'user-management',

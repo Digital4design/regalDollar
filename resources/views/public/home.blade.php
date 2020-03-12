@@ -45,7 +45,7 @@
 								</div>
 							</div>
 						</div>
-						<a class="btn" href="{{ $plan->id}}">View detail</a>
+						<a class="btn" href="{{ url('/plan-detail-page') }}">View detail</a>
 					</div>
 				</div>
 				<?php } ?>
@@ -310,19 +310,19 @@
 				<div class="row">
 					<div class="col-md-4">
 						<img src="{{ asset('public/assets/images/one.png') }}">
-						<h3>Signup</h3>	
+						<h1>Signup</h1>	
 						<!-- <p>Begin our secure ( and fast ) account opening process.Choose term from months to years.</p> -->
 						<p>Inter your info</p>
 					</div>
 					<div class="col-md-4">
 						<img src="{{ asset('public/assets/images/two.png') }}">
-						<h3>Fund</h3>	
+						<h1>Fund</h1>	
 						<!-- <p>Including your name, address, date of birth and Social Security Number.</p> -->
 						<p>contribute to a plan</p>
 					</div>
 					<div class="col-md-4">
 						<img src="{{ asset('public/assets/images/three.png') }}">
-						<h3>Earn</h3>	
+						<h1>Earn</h1>	
 						<!-- <p>Link to your account at another bank.</p> -->
 						<p>enjoy your return</p>
 					</div>
