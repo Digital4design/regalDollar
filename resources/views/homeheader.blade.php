@@ -106,8 +106,7 @@
                         </li>
                      </ul>
                      <div class="show_login_signup">
-                        
-                        @if (Auth::check())
+                     @if (Auth::check())
                           {{ Auth::user()->name }} 
                         @else
                            <a class="sign_up_btn" href="{{ route('register') }}">Sign UP</a>
