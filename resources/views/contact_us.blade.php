@@ -67,7 +67,7 @@
 					<i class="ti-user"></i> {{ Session::get('message') }}
 					<button type="button" class="close" data-dismiss="alert" aria-label="Close"> <span aria-hidden="true">×</span> </button>
 				</div>
-	@endif
+            @endif
                <form method="post" action="{{ url('/contact') }}" enctype="multipart/form-data">
                {{ csrf_field() }}
                   <div class="form-group @error('name')">
