@@ -32,11 +32,10 @@ class ContactManagementController extends Controller
 
     public function contactData()
     {
-        $userList = ContactUsModel::orderBy('id', 'desc')->get();
-        // dd($userList);
-        return Datatables::of($userList)
-            ->addColumn('action', function ($userList) {
-                return '<a data-id =' . Crypt::encrypt($userList->id) . ' class="btn btn-xs btn-danger delete" style="color:#fff"><i class="fa fa-trash" aria-hidden="true"></i> Delete</a>';
+        $contactList = ContactUsModel::orderBy('id', 'desc')->get();
+        return Datatables::of($contactList)
+            ->addColumn('action', function ($contactList) {
+                return '<a data-id =' . Crypt::encrypt($contactList->id) . ' class="btn btn-xs btn-danger delete" style="color:#fff"><i class="fa fa-trash" aria-hidden="true"></i> Delete</a>';
             })->make(true);
     }
 
