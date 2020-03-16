@@ -8,12 +8,12 @@ use App\Models\Plan;
 use App\Models\Role;
 use App\Models\State;
 use App\User;
+use Auth;
 use Crypt;
 use DB;
 use Hash;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\Request;
-use Auth;
 
 class AccountController extends Controller
 {
@@ -48,7 +48,6 @@ class AccountController extends Controller
     }
     public function postCreateStep1(Request $request)
     {
-        //dd($request->all());
         if ($request->user_id != '') {
             $userData = User::find($request->user_id);
             $userData->first_name = trim($request->first_name);
@@ -75,7 +74,6 @@ class AccountController extends Controller
             // if ($validator->fails()) {
             //     return back()->withErrors($validator)->withInput();
             // }
-
             $userData = User::create([
                 'first_name' => $request->first_name,
                 'last_name' => $request->last_name,
@@ -85,7 +83,6 @@ class AccountController extends Controller
                 'plan_start_date' => $request->plan_start_date,
                 'plan_end_date' => $request->plan_end_date,
                 'password' => Hash::make($request->password),
-
             ]);
             $roleArray = array(
                 'user_id' => $userData->id,
@@ -93,7 +90,6 @@ class AccountController extends Controller
             );
             DB::table('role_user')->insert($roleArray);
             Auth::loginUsingId($userData->id);
-
             $request->session()->put('userData', $userData);
             return redirect('/front/create-step2');
         }
@@ -115,7 +111,7 @@ class AccountController extends Controller
         $userData = $request->session()->put('userData', $userData);
         $userData['userData'] = $request->session()->get('userData');
         $userData['stateData'] = State::where('country_id', '231')->get();
-        return view('front.users.create-step3',  $userData);
+        return view('front.users.create-step3', $userData);
     }
     public function postInfoUpdate(Request $request)
     {
@@ -124,7 +120,6 @@ class AccountController extends Controller
         $userData->address2 = trim($request->address2);
         $userData->zipcode = trim($request->zipcode);
         $userData->phoneNumber = trim($request->phoneNumber);
-
         // $userData->country = trim($request->country);
         // $userData->city = trim($request->city);
         // $userData->SSN = trim($request->SSN);
