@@ -56,12 +56,14 @@
                name="city"
                >
             </div>
-            <div class="form-group">
+            <div class="form-group">           
                <label for="description">State</label>
                <select class="form-control" name="country">
-                  <option value="" >Select Country</option>
-                  <option label="Alabama" value="Alabama" {{ ( $userData->country == "Alabama" ) ? 'selected' : '' }}>Alabama</option>
-                  <option label="Alaska" value="Alaska" {{ ( $userData->country == "Alaska" ) ? 'selected' : '' }}>Alaska</option>
+                  <option value="" >Select State</option>
+                  @foreach ($stateData as $key => $state)
+                  <option  value="{{ $state['id'] }}" >{{ $state['name'] }}</option>
+                  @endforeach
+                  <!-- <option label="Alaska" value="Alaska" {{ ( $userData->country == "Alaska" ) ? 'selected' : '' }}>Alaska</option>
                   <option label="Arizona" value="Arizona" {{ ( $userData->country == "Arizona" ) ? 'selected' : '' }} >Arizona</option>
                   <option label="Arkansas" value="Arkansas" {{ ( $userData->country == "Arkansas" ) ? 'selected' : '' }}>Arkansas</option>
                   <option label="California" value="California" {{ ( $userData->country == "California" ) ? 'selected' : '' }}>California</option>
@@ -113,7 +115,7 @@
                   <option label="Wyoming" value="Wyoming">Wyoming</option>
                   <option label="Armed Forces - Americas (AA)" value="Armed Forces - Americas (AA)">Armed Forces - Americas (AA)</option>
                   <option label="Armed Forces - Europe (AE)" value="Armed Forces - Europe (AE)">Armed Forces - Europe (AE)</option>
-                  <option label="Armed Forces - Pacific (AP)" value="Armed Forces - Pacific (AP)">Armed Forces - Pacific (AP)</option>
+                  <option label="Armed Forces - Pacific (AP)" value="Armed Forces - Pacific (AP)">Armed Forces - Pacific (AP)</option> -->
                </select>
             </div>
             <div class="form-group">

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
 use App\Models\Country;
+use App\Models\State;
 use App\Models\Plan;
 use App\Models\Role;
 use App\User;
@@ -113,13 +114,16 @@ class AccountController extends Controller
     }
     public function postInfoUpdate(Request $request)
     {
+        //dd($request->all());
         $userData = User::find($request->user_id);
-        $userData->address = trim($request->addressLine1);
-        $userData->address2 = trim($request->addressLine2);
+        $userData->address = trim($request->address);
+        $userData->address2 = trim($request->address2);
         $userData->zipcode = trim($request->zipcode);
+        $userData->phoneNumber = trim($request->phoneNumber);
+
         // $userData->country = trim($request->country);
         // $userData->city = trim($request->city);
-        // $userData->phoneNumber = trim($request->phoneNumber);
+        // 
         // $userData->SSN = trim($request->SSN);
         $userData->save();
         $userData = User::find($request->user_id);
@@ -127,7 +131,7 @@ class AccountController extends Controller
         $userData = $request->session()->get('userData');
         $data['userData'] = $userData;
         $data['countryData'] = Country::get();
-        //dd($data);
+        $data['stateData'] = State::where('country_id','231')->get();
         return view('front.users.create-step3', $data);
     }
 

@@ -114,7 +114,7 @@
                               <a class="dropdown-toggle" data-toggle="dropdown" href="#">{{ Auth::user()->name }}
                               <ul class="dropdown-menu">
                                  <li><a href="{{ url($roleName) }}">Dashboard</a></li>
-                                 <li><a href="#">Profile</a></li>
+                                 <li><a href="{{ url($roleName)}}/account">Profile</a></li>
                                  <li><a href="#" onclick="event.preventDefault();document.getElementById('logout-form').submit();">Logout</a>
                                   <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                         @csrf
