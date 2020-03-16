@@ -3,13 +3,11 @@
 
 <!-- LOGO -->
 <div class="topbar-left">
-    <a href="{{ url('/admin') }}" class="logo">
+    <a href="{{ url('/client') }}" class="logo">
         <span>
-                <img src="{{ URL::asset('public/assets/images/logo-light.png') }}" alt="" height="18">
-            </span>
-        <i>
-                <img src="{{ URL::asset('public/assets/images/logo-sm.png') }}" alt="" height="22">
-            </i>
+        <img src="{{ URL::asset('public/assets/images/logo-light.png') }}" alt="" height="18">
+        </span>
+        <i><img src="{{ URL::asset('public/assets/images/logo-sm.png') }}" alt="" height="22"></i>
     </a>
 </div>
 
@@ -20,11 +18,26 @@
                 <img src="{{ URL::asset('public/assets/images/flags/us_flag.jpg') }}" class="mr-2" height="12" alt=""/> English <span class="mdi mdi-chevron-down"></span>
             </a>
             <div class="dropdown-menu dropdown-menu-right language-switch">
-                <a class="dropdown-item" href="#"><img src="{{ URL::asset('public/assets/images/flags/germany_flag.jpg') }}" alt="" height="16" /><span> German </span></a>
-                <a class="dropdown-item" href="#"><img src="{{ URL::asset('public/assets/images/flags/italy_flag.jpg') }}" alt="" height="16" /><span> Italian </span></a>
-                <a class="dropdown-item" href="#"><img src="{{ URL::asset('public/assets/images/flags/french_flag.jpg') }}" alt="" height="16" /><span> French </span></a>
-                <a class="dropdown-item" href="#"><img src="{{ URL::asset('public/assets/images/flags/spain_flag.jpg') }}" alt="" height="16" /><span> Spanish </span></a>
-                <a class="dropdown-item" href="#"><img src="{{ URL::asset('public/assets/images/flags/russia_flag.jpg') }}" alt="" height="16" /><span> Russian </span></a>
+                <a class="dropdown-item" href="#">
+                <img src="{{ URL::asset('public/assets/images/flags/germany_flag.jpg') }}" alt="" height="16" />
+                <span> German </span>
+                </a>
+                <a class="dropdown-item" href="#">
+                <img src="{{ URL::asset('public/assets/images/flags/italy_flag.jpg') }}" alt="" height="16" />
+                <span> Italian </span>
+                </a>
+                <a class="dropdown-item" href="#">
+                <img src="{{ URL::asset('public/assets/images/flags/french_flag.jpg') }}" alt="" height="16" />
+                <span> French </span>
+                </a>
+                <a class="dropdown-item" href="#">
+                <img src="{{ URL::asset('public/assets/images/flags/spain_flag.jpg') }}" alt="" height="16" />
+                <span> Spanish </span>
+                </a>
+                <a class="dropdown-item" href="#">
+                <img src="{{ URL::asset('public/assets/images/flags/russia_flag.jpg') }}" alt="" height="16" />
+                <span> Russian </span>
+                </a>
             </div>
         </li>
 
@@ -70,9 +83,9 @@
                 </a>
                 <div class="dropdown-menu dropdown-menu-right profile-dropdown ">
                     <!-- item-->
-                    <a class="dropdown-item" href="{{ url('/admin/account') }}"><i class="mdi mdi-account-circle m-r-5"></i> My Profile</a>
-                    <a class="dropdown-item" href="/view-plans"><i class="mdi mdi-bank m-r-5"></i> Investment Plans</a>
-                    <a class="dropdown-item" href="/withdraw"><i class="mdi mdi-cash-multiple m-r-5"></i> Receive Money</a>
+                    <a class="dropdown-item" href="{{ url('/client/account') }}"><i class="mdi mdi-account-circle m-r-5"></i> My Profile</a>
+                    <a class="dropdown-item" href="{{ url('/client/view-plans') }}"><i class="mdi mdi-bank m-r-5"></i> Investment Plans</a>
+                    <a class="dropdown-item" href="{{ url('/client/withdraw') }}"><i class="mdi mdi-cash-multiple m-r-5"></i> Receive Money</a>
                     <div class="dropdown-divider"></div>
                     <!-- <a class="dropdown-item text-danger" href="/logout"><i class="mdi mdi-power text-danger"></i> Logout</a> -->
                     <a class="dropdown-item text-danger" href="#" onclick="event.preventDefault();document.getElementById('logout-form').submit();">

@@ -22,7 +22,7 @@ class ContactManagementController extends Controller
     public function index()
     {
         $result = array(
-            'pageName' => 'contact Us Listing',
+            'pageName' => 'Contact Us Listing',
             'activeMenu' => 'contact-management',
         );
         $data['roles'] = ContactUsModel::get();

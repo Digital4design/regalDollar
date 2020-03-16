@@ -27,7 +27,7 @@
     <link href="{{ URL::asset('public/assets/css/js/dl-menu/component.css') }}" rel="stylesheet">
     <link href="{{ URL::asset('public/assets/css/responsive.css') }}" rel="stylesheet">
 </head>
-<body class="<?php if(isset($pageclass) && !empty($pageclass)) {echo $pageclass; } ?>">
+<body class="<?php if (isset($pageclass) && !empty($pageclass)) {echo $pageclass;}?>">
 <!--WRAPPER START-->
 <div class="wrapper">
     <!--HEADER START-->
@@ -78,7 +78,7 @@
                         <li>
                            <a class="show_drop_down" href="#investment">Investment Plans</a>
                            <span class="nav-separator"></span>
-                           <!-- <ul class="children">
+                           <ul class="children">
                            <li>
                               <a href="#suppplemented">Supplemented Income Plan</a>
                            </li>
@@ -91,7 +91,7 @@
                            <li>
                               <a href="#60mo">60 Month Millionaire&trade; Plan</a>
                            </li>
-                       </ul> -->
+                       </ul>
                        </li>
                         <li class="menu-item kode-parent-menu">
                            <a href="{{ url('/faq') }}">FAQ</a>
@@ -105,9 +105,28 @@
                            <a href="{{ url('/contact_us') }}">Contact Us</a>
                         </li>
                      </ul>
-                     <div class="show_login_signup">
-                        <a class="sign_up_btn" href="{{ route('register') }}">Sign UP</a>
-                        <a class="log_in_btn" href="{{ url('/login') }}">Log In</a>
+                     <div class="show_login_signup dropdown admin-list">
+                     @if (Auth::check())
+                           <?php 
+                           $Role = Auth::user()->roles->first();
+                           $roleName = '/'.$Role->name;
+                           ?>
+                              <a class="dropdown-toggle" data-toggle="dropdown" href="#">{{ Auth::user()->name }}
+                              <ul class="dropdown-menu">
+                                 <li><a href="{{ url($roleName) }}">Dashboard</a></li>
+                                 <li><a href="#">Profile</a></li>
+                                 <li><a href="#" onclick="event.preventDefault();document.getElementById('logout-form').submit();">Logout</a>
+                                  <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                        @csrf
+                        </form>
+                        </li>
+                              </ul>
+
+                        @else
+                           <a class="sign_up_btn" href="{{ route('register') }}">Sign UP</a>
+                           <a class="log_in_btn" href="{{ url('/login') }}">Log In</a>
+                        @endif
+
                      </div>
                     </div>
                 </div>
@@ -122,8 +141,8 @@
          <h2>Flexible Investments. Guaranteed Returns.<br />Freedom to cancel at any time.</h2>
          <ol class="breadcrumb">
             <li style="color:#EFEFEF;">
-               RegalDollars is a money investment company with 
-               <span style="text-decoration:underline;">guaranteed</span> returns.<br /> 
+               RegalDollars is a money investment company with
+               <span style="text-decoration:underline;">guaranteed</span> returns.<br />
                <span style="font-size:.75em;">(some restrictions apply)</span>
             </li>
          </ol>

@@ -79,14 +79,35 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function 
         Route::post('/update/{id}', 'Admin\ContactManagementController@updateFQA');
         Route::get('/delete/{id}', 'Admin\ContactManagementController@destroy');
     });
+    Route::group(['prefix' => 'documents-management'], function () {
+        Route::get('/', 'Admin\DocumentsManagementController@index');
+        Route::get('/add-documents', 'Admin\DocumentsManagementController@createDocuments');
+        Route::get('/documents-data', 'Admin\DocumentsManagementController@documentsData');
+        Route::get('/edit/{id}', 'Admin\DocumentsManagementController@editViewDocs');
+        Route::post('/save-docs', 'Admin\DocumentsManagementController@store');
+        Route::post('/update/{id}', 'Admin\DocumentsManagementController@updateDocs');
+        Route::get('/delete/{id}', 'Admin\DocumentsManagementController@destroy');
+    });
 
 });
 /**** admin routes end */
 Route::group(['prefix' => 'client', 'middleware' => ['auth', 'client']], function () {
-    Route::get('/', function () {
-        return view('dashboard');
+    Route::get('/', 'Client\DashboardController@index');
+    Route::post('/states', 'Client\DashboardController@states');
+    Route::post('/cities', 'Client\DashboardController@cities');
+    Route::group(['prefix' => 'account'], function () {
+        Route::get('/', 'Client\DashboardController@myAccount');
+        Route::post('/edit', 'Client\DashboardController@editAccount');
+        Route::post('/edit-password', 'Client\DashboardController@editAccountPassword');
     });
+
+    
+
+    // Route::get('/', function () {
+    //     return view('dashboard');
+    // });
 });
+
 Route::get('/signup-login', function () {
     return view('pages-login');
 });

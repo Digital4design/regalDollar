@@ -63,7 +63,7 @@
 
             <div class="right">
             @if(Session::has('status'))
-				<div class="alert alert-{{ Session::get('status') }}">
+				<div class="alert alert-{{ Session::get('status') }} alert-box">
 					<i class="ti-user"></i> {{ Session::get('message') }}
 					<button type="button" class="close" data-dismiss="alert" aria-label="Close"> <span aria-hidden="true">×</span> </button>
 				</div>

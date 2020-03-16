@@ -63,6 +63,8 @@ class LoginController extends Controller
 				
 				$userData = Auth::user(); 
                 //print_r($userData);
+                // return redirect('/');
+
                 return redirect('/home');
 			} 
 			else{ 
