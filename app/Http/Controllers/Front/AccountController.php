@@ -4,20 +4,26 @@ namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
 use App\Models\Country;
+use App\Models\Plan;
 use App\Models\Role;
+use App\Models\State;
 use App\User;
+use Crypt;
 use DB;
 use Hash;
+use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\Request;
+use Auth;
 
 class AccountController extends Controller
 {
+    use RegistersUsers;
+
     /**
      * Display a listing of the resource.
-     *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index($id, Request $request)
     {
         $userData = $request->session()->get('userData');
         if ($userData) {
@@ -29,12 +35,20 @@ class AccountController extends Controller
             'pageName' => 'User Listing',
             'activeMenu' => 'user-management',
         );
+        $planData = Plan::find(Crypt::decrypt($id));
+        $date = $planData->plan_start_date;
+        $date = strtotime($date);
+        $new_date = strtotime('+ ' . $planData->time_investment . ' month', $date);
+        $valid_till = date('d-m-Y', $new_date);
         $data['roles'] = Role::get();
         $data['userData'] = $userData;
+        $data['planData'] = $planData;
+        $data['valid_till'] = $valid_till;
         return view('front.users.create-step1', $data);
     }
     public function postCreateStep1(Request $request)
     {
+        //dd($request->all());
         if ($request->user_id != '') {
             $userData = User::find($request->user_id);
             $userData->first_name = trim($request->first_name);
@@ -61,12 +75,15 @@ class AccountController extends Controller
             // if ($validator->fails()) {
             //     return back()->withErrors($validator)->withInput();
             // }
-            // try {
+
             $userData = User::create([
                 'first_name' => $request->first_name,
                 'last_name' => $request->last_name,
                 'name' => $request->name,
                 'email' => $request->email,
+                'plan_id' => $request->plan_id,
+                'plan_start_date' => $request->plan_start_date,
+                'plan_end_date' => $request->plan_end_date,
                 'password' => Hash::make($request->password),
 
             ]);
@@ -75,6 +92,8 @@ class AccountController extends Controller
                 'role_id' => 2, // customer role Id
             );
             DB::table('role_user')->insert($roleArray);
+            Auth::loginUsingId($userData->id);
+
             $request->session()->put('userData', $userData);
             return redirect('/front/create-step2');
         }
@@ -85,7 +104,6 @@ class AccountController extends Controller
         $userData = User::find($userData->id);
         $userData = $request->session()->put('userData', $userData);
         $userData = $request->session()->get('userData');
-        //dd($userData);
         return view('front.users.create-step2', compact('userData', $userData));
     }
     public function postCreateUpdate(Request $request)
@@ -95,19 +113,20 @@ class AccountController extends Controller
         $userData->save();
         $userData = User::find($request->user_id);
         $userData = $request->session()->put('userData', $userData);
-        $userData = $request->session()->get('userData');
-
-        return view('front.users.create-step3', compact('userData', $userData));
+        $userData['userData'] = $request->session()->get('userData');
+        $userData['stateData'] = State::where('country_id', '231')->get();
+        return view('front.users.create-step3',  $userData);
     }
     public function postInfoUpdate(Request $request)
     {
         $userData = User::find($request->user_id);
-        $userData->address = trim($request->addressLine1);
-        $userData->address2 = trim($request->addressLine2);
+        $userData->address = trim($request->address);
+        $userData->address2 = trim($request->address2);
         $userData->zipcode = trim($request->zipcode);
+        $userData->phoneNumber = trim($request->phoneNumber);
+
         // $userData->country = trim($request->country);
         // $userData->city = trim($request->city);
-        // $userData->phoneNumber = trim($request->phoneNumber);
         // $userData->SSN = trim($request->SSN);
         $userData->save();
         $userData = User::find($request->user_id);
@@ -115,17 +134,12 @@ class AccountController extends Controller
         $userData = $request->session()->get('userData');
         $data['userData'] = $userData;
         $data['countryData'] = Country::get();
-
-        //dd($data);
+        $data['stateData'] = State::where('country_id', '231')->get();
         return view('front.users.create-step3', $data);
-
-        //return redirect('/')->with(['status' => 'success', 'message' => 'New user Successfully created!']);
-        // return view('front.users.create-step3', compact('userData', $userData));
     }
 
     /**
      * Show the form for creating a new resource.
-     *
      * @return \Illuminate\Http\Response
      */
     public function create()
@@ -135,7 +149,6 @@ class AccountController extends Controller
 
     /**
      * Store a newly created resource in storage.
-     *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
@@ -146,7 +159,6 @@ class AccountController extends Controller
 
     /**
      * Display the specified resource.
-     *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
@@ -157,7 +169,6 @@ class AccountController extends Controller
 
     /**
      * Show the form for editing the specified resource.
-     *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
@@ -168,7 +179,6 @@ class AccountController extends Controller
 
     /**
      * Update the specified resource in storage.
-     *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
@@ -180,7 +190,6 @@ class AccountController extends Controller
 
     /**
      * Remove the specified resource from storage.
-     *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */

@@ -2,25 +2,36 @@
 
 namespace App;
 
-use Illuminate\Notifications\Notifiable;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Zizaco\Entrust\Traits\EntrustUserTrait;
-Use App\Role;
+use App\Role;
 use Auth;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
+use Zizaco\Entrust\Traits\EntrustUserTrait;
 
 class User extends Authenticatable
 {
     use Notifiable;
     use EntrustUserTrait;
-    
+
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'first_name',
+        'last_name',
+        'address',
+        'address2',
+        'plan_start_date',
+        'plan_end_date',
+        'country_id',
+        'accountType',
+        'zipcode',
+        'name',
+        'email',
+        'password',
+        'plan_id',
     ];
 
     /**
@@ -42,30 +53,32 @@ class User extends Authenticatable
     ];
 
     /**
-     * Check Roles admin here 
+     * Check Roles admin here
      *
      * @var array
      */
-    public function isAdmin(){
-        $role = Role::join('role_user','roles.id','=','role_user.role_id')
-                      ->where('user_id',Auth::user()->id)
-                      ->first();
+    public function isAdmin()
+    {
+        $role = Role::join('role_user', 'roles.id', '=', 'role_user.role_id')
+            ->where('user_id', Auth::user()->id)
+            ->first();
         return $role->name == 'admin' ? true : false;
-       
+
     }
     public function getRoles()
     {
         return $this->hasOneThrough('App\Models\Role', 'App\Models\UserRoleRelation', 'user_id', 'id', 'id', 'role_id');
     }
     /**
-     * Check Roles customer here 
+     * Check Roles customer here
      *
      * @var array
      */
-    public function isClient(){
-        $role = Role::join('role_user','roles.id','=','role_user.role_id')
-        ->where('user_id',Auth::user()->id)
-        ->first();
+    public function isClient()
+    {
+        $role = Role::join('role_user', 'roles.id', '=', 'role_user.role_id')
+            ->where('user_id', Auth::user()->id)
+            ->first();
         return $role->name == 'client' ? true : false;
     }
     /**
@@ -73,13 +86,15 @@ class User extends Authenticatable
      *
      * @var string
      */
-     public static function userRole($uid){
-         $data = self::join('role_user','roles.id','=','role_user.role_id')
-         ->where('user_id',$uid)
-         ->first();
-         return $data->name;
+    public static function userRole($uid)
+    {
+        $data = self::join('role_user', 'roles.id', '=', 'role_user.role_id')
+            ->where('user_id', $uid)
+            ->first();
+        return $data->name;
     }
-    public function getRolesUser(){
-        return $this->belongsTo('App\Models\UserRoleRelation','id','user_id');
+    public function getRolesUser()
+    {
+        return $this->belongsTo('App\Models\UserRoleRelation', 'id', 'user_id');
     }
 }

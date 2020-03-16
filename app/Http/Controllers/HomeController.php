@@ -44,8 +44,10 @@ class HomeController extends Controller
     {
         $investmentData = Plan::where('plan_type', '1')->get();
         $coreData = Plan::where('plan_type', '2')->get();
-        // dd($coreData);
-        return view('public.home')->with(['investmentData' => $investmentData, 'coreData' => $coreData]);
+        return view('public.home')->with([
+            'investmentData' => $investmentData, 
+            'coreData' => $coreData
+            ]);
     }
 
     public function contactUs(Request $request)

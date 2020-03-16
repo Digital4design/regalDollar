@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
-class RegisterController extends Controller 
+class RegisterController extends Controller
 {
     /*
     |--------------------------------------------------------------------------
@@ -40,7 +40,6 @@ class RegisterController extends Controller
     {
         $this->middleware('guest');
     }
-
     /**
      * Get a validator for an incoming registration request.
      *
@@ -69,11 +68,6 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
-        //Role defined
-        //    $user->attachRole(2);
-        // or eloquent's original technique
-        //$user->roles()->attach(2); // id only
-
         $roleArray = array(
             'user_id' => $user->id,
             'role_id' => 2, // customer role Id

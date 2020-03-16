@@ -60,7 +60,7 @@
             </div>
 
             <div class="m-t-40 text-center">
-                <p>Don't have an account ? <a href="{{ url('front/create-details') }}" class="font-500 text-primary"> Signup now </a> </p>
+                <p>Don't have an account ? <a href="{{ url('/') }}" class="font-500 text-primary"> Signup now </a> </p>
                 <p>© {{date('Y')}} RegalDollars.com</p>
             </div>
 

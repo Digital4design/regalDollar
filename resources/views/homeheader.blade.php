@@ -77,8 +77,8 @@
                         </li>
                         <li>
                            <a class="show_drop_down" href="#investment">Investment Plans</a>
-                           <span class="nav-separator"></span>
-                           <ul class="children">
+                            <span class="nav-separator"></span>
+                           <!--<ul class="children">
                            <li>
                               <a href="#suppplemented">Supplemented Income Plan</a>
                            </li>
@@ -91,7 +91,7 @@
                            <li>
                               <a href="#60mo">60 Month Millionaire&trade; Plan</a>
                            </li>
-                       </ul>
+                       </ul> -->
                        </li>
                         <li class="menu-item kode-parent-menu">
                            <a href="{{ url('/faq') }}">FAQ</a>
@@ -114,7 +114,7 @@
                               <a class="dropdown-toggle" data-toggle="dropdown" href="#">{{ Auth::user()->name }}
                               <ul class="dropdown-menu">
                                  <li><a href="{{ url($roleName) }}">Dashboard</a></li>
-                                 <li><a href="#">Profile</a></li>
+                                 <li><a href="{{ url($roleName)}}/account">Profile</a></li>
                                  <li><a href="#" onclick="event.preventDefault();document.getElementById('logout-form').submit();">Logout</a>
                                   <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                         @csrf

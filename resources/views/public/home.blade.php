@@ -154,10 +154,10 @@
 									<p style="text-align: left;"><i class="fa fa-arrow-right"></i> {{ $planDesc }}</p>
 									<?php } ?>
 									<!-- <p style="text-align: left;"><i class="fa fa-arrow-right"></i> You will be able to withdrawal your earnings every month.</p>
-                     <p style="text-align: left;"><i class="fa fa-arrow-right"></i> You cannot cancel within the first year.</p>
-                     <p style="text-align: left;"><i class="fa fa-arrow-right"></i> $50,000 become $68,000 in one year // $1,500 a month.</p>
-                     </p> -->
-									<?php if(date("Y-m-d") >= $plan['plan_valid_from']){ ?> <a class="btn-filled" href="{{ url('/register') }}">Get Started</a>
+									<p style="text-align: left;"><i class="fa fa-arrow-right"></i> You cannot cancel within the first year.</p>
+									<p style="text-align: left;"><i class="fa fa-arrow-right"></i> $50,000 become $68,000 in one year // $1,500 a month.</p>
+									</p> -->
+									<?php if(date("Y-m-d") >= $plan['plan_valid_from']){ ?> <a class="btn-filled" href="<?php echo url('/front/create-details') . '/' . Crypt::encrypt($plan->id)  ?>">Get Started</a>
 									<?php }else{ ?>
 									<div class="alert alert-warning">This plan will be available in <b> {{ date('m/d/yy', strtotime($plan->plan_valid_from)) }} </b>
 									</div> <a class="btn-filled" href="#">Get Started</a>
@@ -166,7 +166,7 @@
 						</div>
 					</div>
 					<?php } ?>
-					<!--  
+					<!--
 						<div class="col-md-3">
 						<div class="kode-event-list-2">
 							<div class="kode-thumb">
@@ -216,9 +216,9 @@
 								<a class="btn-filled" href="#">Get Started</a>
 							</div>
 						</div>
-						</div>  
-            </div>  
-						</div>  
+						</div>
+					</div>
+				</div>  
             -->
 			</div>
 			</div>

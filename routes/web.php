@@ -23,7 +23,7 @@ Route::get('/admin2', function () {
     return view('admindashboard');
 });
 Route::group(['prefix' => 'front'], function () {
-    Route::get('/create-details', 'Front\AccountController@index');
+    Route::get('/create-details/{id}', 'Front\AccountController@index');
     Route::post('/create-step1', 'Front\AccountController@postCreateStep1');
     Route::get('/create-step2', 'Front\AccountController@createStep2');
     Route::post('/create-update', 'Front\AccountController@postCreateUpdate');
