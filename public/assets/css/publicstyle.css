@@ -5748,6 +5748,42 @@ li.active::before {
 .show_team_member h2{color: #252D63;}
 .joins{margin-bottom: 0px;}
 
+
+
+.contact_section .right .alert-box{
+	margin: 0 0 15px 40px !important;
+}
+.contact_section .right .alert-box .close span{
+	font-size: 28px !important;
+}
+
+.admin-list{
+	margin: 0;
+    padding: 10px 0px 0px;
+}
+.admin-list a.dropdown-toggle{
+margin: 0 !important;
+}
+.admin-list ul{
+	margin:0px !important;
+	padding:10px;
+}
+.admin-list ul li{width:100%;}
+.admin-list ul li a{
+	color:#656565;
+	margin:0px;
+	padding: 4px 4px !important;
+
+}
+.admin-list ul li:hover{background-color: transparent !important;}
+.admin-list ul li:hover:before{opacity:0;}
+
+.admin-list ul li a:hover{
+	color:#2e96d9;
+	background-color: transparent !important;
+}
+
+
 /********** Responsive ****************/ 
 
 @media only screen and ( max-width:1280px ){

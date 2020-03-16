@@ -1,13 +1,13 @@
-@extends('layouts.master')
+@extends('client.master')
 @section('css')
 <!--Chartist Chart CSS -->
 <link rel="stylesheet" href="{{ URL::asset('plugins/chartist/css/chartist.min.css') }}">
 @endsection
 @section('breadcrumb')
 <div class="col-sm-6">
-   <h4 class="page-title">Dashboard</h4>
+   <h4 class="page-title">{{ (!empty($pageName))? $pageName :'Page Name'  }}</h4>
    <ol class="breadcrumb">
-      <li class="breadcrumb-item active">Welcome back, Neil!</li> 
+      <li class="breadcrumb-item active">Welcome back, {{ Auth::user()->name }} !</li>
    </ol>
 </div>
 @endsection

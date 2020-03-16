@@ -32,9 +32,10 @@
                             <!-- <li>
                                 <a href="/view-plans" class="waves-effect"><i class="ti-bar-chart"></i> Open New Account</a>
                             </li>
+                             -->
                             <li>
-                                <a href="/documents" class="waves-effect"><i class="ti-files"></i><span> Documents & Contracts </span></a>
-                            </li> -->
+                                <a href="{{ url('/admin/documents-management') }}" class="waves-effect"><i class="ti-files"></i><span> Documents & Contracts </span></a>
+                            </li>
 
                             <li class="menu-title">FAQ/Contact</li>
                             <li>

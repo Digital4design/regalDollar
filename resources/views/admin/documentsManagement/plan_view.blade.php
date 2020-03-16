@@ -6,7 +6,7 @@
 
 @section('breadcrumb')
     <div class="col-sm-6">
-        <h4 class="page-title">My Profile</h4>
+        <h4 class="page-title">{{ $pageName }}</h4>
     </div>
 
 @endsection
@@ -17,41 +17,29 @@
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-body">
-                    <div class="row justify-content-center mb-2">
-                        <div class="col-lg-6">
-                            <div class="text-center faq-title pt-4 pb-4">
-                                <div class="pt-3 pb-3">
-                                    <i class="ti-user text-primary h3"></i>
-                                </div>
-                                <h5>Configure My Profile</h5>
-                            </div>
-                        </div>
-                    </div>
+                    
                     <!-- end row -->
 
                     <div class="row">
-                        <div class="col-xl-8">
-                            <h4>Basic Information</h4>
-							@if(Session::has('pstatus'))
-								<div class="alert alert-{{ Session::get('pstatus') }} clearfix">{{ Session::get('pmessage') }}</div>
+                        
+						
+						<div class="col-xl-8">
+                            <h4>User Information</h4>
+							@if(Session::has('status'))
+								<div class="alert alert-{{ Session::get('status') }} clearfix">{{ Session::get('message') }}</div>
 							@endif 	
 							
-                            <form id="frm_info_basic" method="post" action="{{ url('admin/account/edit') }}">
-                            {{ csrf_field() }}
+                            
 							<div class="row">
                                 <div class="col-sm-6">
                                     <div class="input-group mb-3">
                                         <div class="input-group-prepend">
                                             <label class="input-group-text" for="inputGroupSelect01">First Name</label>
                                         </div>
-                                        <input 
-                                        class="form-control" 
-                                        name="first_name" 
-                                        value="{{ old('first_name',(isset(Auth::user()->first_name) && !empty(Auth::user()->first_name)) ? Auth::user()->first_name : '' ) }}" 
-                                        />
-										@if ($errors->has('first_name'))
+                                        <input class="form-control" name="firstName" disabled value="{{ $user->name }}" />
+										@if ($errors->has('firstName'))
 											<span style="display:initial;" class="invalid-feedback" role="alert">
-												<strong>{{ $errors->first('first_name') }}</strong>
+												<strong>{{ $errors->first('firstName') }}</strong>
 											</span>
 										@endif
                                     </div>
@@ -61,14 +49,10 @@
                                         <div class="input-group-prepend">
                                             <label class="input-group-text" for="inputGroupSelect01">Last Name</label>
                                         </div>
-                                        <input 
-                                        class="form-control" 
-                                        name="last_name" 
-                                        value="{{ old('last_name',(isset(Auth::user()->last_name) && !empty(Auth::user()->last_name)) ? Auth::user()->last_name : '' ) }}" 
-                                        />
-                                        @if ($errors->has('last_name'))
+                                        <input class="form-control" name="lastName" value="{{ $user->last_name}}" disabled />
+                                        @if ($errors->has('lastName'))
 											<span style="display:initial;" class="invalid-feedback" role="alert">
-												<strong>{{ $errors->first('last_name') }}</strong>
+												<strong>{{ $errors->first('lastName') }}</strong>
 											</span>
 										@endif
                                     </div>
@@ -80,12 +64,7 @@
                                         <div class="input-group-prepend">
                                             <label class="input-group-text" for="inputGroupSelect01">Address</label>
                                         </div>
-                                        <input 
-                                        class="form-control" 
-                                        name="address" 
-                                        placeholder=""  
-                                        value="{{ old('address',(isset(Auth::user()->address) && !empty(Auth::user()->address)) ? Auth::user()->address : '' ) }}" 
-                                        />
+                                        <input class="form-control" name="info_addr1" placeholder=""  value="{{ $user->address}}" disabled />
                                     </div>
                                 </div>
                                 <div class="col-sm-12">
@@ -93,12 +72,7 @@
                                         <div class="input-group-prepend">
                                             <label class="input-group-text" for="inputGroupSelect01">Address 2</label>
                                         </div>
-                                        <input 
-                                        class="form-control" 
-                                        name="address2" 
-                                        placeholder="Address" 
-                                        value="{{ old('address2',(isset(Auth::user()->address2) && !empty(Auth::user()->address2)) ? Auth::user()->address2 : '' ) }}" 
-                                        />
+                                        <input class="form-control" name="info_addr2" placeholder="Apt/Bldg #" value="{{ $user->address2}}" disabled />
                                     </div>
                                 </div>
                                 
@@ -107,10 +81,10 @@
                                         <div class="input-group-prepend">
                                             <label class="input-group-text" for="inputGroupSelect01">Country</label>
                                         </div>
-                                        <select id="country" class="form-control" name="info_country">
+                                        <select id="country" class="form-control" name="info_country" disabled>
                                             <option>Select Country</option>
-                                            @foreach($vars['country'] as $k=>$v)
-                                                <option value="{{$v->id}}" {{ (isset(Auth::user()->country_id) && !empty(Auth::user()->country_id) && Auth::user()->country_id == $v->id ) ? 'selected=selected' : ''  }}>{{$v->name}}</option>
+                                            @foreach($country as $k=>$v)
+                                                <option value="{{$v->id}}" {{ (isset($user->country_id) && !empty($user->country_id) && $user->country_id == $v->id ) ? 'selected=selected' : ''  }}>{{$v->name}}</option>
                                             @endforeach
                                         </select>
                                         @if ($errors->has('info_country'))
@@ -126,10 +100,10 @@
                                         <div class="input-group-prepend">
                                             <label class="input-group-text" for="inputGroupSelect01">State</label>
                                         </div>
-                                        <select id="states" class="form-control" name="info_state">
-                                         @if (isset($states) && !empty($states))
+                                        <select id="states" class="form-control" name="info_state" disabled>
+                                           @if (isset($states) && !empty($states))
                                            <option value="{{$states->id}}">{{$states->name}}</option>
-                                           @endif  
+                                           @endif
                                         </select>
                                         @if ($errors->has('info_state'))
 											<span style="display:initial;" class="invalid-feedback" role="alert">
@@ -145,7 +119,7 @@
                                             <label class="input-group-text" for="inputGroupSelect01">City</label>
                                         </div>
                                         
-                                        <select id="cities" class="form-control" name="info_city">
+                                        <select id="cities" class="form-control" name="info_city" disabled>
                                             @if (isset($city) && !empty($city))
                                            <option value="{{$city->id}}">{{$city->name}}</option>
                                            @endif
@@ -162,66 +136,18 @@
                                         <div class="input-group-prepend">
                                             <label class="input-group-text" for="inputGroupSelect01">Zip</label>
                                         </div>
-                                        <input 
-                                        class="form-control" 
-                                        type="text" 
-                                        name="zipcode" 
-                                        placeholder="" 
-                                        value="{{ old('zipcode',(isset(Auth::user()->zipcode) && !empty(Auth::user()->zipcode)) ? Auth::user()->zipcode : '' ) }}" 
-                                        />
+                                        <input class="form-control" type="text" name="info_zip" placeholder="" value="{{ $user->zipcode }}" disabled />
                                         @if ($errors->has('info_zip'))
 											<span style="display:initial;" class="invalid-feedback" role="alert">
 												<strong>{{ $errors->first('info_zip') }}</strong>
 											</span>
 										@endif
-                                    </div>
+                                    </div> 
                                 </div>
                             </div>
-                                <button class="btn btn-primary" type="submit">Save Profile</button>
-                        </form>
+                                
                         </div>
-						
-						<div class="col-xl-4">
-						<form class="change_login_details" method="POST" action="{{ url('admin/account/edit-password') }}">
-									{{ csrf_field() }}
-                            <h4>Change Password</h4>
-							@if(Session::has('status'))
-								<div class="alert alert-{{ Session::get('status') }} clearfix">{{ Session::get('message') }}</div>
-							@endif 
-							<div class="input-group mb-3">
-                                <div class="input-group-prepend">
-                                    <label class="input-group-text" for="inputGroupSelect01">Current Password</label>
-                                </div>
-                                <input type="password" class="form-control" name="currentPassword" value="" required />
-								@if ($errors->has('currentPassword'))
-											<span style="display:initial;" class="invalid-feedback" role="alert">
-												<strong>{{ $errors->first('currentPassword') }}</strong>
-											</span>
-								@endif
-                            </div>
-                            <div class="input-group mb-3">
-                                <div class="input-group-prepend">
-                                    <label class="input-group-text" for="inputGroupSelect01">New Password</label>
-                                </div>
-                                <input type="password" class="form-control" name="password" value="" required />
-								@if ($errors->has('password'))
-											<span style="display:initial;" class="invalid-feedback" role="alert">
-												<strong>{{ $errors->first('password') }}</strong>
-											</span>
-								@endif
-                            </div>
-							<div class="input-group mb-3">
-                                <div class="input-group-prepend">
-                                    <label class="input-group-text" for="inputGroupSelect01" >Repeat Password</label>
-                                </div>
-                                <input type="password" class="form-control" name="password_confirmation" value="" required />
-								
-                            </div>
-                            <button class="btn btn-primary" type="submit">Change Password</button>
-							</form>
                         </div>
-
-                    </div>
 
                 </div>
             </div>
@@ -232,8 +158,10 @@
 @endsection
 
 @section('script')
+
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script>
-        $( "#country" ).change(function() {
+$( "#country" ).change(function() {
             $('#states').html('');
             var countyid =  this.value;
             if(countyid !==''){
@@ -278,6 +206,6 @@
 	             });
            }  
         });	
-         
-    </script>
+        
+</script>
 @endsection
