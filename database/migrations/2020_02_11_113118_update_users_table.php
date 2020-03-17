@@ -8,15 +8,14 @@ class UpdateUsersTable extends Migration
 {
     /**
      * Run the migrations.
-     *
      * @return void
      */
     public function up()
     {
         Schema::table('users', function ($table) {
-            $table->string('first_name')->after('password')->nullable();
+            $table->string('first_name')->after('id')->nullable();
             $table->string('last_name')->after('first_name')->nullable();
-            $table->text('address')->after('last_name')->nullable();
+            $table->text('address')->after('plan_id')->nullable();
             $table->string('plan_start_date')->after('address')->nullable();
             $table->string('plan_end_date')->after('plan_start_date')->nullable();
             $table->text('address2')->after('plan_end_date')->nullable();
@@ -28,13 +27,11 @@ class UpdateUsersTable extends Migration
             $table->string('phoneNumber')->after('accountType')->nullable();
             $table->string('birthday')->after('phoneNumber')->nullable();
             $table->string('social_security_number')->after('birthday')->nullable();
-
         });
     }
 
     /**
      * Reverse the migrations.
-     *
      * @return void
      */
     public function down()

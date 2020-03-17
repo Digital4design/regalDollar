@@ -13,6 +13,10 @@
          <a href="#step-3" type="button" class="btn btn-default btn-circle" disabled="disabled">3</a>
          <!-- <p>Step 3</p> -->
       </div>
+      <div class="stepwizard-step">
+         <a href="#step-4" type="button" class="btn btn-default btn-circle" disabled="disabled">4</a>
+         <!-- <p>Step 3</p> -->
+      </div>
    </div>
 </div>
 <div>
