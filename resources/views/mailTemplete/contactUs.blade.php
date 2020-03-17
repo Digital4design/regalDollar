@@ -14,7 +14,7 @@
                         <tr>
                             <td align="center" valign="top">
                                 <!-- <a href="{{ url('') }}"><img src="{{ asset('public/images/logo.png') }}" alt="Insight" width="110" height="30"></a> -->
-                                <a href="{{ url('/login') }}"><img src="{{ asset('public/assets/admin/images/logo_new.png') }}"  width="110" height="30"></a>
+                                <a href="{{ url('/login') }}"><img src="{{ asset('public/assets/images/peacock.png') }}"  width="110" height="30"></a>
                             </td>
                         </tr>
                         <tr>

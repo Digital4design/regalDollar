@@ -148,10 +148,10 @@
                <label for="description">Social Security Number</label>
                <input 
                type="text"  
-               value="{{ old('SSN',(isset($userData) && !empty($userData->SSN)) ? $userData->SSN : '' ) }}"
+               value="{{ old('social_security_number',(isset($userData) && !empty($userData->social_security_number)) ? $userData->social_security_number : '' ) }}"
                class="form-control"  
-               id="SSN" 
-               name="SSN" 
+               id="social_security_number" 
+               name="social_security_number" 
                placeholder="___-__-____"
                />
             </div>
@@ -173,5 +173,7 @@
 </div>
 <!--BUY TEMPLATE SECTION END-->
 </div>
+<br>
+<br><br><br><br><br>
 @include('homefooter')
 @include('homescripts')

@@ -32,6 +32,9 @@ class User extends Authenticatable
         'email',
         'password',
         'plan_id',
+        'phoneNumber',
+        'birthday',
+        'social_security_number'
     ];
 
     /**
