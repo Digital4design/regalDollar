@@ -8,8 +8,8 @@
 @endsection
 @section('content')
 <div class="row">
-<?php 
-    // dd(Auth::user());
+<?php
+// dd(Auth::user());
 ?>
         <div class="col-lg-12">
             <div class="card">
@@ -77,7 +77,7 @@
                                         </div>
                                         <input
                                         class="form-control"
-                                        name="address" 
+                                        name="address"
                                         placeholder=""
                                         value="{{ old('address',(isset(Auth::user()->address) && !empty(Auth::user()->address)) ? Auth::user()->address : '' ) }}"
                                         />
@@ -97,42 +97,108 @@
                                     </div>
                                 </div>
 
-                                <!-- <div class="col-sm-4">
-                                    <div class="input-group mb-3">
-                                        <div class="input-group-prepend">
-                                            <label class="input-group-text" for="inputGroupSelect01">Country</label>
-                                        </div>
-                                        <select id="country" class="form-control" name="info_country">
-                                            <option>Select Country</option>
-                                            @foreach($vars['country'] as $k=>$v)
-                                                <option value="{{$v->id}}" {{ (isset(Auth::user()->country_id) && !empty(Auth::user()->country_id) && Auth::user()->country_id == $v->id ) ? 'selected=selected' : ''  }}>{{$v->name}}</option>
-                                            @endforeach
-                                        </select>
-                                        @if ($errors->has('info_country'))
-											<span style="display:initial;" class="invalid-feedback" role="alert">
-												<strong>{{ $errors->first('info_country') }}</strong>
-											</span>
-										@endif
-                                    </div>
-                                </div> -->
 
-                                <!-- <div class="col-sm-4">
+
+                                <div class="col-sm-4">
                                     <div class="input-group mb-3">
                                         <div class="input-group-prepend">
-                                            <label class="input-group-text" for="inputGroupSelect01">State</label>
+                                            <label class="input-group-text" for="inputGroupSelect01">Account Type</label>
                                         </div>
-                                        <select id="states" class="form-control" name="info_state">
-                                         @if (isset($states) && !empty($states))
-                                           <option value="{{$states->id}}">{{$states->name}}</option>
-                                           @endif
+                                        <select id="country" class="form-control" name="accountType">
+                                            <option>Select Account Type</option>
+                                            <option value="individual" {{ ( 'individual' == Auth::user()->accountType) ? 'selected' : '' }}>Individual</option>
+                                            <option value="company" {{ ( 'company' == Auth::user()->accountType) ? 'selected' : '' }}>Company</option>
+
                                         </select>
-                                        @if ($errors->has('info_state'))
-											<span style="display:initial;" class="invalid-feedback" role="alert">
-												<strong>{{ $errors->first('info_state') }}</strong>
-											</span>
-										@endif
+                                        @if ($errors->has('accountType'))
+                                            <span style="display:initial;" class="invalid-feedback" role="alert">
+                                                <strong>{{ $errors->first('accountType') }}</strong>
+                                            </span>
+                                        @endif
                                     </div>
-                                </div> -->
+                                </div>
+
+                                <div class="col-sm-4">
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <label class="input-group-text" for="inputGroupSelect01">Zip</label>
+                                        </div>
+                                        <input
+                                        class="form-control"
+                                        type="text"
+                                        name="zipcode"
+                                        placeholder=""
+                                        value="{{ old('zipcode',(isset(Auth::user()->zipcode) && !empty(Auth::user()->zipcode)) ? Auth::user()->zipcode : '' ) }}"
+                                        />
+                                        @if ($errors->has('zipcode'))
+                                            <span style="display:initial;" class="invalid-feedback" role="alert">
+                                                <strong>{{ $errors->first('zipcode') }}</strong>
+                                            </span>
+                                        @endif
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-4">
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <label class="input-group-text" for="inputGroupSelect01">Phone Number</label>
+                                        </div>
+                                        <input
+                                        class="form-control"
+                                        type="text"
+                                        name="phoneNumber"
+                                        placeholder=""
+                                        value="{{ old('phoneNumber',(isset(Auth::user()->phoneNumber) && !empty(Auth::user()->phoneNumber)) ? Auth::user()->phoneNumber : '' ) }}"
+                                        />
+                                        @if ($errors->has('phoneNumber'))
+                                            <span style="display:initial;" class="invalid-feedback" role="alert">
+                                                <strong>{{ $errors->first('phoneNumber') }}</strong>
+                                            </span>
+                                        @endif
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-4">
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <label class="input-group-text" for="inputGroupSelect01">Birthday</label>
+                                        </div>
+                                        <input
+                                        class="form-control"
+                                        type="text"
+                                        name="birthday"
+                                        placeholder=""
+                                        value="{{ old('birthday',(isset(Auth::user()->birthday) && !empty(Auth::user()->birthday)) ? Auth::user()->birthday : '' ) }}"
+                                        />
+                                        @if ($errors->has('birthday'))
+                                            <span style="display:initial;" class="invalid-feedback" role="alert">
+                                                <strong>{{ $errors->first('birthday') }}</strong>
+                                            </span>
+                                        @endif
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-4">
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <label class="input-group-text" for="inputGroupSelect01">Social Security Number</label>
+                                        </div>
+                                        <input
+                                        class="form-control"
+                                        type="text"
+                                        name="social_security_number"
+                                        placeholder=""
+                                        value="{{ old('social_security_number',(isset(Auth::user()->social_security_number) && !empty(Auth::user()->social_security_number)) ? Auth::user()->social_security_number : '' ) }}"
+                                        />
+                                        @if ($errors->has('social_security_number'))
+                                            <span style="display:initial;" class="invalid-feedback" role="alert">
+                                                <strong>{{ $errors->first('social_security_number') }}</strong>
+                                            </span>
+                                        @endif
+                                    </div>
+                                </div>
+
+
 
                                 <!-- <div class="col-sm-4">
                                     <div class="input-group mb-3">
@@ -146,31 +212,12 @@
                                            @endif
                                             </select>
                                             @if ($errors->has('info_city'))
-											<span style="display:initial;" class="invalid-feedback" role="alert">
-												<strong>{{ $errors->first('info_city') }}</strong>
-											</span>
-										@endif
+                                            <span style="display:initial;" class="invalid-feedback" role="alert">
+                                                <strong>{{ $errors->first('info_city') }}</strong>
+                                            </span>
+                                        @endif
                                     </div>
                                 </div> -->
-                                <div class="col-sm-4">
-                                    <div class="input-group mb-3">
-                                        <div class="input-group-prepend">
-                                            <label class="input-group-text" for="inputGroupSelect01">Zip</label>
-                                        </div>
-                                        <input 
-                                        class="form-control" 
-                                        type="text" 
-                                        name="zipcode" 
-                                        placeholder="" 
-                                        value="{{ old('zipcode',(isset(Auth::user()->zipcode) && !empty(Auth::user()->zipcode)) ? Auth::user()->zipcode : '' ) }}" 
-                                        />
-                                        @if ($errors->has('info_zip'))
-											<span style="display:initial;" class="invalid-feedback" role="alert">
-												<strong>{{ $errors->first('info_zip') }}</strong>
-											</span>
-										@endif
-                                    </div>
-                                </div>
                             </div>
                                 <button class="btn btn-primary" type="submit">Save Profile</button>
                         </form>
@@ -178,7 +225,7 @@
 
 						<div class="col-xl-4">
 						<form class="change_login_details" method="POST" action="{{ url('client/account/edit-password') }}">
-									{{ csrf_field() }}
+							{{ csrf_field() }}
                             <h4>Change Password</h4>
 							@if(Session::has('status'))
 								<div class="alert alert-{{ Session::get('status') }} clearfix">{{ Session::get('message') }}</div>
@@ -187,28 +234,28 @@
                                 <div class="input-group-prepend">
                                     <label class="input-group-text" for="inputGroupSelect01">Current Password</label>
                                 </div>
-                                <input 
-                                type="password" 
-                                class="form-control" 
-                                name="currentPassword" 
-                                value="" 
-                                required 
+                                <input
+                                type="password"
+                                class="form-control"
+                                name="currentPassword"
+                                value=""
+                                required
                                 />
 								@if ($errors->has('currentPassword'))
-											<span style="display:initial;" class="invalid-feedback" role="alert">
-												<strong>{{ $errors->first('currentPassword') }}</strong>
-											</span>
+                                    <span style="display:initial;" class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('currentPassword') }}</strong>
+                                    </span>
 								@endif
                             </div>
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
                                     <label class="input-group-text" for="inputGroupSelect01">New Password</label>
                                 </div>
-                                <input 
-                                type="password" 
-                                class="form-control" 
-                                name="password" value="" 
-                                required 
+                                <input
+                                type="password"
+                                class="form-control"
+                                name="password" value=""
+                                required
                                 />
 								@if ($errors->has('password'))
                                     <span style="display:initial;" class="invalid-feedback" role="alert">
@@ -220,11 +267,11 @@
                                 <div class="input-group-prepend">
                                     <label class="input-group-text" for="inputGroupSelect01" >Repeat Password</label>
                                 </div>
-                                <input 
-                                type="password" 
-                                class="form-control" 
-                                name="password_confirmation" 
-                                value="" required 
+                                <input
+                                type="password"
+                                class="form-control"
+                                name="password_confirmation"
+                                value="" required
                                 />
                             </div>
                             <button class="btn btn-primary" type="submit">Change Password</button>
