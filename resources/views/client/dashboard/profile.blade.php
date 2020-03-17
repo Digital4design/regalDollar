@@ -144,11 +144,11 @@
                                             <label class="input-group-text" for="inputGroupSelect01">Phone Number</label>
                                         </div>
                                         <input
-                                        class="form-control"
-                                        type="text"
-                                        name="phoneNumber"
-                                        placeholder=""
-                                        value="{{ old('phoneNumber',(isset(Auth::user()->phoneNumber) && !empty(Auth::user()->phoneNumber)) ? Auth::user()->phoneNumber : '' ) }}"
+                                            class="form-control"
+                                            type="text"
+                                            name="phoneNumber"
+                                            placeholder=""
+                                            value="{{ old('phoneNumber',(isset(Auth::user()->phoneNumber) && !empty(Auth::user()->phoneNumber)) ? Auth::user()->phoneNumber : '' ) }}"
                                         />
                                         @if ($errors->has('phoneNumber'))
                                             <span style="display:initial;" class="invalid-feedback" role="alert">
@@ -164,11 +164,11 @@
                                             <label class="input-group-text" for="inputGroupSelect01">Birthday</label>
                                         </div>
                                         <input
-                                        class="form-control"
-                                        type="text"
-                                        name="birthday"
-                                        placeholder=""
-                                        value="{{ old('birthday',(isset(Auth::user()->birthday) && !empty(Auth::user()->birthday)) ? Auth::user()->birthday : '' ) }}"
+                                            class="form-control"
+                                            type="text"
+                                            name="birthday"
+                                            placeholder=""
+                                            value="{{ old('birthday',(isset(Auth::user()->birthday) && !empty(Auth::user()->birthday)) ? Auth::user()->birthday : '' ) }}"
                                         />
                                         @if ($errors->has('birthday'))
                                             <span style="display:initial;" class="invalid-feedback" role="alert">
@@ -184,11 +184,11 @@
                                             <label class="input-group-text" for="inputGroupSelect01">Social Security Number</label>
                                         </div>
                                         <input
-                                        class="form-control"
-                                        type="text"
-                                        name="social_security_number"
-                                        placeholder=""
-                                        value="{{ old('social_security_number',(isset(Auth::user()->social_security_number) && !empty(Auth::user()->social_security_number)) ? Auth::user()->social_security_number : '' ) }}"
+                                            class="form-control"
+                                            type="text"
+                                            name="social_security_number"
+                                            placeholder=""
+                                            value="{{ old('social_security_number',(isset(Auth::user()->social_security_number) && !empty(Auth::user()->social_security_number)) ? Auth::user()->social_security_number : '' ) }}"
                                         />
                                         @if ($errors->has('social_security_number'))
                                             <span style="display:initial;" class="invalid-feedback" role="alert">
