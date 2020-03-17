@@ -3,7 +3,7 @@
 <div class="content form-steps">
 <div class="stepwizard-row setup-panel">
       <div class="stepwizard-step">
-         <a href="{{ url('front/create-details') }}" type="button" class="btn btn-primary btn-circle">1</a>
+         <a href="#" type="button" class="btn btn-primary btn-circle">1</a>
          <!-- <p>Step 1</p> -->
       </div>
       <div class="stepwizard-step">
@@ -12,6 +12,10 @@
       </div>
       <div class="stepwizard-step">
          <a href="#step3" type="button" class="btn btn-default btn-circle" disabled="disabled">3</a>
+         <!-- <p>Step 3</p> -->
+      </div>
+      <div class="stepwizard-step">
+         <a href="#step4" type="button" class="btn btn-default btn-circle" disabled="disabled">4</a>
          <!-- <p>Step 3</p> -->
       </div>
    </div>

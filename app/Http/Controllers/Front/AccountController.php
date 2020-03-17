@@ -18,7 +18,6 @@ use Illuminate\Http\Request;
 class AccountController extends Controller
 {
     use RegistersUsers;
-
     /**
      * Display a listing of the resource.
      * @return \Illuminate\Http\Response
@@ -131,6 +130,9 @@ class AccountController extends Controller
         $data['userData'] = $userData;
         $data['countryData'] = Country::get();
         $data['stateData'] = State::where('country_id', '231')->get();
+
+        return view('front.users.payment', $data);
+
         return view('front.users.create-step3', $data);
     }
 

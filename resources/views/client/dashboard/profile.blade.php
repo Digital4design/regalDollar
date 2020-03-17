@@ -165,7 +165,7 @@
                                         </div>
                                         <input
                                             class="form-control"
-                                            type="text"
+                                            type="date"
                                             name="birthday"
                                             placeholder=""
                                             value="{{ old('birthday',(isset(Auth::user()->birthday) && !empty(Auth::user()->birthday)) ? Auth::user()->birthday : '' ) }}"

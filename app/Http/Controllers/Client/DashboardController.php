@@ -66,7 +66,7 @@ class DashboardController extends Controller
         $rules = [
             'first_name' => 'required|min:2|regex:/^[A-Za-z. -]+$/',
             'last_name' => 'required|min:2|regex:/^[A-Za-z. -]+$/',
-            // 'info_country' => 'required|numeric',
+            'birthday' => 'required',
             // 'info_state' => 'required|numeric',
             // 'info_city' => 'required|numeric',
             'zipcode' => 'required|numeric',
@@ -75,35 +75,30 @@ class DashboardController extends Controller
             'first_name.required' => 'Your first name is required.',
             'last_name.min' => 'First name should contain at least 2 characters.',
         ];
-
         $validator = Validator::make($request->all(), $rules, $messages);
-
         if ($validator->fails()) {
             return back()->withErrors($validator)->withInput();
         }
         try {
             $user = User::find(Auth::user()->id);
-            // dd($user);
             $user->first_name = trim($request->first_name);
             $user->last_name = trim($request->last_name);
             $user->address = trim($request->address);
             $user->address2 = trim($request->address2);
-            // $user->country_id = trim($request->info_country);
-            // $user->state_id = trim($request->info_state);
-            // $user->city_id = trim($request->info_city);
+            $user->birthday = trim($request->birthday);
+            $user->accountType = trim($request->accountType);
+            $user->phoneNumber = trim($request->phoneNumber);
             $user->zipcode = trim($request->zipcode);
+            $user->social_security_number = trim($request->social_security_number);
             $user->save();
-            return redirect('/client/account')->with(['pstatus' => 'success', 'pmessage' => 'your details updated successfully!']);
-
+            return redirect('/client/account')->with(['pstatus' => 'success', 'pmessage' => 'Your details updated successfully!']);
         } catch (\Exception $e) {
-
             return back()->with(['pstatus' => 'danger', 'pmessage' => $e->getMessage()]);
         }
     }
 
     public function editAccountPassword(Request $request)
     {
-        // dd($request->all());
         $rules = [
             'password' => 'required|string|min:6|confirmed',
             'currentPassword' => 'required|',
