@@ -21,9 +21,9 @@
       <div class="container">
          <!--HEADER SECTION START-->
          <h1>Add New Details - Step 2</h1>
-         <?php 
-            // dd($userData->accountType);
-            ?>
+         <?php
+// dd($userData->accountType);
+?>
          <hr>
          <form action="{{ url('front/create-update') }}" method="post">
             {{ csrf_field() }}

@@ -28,6 +28,8 @@ Route::group(['prefix' => 'front'], function () {
     Route::get('/create-step2', 'Front\AccountController@createStep2');
     Route::post('/create-update', 'Front\AccountController@postCreateUpdate');
     Route::post('/update-info', 'Front\AccountController@postInfoUpdate');
+    //Route::post('/update-info', 'Front\AccountController@postInfoUpdate');
+
 });
 /****================================ admin routes start ===================================*/
 Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function () {
