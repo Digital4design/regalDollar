@@ -16,15 +16,15 @@ class CreatePlansTable extends Migration
         Schema::create('plans', function (Blueprint $table) {
             $table->increments('id');
             $table->string('plan_name')->unique();
-            $table->string('slogan');
-            $table->string('icon');
+            $table->string('slogan')->nullable();
+            $table->string('icon')->nullable();
+            $table->string('banner')->nullable();
             $table->integer('price')->unsigned();
             $table->integer('duration')->unsigned();
-            $table->string('time_investment');
-            $table->string('plan_valid_from');
+            $table->string('time_investment')->nullable();
+            $table->string('plan_valid_from')->nullable();
             $table->enum('plan_type', ['0', '1','2'])->default('0')->comment = '0 = No Plan , 1 = Core plan , 2 = Investment plan';
-            $table->string('banner');
-            $table->text('descritpion');
+            $table->text('descritpion')->nullable();
             $table->timestamps();
         });
     }

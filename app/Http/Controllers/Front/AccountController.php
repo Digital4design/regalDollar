@@ -115,14 +115,15 @@ class AccountController extends Controller
     }
     public function postInfoUpdate(Request $request)
     {
+        // dd($request->all());
         $userData = User::find($request->user_id);
         $userData->address = trim($request->address);
         $userData->address2 = trim($request->address2);
         $userData->zipcode = trim($request->zipcode);
         $userData->phoneNumber = trim($request->phoneNumber);
-        // $userData->country = trim($request->country);
+        $userData->birthday = trim($request->birthday);
         // $userData->city = trim($request->city);
-        // $userData->SSN = trim($request->SSN);
+        $userData->social_security_number = trim($request->social_security_number);
         $userData->save();
         $userData = User::find($request->user_id);
         $userData = $request->session()->put('userData', $userData);

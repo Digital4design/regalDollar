@@ -25,6 +25,10 @@ class UpdateUsersTable extends Migration
             $table->integer('city_id')->unsigned()->nullable();
             $table->string('zipcode')->nullable();
             $table->string('accountType')->nullable();
+            $table->string('phoneNumber')->nullable();
+            $table->string('birthday')->nullable();
+            $table->string('social_security_number')->nullable();
+
         });
     }
 
@@ -45,6 +49,10 @@ class UpdateUsersTable extends Migration
             $table->dropColumn('state_id')->nullable();
             $table->dropColumn('city_id')->nullable();
             $table->dropColumn('zipcode')->nullable();
+            $table->dropColumn('accountType')->nullable();
+            $table->dropColumn('phoneNumber')->nullable();
+            $table->dropColumn('birthday')->nullable();
+            $table->dropColumn('social_security_number')->nullable();
         });
     }
 }
