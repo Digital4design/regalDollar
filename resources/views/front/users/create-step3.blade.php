@@ -16,7 +16,7 @@
       </div>
       <div class="stepwizard-step">
          <a href="#step4" type="button" class="btn btn-default btn-circle" disabled="disabled">4</a>
-         <!-- <p>Step 3</p> -->
+         <!-- <p>Step 4</p> -->
       </div>
    </div>
 </div>
