@@ -98,8 +98,8 @@ class DashboardController extends Controller
     public function editAccount(Request $request)
     {
         $rules = [
-            'firstName' => 'required|min:2|regex:/^[A-Za-z. -]+$/',
-            'lastName' => 'required|min:2|regex:/^[A-Za-z. -]+$/',
+            'first_name' => 'required|min:2|regex:/^[A-Za-z. -]+$/',
+            'last_name' => 'required|min:2|regex:/^[A-Za-z. -]+$/',
             'info_country' => 'required|numeric',
             'info_state' => 'required|numeric',
             'info_city' => 'required|numeric',
@@ -117,8 +117,8 @@ class DashboardController extends Controller
         }
         try {
             $user = User::find(Auth::user()->id);
-            $user->name = trim($request->firstName);
-            $user->last_name = trim($request->lastName);
+            $user->first_name = trim($request->first_name);
+            $user->last_name = trim($request->last_name);
             $user->address = trim($request->address);
             $user->address2 = trim($request->address2);
             $user->country_id = trim($request->info_country); 
