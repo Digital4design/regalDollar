@@ -65,6 +65,5 @@
    </section>
 </div>
 <!--BUY TEMPLATE SECTION END-->
-</div>
 @include('homefooter')
 @include('homescripts')
