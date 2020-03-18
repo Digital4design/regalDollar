@@ -7,15 +7,15 @@
          <!-- <p>Step 1</p> -->
       </div>
       <div class="stepwizard-step">
-         <a href="#step2" type="button" class="btn btn-primary btn-circle">2</a>
+         <a href="#step2" type="button" class="btn btn-default btn-circle" disabled="disabled">2</a>
          <!-- <p>Step 2</p> -->
       </div>
       <div class="stepwizard-step">
-         <a href="#step3" type="button" class="btn btn-primary btn-circle">3</a>
+         <a href="#step3" type="button" class="btn btn-default btn-circle" disabled="disabled">3</a>
          <!-- <p>Step 3</p> -->
       </div>
       <div class="stepwizard-step">
-         <a href="#step4" type="button" class="btn btn-primary btn-circle" disabled="disabled">4</a>
+         <a href="#step4" type="button" class="btn btn-default btn-circle" disabled="disabled">4</a>
          <!-- <p>Step 4</p> -->
       </div>
       <div class="stepwizard-step">
@@ -175,15 +175,42 @@
                   value="{{ old('password',(isset($userData) && !empty($userData->password)) ? $userData->password : '' ) }}"
                />
             </div>
+            <div class="form_group">
+               <div class="term_field field">
+                  <input type="checkbox">
+                  <p>I have reviewed and agree to the <a href="#">Terms of Service</a> , <a href="#">Privacy Policy</a>.</p>
+               </div>
+            </div>
+            <div class="break_section"></div>
+            <h2 class="fs-title">We currently only accept investment from US residents.</h2>
+            <h3 class="fs-subtitle">Please confirm the following:</h3>
+            <div class="form_group"> 
+               <div class="citizenship_field field"> 
+                  <span class="label">Country of citizenship</span>
+                  <select class="Country_citizenship">
+                     <option value="Iceland">Iceland</option>
+                     <option value="India">India</option>
+                     <option value="United Kingdom">United Kingdom</option>
+                     <option value="United States" selected="">United States</option>
+                  </select>
+               </div>
+            </div>
+            <div class="Residence_field field">
+               <span class="label">Country of Residence</span>
+               <select class="Country_Residence">
+                  <option value="Iceland">Iceland</option>
+                  <option value="India">India</option>
+                  <option value="United Kingdom">United Kingdom</option>
+                  <option value="United States" selected="">United States</option>
+               </select>
+            </div>
             <a href="#"  class="btn btn-primary">Back</a>
             <button type="submit" class="btn btn-primary">Next</button>
-            
-
          </form>
       </div>
    </section>
 </div>
 <!--BUY TEMPLATE SECTION END-->
-</div>
+
 @include('homefooter')
 @include('homescripts')

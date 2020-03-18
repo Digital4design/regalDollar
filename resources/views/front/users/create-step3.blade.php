@@ -15,7 +15,7 @@
          <!-- <p>Step 3</p> -->
       </div>
       <div class="stepwizard-step">
-         <a href="#step4" type="button" class="btn btn-primary btn-circle" disabled="disabled">4</a>
+         <a href="#step4" type="button" class="btn btn-default btn-circle" disabled="disabled">4</a>
          <!-- <p>Step 4</p> -->
       </div>
       <div class="stepwizard-step">
@@ -144,6 +144,5 @@
    </section>
 </div>
 <!--BUY TEMPLATE SECTION END-->
-</div>
 @include('homefooter')
 @include('homescripts')
