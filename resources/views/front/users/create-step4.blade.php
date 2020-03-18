@@ -1,4 +1,5 @@
 @include('homeheader')
+<!--CONTENT START-->
 <div class="content form-steps">
    <div class="stepwizard-row setup-panel">
       <div class="stepwizard-step">
@@ -34,29 +35,36 @@
 <div>
    <section class="white-bg">
       <div class="container">
-         <!--HEADER SECTION START-->
-         <h1>Add New Details - Step 2</h1>
-  
-         <hr>
-         <form action="{{ url('front/create-update') }}" method="post">
+         <h1>Contact Information - Step 4</h1>
+         <h3>How much would you like to invest ?</h3>
+         <form action="{{ url('front/update-amounts') }}" method="post">
             {{ csrf_field() }}
+    
             <div class="form-group">
                <input type="hidden" value="{{$userData->id}}" class="form-control" id="user_id"  name="user_id">
             </div>
             <div class="form-group">
+               <div>Initial contribution</div>
+            </div>
+
+            <div class="form-group">
+               <div>How much should your initial contibution be?</div>
+            </div>
+            <div class="form-group">
                <label for="description">Account Type</label>
-               <select class="form-control" name="accountType">
-                  <option value="" >Select Account Type</option>
-                  <option value="individual" {{ ( $userData->accountType == "individual" ) ? 'selected' : '' }}>Individual</option>
-                  <option value="company" {{ ( $userData->accountType == "company") ? 'selected' : '' }}>Company</option>
+               <select class="form-control" name="amount">
+                  <option value="" >Select Amount</option>
+                  <option value="$1000" >$1000</option>
+                  <option value="$2000" >$2000</option>
                </select>
             </div>
-            <a href="#"  class="btn btn-primary">Back</a>
-            <button type="submit" class="btn btn-primary">Next</button>
+            <a href="#"  class="btn btn-primary"> Back </a>
+            <button type="submit" class="btn btn-primary"> Next </button>
          </form>
       </div>
    </section>
 </div>
+<!--BUY TEMPLATE SECTION END-->
 </div>
 @include('homefooter')
 @include('homescripts')

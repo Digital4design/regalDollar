@@ -54,9 +54,10 @@
                               <label class="input-group-text" for="inputGroupSelect01">Documents</label>
                            </div>
                            <embed src="{{ url('/public/uploads/documents_management/'.$documentData['documents_path']) }}" type="application/pdf" width="100%" height="100%" />
-                          <!-- <iframe src="{{ url('/public/uploads/documents_management/'.$documentData['documents_path']) }}" height="100%" width="100%"></iframe> -->
-
-                           
+                           <p>
+                               <a href="{{ url('/public/uploads/documents_management/'.$documentData['documents_path']) }}" target="_blank"> Open Files </a>
+                            </p>
+                            <!-- <iframe src="{{ url('/public/uploads/documents_management/'.$documentData['documents_path']) }}" height="100%" width="100%"></iframe> -->      
                         </div>
                      </div>
                   </div>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
 use App\Models\Country;
+use App\Models\DocumentManagemetModel;
 use App\Models\Plan;
 use App\Models\Role;
 use App\Models\State;
@@ -114,7 +115,6 @@ class AccountController extends Controller
     }
     public function postInfoUpdate(Request $request)
     {
-        // dd($request->all());
         $userData = User::find($request->user_id);
         $userData->address = trim($request->address);
         $userData->address2 = trim($request->address2);
@@ -130,8 +130,41 @@ class AccountController extends Controller
         $data['userData'] = $userData;
         $data['countryData'] = Country::get();
         $data['stateData'] = State::where('country_id', '231')->get();
-        return view('front.users.payment', $data);
-        // return view('front.users.create-step3', $data);
+        // return view('front.users.payment', $data);
+        return view('front.users.create-step4', $data);
+    }
+    public function postAmountUpdate(Request $request)
+    {
+        // dd($request->all());
+        $userData = User::find($request->user_id);
+        $userData->amount = trim($request->amount);
+        $userData->save();
+        $userData = User::find($request->user_id);
+        $userData = $request->session()->put('userData', $userData);
+        $userData = $request->session()->get('userData');
+        $documentData = DocumentManagemetModel::get();
+
+        $data['userData'] = $userData;
+        $data['documentData'] = $documentData;
+        //dd($data['documentData']);
+        return view('front.users.create-step5', $data);
+
+    }
+    public function postDocsUpdate(Request $request)
+    {
+        dd($request->all());
+        // $userData = User::find($request->user_id);
+        // $userData->amount = trim($request->amount);
+        // $userData->save();
+        $userData = User::find($request->user_id);
+        $userData = $request->session()->put('userData', $userData);
+        $userData = $request->session()->get('userData');
+        $documentData = DocumentManagemetModel::get();
+        $data['userData'] = $userData;
+        $data['documentData'] = $documentData;
+        //dd($data['documentData']);
+        return view('front.users.create-step6', $data);
+
     }
 
     /**
