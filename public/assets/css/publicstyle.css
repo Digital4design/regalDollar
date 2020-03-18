@@ -5775,6 +5775,9 @@ margin: 0 !important;
 	padding: 4px 4px !important;
 
 }
+.cont-section {
+    padding: 0 !important;
+}
 .admin-list ul li:hover{background-color: transparent !important;}
 .admin-list ul li:hover:before{opacity:0;}
 

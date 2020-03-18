@@ -1,7 +1,23 @@
 @section('css')
 @endsection
-@include('homeheader') 
+@include('homeheader')
+
 <div class="content">
+<div class="inner-banner kode-team-section overlay movingbg normaltopmargin normalbottommargin light movingbg" data-id="customizer" data-title="Theme Customizer" data-direction='horizontal'>
+      <div class="container">
+         <p>
+            <img src="{{ URL::asset('public/assets/images/peacock.png') }}" style="height:100px;">
+         </p>
+         <h2>Flexible Investments. Guaranteed Returns.<br />Freedom to cancel at any time.</h2>
+         <ol class="breadcrumb">
+            <li style="color:#EFEFEF;">
+               RegalDollars is a money investment company with
+               <span style="text-decoration:underline;">guaranteed</span> returns.<br />
+               <span style="font-size:.75em;">(some restrictions apply)</span>
+            </li>
+         </ol>
+        </div>
+    </div> 
 <!--SERVICES SECTION START-->
 <section class="thumb-with-text">
 

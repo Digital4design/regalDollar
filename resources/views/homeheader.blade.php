@@ -25,8 +25,7 @@
     <link href="{{ URL::asset('public/assets/css/shortcode.css') }}" rel="stylesheet">
     <link href="{{ URL::asset('public/assets/css/owl.carousel.css') }}" rel="stylesheet">
     <link href="{{ URL::asset('public/assets/css/js/dl-menu/component.css') }}" rel="stylesheet">
-    <link href="{{ URL::asset('public/assets/css/responsive.css') }}" rel="stylesheet">
-    
+    <link href="{{ URL::asset('public/assets/css/responsive.css') }}" rel="stylesheet">    
 </head>
 <body class="<?php if (isset($pageclass) && !empty($pageclass)) {echo $pageclass;}?>">
 <!--WRAPPER START-->
@@ -124,7 +123,7 @@
                               </ul>
 
                         @else
-                           <a class="sign_up_btn" href="{{ route('register') }}">Sign UP</a>
+                           <!-- <a class="sign_up_btn" href="{{ route('register') }}">Sign UP</a> -->
                            <a class="log_in_btn" href="{{ url('/login') }}">Log In</a>
                         @endif
 
@@ -134,7 +133,7 @@
             </div>
         </div>
     </header>
-    <div class="inner-banner kode-team-section overlay movingbg normaltopmargin normalbottommargin light movingbg" data-id="customizer" data-title="Theme Customizer" data-direction='horizontal'>
+    <!-- <div class="inner-banner kode-team-section overlay movingbg normaltopmargin normalbottommargin light movingbg" data-id="customizer" data-title="Theme Customizer" data-direction='horizontal'>
       <div class="container">
          <p>
             <img src="{{ URL::asset('public/assets/images/peacock.png') }}" style="height:100px;">
@@ -148,4 +147,4 @@
             </li>
          </ol>
         </div>
-    </div>
+    </div> -->

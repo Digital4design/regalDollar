@@ -128,6 +128,7 @@
                                         type="text"
                                         name="zipcode"
                                         placeholder=""
+                                        maxlength="10" aria-required="true"
                                         value="{{ old('zipcode',(isset(Auth::user()->zipcode) && !empty(Auth::user()->zipcode)) ? Auth::user()->zipcode : '' ) }}"
                                         />
                                         @if ($errors->has('zipcode'))
@@ -148,6 +149,7 @@
                                             type="text"
                                             name="phoneNumber"
                                             placeholder=""
+                                            maxlength="14" aria-required="true"
                                             value="{{ old('phoneNumber',(isset(Auth::user()->phoneNumber) && !empty(Auth::user()->phoneNumber)) ? Auth::user()->phoneNumber : '' ) }}"
                                         />
                                         @if ($errors->has('phoneNumber'))
@@ -187,6 +189,7 @@
                                             class="form-control"
                                             type="text"
                                             name="social_security_number"
+                                            maxlength="14" aria-required="true"
                                             placeholder=""
                                             value="{{ old('social_security_number',(isset(Auth::user()->social_security_number) && !empty(Auth::user()->social_security_number)) ? Auth::user()->social_security_number : '' ) }}"
                                         />
@@ -197,9 +200,7 @@
                                         @endif
                                     </div>
                                 </div>
-
-
-
+                                
                                 <!-- <div class="col-sm-4">
                                     <div class="input-group mb-3">
                                         <div class="input-group-prepend">
@@ -218,6 +219,7 @@
                                         @endif
                                     </div>
                                 </div> -->
+                                
                             </div>
                                 <button class="btn btn-primary" type="submit">Save Profile</button>
                         </form>

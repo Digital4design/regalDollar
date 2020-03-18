@@ -75,20 +75,25 @@
                <input 
                   type="text" 
                   value="{{ old('zipcode',(isset($userData) && !empty($userData->zipcode)) ? $userData->zipcode : '' ) }}"
-                  class="form-control" 
+                  class="form-control zipcode required_field valid"
+                  maxlength="10" aria-required="true"  
                   id="zipcode"  
                   name="zipcode"
+                  placeholder="Zip Code"
                />
             </div>
             <div class="form-group">
                <label for="description">Phone Number</label>
-               <input 
-               type="text"  
+               <input
+               type="text" 
+               required="required" 
+               class="form-control phone required_field valid" 
+               maxlength="14" aria-required="true" 
+               aria-invalid="false"
                value="{{ old('phoneNumber',(isset($userData) && !empty($userData->phoneNumber)) ? $userData->phoneNumber : '' ) }}"
-               class="form-control"  
                id="phoneNumber" 
-               name="phoneNumber" 
-               placeholder="(___) ___-____"
+               name="phoneNumber"
+               placeholder="Phone Number"
                />
             </div>
             <div class="form-group">
@@ -104,8 +109,9 @@
                value="{{ old('social_security_number',(isset($userData) && !empty($userData->social_security_number)) ? $userData->social_security_number : '' ) }}"
                class="form-control"  
                id="social_security_number" 
-               name="social_security_number" 
-               placeholder="___-__-____"
+               name="social_security_number"
+               maxlength="14" aria-required="true" 
+               placeholder="Social Security Number"
                />
             </div>
             <div class="form-group">
