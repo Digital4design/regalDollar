@@ -23,7 +23,6 @@ class FQAManagementController extends Controller
      */
     public function index() 
     {
-
         $result = array(
             'pageName' => 'FQA Listing',
             'activeMenu' => 'fqa-management',
@@ -34,7 +33,6 @@ class FQAManagementController extends Controller
     public function FQAData()
     {
         $userList = FQAModel::orderBy('id', 'desc')->get();
-        //dd($userList);
         return Datatables::of($userList)
             ->addColumn('action', function ($userList) {
                 return '<a href ="' . url('/admin/fqa-management/edit') . '/' . Crypt::encrypt($userList->id) . '"  class="btn btn-xs btn-primary edit"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</a>
