@@ -1,4 +1,5 @@
 @include('homeheader')
+<!--CONTENT START-->
 <div class="content form-steps">
    <div class="stepwizard-row setup-panel">
       <div class="stepwizard-step">
@@ -34,29 +35,37 @@
 <div>
    <section class="white-bg">
       <div class="container">
-         <!--HEADER SECTION START-->
-         <h1>Add New Details - Step 2</h1>
-  
-         <hr>
-         <form action="{{ url('front/create-update') }}" method="post">
+         <h1>Agreements - Step 5</h1>
+         <h3>You're almost done!</h3>
+         <form action="{{ url('front/update-info') }}" method="post">
             {{ csrf_field() }}
             <div class="form-group">
-               <input type="hidden" value="{{$userData->id}}" class="form-control" id="user_id"  name="user_id">
+               <input 
+               type="hidden" 
+               value="{{$userData->id}}" 
+               class="form-control" 
+               id="user_id"  
+               name="user_id"
+               />
             </div>
             <div class="form-group">
-               <label for="description">Account Type</label>
-               <select class="form-control" name="accountType">
-                  <option value="" >Select Account Type</option>
-                  <option value="individual" {{ ( $userData->accountType == "individual" ) ? 'selected' : '' }}>Individual</option>
-                  <option value="company" {{ ( $userData->accountType == "company") ? 'selected' : '' }}>Company</option>
-               </select>
+               <p>Please review your information.</p>
             </div>
+            
+            <h4>Investment Information</h4>
+            <div class="form-group">
+               <spam>Please indicate agreement with the following:</spam>
+            </div>
+            
+            
+            
             <a href="#"  class="btn btn-primary">Back</a>
-            <button type="submit" class="btn btn-primary">Next</button>
+            <button type="submit" class="btn btn-primary"> Next </button>
          </form>
       </div>
    </section>
 </div>
+<!--BUY TEMPLATE SECTION END-->
 </div>
 @include('homefooter')
 @include('homescripts')

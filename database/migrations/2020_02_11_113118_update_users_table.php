@@ -27,6 +27,8 @@ class UpdateUsersTable extends Migration
             $table->string('phoneNumber')->after('accountType')->nullable();
             $table->string('birthday')->after('phoneNumber')->nullable();
             $table->string('social_security_number')->after('birthday')->nullable();
+            $table->string('amount')->after('social_security_number')->nullable();
+
         });
     }
 
@@ -50,6 +52,8 @@ class UpdateUsersTable extends Migration
             $table->dropColumn('phoneNumber')->nullable();
             $table->dropColumn('birthday')->nullable();
             $table->dropColumn('social_security_number')->nullable();
+            $table->dropColumn('amount')->nullable();
+
         });
     }
 }
