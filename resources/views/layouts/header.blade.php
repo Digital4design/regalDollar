@@ -15,7 +15,7 @@
       <ul class="navbar-right d-flex list-inline float-right mb-0">
          <li class="dropdown notification-list d-none d-md-block">
             <a class="nav-link dropdown-toggle arrow-none waves-effect" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
-            <img src="{{ URL::asset('public/assets/images/flags/us_flag.jpg') }}" class="mr-2" height="12" alt=""/> English <span class="mdi mdi-chevron-down"></span>
+            <img src="{{ URL::asset('public/assets/images/flags/us_flag.jpg') }}" class="mr-2" height="12" alt=""/>English<span class="mdi mdi-chevron-down"></span>
             </a>
             <div class="dropdown-menu dropdown-menu-right language-switch">
                <a class="dropdown-item" href="#"><img src="{{ URL::asset('public/assets/images/flags/germany_flag.jpg') }}" alt="" height="16" /><span> German </span></a>

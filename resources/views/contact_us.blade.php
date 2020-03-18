@@ -4,8 +4,7 @@
 <div class="content">
 <!--SERVICES SECTION START-->
 <section class="thumb-with-text">
-
-   <div class="inner_page_banner">
+<div class="inner_page_banner">
       <div class="overlay"></div>
          <div class="container">
             <div class="banner_content">
@@ -16,9 +15,6 @@
          </div>
       </div>
    </div>
-
-
-
    <div class="container">
          <div class="contact_section">
             <div class="left">

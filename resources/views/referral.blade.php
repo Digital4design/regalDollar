@@ -3,7 +3,7 @@
 @include('homeheader')
 <div class="content">
 <!--SERVICES SECTION START-->
-<section class="thumb-with-text">
+<section class="thumb-with-text cont-section">
    <div class="join_us_section referral">
       <img src="{{ URL::asset('public/assets/images/internal_banner.jpg') }}" />
       <div class="overlay"></div>

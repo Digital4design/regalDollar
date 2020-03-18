@@ -39,7 +39,7 @@ class PlanManagementController extends Controller
             'activeMenu' => 'plan-management',
         );
         $data['roles'] = Role::get();
-        return view('admin.plans.plan-listing', $result); 
+        return view('admin.plans.plan-listing', $result);
     }
     public function PlanData()
     {
@@ -64,7 +64,7 @@ class PlanManagementController extends Controller
             );
             if ($user) {
                 if (!empty($user->state_id)) {
-                    $data['states'] = State::find($user->state_id); 
+                    $data['states'] = State::find($user->state_id);
                 } else {
                     $data['states'] = '';
                 }
@@ -77,7 +77,7 @@ class PlanManagementController extends Controller
                 $data['user'] = $user;
                 $data['roles'] = Role::get();
 
-                return view('admin.plans.plan_view', $data); 
+                return view('admin.plans.plan_view', $data);
             }
         } catch (\Exception $e) {
             return back()->with(['status' => 'danger', 'message' => $e->getMessage()]);
@@ -118,7 +118,6 @@ class PlanManagementController extends Controller
      */
     public function storePlan(Request $request)
     {
-        //dd($request->all());
         $rules = [
             'plan_name' => 'required|min:4',
             'slogan' => 'required|min:2',

@@ -82,7 +82,7 @@
                            <div class="input-group-prepend">
                               <label class="input-group-text" for="inputGroupSelect01">State</label>
                            </div>
-                           <input class="form-control" name="firstName" disabled value="{{ $states->name }}" />
+                           <input class="form-control" name="state_id" disabled value="{{ $states->name }}" />
                            @if ($errors->has('info_state'))
                            <span style="display:initial;" class="invalid-feedback" role="alert">
                            <strong>{{ $errors->first('info_state') }}</strong>
