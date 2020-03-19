@@ -5,30 +5,24 @@
    <div class="stepwizard-row setup-panel">
       <div class="stepwizard-step">
          <a href="#step1" type="button" class="btn btn-primary btn-circle">1</a>
-         <!-- <p>Step 1</p> -->
       </div>
       <div class="stepwizard-step">
          <a href="#step2" type="button" class="btn btn-primary btn-circle">2</a>
-         <!-- <p>Step 2</p> -->
       </div>
       <div class="stepwizard-step">
          <a href="#step3" type="button" class="btn btn-primary btn-circle">3</a>
-         <!-- <p>Step 3</p> -->
       </div>
       <div class="stepwizard-step">
          <a href="#step4" type="button" class="btn btn-primary btn-circle">4</a>
         </div>
       <div class="stepwizard-step">
-         <a href="#step5" type="button" class="btn btn-default btn-circle" disabled="disabled">5</a>
-         <!-- <p>Step 5</p> -->
+         <a href="#step5" type="button" class="btn btn-primary btn-circle">5</a>
       </div>
       <div class="stepwizard-step">
          <a href="#step6" type="button" class="btn btn-default btn-circle" disabled="disabled">6</a>
-         <!-- <p>Step 6</p> -->
       </div>
       <div class="stepwizard-step">
          <a href="#step7" type="button" class="btn btn-default btn-circle" disabled="disabled">7</a>
-         <!-- <p>Step 7</p> -->
       </div>
    </div>
 </div>
@@ -41,11 +35,11 @@
             {{ csrf_field() }}
             <div class="form-group">
                <input 
-               type="hidden" 
-               value="{{$userData->id}}" 
-               class="form-control" 
-               id="user_id"  
-               name="user_id"
+                  type="hidden" 
+                  value="{{$userData->id}}" 
+                  class="form-control" 
+                  id="user_id"  
+                  name="user_id"
                />
             </div>
             <div class="form-group">

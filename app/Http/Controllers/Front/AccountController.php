@@ -15,6 +15,7 @@ use DB;
 use Hash;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\Request;
+use Validator;
 
 class AccountController extends Controller
 {
@@ -60,38 +61,42 @@ class AccountController extends Controller
             $userData = $request->session()->get('userData');
             return redirect('/front/create-step2');
         } else {
-            // $rules = [
-            //     'first_name' => 'required|min:2',
-            //     'last_name' => 'required|min:2',
-            //     'name' => 'required',
-            //     'email' => 'required',
-            // ];
-            // $messages = [
-            //     'first_name.required' => 'Your first name is required.',
-            //     'first_name.min' => 'First name should contain at least 2 characters.',
-            // ];
-            // $validator = Validator::make($request->all(), $rules, $messages);
-            // if ($validator->fails()) {
-            //     return back()->withErrors($validator)->withInput();
-            // }
-            $userData = User::create([
-                'first_name' => $request->first_name,
-                'last_name' => $request->last_name,
-                'name' => $request->name,
-                'email' => $request->email,
-                'plan_id' => $request->plan_id,
-                'plan_start_date' => $request->plan_start_date,
-                'plan_end_date' => $request->plan_end_date,
-                'password' => Hash::make($request->password),
-            ]);
-            $roleArray = array(
-                'user_id' => $userData->id,
-                'role_id' => 2, // customer role Id
-            );
-            DB::table('role_user')->insert($roleArray);
-            Auth::loginUsingId($userData->id);
-            $request->session()->put('userData', $userData);
-            return redirect('/front/create-step2');
+            $rules = [
+                'first_name' => 'required|min:2',
+                'last_name' => 'required|min:2',
+                // 'name' => 'required',
+                // 'email' => 'required',
+            ];
+            $messages = [
+                'first_name.required' => 'Your first name is required.',
+                'first_name.min' => 'First name should contain at least 2 characters.',
+            ];
+            $validator = Validator::make($request->all(), $rules, $messages);
+            if ($validator->fails()) {
+                return back()->withErrors($validator)->withInput();
+            }
+            try {
+                $userData = User::create([
+                    'first_name' => $request->first_name,
+                    'last_name' => $request->last_name,
+                    'name' => $request->name,
+                    'email' => $request->email,
+                    'plan_id' => $request->plan_id,
+                    'plan_start_date' => $request->plan_start_date,
+                    'plan_end_date' => $request->plan_end_date,
+                    'password' => Hash::make($request->password),
+                ]);
+                $roleArray = array(
+                    'user_id' => $userData->id,
+                    'role_id' => 2, // customer role Id
+                );
+                DB::table('role_user')->insert($roleArray);
+                Auth::loginUsingId($userData->id);
+                $request->session()->put('userData', $userData);
+                return redirect('/front/create-step2');
+            } catch (\Exception $e) {
+                echo $e->getMessage();
+            }
         }
     }
     public function createStep2(Request $request)
@@ -130,12 +135,10 @@ class AccountController extends Controller
         $data['userData'] = $userData;
         $data['countryData'] = Country::get();
         $data['stateData'] = State::where('country_id', '231')->get();
-        // return view('front.users.payment', $data);
         return view('front.users.create-step4', $data);
     }
     public function postAmountUpdate(Request $request)
     {
-        // dd($request->all());
         $userData = User::find($request->user_id);
         $userData->amount = trim($request->amount);
         $userData->save();
@@ -143,16 +146,14 @@ class AccountController extends Controller
         $userData = $request->session()->put('userData', $userData);
         $userData = $request->session()->get('userData');
         $documentData = DocumentManagemetModel::get();
-
         $data['userData'] = $userData;
         $data['documentData'] = $documentData;
-        //dd($data['documentData']);
         return view('front.users.create-step5', $data);
 
     }
     public function postDocsUpdate(Request $request)
     {
-        dd($request->all());
+        // dd($request->all());
         // $userData = User::find($request->user_id);
         // $userData->amount = trim($request->amount);
         // $userData->save();
@@ -162,9 +163,7 @@ class AccountController extends Controller
         $documentData = DocumentManagemetModel::get();
         $data['userData'] = $userData;
         $data['documentData'] = $documentData;
-        //dd($data['documentData']);
         return view('front.users.create-step6', $data);
-
     }
 
     /**
