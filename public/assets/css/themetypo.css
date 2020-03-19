@@ -919,6 +919,103 @@ blockquote a{
     width: 100%;
     float: left;
     margin: 0 0 5px 0;
+    padding: 0 20px 0 0;
+    position: relative;
+}
+.form_outter_section span.edit_field i.fa.fa-pencil-square-o {
+    width: auto;
+    float: right;
+    margin: -7px 0 0 0;
+    position: absolute;
+	right: 0;
+	cursor: pointer;
+    top: 50%;
+}
+.form_outter_section span.edit_field span.title {
+    width: auto;
+    float: left;
+}
+.form_outter_section span.edit_field span.result {
+    width: auto;
+    float: right;
+}
+.form_outter_section p.sign_on {
+    width: 100%;
+    float: left;
+}
+.form_outter_section a.income_file {
+    width: 100%;
+    float: left;
+    margin: 0;
     padding: 0;
+    color: #000;
+    cursor: pointer;
+}
+.form_outter_section #paypal-button-container {
+    width: 300px;
+    float: left;
+    clear: none;
+}
+.paypal-button.paypal-button-layout-vertical {
+    width: 48%;
+    float: left;
+    margin-right: 2%;
+}
+.paypal-powered-by {
+    width: 100%;
+    float: left;
+    margin-bottom: 70px;
+}
+.content.form-steps .stepwizard-step {
+    display: inline-block;
+    margin: 30px 70px 30px 0px;
+    position: relative;
+}
+.content.form-steps .stepwizard-step .btn {
+    display: inline-block;
+    padding: 6px 12px;
+    margin-bottom: 0;
+    font-size: 14px;
+    font-weight: normal;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    border: 1px solid #0e223a;
+    border-radius: 50%;
+    background: #fff;
+    z-index: 12;
+    position: relative;
+    opacity: 1;
+}
+.content.form-steps .stepwizard-step .btn-primary {
+    color: #fff;
+    background-color: #0e223a;
+    border-color: #0e223a;
+}
+.content.form-steps .stepwizard-step .btn-primary::before {
+    position: absolute;
+    width: 87px;
+    content: "";
+    height: 2px;
+    background: #0e223a;
+    top: 50%;
+    margin: -1px 0 0 0;
+    left: 33px;
+    z-index: 10;
+}
+.content.form-steps .stepwizard-step .btn:hover {
+	background: #bc9c5c;
+	border-color: #bc9c5c;
+	box-shadow: 0 0 0 2px white, 0 0 0 3px #bc9c5c;
+	color: #fff;
 }
 /*step form*/

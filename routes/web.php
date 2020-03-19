@@ -4,7 +4,6 @@
 |--------------------------------------------------------------------------
 | Web Routes
 |--------------------------------------------------------------------------
-|
 | Here is where you can register web routes for your application. These
 | routes are loaded by the RouteServiceProvider within a group which
 | contains the "web" middleware group. Now create something great!
@@ -22,6 +21,8 @@ Route::get('/forget-password', function () {
 Route::get('/admin2', function () {
     return view('admindashboard');
 });
+Auth::routes();
+
 Route::group(['prefix' => 'front'], function () {
     Route::get('/create-details/{id}', 'Front\AccountController@index');
     Route::post('/create-step1', 'Front\AccountController@postCreateStep1');
@@ -32,9 +33,8 @@ Route::group(['prefix' => 'front'], function () {
     Route::post('/update-docs', 'Front\AccountController@postDocsUpdate');
     Route::post('/update-agreement', 'Front\AccountController@updateAgreements');
     Route::post('/payment-process', 'PaymentController@paymentProcess');
-
 });
-/****================================ admin routes start ===================================*/
+/**** ================================Admin Routes Start =================================== */
 Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function () {
     Route::get('/', 'Admin\DashboardController@index');
     Route::post('/states', 'Admin\DashboardController@states');
@@ -95,7 +95,9 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function 
     });
 
 });
-/**** admin routes end */
+/****=================================== Admin Routes End ======================================*/
+/**** ================================Client Routes Start =================================== */
+
 Route::group(['prefix' => 'client', 'middleware' => ['auth', 'client']], function () {
     Route::get('/', 'Client\DashboardController@index');
     Route::post('/states', 'Client\DashboardController@states');
@@ -110,15 +112,14 @@ Route::group(['prefix' => 'client', 'middleware' => ['auth', 'client']], functio
         Route::get('/', 'Client\DocumentsManagementController@index');
         Route::get('/documents-data', 'Client\DocumentsManagementController@documentsData');
         Route::get('/view/{id}', 'Client\DocumentsManagementController@singleDocuments');
-
-        // Route::post('/edit', 'Client\DashboardController@editAccount');
-        // Route::post('/edit-password', 'Client\DashboardController@editAccountPassword');
     });
 
     // Route::get('/', function () {
     //     return view('dashboard');
     // });
 });
+
+/****=================================== Client Routes End ======================================*/
 
 Route::get('/signup-login', function () {
     return view('pages-login');
@@ -131,8 +132,6 @@ Route::get('/select-plan/{id}', 'RegalDollarsController@plan')->where('id', '[0-
 Route::get('/funding-plan', 'RegalDollarsController@funding');
 
 Route::get('/profile', 'RegalDollarsController@profile');
-
-Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('{any}', 'VeltrixController@index');

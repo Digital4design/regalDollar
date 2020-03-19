@@ -42,6 +42,7 @@ class AccountController extends Controller
         $new_date = strtotime('+ ' . $planData->time_investment . ' month', $date);
         $valid_till = date('d-m-Y', $new_date);
         $data['roles'] = Role::get();
+        $data['countryData'] = Country::get();
         $data['userData'] = $userData;
         $data['planData'] = $planData;
         $data['valid_till'] = $valid_till;

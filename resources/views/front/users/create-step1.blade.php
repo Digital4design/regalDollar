@@ -178,21 +178,20 @@
             <div class="form_group"> 
                <div class="citizenship_field field"> 
                   <span class="label">Country of citizenship</span>
-                  <select class="Country_citizenship">
-                     <option value="Iceland">Iceland</option>
-                     <option value="India">India</option>
-                     <option value="United Kingdom">United Kingdom</option>
-                     <option value="United States" selected="">United States</option>
+                  <select class="Country_citizenship" name="country_citizenship">
+                  @foreach($countryData as $country)
+                     <option value="{{ $country['name']}}">{{ $country['name']}}</option>
+                     @endforeach
+                     
                   </select>
                </div>
             </div>
             <div class="Residence_field field">
                <span class="label">Country of Residence</span>
-               <select class="Country_Residence">
-                  <option value="Iceland">Iceland</option>
-                  <option value="India">India</option>
-                  <option value="United Kingdom">United Kingdom</option>
-                  <option value="United States" selected="">United States</option>
+               <select class="Country_Residence" name="country_residence">
+                   @foreach($countryData as $country)
+                     <option value="{{ $country['name']}}">{{ $country['name']}}</option>
+                     @endforeach
                </select>
             </div>
             <a href="#"  class="btn btn-primary">Back</a>
