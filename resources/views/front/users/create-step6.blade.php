@@ -40,7 +40,7 @@
          <h2 class="title">You're almost done !</h2>
          <h3 class="subtitle">Please review your information:</h3>
 
-         <form action="{{ url('front/update-info') }}" method="post">
+         <form action="{{ url('front/update-agreement') }}" method="post">
                {{ csrf_field() }}
                   <input 
                   type="hidden" 
@@ -63,7 +63,10 @@
             <span class="section_title">Investment Information</span>
 
             <div class="form-group">
-               
+               <span class="edit_field"><span class="title">Investment plan</span><span class="result">Supplemental Income</span><i class="fa fa-pencil-square-o" aria-hidden="true"></i></span>            
+               <span class="edit_field"><span class="title">Initial Amount</span><span class="result">$41000</span><i class="fa fa-pencil-square-o" aria-hidden="true"></i></span>            
+               <span class="edit_field"><span class="title">Time plans end</span><span class="result">22-Mar-2020</span><i class="fa fa-pencil-square-o" aria-hidden="true"></i></span>            
+               <span class="edit_field"><span class="title">Payment method</span><span class="result">Bank of america 5544</span><i class="fa fa-pencil-square-o" aria-hidden="true"></i></span>            
             </div>
 
             <div class="break_section"></div>
@@ -71,10 +74,9 @@
             <span class="section_title">Agreements</span>  
             
             <div class="form-group">
+               <p class="sign_on">Signed on Feb 04,2020</p>
+               <a class="income_file">Income eREITV, East Coast eREIT, and West Coast eREIT</a>
             </div>
-               
-               
-               
             <a href="#"  class="btn btn-primary">Back</a>
             <button type="submit" class="btn btn-primary"> Next </button>
          </form>

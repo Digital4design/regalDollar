@@ -15,19 +15,19 @@
          <!-- <p>Step 3</p> -->
       </div>
       <div class="stepwizard-step">
-         <a href="#step4" type="button" class="btn btn-primary btn-circle" disabled="disabled">4</a>
+         <a href="#step4" type="button" class="btn btn-primary btn-circle">4</a>
          <!-- <p>Step 4</p> -->
       </div>
       <div class="stepwizard-step">
-         <a href="#step5" type="button" class="btn btn-default btn-circle" disabled="disabled">5</a>
+         <a href="#step5" type="button" class="btn btn-primary btn-circle" >5</a>
          <!-- <p>Step 5</p> -->
       </div>
       <div class="stepwizard-step">
-         <a href="#step6" type="button" class="btn btn-default btn-circle" disabled="disabled">6</a>
+         <a href="#step6" type="button" class="btn btn-primary btn-circle">6</a>
          <!-- <p>Step 6</p> -->
       </div>
       <div class="stepwizard-step">
-         <a href="#step7" type="button" class="btn btn-default btn-circle" disabled="disabled">7</a>
+         <a href="#step7" type="button" class="btn btn-primary btn-circle">7</a>
          <!-- <p>Step 7</p> -->
       </div>
    </div>
@@ -35,7 +35,9 @@
 <div>
    <section class="white-bg">
       <div class="container">
-      <h1>Payment Process - Step 4</h1>
+      <div class="form_outter_section">         
+         <!--HEADER SECTION START-->
+         <h3 class="subtitle">Payment Process:</h3>
       <div id="paypal-button-container"></div>
          <!-- <h1>Payment Section - Step 4</h1>
          <?php // dd($userData); ?>
@@ -69,6 +71,7 @@
             <button type="submit" class="btn btn-primary"> Next </button>
          </form> -->
       </div>
+</div>
    </section>
 </div>
 <!--BUY TEMPLATE SECTION END-->

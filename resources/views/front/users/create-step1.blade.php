@@ -1,9 +1,5 @@
 @include('homeheader')
-<?php 
-// foreach ($countryData as $key => $value) {
-//    dd($value['name']);
-// }
-// dd($countryData); ?>
+<?php //dd($planData->plan_valid_from); ?>
 <div class="content form-steps">
    <div class="stepwizard-row setup-panel">
       <div class="stepwizard-step">
@@ -182,21 +178,19 @@
             <div class="form_group"> 
                <div class="citizenship_field field"> 
                   <span class="label">Country of citizenship</span>
-                  <select class="Country_citizenship" name="">
-                     <option value="Iceland">Iceland</option>
-                     @foreach($countryData as $country)
-                     <option value="{{ $country['name'] }}">{{ $country['name'] }}</option>
+                  <select class="Country_citizenship" name="country_citizenship">
+                  @foreach($countryData as $country)
+                     <option value="{{ $country['name']}}">{{ $country['name']}}</option>
                      @endforeach
-                     <!-- <option value="United Kingdom">United Kingdom</option>
-                     <option value="United States" selected="">United States</option> -->
+                     
                   </select>
                </div>
             </div>
             <div class="Residence_field field">
                <span class="label">Country of Residence</span>
-               <select class="Country_Residence">
+               <select class="Country_Residence" name="country_residence">
                    @foreach($countryData as $country)
-                     <option value="{{ $country['name'] }}">{{ $country['name'] }}</option>
+                     <option value="{{ $country['name']}}">{{ $country['name']}}</option>
                      @endforeach
                </select>
             </div>
