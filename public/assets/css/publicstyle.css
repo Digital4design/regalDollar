@@ -4,7 +4,6 @@
 @import url('https://fonts.googleapis.com/css?family=Pragati+Narrow:400,700&display=swap');
 
 /* Default Css */ 
-
 .wrapper {
 	float: left;
 	width: 100%;
@@ -202,7 +201,7 @@ header {
 	top: 0px;
 	display: none;
 }
-/*===========================================				LOGO===========================================*/
+/*===========================================LOGO===========================================*/
 
 .logo {
 	float: left;
@@ -220,7 +219,7 @@ header {
 .nav-content {
 	float: right;
 }
-/*===========================================			NAVIGATION START===========================================*/
+/*===========================================NAVIGATION START===========================================*/
 
 .navigation {
 	float: left;
@@ -391,7 +390,6 @@ span.nav-separator {
 	margin-top: 9.5px;
 }
 /*adjust nav position*/
-
 .nav-container .nav-content {
 	width: 59%;
 }
@@ -458,7 +456,6 @@ span.nav-separator {
 	color: #bc9c5c;
 }
 /*nav dropdown style*/
-
 .nav-container .navigation ul.children {
 	background-color: #fafafa;
 	position: absolute;
@@ -495,11 +492,8 @@ span.nav-separator {
 	color: #2e96d9;
 }
 /*nav dropdown style*/
-
 /*adjust nav position*/
-
-/*===========================================		SEARCH, NAV BARS, FAV===========================================*/
-
+/*===========================================SEARCH, NAV BARS, FAV===========================================*/
 .kf-nav-options {
 	float: left;
 }
@@ -517,8 +511,7 @@ span.nav-separator {
 	color: #fff;
 	font-size: 16px;
 }
-/*===========================================				BANNER===========================================*/
-
+/*===========================================BANNER===========================================*/
 .main-banner {
 	float: left;
 	width: 100%;
@@ -686,8 +679,7 @@ span.nav-separator {
 .kode-search-2 button i {
 	margin: 0px 10px 0px 0px;
 }
-/*===========================================			SECTION SETTING===========================================*/
-
+/*===========================================SECTION SETTING===========================================*/
 .content section {
 	padding: 100px 0px;
 	float: left;
@@ -733,8 +725,7 @@ span.nav-separator {
 .content section.overlay .container {
 	position: relative;
 }
-/*===========================================			SERVICES SECTION===========================================*/
-
+/*===========================================SERVICES SECTION===========================================*/
 .kf-services {
 	float: left;
 	width: 100%;
@@ -785,7 +776,7 @@ span.nav-separator {
 	font-weight: bold;
 	font-size: 16px;
 }
-/*===========================================			CAUSES SECTION===========================================*/
+/*===========================================CAUSES SECTION===========================================*/
 
 .causes-section {
 	background-image: url(/images/causes-bg.jpg);
@@ -851,8 +842,7 @@ span.nav-separator {
 	margin: 10px 0px;
 	font-weight: bold;
 }
-/*===========================================			CAUSES LISTING SECTION===========================================*/
-
+/*===========================================CAUSES LISTING SECTION===========================================*/
 .kode-cause-list {
 	float: left;
 	width: 100%;
@@ -991,7 +981,10 @@ span.nav-separator {
 .kode-cause-list.kode-list-view .kode-text {
 	width: 70%;
 }
-.kode-cause-list.kode-list-view .fund-meta {}.share-cause {
+.kode-cause-list.kode-list-view .fund-meta {
+
+}
+.share-cause {
 	float: right;
 	margin: 15px 0px;
 }
@@ -1016,8 +1009,7 @@ span.nav-separator {
 	font-size: 14px;
 	color: #6e7474;
 }
-/*===========================================			PROGRESS SECTION===========================================*/
-
+/*===========================================PROGRESS SECTION===========================================*/
 .progress-section {
 	text-align: center;
 }
@@ -1090,8 +1082,7 @@ span.nav-separator {
 	font-size: 40px;
 	color: #fff;
 }
-/*===========================================			VIDEO SECTION===========================================*/
-
+/*===========================================VIDEO SECTION===========================================*/
 .video-section {
 	background-image: url(/images/video-bg.jpg);
 	background-size: cover;
@@ -1142,8 +1133,7 @@ span.nav-separator {
 .video-title h3 {
 	color: #fff;
 }
-/*===========================================			EVENTS SECTION===========================================*/
-
+/*===========================================EVENTS SECTION===========================================*/
 .kode-event-list {
 	float: left;
 	width: 100%;
@@ -1208,8 +1198,7 @@ span.nav-separator {
 	border-width: 1px;
 	border-radius: 5px;
 }
-/*===========================================			EVENTS SECTION 2===========================================*/
-
+/*===========================================EVENTS SECTION 2===========================================*/
 .kode-event-list-2 {
 	float: left;
 	width: 100%;
@@ -1290,8 +1279,7 @@ span.nav-separator {
 	border-radius: 3px;
 	padding: 5px 20px;
 }
-/*===========================================				TEAM SECTION===========================================*/
-
+/*===========================================TEAM SECTION===========================================*/
 .kode-team-section {
 	background-image: url(/images/team-bg.png);
 }
@@ -1386,8 +1374,7 @@ span.nav-separator {
 .kode-social-icons ul li a:before {
 	display: none;
 }
-/*===========================================			BLOG LISTING SECTION===========================================*/
-
+/*===========================================BLOG LISTING SECTION===========================================*/
 .kode-blog-list {
 	float: left;
 	width: 100%;
@@ -1543,8 +1530,7 @@ span.nav-separator {
 .kode-blog-list .btn-borderd:hover {
 	color: #fff;
 }
-/*===========================================			BUY TEMPLATE SECTION===========================================*/
-
+/*===========================================BUY TEMPLATE SECTION===========================================*/
 .content section.buy-template {
 	text-align: center;
 	padding: 50px 0px;
@@ -1568,8 +1554,7 @@ span.nav-separator {
 	background-color: #252525;
 	border-color: #252525;
 }
-/*===========================================				FOOTER===========================================*/
-
+/*===========================================FOOTER===========================================*/
 footer {
 	float: left;
 	width: 100%;
@@ -1630,7 +1615,6 @@ footer .container .widget h2 {
 	color: #bc9c5c;
 }
 /*footer design*/
-
 .footer_nav {
 	width: 100%;
 	float: left;
@@ -1802,8 +1786,7 @@ footer .container .widget h2 {
 }
 /*footer design*/
 
-/*===========================================			INNER PAGE BANNER===========================================*/
-
+/*===========================================INNER PAGE BANNER===========================================*/
 .inner-banner {
 	float: left;
 	width: 100%;
@@ -1856,8 +1839,7 @@ section.thumb-with-text {
 .thumb-with-text .kode-thumb img {
 	width: 100%;
 }
-/*===========================================			TESTIMONIALS===========================================*/
-
+/*===========================================TESTIMONIALS===========================================*/
 section.kode-testimonials {
 	padding-bottom: 50px;
 }
@@ -1929,8 +1911,7 @@ section.kode-testimonials {
 .kode-testimonials-cover .bx-wrapper .bx-controls-direction a.bx-next:before {
 	content: "\f105";
 }
-/*===========================================			SIDE BAR START===========================================*/
-
+/*===========================================SIDE BAR START===========================================*/
 .kode-gallery {}.kode-gallery {
 	list-style: none;
 }
@@ -2023,8 +2004,7 @@ section.kode-contact {
 .kode-contact {
 	text-align: center;
 }
-/*===========================================				SHOP===========================================*/
-
+/*===========================================SHOP===========================================*/
 .kode-shop {
 	float: left;
 	width: 100%;
@@ -2129,8 +2109,7 @@ section.kode-contact {
 .kode-product:hover .btn-filled.view {
 	top: 55%;
 }
-/*===========================================				RATING STARS===========================================*/
-
+/*===========================================RATING STARS===========================================*/
 .rating {
 	unicode-bidi: bidi-override;
 	direction: rtl;
@@ -2147,8 +2126,7 @@ section.kode-contact {
 	content: "\2605";
 	position: absolute;
 }
-/*===========================================				BLOG DETAIL===========================================*/
-
+/*===========================================BLOG DETAIL===========================================*/
 .kode-blog-detail {
 	float: left;
 	width: 100%;
@@ -2267,8 +2245,7 @@ section.kode-contact {
 .kode-share-blog ul li a:hover {
 	color: #fff;
 }
-/*===========================================				COMMENTS===========================================*/
-
+/*===========================================COMMENTS===========================================*/
 .kode-comments {
 	float: left;
 	width: 100%;
@@ -2420,8 +2397,7 @@ section.kode-contact {
 	margin: 0px;
 	line-height: 22px;
 }
-/*===========================================			UNDER CONSTRUCTION===========================================*/
-
+/*===========================================UNDER CONSTRUCTION===========================================*/
 .kode-under-construction {
 	float: left;
 	width: 100%;
@@ -2438,8 +2414,7 @@ section.kode-contact {
 	width: 100%;
 	padding: 30px 0px;
 }
-/*===========================================			CAUES DETAIL===========================================*/
-
+/*===========================================CAUES DETAIL===========================================*/
 .kode-cause-list-detail {
 	background: none;
 }
@@ -2586,13 +2561,13 @@ section.kode-contact {
 .kode-cause-list-detail .kode-fund-raised ul li:first-child {
 	margin: 0px;
 }
-/*=================================================		CHECKBOX AND RADIO BUTTON CSS=================================================*/
-
+/*=================================================CHECKBOX AND RADIO BUTTON CSS========================*/
 label {
 	cursor: pointer;
 }
-/* hide the "real" radios visually */
-
+/* 
+hide the "real" radios visually 
+*/
 .radio input {
 	border: 0;
 	clip: rect(0 0 0 0);
@@ -2604,7 +2579,6 @@ label {
 	width: 1px;
 }
 /* style the "fake" radios */
-
 .radio-value {
 	background-color: #fff;
 	background-repeat: no-repeat;
@@ -2620,8 +2594,7 @@ label {
 input:checked + .radio-value {
 	background-image: url(/images/tick.png);
 }
-/*=================================================				SHOP DETAIL PAGE=================================================*/
-
+/*==========================SHOP DETAIL PAGE=============================*/
 .kode-shop-detail {
 	float: left;
 	width: 100%;
@@ -2754,8 +2727,7 @@ input:checked + .radio-value {
 	float: left;
 	margin: 0px 5px 0px 0px;
 }
-/*=================================================				CUSTOMER REVIEWS=================================================*/
-
+/*=========================CUSTOMER REVIEWS=================================*/
 .kode-reviews {
 	float: left;
 	width: 100%;
@@ -2813,8 +2785,7 @@ input:checked + .radio-value {
 .customer-reviews .header .rating {
 	float: right;
 }
-/*=================================================				EVENT DETAIL=================================================*/
-
+/*=============================EVENT DETAIL==============================*/
 .kode-event-detail {
 	float: left;
 	width: 100%;
@@ -2889,8 +2860,7 @@ input:checked + .radio-value {
 	float: left;
 	width: 100%;
 }
-/*=================================================				TEAM DETAIL=================================================*/
-
+/*================================TEAM DETAIL====================================*/
 .kode-team-detail {
 	float: left;
 	width: 100%;
@@ -3007,8 +2977,7 @@ input:checked + .radio-value {
 	float: left;
 	width: 100%;
 }
-/*=================================================				DONATE PAGE=================================================*/
-
+/*==========================DONATE PAGE==================================*/
 .kode-donate {
 	float: left;
 	width: 100%;
@@ -3145,7 +3114,6 @@ input:checked + .radio-value {
 	float: right;
 }
 /*font-family: 'Source Sans Pro', sans-serif;*/
-
 section.news-subscription {
 	background-image: url(/images/newsletter-bg.jpg);
 	background-size: cover;
@@ -4114,9 +4082,6 @@ body.faq section.thumb-with-text, body.about_us section.thumb-with-text, body.co
 .block ul li {
     list-style: none;
 }
-
-
-
 body.about_us .inner_page_banner {
     background: url(../images/about-us-banner.jpg);
     background-size: cover;
@@ -4622,7 +4587,6 @@ body.registration section.thumb-with-text {
     padding: 70px 0;
 }
 /*register form*/
-
 #msform {
     width: 100%;
     margin: 0 auto;
@@ -5307,15 +5271,12 @@ div.keywords > div > div.row > div > label.active {
 .plan-detail-page section.thumb-with-text {
     padding: 0; 
 }
-
-
 .main_title_block a.text-color-current-color {
     color: #fff;
 }
 .main_title_block line {
     color: #fff;
 }
-
 .plan-detail-page .banner_content h1.heading-text-color {
     color: #fff; 
     font-size: 36px;
@@ -5429,7 +5390,6 @@ div.keywords > div > div.row > div > label.active {
     font-weight: 100;
     line-height: 28px;
 }
-
 .dark{
     color: #242628;
 }
@@ -5500,8 +5460,8 @@ div#Strategy {
     border-radius: 3px;
     letter-spacing: inherit;
     -webkit-transition: .15s;
-    transition: .15s;
-	    font-size: 18px;
+	transition: .15s;
+	font-size: 18px;
 }
 .button-group {
     float: left;
@@ -5509,14 +5469,14 @@ div#Strategy {
     margin: 15px 0;
 	-webkit-box-pack: center;
     -ms-flex-pack: center;
-    justify-content: center;
-	    display: flex;
+	justify-content: center;
+	display: flex;
 }
 .marketing-section2 {
     text-align: left !important;
 }    
 .marketing-section2 p.delta-md.ng-binding {
-           padding-left: 0;
+	padding-left: 0;
     padding-top: 0;
     font-size: 18px;
 }
@@ -5524,20 +5484,15 @@ div#Strategy {
     font-size: 32px;
     line-height: 42px;
 }
-
-
 .marketing-section2 .block-sec {
 	float: left;
 	width: 100%;
 	margin: 4em 0;
-	    position: relative;
-
+	position: relative;
 }
 .marketing-section2 .block-sec .col-sec{
     width: 50%; float: left;
 }
-
-
 .stacked-step__count {
     position: absolute;
     top: 0.5rem;
@@ -5549,17 +5504,14 @@ div#Strategy {
     border-radius: 50%;
     display: flex;
     align-items: center;
-    justify-content: center;
-        font-size: 24px;
+	justify-content: center;
+	font-size: 24px;
 }
 .stacked-step__body{
-
 	padding-right: 1.5rem;
-	position:relative; 
-	    padding-left: 7.5rem;
-	
+	position:relative;
+	padding-left: 7.5rem;
 }
-
 .beta-md {
     font-size: 36px;
     letter-spacing: -.02em;
@@ -5568,15 +5520,14 @@ div#Strategy {
     font-size: 18px;
 }
 .zeta {
-    font-size: 14px;
-	    padding-top: 16px;
-
+	font-size: 14px;
+	padding-top: 16px;
 }
 .bg-dark-blue {
     background-color: #036;
     background-image: -webkit-gradient(linear,left top,right top,from(#00264d),color-stop(50%,#036));
-    background-image: linear-gradient(to right,#00264d,#036 50%);
-	    float: left;
+	background-image: linear-gradient(to right,#00264d,#036 50%);
+	float: left;
     width: 100%;
     text-align: center;
 	padding: 50px 0;
@@ -5588,7 +5539,6 @@ div#Strategy {
 .font-weight-lighter-md {
     font-weight: lighter;
 }
-
 .reversed-md {
     color: rgba(255,255,255,.75);    font-size: 20px; 
 }
@@ -5703,8 +5653,6 @@ section.mission-section .heading p {
     text-align: center;
 	margin-top: 12px;
 }
-
-
 /* style start march-3,20 */
 .plans_section{
     width: 100%;
@@ -5744,19 +5692,18 @@ li.active::before {
     bottom: 6px;
 	left: 14px;
 }
-
-.show_team_member h2{color: #252D63;}
-.joins{margin-bottom: 0px;}
-
-
-
+.show_team_member h2{
+	color: #252D63;
+}
+.joins{
+	margin-bottom: 0px;
+}
 .contact_section .right .alert-box{
 	margin: 0 0 15px 40px !important;
 }
 .contact_section .right .alert-box .close span{
 	font-size: 28px !important;
 }
-
 .admin-list{
 	margin: 0;
     padding: 10px 0px 0px;
@@ -5773,81 +5720,154 @@ margin: 0 !important;
 	color:#656565;
 	margin:0px;
 	padding: 4px 4px !important;
-
 }
 .cont-section {
     padding: 0 !important;
 }
 .admin-list ul li:hover{background-color: transparent !important;}
-.admin-list ul li:hover:before{opacity:0;}
-
+.admin-list ul li:hover:before{
+	opacity:0;
+}
 .admin-list ul li a:hover{
 	color:#2e96d9;
 	background-color: transparent !important;
 }
-
+.content.form-steps .stepwizard-step:last-child .btn-primary::before {
+	content: none;
+}
 /********** Responsive ****************/ 
 
 @media only screen and ( max-width:1280px ){
-	
-	.logo {	padding-right: 0;width: 100px;	}
-	.logo img {	width: 100%;float: left;	}
-	.logo img:nth-child(1) {width: 74px;height: 40px !important;margin-left: 12px;margin-bottom: 6px;}
-	.nav-container .nav-content {width: auto;margin: 27px 0px;}
-	.navigation ul li a {padding: 0 10px !important;}
-	
-	.plans_section .block .detail_sec p {padding: 0px 8%;line-height: 22px;	}
-	.plans_section .block .detail_sec .progress_bar span.bar_title { width: auto;}
-	.plans_section .block .detail_sec .progress_bar .track {width: 100px;float: right;height: 6px;	}
-	.plans_section .block .detail_sec h2.title {margin-bottom: 5px;}
-	.kode-event-list-2 .kode-text {min-height: 402px;}
-		
+	.logo {	
+		padding-right: 0;width: 100px;	
+	}
+	.logo img {	
+		width: 100%;float: left;	
+	}
+	.logo img:nth-child(1) {
+		width: 74px;height: 40px !important;margin-left: 12px;margin-bottom: 6px;
+	}
+	.nav-container .nav-content {
+		width: auto;margin: 27px 0px;
+	}
+	.navigation ul li a {
+		padding: 0 10px !important;
+	}
+	.plans_section .block .detail_sec p {
+		padding: 0px 8%;line-height: 22px;	
+	}
+	.plans_section .block .detail_sec .progress_bar span.bar_title { 
+		width: auto;
+	}
+	.plans_section .block .detail_sec .progress_bar .track {
+		width: 100px;float: right;height: 6px;	
+	}
+	.plans_section .block .detail_sec h2.title {
+		margin-bottom: 5px;
+	}
+	.kode-event-list-2 .kode-text {
+		min-height: 402px;
+	}
 }
 
 @media only screen and ( max-width:991px ){
-	
-   .plans_section .block {width: 100%;margin-bottom:30px;}
-   .plans_section .block .detail_sec .progress_bar .track {width: 78%;}
-   .kode-event-list-2 .kode-text {  min-height: auto;}
-   .plans .kode-text p {float: left;width: 100%;}
-   .plans .kode-text a.btn-filled {  position: unset; } 
-
+	.plans_section .block {
+		width: 100%;
+		margin-bottom:30px;
+	}
+   .plans_section .block .detail_sec .progress_bar .track {
+	   width: 78%;
+	}
+   .kode-event-list-2 .kode-text {  
+	   min-height: auto;
+	}
+   .plans .kode-text p {
+	   float: left;
+	   width: 100%;
+	}
+   .plans .kode-text a.btn-filled {  
+	   position: unset; 
+	} 
 }
-
-
 @media only screen and ( max-width:980px ){
-	
-	.footer_nav .block { width: 50%;margin: 0 0 35px;text-align: center;}
-	.logo img {   width: auto;}
-	.logo {  width: auto !important; padding: 0 0;} 
-	.navigation ul li a {  padding: 0 8px !important;} 
-	.nav-container .nav-content {  margin: 15px 0px;} 
-	.nav-container { padding: 18px 0;} 
-	.inner-banner { padding: 60px 0 20px !important;}
-	.kode-team-section { height: 530px;}
-	.inner-banner h2 { font-size: 32px; line-height: 52px; padding: 20px 30px 0;}
-	.breadcrumb > li {font-size: 20px;}
-	section.Referral-section p { padding: 0 3em;} 
-	.how-option .col-md-6 { text-align: center; margin-bottom: 24px;  font-size: 18px;}
-	.how-option .col-md-6 img { margin-bottom: 14px;}
-	.how-option .col-md-12 p {text-align: center;font-size: 18px;border-top: 1px solid #ccc;padding-top: 15px;	margin-top: 8px;	}	
-	.img-abt img {	width: 100%;padding: 0 !important;}
-	.kode-pagesection .col-md-8 {	margin-top: 26px;font-size: 16px;}
-	.footer_nav .block:nth-child(2n) {	border: none;}
-	.social_icon .contact_detail { text-align: center;  width: 100%;}  
-		
+	.footer_nav .block { 
+		width: 50%;
+		margin: 0 0 35px;
+		text-align: center;
+	}
+	.logo img {   
+		width: auto;
+	}
+	.logo {  
+		width: auto !important; 
+		padding: 0 0;
+	} 
+	.navigation ul li a {  
+		padding: 0 8px !important;
+	} 
+	.nav-container .nav-content { 
+		 margin: 15px 0px;
+		} 
+	.nav-container { 
+		padding: 18px 0;
+	} 
+	.inner-banner { 
+		padding: 60px 0 20px !important;
+	}
+	.kode-team-section { 
+		height: 530px;
+	}
+	.inner-banner h2 { 
+		font-size: 32px; 
+		line-height: 52px; 
+		padding: 20px 30px 0;
+	}
+	.breadcrumb > li {
+		font-size: 20px;
+	}
+	section.Referral-section p { 
+		padding: 0 3em;
+	} 
+	.how-option .col-md-6 { 
+		text-align: center; 
+		margin-bottom: 24px;  
+		font-size: 18px;
+	}
+	.how-option .col-md-6 img { 
+		margin-bottom: 14px;
+	}
+	.how-option .col-md-12 p {
+		text-align: center;
+		font-size: 18px;
+		border-top: 1px solid #ccc;
+		padding-top: 15px;
+		margin-top: 8px;	
+	}	
+	.img-abt img {	
+		width: 100%;
+		padding: 0 !important;
+	}
+	.kode-pagesection .col-md-8 {	
+		margin-top: 26px;
+		font-size: 16px;
+	}
+	.footer_nav .block:nth-child(2n) {	
+		border: none;
+	}
+	.social_icon .contact_detail { 
+		text-align: center;  width: 100%;
+	} 
 }
-
-
 @media only screen and ( max-width:767px ){
-	
-	.container { width: 95% !important;}         
-	.core_plans_section .heading-4 p { font-size: 18px;}  
-		
-}   
-
+	.container { 
+		width: 95% !important;
+	} 
+	.core_plans_section .heading-4 p { 
+		font-size: 18px;
+	}  
+} 
 @media only screen and ( max-width:640px ){    
-	
-	.footer_nav .block {width: 100%;text-align: center;	min-height: unset;	}
-		
+	.footer_nav .block {
+		width: 100%;text-align: center;	min-height: unset;	
+	}
 }   

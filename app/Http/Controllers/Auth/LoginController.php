@@ -61,7 +61,10 @@ class LoginController extends Controller
 
 			if(Auth::attempt(['email' => request('email'), 'password' => request('password')])){ 
 				
-				$userData = Auth::user(); 
+                $userData = Auth::user(); 
+                $userData = $request->session()->put('userData', $userData);
+
+                
                 //print_r($userData);
                 // return redirect('/');
 
