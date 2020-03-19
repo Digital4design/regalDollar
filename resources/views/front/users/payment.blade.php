@@ -37,21 +37,7 @@
       <div class="container">
       <h1>Payment Process - Step 4</h1>
       <div id="paypal-button-container"></div>
-         <!-- <h1>Payment Section - Step 4</h1>
-         <?php // dd($userData); ?>
-         <hr>
-         <form class="w3-container w3-display-middle w3-card-4 w3-padding-16" method="POST" id="payment-form" action="{{ url('front/payment-process') }}">
-            <div class="w3-container w3-teal w3-padding-16">Paywith Paypal</div>
-            {{ csrf_field() }}
-            <h2 class="w3-text-blue">Payment Form</h2>
-            <p> Demo PayPal form -Integrating paypal in Laravel</p>
-            <label class="w3-text-blue"><b>Enter Amount</b></label>
-            <input type="text" name="amount" id="" value="{{$userData->id}}" class="w3-input w3-border">
-            <button class="w3-btn w3-blue">Pay with Paypal</button>
-
-         </form> -->
-
-
+         <h1>Payment Section - Step 4</h1>
          <!-- <form action="{{ url('front/payment-process') }}" method="post">
             {{ csrf_field() }}
             <div class="form-group">

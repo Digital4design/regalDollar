@@ -33,13 +33,12 @@ class PaymentController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function paymentProcess(Request $request){
-        dd("JLKLKKL");
+        dd($request->all());
     }
     public function index()
     {
         //
     }
-
     /**
      * Show the form for creating a new resource.
      * @return \Illuminate\Http\Response
@@ -48,7 +47,6 @@ class PaymentController extends Controller
     {
         //
     }
-
     /**
      * Store a newly created resource in storage.
      * @param  \Illuminate\Http\Request  $request
@@ -58,7 +56,6 @@ class PaymentController extends Controller
     {
         //
     }
-
     /**
      * Display the specified resource.
      * @param  int  $id
@@ -68,7 +65,6 @@ class PaymentController extends Controller
     {
         //
     }
-
     /**
      * Show the form for editing the specified resource.
      * @param  int  $id
@@ -78,7 +74,6 @@ class PaymentController extends Controller
     {
         //
     }
-
     /**
      * Update the specified resource in storage.
      * @param  \Illuminate\Http\Request  $request
