@@ -3,22 +3,36 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Paypal\Api\Details;
+use PayPal\Api\Item;
+use PayPal\Api\ItemList;
+use PayPal\Api\Payer;
+use PayPal\Api\Payment;
+use PayPal\Api\RedirectUrls;
+use PayPal\Api\Transaction;
+use PayPal\Auth\OAuthTokenCredential;
 use PayPal\Rest\ApiContext;
+
+use PayPal\Api\ChargeModel;
+use PayPal\Api\Currency;
+use PayPal\Api\MerchantPreferences;
+use PayPal\Api\PaymentDefinition;
+use PayPal\Api\Plan;
+use PayPal\Api\Amount;
+
 
 class PaymentController extends Controller
 {
     private $_api_context;
-    public function __construct()
-    {
+    public function __construct(){
         $paypal_conf = \Config::get('paypal');
-        $this->_api_context = new ApiContext();
+        $this->_api_context =new ApiContext();
     }
     /**
      * Display a listing of the resource.
      * @return \Illuminate\Http\Response
      */
-    public function paymentProcess(Request $request)
-    {
+    public function paymentProcess(Request $request){
         dd($request->all());
     }
     public function index()
@@ -70,6 +84,7 @@ class PaymentController extends Controller
     {
         //
     }
+
     /**
      * Remove the specified resource from storage.
      * @param  int  $id
