@@ -35,23 +35,23 @@
 <div>
    <section class="white-bg">
       <div class="container">
-         <h1>Contact Information - Step 4</h1>
-         <h3>How much would you like to invest ?</h3>
+
+      <div class="form_outter_section">         
+         <!--HEADER SECTION START-->
+         <h2 class="title">We currently accept investment from US residents.</h2>
+         <h3 class="subtitle">Please confirm the following:</h3>
+
          <form action="{{ url('front/update-amounts') }}" method="post">
-            {{ csrf_field() }}
-    
-            <div class="form-group">
-               <input type="hidden" value="{{$userData->id}}" class="form-control" id="user_id"  name="user_id">
-            </div>
-            <div class="form-group">
-               <div>Initial contribution</div>
-            </div>
+            {{ csrf_field() }}    
+            <input type="hidden" value="{{$userData->id}}" class="form-control" id="user_id"  name="user_id">
+
+            
+            <span class="subtitle">How much would you like to invest?</span>
 
             <div class="form-group">
-               <div>How much should your initial contibution be?</div>
+               <p>How much should your initial contibution be?</p>
             </div>
             <div class="form-group">
-               <label for="description">Account Type</label>
                <select class="form-control" name="amount">
                   <option value="" >Select Amount</option>
                   <option value="$1000" >$1000</option>
@@ -61,6 +61,7 @@
             <a href="#"  class="btn btn-primary"> Back </a>
             <button type="submit" class="btn btn-primary"> Next </button>
          </form>
+         </div>
       </div>
    </section>
 </div>
