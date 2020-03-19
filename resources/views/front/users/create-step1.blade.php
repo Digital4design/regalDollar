@@ -1,5 +1,9 @@
 @include('homeheader')
-<?php //dd($planData->plan_valid_from); ?>
+<?php 
+// foreach ($countryData as $key => $value) {
+//    dd($value['name']);
+// }
+// dd($countryData); ?>
 <div class="content form-steps">
    <div class="stepwizard-row setup-panel">
       <div class="stepwizard-step">
@@ -178,21 +182,22 @@
             <div class="form_group"> 
                <div class="citizenship_field field"> 
                   <span class="label">Country of citizenship</span>
-                  <select class="Country_citizenship">
+                  <select class="Country_citizenship" name="">
                      <option value="Iceland">Iceland</option>
-                     <option value="India">India</option>
-                     <option value="United Kingdom">United Kingdom</option>
-                     <option value="United States" selected="">United States</option>
+                     @foreach($countryData as $country)
+                     <option value="{{ $country['name'] }}">{{ $country['name'] }}</option>
+                     @endforeach
+                     <!-- <option value="United Kingdom">United Kingdom</option>
+                     <option value="United States" selected="">United States</option> -->
                   </select>
                </div>
             </div>
             <div class="Residence_field field">
                <span class="label">Country of Residence</span>
                <select class="Country_Residence">
-                  <option value="Iceland">Iceland</option>
-                  <option value="India">India</option>
-                  <option value="United Kingdom">United Kingdom</option>
-                  <option value="United States" selected="">United States</option>
+                   @foreach($countryData as $country)
+                     <option value="{{ $country['name'] }}">{{ $country['name'] }}</option>
+                     @endforeach
                </select>
             </div>
             <a href="#"  class="btn btn-primary">Back</a>
