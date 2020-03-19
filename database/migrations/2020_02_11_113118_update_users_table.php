@@ -28,7 +28,8 @@ class UpdateUsersTable extends Migration
             $table->string('birthday')->after('phoneNumber')->nullable();
             $table->string('social_security_number')->after('birthday')->nullable();
             $table->string('amount')->after('social_security_number')->nullable();
-
+            $table->string('country_citizenship')->after('amount')->nullable();
+            $table->string('country_residence')->after('country_citizenship')->nullable();
         });
     }
 
@@ -53,7 +54,8 @@ class UpdateUsersTable extends Migration
             $table->dropColumn('birthday')->nullable();
             $table->dropColumn('social_security_number')->nullable();
             $table->dropColumn('amount')->nullable();
-
+            $table->dropColumn('country_citizenship')->nullable();
+            $table->dropColumn('country_residence')->nullable();
         });
     }
 }

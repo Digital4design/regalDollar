@@ -52,6 +52,7 @@ class AccountController extends Controller
     {
         if ($request->user_id != '') {
             $userData = User::find($request->user_id);
+            // dd($userData);
             $userData->first_name = trim($request->first_name);
             $userData->last_name = trim($request->last_name);
             $userData->name = trim($request->name);
@@ -85,6 +86,8 @@ class AccountController extends Controller
                     'plan_id' => $request->plan_id,
                     'plan_start_date' => $request->plan_start_date,
                     'plan_end_date' => $request->plan_end_date,
+                    'country_citizenship' => $request->country_citizenship,
+                    'country_residence' => $request->country_residence,
                     'password' => Hash::make($request->password),
                 ]);
                 $roleArray = array(

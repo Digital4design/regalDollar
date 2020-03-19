@@ -3,75 +3,60 @@
    <div class="stepwizard-row setup-panel">
       <div class="stepwizard-step">
          <a href="#step1" type="button" class="btn btn-primary btn-circle">1</a>
-         <!-- <p>Step 1</p> -->
       </div>
       <div class="stepwizard-step">
          <a href="#step2" type="button" class="btn btn-primary btn-circle">2</a>
-         <!-- <p>Step 2</p> -->
       </div>
       <div class="stepwizard-step">
          <a href="#step3" type="button" class="btn btn-default btn-circle" disabled="disabled">3</a>
-         <!-- <p>Step 3</p> -->
       </div>
       <div class="stepwizard-step">
          <a href="#step4" type="button" class="btn btn-default btn-circle" disabled="disabled">4</a>
-         <!-- <p>Step 4</p> -->
       </div>
       <div class="stepwizard-step">
          <a href="#step5" type="button" class="btn btn-default btn-circle" disabled="disabled">5</a>
-         <!-- <p>Step 5</p> -->
       </div>
       <div class="stepwizard-step">
          <a href="#step6" type="button" class="btn btn-default btn-circle" disabled="disabled">6</a>
-         <!-- <p>Step 6</p> -->
       </div>
       <div class="stepwizard-step">
          <a href="#step7" type="button" class="btn btn-default btn-circle" disabled="disabled">7</a>
-         <!-- <p>Step 7</p> -->
       </div>
    </div>
 </div>
 <div>
    <section class="white-bg">
       <div class="container">
-     
-      <div class="form_outter_section">         
-         <!--HEADER SECTION START-->
-         <h2 class="title">We currently accept investment from US residents.</h2>
-         <h3 class="subtitle">Please confirm the following:</h3>
-
-         <form action="{{ url('front/create-update') }}" method="post">
-            {{ csrf_field() }}
-            <input type="hidden" value="{{$userData->id}}" class="form-control" id="user_id"  name="user_id">
-            
-            <div class="form-group">
-               <label for="description">Account Type</label>
-               <select class="form-control" name="accountType">
-                  <option value="" >Select Account Type</option>
-                  <option value="individual" {{ ( $userData->accountType == "individual" ) ? 'selected' : '' }}>Individual</option>
-                  <option value="company" {{ ( $userData->accountType == "company") ? 'selected' : '' }}>Company</option>
-               </select>
-            </div>
-
-            <div class="break_section"></div>
-            
-            <h2 class="title">Let's finish getting your account set up.</h2>
-            <h3 class="subtitle">What type of account would you like to open?</h3>
-
-            <div class="form_group">
-               <div class="account_type_fields field">
-                  <div class="account">					
-                     <input type="radio">
-                     <p>Individual account</p>
+         <div class="form_outter_section">  
+            <!--HEADER SECTION START-->
+            <h2 class="title">We currently accept investment from US residents.</h2>
+            <h3 class="subtitle">Please confirm the following:</h3>
+            <form action="{{ url('front/create-update') }}" method="post">
+               {{ csrf_field() }}
+               <input type="hidden" value="{{$userData->id}}" class="form-control" id="user_id"  name="user_id">
+               <div class="form-group">
+                  <label for="description">Account Type</label>
+                  <select class="form-control" name="accountType">
+                     <option value="" >Select Account Type</option>
+                     <option value="individual" {{ ( $userData->accountType == "individual" ) ? 'selected' : '' }}>Individual</option>
+                     <option value="company" {{ ( $userData->accountType == "company") ? 'selected' : '' }}>Company</option>
+                  </select>
+               </div>
+               <div class="break_section"></div>
+               <h2 class="title">Let's finish getting your account set up.</h2>
+               <h3 class="subtitle">What type of account would you like to open?</h3>
+               <div class="form_group">
+                  <div class="account_type_fields field">
+                     <div class="account">
+                        <input type="radio">
+                        <p>Individual account</p>
+                     </div>
                   </div>
                </div>
-            </div>
-
-
-            <a href="#"  class="btn btn-primary">Back</a>
-            <button type="submit" class="btn btn-primary">Next</button>
-         </form>
-      </div>
+               <a href="#"  class="btn btn-primary">Back</a>
+               <button type="submit" class="btn btn-primary">Next</button>
+            </form>
+         </div>
       </div>
    </section>
 </div>

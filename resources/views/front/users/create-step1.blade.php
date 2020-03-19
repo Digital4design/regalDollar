@@ -1,5 +1,5 @@
 @include('homeheader')
-<?php //dd($planData->plan_valid_from); ?>
+<?php // dd($userData->country_citizenship); ?>
 <div class="content form-steps">
    <div class="stepwizard-row setup-panel">
       <div class="stepwizard-step">
@@ -38,49 +38,18 @@
       <div class="container">
          <div class="form_outter_section">
          <!--HEADER SECTION START-->
+         <?php // dd($userData);?>
          <h2 class="title">Let's get started.</h2>
          <h3 class="subtitle">To incest, please create an account.</h3>
-
          <form action="{{ url('front/create-step1') }}" method="post">
             {{ csrf_field() }}
-            
-            <input
-               id="plan_id"
-               type="hidden"
-               class="form-control"
-               name="plan_id"
-               value="{{ $planData->id }}"
-            />
-            <input
-               id="plan_id"
-               type="hidden"
-               class="form-control"
-               name="plan_id"
-               value="{{ $planData->id }}"
-            />
-            <input
-               id="plan_start_date"
-               type="hidden"
-               class="form-control"
-               name="plan_start_date"
-               value="{{ $planData->plan_valid_from }}"
-            />
-            <input
-               id="plan_end_date"
-               type="hidden"
-               class="form-control"
-               name="plan_end_date"
-               value="{{ $valid_till }}"
-            />
-            <input
-               id="user_id"
-               type="hidden"
-               name="user_id"
-               value="{{ old('user_id',(isset($userData) && !empty($userData->id)) ? $userData->id : '' ) }}"
-            />
-
+            <input id="plan_id" type="hidden" class="form-control" name="plan_id" value="{{ $planData->id }}"/>
+            <input id="plan_id" type="hidden" class="form-control" name="plan_id" value="{{ $planData->id }}"/>
+            <input id="plan_start_date" type="hidden" class="form-control" name="plan_start_date" value="{{ $planData->plan_valid_from }}" />
+            <input id="plan_end_date" type="hidden" class="form-control" name="plan_end_date" value="{{ $valid_till }}" />
+            <input id="user_id" type="hidden" name="user_id" value="{{ old('user_id',(isset($userData) && !empty($userData->id)) ? $userData->id : '' ) }}" />
             <div class="form-group first_name">
-               <label for="title">First Name</label>
+            <label for="title">First Name</label>
                <input
                   id="first_name"
                   type="text"
@@ -178,12 +147,11 @@
             <div class="form_group"> 
                <div class="citizenship_field field"> 
                   <span class="label">Country of citizenship</span>
-                  <select class="Country_citizenship" name="country_citizenship">
-                  @foreach($countryData as $country)
-                     <option value="{{ $country['name']}}">{{ $country['name']}}</option>
+                     <select class="Country_citizenship" name="country_citizenship">
+                     @foreach($countryData as $country)
+                        <option value="{{ $country['name']}}" >{{ $country['name']}}</option>
                      @endforeach
-                     
-                  </select>
+                     </select>
                </div>
             </div>
             <div class="Residence_field field">
