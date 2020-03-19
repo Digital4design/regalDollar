@@ -30,6 +30,7 @@ Route::group(['prefix' => 'front'], function () {
     Route::post('/update-info', 'Front\AccountController@postInfoUpdate');
     Route::post('/update-amounts', 'Front\AccountController@postAmountUpdate');
     Route::post('/update-docs', 'Front\AccountController@postDocsUpdate');
+    Route::post('/update-agreement', 'Front\AccountController@updateAgreements');
     Route::post('/payment-process', 'PaymentController@paymentProcess');
 
 });
@@ -104,12 +105,11 @@ Route::group(['prefix' => 'client', 'middleware' => ['auth', 'client']], functio
         Route::post('/edit', 'Client\DashboardController@editAccount');
         Route::post('/edit-password', 'Client\DashboardController@editAccountPassword');
     });
-    
-    Route::group(['prefix' => 'documents','middleware' => ['auth', 'client']], function () {
+
+    Route::group(['prefix' => 'documents', 'middleware' => ['auth', 'client']], function () {
         Route::get('/', 'Client\DocumentsManagementController@index');
         Route::get('/documents-data', 'Client\DocumentsManagementController@documentsData');
         Route::get('/view/{id}', 'Client\DocumentsManagementController@singleDocuments');
-
 
         // Route::post('/edit', 'Client\DashboardController@editAccount');
         // Route::post('/edit-password', 'Client\DashboardController@editAccountPassword');

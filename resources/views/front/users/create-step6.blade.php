@@ -30,7 +30,7 @@
       <div class="container">
          <h1>Agreements - Step 5</h1>
          <h3>You're almost done!</h3>
-         <form action="{{ url('front/payment-process') }}" method="post">
+         <form action="{{ url('front/update-agreement') }}" method="post">
             {{ csrf_field() }}
             <div class="form-group">
                <input

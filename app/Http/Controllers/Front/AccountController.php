@@ -165,6 +165,12 @@ class AccountController extends Controller
         $data['documentData'] = $documentData;
         return view('front.users.create-step6', $data);
     }
+    public function updateAgreements(Request $request)
+    {
+        $userData = User::find($request->user_id);
+
+        dd($userData);
+    }
 
     /**
      * Show the form for creating a new resource.
