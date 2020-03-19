@@ -168,7 +168,8 @@ class AccountController extends Controller
     public function updateAgreements(Request $request)
     {
         $userData = User::find($request->user_id);
-
+        $data['userData'] = $userData;
+        return view('front.users.payment', $data);
         dd($userData);
     }
 
