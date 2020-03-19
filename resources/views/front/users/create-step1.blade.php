@@ -36,12 +36,14 @@
 <div>
    <section class="white-bg">
       <div class="container">
+         <div class="form_outter_section">
          <!--HEADER SECTION START-->
-         <h1>Basic Info - Step 1</h1>
-         <hr>
+         <h2 class="title">Let's get started.</h2>
+         <h3 class="subtitle">To incest, please create an account.</h3>
+
          <form action="{{ url('front/create-step1') }}" method="post">
             {{ csrf_field() }}
-            <div class="form-group">
+            
             <input
                id="plan_id"
                type="hidden"
@@ -49,46 +51,35 @@
                name="plan_id"
                value="{{ $planData->id }}"
             />
-            </div>
-            <div class="form-group">
-               <input
-                  id="plan_id"
-                  type="hidden"
-                  class="form-control"
-                  name="plan_id"
-                  value="{{ $planData->id }}"
-               />
-            </div>
+            <input
+               id="plan_id"
+               type="hidden"
+               class="form-control"
+               name="plan_id"
+               value="{{ $planData->id }}"
+            />
+            <input
+               id="plan_start_date"
+               type="hidden"
+               class="form-control"
+               name="plan_start_date"
+               value="{{ $planData->plan_valid_from }}"
+            />
+            <input
+               id="plan_end_date"
+               type="hidden"
+               class="form-control"
+               name="plan_end_date"
+               value="{{ $valid_till }}"
+            />
+            <input
+               id="user_id"
+               type="hidden"
+               name="user_id"
+               value="{{ old('user_id',(isset($userData) && !empty($userData->id)) ? $userData->id : '' ) }}"
+            />
 
-            <div class="form-group">
-               <input
-                  id="plan_start_date"
-                  type="hidden"
-                  class="form-control"
-                  name="plan_start_date"
-                  value="{{ $planData->plan_valid_from }}"
-               />
-            </div>
-
-            <div class="form-group">
-               <input
-                  id="plan_end_date"
-                  type="hidden"
-                  class="form-control"
-                  name="plan_end_date"
-                  value="{{ $valid_till }}"
-               />
-            </div>
-
-            <div class="form-group">
-               <input
-                  id="user_id"
-                  type="hidden"
-                  name="user_id"
-                  value="{{ old('user_id',(isset($userData) && !empty($userData->id)) ? $userData->id : '' ) }}"
-               />
-            </div>
-            <div class="form-group">
+            <div class="form-group first_name">
                <label for="title">First Name</label>
                <input
                   id="first_name"
@@ -103,7 +94,7 @@
                </span>
                @endif
             </div>
-            <div class="form-group">
+            <div class="form-group last_name">
                <label for="description">Last Name</label>
                <input
                   id="last_name"
@@ -182,8 +173,8 @@
                </div>
             </div>
             <div class="break_section"></div>
-            <h2 class="fs-title">We currently only accept investment from US residents.</h2>
-            <h3 class="fs-subtitle">Please confirm the following:</h3>
+            <h2 class="title">We currently only accept investment from US residents.</h2>
+            <h3 class="subtitle">Please confirm the following:</h3>
             <div class="form_group"> 
                <div class="citizenship_field field"> 
                   <span class="label">Country of citizenship</span>
@@ -207,6 +198,7 @@
             <a href="#"  class="btn btn-primary">Back</a>
             <button type="submit" class="btn btn-primary">Next</button>
          </form>
+         </div>
       </div>
    </section>
 </div>

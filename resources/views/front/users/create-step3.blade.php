@@ -35,14 +35,18 @@
 <div>
    <section class="white-bg">
       <div class="container">
-         <h1>Contact Information - Step 3</h1>
+
+      <div class="form_outter_section">
+         <h2 class="title">Thanks, William!</h2>
+         <h3 class="subtitle">We just need a few more details.</h3>
+
          <?php // dd($userData); ?>
          <hr>
          <form action="{{ url('front/update-info') }}" method="post">
             {{ csrf_field() }}
-            <div class="form-group">
-               <input type="hidden" value="{{$userData->id}}" class="form-control" id="user_id"  name="user_id">
-            </div>
+
+            <input type="hidden" value="{{$userData->id}}" class="form-control" id="user_id"  name="user_id">
+
             <div class="form-group">
                <label for="title">Address Line 1</label>
                <input
@@ -108,12 +112,12 @@
                placeholder="Phone Number"
                />
             </div>
-            <div class="form-group">
-               <h3>Tax Reporting Information</h3>
-            </div>
-            <div class="form-group">
-               <p>This information is required by the IRS for tax reporting purposes.</p>
-            </div>
+
+            <div class="break_section"></div>
+            
+            <h2 class="title">Tax Reporting Information</h2>
+            <h3 class="subtitle">This information is required by the IRS for tax reporting purposes.</h3>
+            
             <div class="form-group">
                <label for="description">Social Security Number</label>
                <input 
@@ -140,6 +144,7 @@
             <a href="#"  class="btn btn-primary">Back</a>
             <button type="submit" class="btn btn-primary"> Next </button>
          </form>
+      </div>
       </div>
    </section>
 </div>

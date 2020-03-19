@@ -34,15 +34,16 @@
 <div>
    <section class="white-bg">
       <div class="container">
+     
+      <div class="form_outter_section">         
          <!--HEADER SECTION START-->
-         <h1>Add New Details - Step 2</h1>
-  
-         <hr>
+         <h2 class="title">We currently accept investment from US residents.</h2>
+         <h3 class="subtitle">Please confirm the following:</h3>
+
          <form action="{{ url('front/create-update') }}" method="post">
             {{ csrf_field() }}
-            <div class="form-group">
-               <input type="hidden" value="{{$userData->id}}" class="form-control" id="user_id"  name="user_id">
-            </div>
+            <input type="hidden" value="{{$userData->id}}" class="form-control" id="user_id"  name="user_id">
+            
             <div class="form-group">
                <label for="description">Account Type</label>
                <select class="form-control" name="accountType">
@@ -51,9 +52,26 @@
                   <option value="company" {{ ( $userData->accountType == "company") ? 'selected' : '' }}>Company</option>
                </select>
             </div>
+
+            <div class="break_section"></div>
+            
+            <h2 class="title">Let's finish getting your account set up.</h2>
+            <h3 class="subtitle">What type of account would you like to open?</h3>
+
+            <div class="form_group">
+               <div class="account_type_fields field">
+                  <div class="account">					
+                     <input type="radio">
+                     <p>Individual account</p>
+                  </div>
+               </div>
+            </div>
+
+
             <a href="#"  class="btn btn-primary">Back</a>
             <button type="submit" class="btn btn-primary">Next</button>
          </form>
+      </div>
       </div>
    </section>
 </div>

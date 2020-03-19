@@ -170,7 +170,7 @@ class AccountController extends Controller
         $userData = User::find($request->user_id);
         $data['userData'] = $userData;
         return view('front.users.payment', $data);
-        dd($userData);
+        //dd($userData);
     }
 
     /**
