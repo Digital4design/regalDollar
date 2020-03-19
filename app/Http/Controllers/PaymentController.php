@@ -19,7 +19,7 @@ class PaymentController extends Controller
      */
     public function paymentProcess(Request $request)
     {
-        dd("JLKLKKL");
+        dd($request->all());
     }
     public function index()
     {

@@ -44,7 +44,6 @@
             <div class="form-group">
                <p>Please review your information.</p>
             </div>
-
             <h4>Investment Information</h4>
             <div class="form-group">
                <spam>Please indicate agreement with the following:</spam>

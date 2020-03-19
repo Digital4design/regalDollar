@@ -30,7 +30,7 @@ Route::group(['prefix' => 'front'], function () {
     Route::post('/update-info', 'Front\AccountController@postInfoUpdate');
     Route::post('/update-amounts', 'Front\AccountController@postAmountUpdate');
     Route::post('/update-docs', 'Front\AccountController@postDocsUpdate');
-    Route::get('/payment-process', 'PaymentController@paymentProcess');
+    Route::post('/payment-process', 'PaymentController@paymentProcess');
 
 });
 /****================================ admin routes start ===================================*/
