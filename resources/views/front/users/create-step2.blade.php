@@ -39,7 +39,7 @@
                   <select class="form-control" name="accountType">
                      <option value="" >Select Account Type</option>
                      <option value="individual" {{ ( $userData->accountType == "individual" ) ? 'selected' : '' }}>Individual</option>
-                     <option value="company" {{ ( $userData->accountType == "company") ? 'selected' : '' }}>Company</option>
+                     <!-- <option value="company" {{ ( $userData->accountType == "company") ? 'selected' : '' }}>Company</option> -->
                   </select>
                </div>
                <div class="break_section"></div>

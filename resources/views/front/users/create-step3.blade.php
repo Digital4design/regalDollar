@@ -34,18 +34,42 @@
             <hr>
             <form action="{{ url('front/update-info') }}" method="post">
                {{ csrf_field() }}
-               <input type="hidden" value="{{$userData->id}}" class="form-control" id="user_id"  name="user_id"/>
+               <input
+               type="hidden"
+               value="{{$userData->id}}"
+               class="form-control"
+               id="user_id"
+               name="user_id"
+               />
                <div class="form-group">
                   <label for="title">Address Line 1</label>
-                  <input type="text" value="{{ old('address',(isset($userData) && !empty($userData->address)) ? $userData->address : '' ) }}" class="form-control" id="address" name="address"/>
+                  <input 
+                  type="text" 
+                  value="{{ old('address',(isset($userData) && !empty($userData->address)) ? $userData->address : '' ) }}" 
+                  class="form-control"
+                  id="address"
+                  name="address"
+                  />
                </div>
                <div class="form-group">
                   <label for="title">Address Line 2</label>
-                  <input type="text" value="{{ old('address2',(isset($userData) && !empty($userData->address2)) ? $userData->address2 : '' ) }}" class="form-control" id="address2" name="address2"/>
+                  <input 
+                  type="text"
+                  value="{{ old('address2',(isset($userData) && !empty($userData->address2)) ? $userData->address2 : '' ) }}"
+                  class="form-control"
+                  id="address2"
+                  name="address2"
+                  />
                </div>
                <div class="form-group">
                   <label for="title">City</label>
-                  <input type="text" value="{{ old('city',(isset($userData) && !empty($userData->city)) ? $userData->city : '' ) }}" class="form-control" id="city" name="city"/>
+                  <input 
+                  type="text"
+                  value="{{ old('city',(isset($userData) && !empty($userData->city)) ? $userData->city : '' ) }}"
+                  class="form-control"
+                  id="city"
+                  name="city"
+                  />
                </div>
                <div class="form-group">
                   <label for="description">State</label>
@@ -58,12 +82,30 @@
                </div>
                <div class="form-group">
                   <label for="title">ZIP Code</label>
-                  <input type="text" value="{{ old('zipcode',(isset($userData) && !empty($userData->zipcode)) ? $userData->zipcode : '' ) }}" class="form-control zipcode required_field valid" maxlength="10" aria-required="true" id="zipcode" name="zipcode" placeholder="Zip Code"
+                  <input 
+                  type="text" 
+                  value="{{ old('zipcode',(isset($userData) && !empty($userData->zipcode)) ? $userData->zipcode : '' ) }}" 
+                  class="form-control zipcode required_field valid" 
+                  maxlength="10" 
+                  aria-required="true" 
+                  id="zipcode" 
+                  name="zipcode" 
+                  placeholder="Zip Code"
                   />
                </div>
                <div class="form-group">
                   <label for="description">Phone Number</label>
-                  <input type="text" required="required" class="form-control phone required_field valid" maxlength="14" aria-required="true" aria-invalid="false" value="{{ old('phoneNumber',(isset($userData) && !empty($userData->phoneNumber)) ? $userData->phoneNumber : '' ) }}" id="phoneNumber"  name="phoneNumber" placeholder="Phone Number"
+                  <input 
+                  type="text" 
+                  required="required" 
+                  class="form-control phone required_field valid" 
+                  maxlength="14" 
+                  aria-required="true" 
+                  aria-invalid="false" 
+                  value="{{ old('phoneNumber',(isset($userData) && !empty($userData->phoneNumber)) ? $userData->phoneNumber : '' ) }}" 
+                  id="phoneNumber"
+                  name="phoneNumber"
+                  placeholder="Phone Number"
                   />
                </div>
                <div class="break_section"></div>

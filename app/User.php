@@ -4,6 +4,7 @@ namespace App;
 
 use App\Role;
 use Auth;
+
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Zizaco\Entrust\Traits\EntrustUserTrait;

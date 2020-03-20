@@ -8,12 +8,13 @@ use App\Models\DocumentManagemetModel;
 use App\Models\Plan;
 use App\Models\Role;
 use App\Models\State;
+use App\Models\UserRoleRelation;
 use App\User;
 use Auth;
 use Crypt;
-use DB;
 use Hash;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Validator;
 
@@ -52,7 +53,6 @@ class AccountController extends Controller
     {
         if ($request->user_id != '') {
             $userData = User::find($request->user_id);
-            // dd($userData);
             $userData->first_name = trim($request->first_name);
             $userData->last_name = trim($request->last_name);
             $userData->name = trim($request->name);
@@ -94,7 +94,9 @@ class AccountController extends Controller
                     'user_id' => $userData->id,
                     'role_id' => 2, // customer role Id
                 );
-                DB::table('role_user')->insert($roleArray);
+                UserRoleRelation::insert($roleArray);
+
+                // DB::table('role_user')->insert($roleArray);
                 Auth::loginUsingId($userData->id);
                 $request->session()->put('userData', $userData);
                 return redirect('/front/create-step2');
@@ -162,9 +164,12 @@ class AccountController extends Controller
         // $userData->amount = trim($request->amount);
         // $userData->save();
         $userData = User::find($request->user_id);
+        
         $userData = $request->session()->put('userData', $userData);
         $userData = $request->session()->get('userData');
         $documentData = DocumentManagemetModel::get();
+        $data['planData'] = Plan::where('id',$userData['plan_id'])->first();
+        // dd($data['planData']);
         $data['userData'] = $userData;
         $data['documentData'] = $documentData;
         return view('front.users.create-step6', $data);
@@ -172,6 +177,8 @@ class AccountController extends Controller
     public function updateAgreements(Request $request)
     {
         $userData = User::find($request->user_id);
+        $userData = $request->session()->put('userData', $userData);
+        $userData = $request->session()->get('userData');
         $data['userData'] = $userData;
         return view('front.users.payment', $data);
         //dd($userData);

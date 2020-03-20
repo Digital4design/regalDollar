@@ -4,27 +4,21 @@
    <div class="stepwizard-row setup-panel">
       <div class="stepwizard-step">
          <a href="#step1" type="button" class="btn btn-primary btn-circle">1</a>
-         <!-- <p>Step 1</p> -->
       </div>
       <div class="stepwizard-step">
          <a href="#step2" type="button" class="btn btn-default btn-circle" disabled="disabled">2</a>
-         <!-- <p>Step 2</p> -->
       </div>
       <div class="stepwizard-step">
          <a href="#step3" type="button" class="btn btn-default btn-circle" disabled="disabled">3</a>
-         <!-- <p>Step 3</p> -->
       </div>
       <div class="stepwizard-step">
          <a href="#step4" type="button" class="btn btn-default btn-circle" disabled="disabled">4</a>
-         <!-- <p>Step 4</p> -->
       </div>
       <div class="stepwizard-step">
          <a href="#step5" type="button" class="btn btn-default btn-circle" disabled="disabled">5</a>
-         <!-- <p>Step 5</p> -->
       </div>
       <div class="stepwizard-step">
          <a href="#step6" type="button" class="btn btn-default btn-circle" disabled="disabled">6</a>
-         <!-- <p>Step 6</p> -->
       </div>
       <div class="stepwizard-step">
          <a href="#step7" type="button" class="btn btn-default btn-circle" disabled="disabled">7</a>
@@ -144,8 +138,8 @@
             <div class="break_section"></div>
             <h2 class="title">We currently only accept investment from US residents.</h2>
             <h3 class="subtitle">Please confirm the following:</h3>
-            <div class="form_group"> 
-               <div class="citizenship_field field"> 
+            <div class="form_group">
+               <div class="citizenship_field field">
                   <span class="label">Country of citizenship</span>
                      <select class="Country_citizenship" name="country_citizenship">
                      @foreach($countryData as $country)
@@ -158,8 +152,8 @@
                <span class="label">Country of Residence</span>
                <select class="Country_Residence" name="country_residence">
                    @foreach($countryData as $country)
-                     <option value="{{ $country['name']}}">{{ $country['name']}}</option>
-                     @endforeach
+                     <option value="{{ $country['name']}}" >{{ $country['name']}}</option>
+                   @endforeach
                </select>
             </div>
             <a href="#"  class="btn btn-primary">Back</a>
@@ -170,6 +164,5 @@
    </section>
 </div>
 <!--BUY TEMPLATE SECTION END-->
-
 @include('homefooter')
 @include('homescripts')

@@ -1,6 +1,4 @@
 @extends('layouts.master-blank')
-
-
 @section('content')
 
         <!-- <div class="wrapper-page"> -->
