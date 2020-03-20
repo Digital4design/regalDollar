@@ -4,7 +4,6 @@
 |--------------------------------------------------------------------------
 | Web Routes
 |--------------------------------------------------------------------------
-|
 | Here is where you can register web routes for your application. These
 | routes are loaded by the RouteServiceProvider within a group which
 | contains the "web" middleware group. Now create something great!
@@ -22,6 +21,8 @@ Route::get('/forget-password', function () {
 Route::get('/admin2', function () {
     return view('admindashboard');
 });
+Auth::routes(['verify'=>true]);
+
 Route::group(['prefix' => 'front'], function () {
     Route::get('/create-details/{id}', 'Front\AccountController@index');
     Route::post('/create-step1', 'Front\AccountController@postCreateStep1');
@@ -30,11 +31,11 @@ Route::group(['prefix' => 'front'], function () {
     Route::post('/update-info', 'Front\AccountController@postInfoUpdate');
     Route::post('/update-amounts', 'Front\AccountController@postAmountUpdate');
     Route::post('/update-docs', 'Front\AccountController@postDocsUpdate');
-    Route::get('/payment-process', 'PaymentController@paymentProcess');
-
+    Route::post('/update-agreement', 'Front\AccountController@updateAgreements');
+    Route::post('/payment-process', 'PaymentController@paymentProcess');
 });
-/****================================ admin routes start ===================================*/
-Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function () {
+/**** ================================Admin Routes Start =================================== */
+Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin','verified']], function () {
     Route::get('/', 'Admin\DashboardController@index');
     Route::post('/states', 'Admin\DashboardController@states');
     Route::post('/cities', 'Admin\DashboardController@cities');
@@ -94,8 +95,10 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function 
     });
 
 });
-/**** admin routes end */
-Route::group(['prefix' => 'client', 'middleware' => ['auth', 'client']], function () {
+/****=================================== Admin Routes End ======================================*/
+/**** ================================Client Routes Start =================================== */
+
+Route::group(['prefix' => 'client', 'middleware' => ['auth', 'client','verified']], function () {
     Route::get('/', 'Client\DashboardController@index');
     Route::post('/states', 'Client\DashboardController@states');
     Route::post('/cities', 'Client\DashboardController@cities');
@@ -104,21 +107,19 @@ Route::group(['prefix' => 'client', 'middleware' => ['auth', 'client']], functio
         Route::post('/edit', 'Client\DashboardController@editAccount');
         Route::post('/edit-password', 'Client\DashboardController@editAccountPassword');
     });
-    
-    Route::group(['prefix' => 'documents','middleware' => ['auth', 'client']], function () {
+
+    Route::group(['prefix' => 'documents', 'middleware' => ['auth', 'client']], function () {
         Route::get('/', 'Client\DocumentsManagementController@index');
         Route::get('/documents-data', 'Client\DocumentsManagementController@documentsData');
         Route::get('/view/{id}', 'Client\DocumentsManagementController@singleDocuments');
-
-
-        // Route::post('/edit', 'Client\DashboardController@editAccount');
-        // Route::post('/edit-password', 'Client\DashboardController@editAccountPassword');
     });
 
     // Route::get('/', function () {
     //     return view('dashboard');
     // });
 });
+
+/****=================================== Client Routes End ======================================*/
 
 Route::get('/signup-login', function () {
     return view('pages-login');
@@ -131,8 +132,6 @@ Route::get('/select-plan/{id}', 'RegalDollarsController@plan')->where('id', '[0-
 Route::get('/funding-plan', 'RegalDollarsController@funding');
 
 Route::get('/profile', 'RegalDollarsController@profile');
-
-Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('{any}', 'VeltrixController@index');

@@ -4,6 +4,7 @@ namespace App;
 
 use App\Role;
 use Auth;
+
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Zizaco\Entrust\Traits\EntrustUserTrait;
@@ -34,7 +35,10 @@ class User extends Authenticatable
         'plan_id',
         'phoneNumber',
         'birthday',
-        'social_security_number'
+        'social_security_number',
+        'amount',
+        'country_citizenship',
+        'country_residence',
     ];
 
     /**

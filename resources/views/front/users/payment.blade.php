@@ -15,19 +15,19 @@
          <!-- <p>Step 3</p> -->
       </div>
       <div class="stepwizard-step">
-         <a href="#step4" type="button" class="btn btn-primary btn-circle" disabled="disabled">4</a>
+         <a href="#step4" type="button" class="btn btn-primary btn-circle">4</a>
          <!-- <p>Step 4</p> -->
       </div>
       <div class="stepwizard-step">
-         <a href="#step5" type="button" class="btn btn-default btn-circle" disabled="disabled">5</a>
+         <a href="#step5" type="button" class="btn btn-primary btn-circle" >5</a>
          <!-- <p>Step 5</p> -->
       </div>
       <div class="stepwizard-step">
-         <a href="#step6" type="button" class="btn btn-default btn-circle" disabled="disabled">6</a>
+         <a href="#step6" type="button" class="btn btn-primary btn-circle">6</a>
          <!-- <p>Step 6</p> -->
       </div>
       <div class="stepwizard-step">
-         <a href="#step7" type="button" class="btn btn-default btn-circle" disabled="disabled">7</a>
+         <a href="#step7" type="button" class="btn btn-primary btn-circle">7</a>
          <!-- <p>Step 7</p> -->
       </div>
    </div>
@@ -35,40 +35,12 @@
 <div>
    <section class="white-bg">
       <div class="container">
-      <h1>Payment Process - Step 4</h1>
+      <div class="form_outter_section">         
+         <!--HEADER SECTION START-->
+         <h3 class="subtitle">Payment Process:</h3>
       <div id="paypal-button-container"></div>
-         <!-- <h1>Payment Section - Step 4</h1>
-         <?php // dd($userData); ?>
-         <hr>
-         <form class="w3-container w3-display-middle w3-card-4 w3-padding-16" method="POST" id="payment-form" action="{{ url('front/payment-process') }}">
-            <div class="w3-container w3-teal w3-padding-16">Paywith Paypal</div>
-            {{ csrf_field() }}
-            <h2 class="w3-text-blue">Payment Form</h2>
-            <p> Demo PayPal form -Integrating paypal in Laravel</p>
-            <label class="w3-text-blue"><b>Enter Amount</b></label>
-            <input type="text" name="amount" id="" value="{{$userData->id}}" class="w3-input w3-border">
-            <button class="w3-btn w3-blue">Pay with Paypal</button>
-
-         </form> -->
-
-
-         <!-- <form action="{{ url('front/payment-process') }}" method="post">
-            {{ csrf_field() }}
-            <div class="form-group">
-               <input type="hidden" value="{{$userData->id}}" class="form-control" id="user_id"  name="user_id">
-            </div>
-            <div class="form-group">
-               <label for="title">Address Line 1</label>
-               <input
-               type="text"
-              value="{{ old('address',(isset($userData) && !empty($userData->address)) ? $userData->address : '' ) }}"
-               class="form-control"
-               id="address"
-               name="address">
-            </div>
-            <button type="submit" class="btn btn-primary"> Next </button>
-         </form> -->
       </div>
+</div>
    </section>
 </div>
 <!--BUY TEMPLATE SECTION END-->

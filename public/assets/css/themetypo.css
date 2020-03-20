@@ -691,3 +691,331 @@ blockquote a{
 .kode-wrap-boxed .eccaption{top:40%;}
 .kode-wrap-boxed .main-content{background:#fff;}
 .kode-wrap-boxed {background:#fff;width: 1200px; float:none;overflow:hidden;margin: 0 auto; margin-top: 40px; margin-bottom: 40px; box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);position:relative;}
+
+/*step form*/
+.form_outter_section {
+    width: 50%;
+    float: left;
+    margin: 50px 0;
+    padding: 0;
+}
+.form_outter_section h2.title {
+    font-size: 16px;
+    text-transform: capitalize;
+    margin-bottom: 10px;
+    font-family: 'Open Sans', sans-serif;
+    text-align: left;
+    color: #afadad !important;
+    width: 100%;
+    float: left;
+    margin: 0 0 10px 0;
+    padding: 0;
+}
+.form_outter_section h3.subtitle {
+    font-weight: normal;
+    font-size: 22px;
+    color: #1d1d1d;
+    text-align: left;
+	font-family: 'Open Sans', sans-serif;
+	width: 100%;
+    float: left;
+    margin: 0 0 30px 0;
+    padding: 0;
+}
+.form_outter_section span.subtitle {
+    font-weight: normal;
+    font-size: 18px;
+    color: #1d1d1d;
+    text-align: left;
+	font-family: 'Open Sans', sans-serif;
+	width: 100%;
+    float: left;
+    margin: 0 0 0 0;
+    padding: 0;
+}
+.form_outter_section span.section_title {
+    width: 100%;
+    float: left;
+    margin: 0 0 10px 0;
+    padding: 0;
+    text-align: left;
+    font-size: 18px;
+    color: #000;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: normal;
+    line-height: normal;
+}
+.form_outter_section form {
+    width: 100%;
+    float: left;
+    margin: 0;
+    padding: 0;
+}
+.form_outter_section .form_group, 
+.form_outter_section .form-group {
+    width: 100%;
+	float: left;
+	margin: 0 0 10px 0;
+	padding: 0px;
+}
+.form_outter_section form .form-group.first_name, .form_outter_section form .form-group.last_name {
+    width: 49%;
+    float: left;
+}
+.form_outter_section form .form-group.first_name {
+	margin-right: 2%;
+}
+.form_outter_section form .form-group label, 
+.form_outter_section .label {
+    width: 100%;
+    float: left;
+    margin: 0 0 7px 0;
+    padding: 0;
+    color: #000;
+    font-size: 14px;
+    font-weight: normal;
+	text-align: left;
+	font-family: 'Roboto', sans-serif;
+	line-height: 20px;
+}
+.form_outter_section form .form-group input,
+.form_outter_section select {
+    width: 100%;
+    float: left;
+    margin: 0;
+    padding: 8px 10px;
+    height: auto;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+	box-shadow: none;
+	line-height: normal;
+}
+.form_outter_section .field {
+    width: 100%;
+    float: left;
+    margin: 0;
+    padding: 0;
+    text-align: left;
+}
+.form_outter_section .field input[type="checkbox"] {
+    width: 15px;
+    height: 15px;
+    margin: 4px 10px 0 0;
+    padding: 0;
+    float: left;
+}
+.form_outter_section .field p, 
+.form_outter_section .form_group p, 
+.form_outter_section .form-group p {
+    width: auto;
+    float: left;
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 300;
+    font-size: 14px;
+    color: #000;
+    opacity: 1;
+}
+.form_outter_section .field {
+    width: 100%;
+    float: left;
+    margin: 0 0 10px 0;
+    padding: 0;
+    text-align: left;
+}
+.form_outter_section .form_group .citizenship_field.field {
+    margin: 0;
+}
+.form_outter_section .btn.btn-primary {
+    width: auto;
+    background: #0e223a;
+    font-weight: normal;
+    color: white;
+    border: 0 none;
+    cursor: pointer;
+    padding: 10px 20px;
+    margin: 50px 10px 0 0;
+    font-size: 14px;
+    font-family: 'Open Sans', sans-serif;
+    height: auto;
+    border-radius: 5px;
+    text-transform: capitalize;
+    float: left;
+}
+.form_outter_section .btn.btn-primary:focus,
+.form_outter_section .btn.btn-primary:hover {
+    background: #bc9c5c;
+    box-shadow: 0 0 0 2px white, 0 0 0 3px #bc9c5c;
+}
+.form_outter_section input[type="radio"] {
+    float: left;
+    margin: 5px 10px 0 0;
+    padding: 0;
+    width: 14px;
+    height: 14px;
+}
+.form_outter_section ul {
+    width: 100%;
+    float: left;
+    margin: 10px 0 30px 0;
+    padding: 0;
+    list-style: none;
+}
+.form_outter_section ul li,
+.form_outter_section ul li a {
+    width: 100%;
+    float: left;
+    padding: 0;
+}
+.form_outter_section ul li a {
+	margin: 0 0 5px 0;
+	color: #000;
+	cursor: pointer;
+}
+.form_outter_section ul li a i.fa {
+    width: auto;
+    float: left;
+    margin: 5px 10px 0 0;
+    padding: 0;
+    color: #000;
+}
+.break_section1 {
+    width: 100%;
+    float: left;
+    margin: 10px 0;
+    padding: 0;
+    height: 1px;
+}
+.form_outter_section form .form-group input[type="checkbox"],
+.form_outter_section form .form_group input[type="checkbox"] {
+    width: 15px;
+    height: 15px;
+    float: left;
+	clear: none;
+	margin: 2px 10px 0 0 ;
+}
+.form_outter_section form .form-group label.container, .form_outter_section form .form_group label.container {
+    width: 90%;
+    float: left;
+    max-width: 100%;
+}
+.form_outter_section .form_group input[type="radio"], .form_outter_section .form-group input[type="radio"] {
+    width: 15px;
+    height: 15px;
+    float: left;
+    margin: 2px 10px 0 0;
+    padding: 0;
+}
+.form_outter_section button.btn.btn-primary {
+    float: right;
+    margin-right: 0;
+}
+.form_outter_section .btn.btn-primary:focus,
+.form_outter_section .btn.btn-primary:active,
+.form_outter_section .btn.btn-primary:hover {
+	outline: none;
+}
+.form_outter_section span.edit_field {
+    width: 100%;
+    float: left;
+    margin: 0 0 5px 0;
+    padding: 0 20px 0 0;
+    position: relative;
+}
+.form_outter_section span.edit_field i.fa.fa-pencil-square-o {
+    width: auto;
+    float: right;
+    margin: -7px 0 0 0;
+    position: absolute;
+	right: 0;
+	cursor: pointer;
+    top: 50%;
+}
+.form_outter_section span.edit_field span.title {
+    width: auto;
+    float: left;
+}
+.form_outter_section span.edit_field span.result {
+    width: auto;
+    float: right;
+}
+.form_outter_section p.sign_on {
+    width: 100%;
+    float: left;
+}
+.form_outter_section a.income_file {
+    width: 100%;
+    float: left;
+    margin: 0;
+    padding: 0;
+    color: #000;
+    cursor: pointer;
+}
+.form_outter_section #paypal-button-container {
+    width: 300px;
+    float: left;
+    clear: none;
+}
+.paypal-button.paypal-button-layout-vertical {
+    width: 48%;
+    float: left;
+    margin-right: 2%;
+}
+.paypal-powered-by {
+    width: 100%;
+    float: left;
+    margin-bottom: 70px;
+}
+.content.form-steps .stepwizard-step {
+    display: inline-block;
+    margin: 30px 70px 30px 0px;
+    position: relative;
+}
+.content.form-steps .stepwizard-step .btn {
+    display: inline-block;
+    padding: 6px 12px;
+    margin-bottom: 0;
+    font-size: 14px;
+    font-weight: normal;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    border: 1px solid #0e223a;
+    border-radius: 50%;
+    background: #fff;
+    z-index: 12;
+    position: relative;
+    opacity: 1;
+}
+.content.form-steps .stepwizard-step .btn-primary {
+    color: #fff;
+    background-color: #0e223a;
+    border-color: #0e223a;
+}
+.content.form-steps .stepwizard-step .btn-primary::before {
+    position: absolute;
+    width: 87px;
+    content: "";
+    height: 2px;
+    background: #0e223a;
+    top: 50%;
+    margin: -1px 0 0 0;
+    left: 33px;
+    z-index: 10;
+}
+.content.form-steps .stepwizard-step .btn:hover {
+	background: #bc9c5c;
+	border-color: #bc9c5c;
+	box-shadow: 0 0 0 2px white, 0 0 0 3px #bc9c5c;
+	color: #fff;
+}
+/*step form*/

@@ -1,30 +1,24 @@
 @include('homeheader')
-<?php //dd($planData->plan_valid_from); ?>
+<?php // dd($userData->country_citizenship); ?>
 <div class="content form-steps">
    <div class="stepwizard-row setup-panel">
       <div class="stepwizard-step">
          <a href="#step1" type="button" class="btn btn-primary btn-circle">1</a>
-         <!-- <p>Step 1</p> -->
       </div>
       <div class="stepwizard-step">
          <a href="#step2" type="button" class="btn btn-default btn-circle" disabled="disabled">2</a>
-         <!-- <p>Step 2</p> -->
       </div>
       <div class="stepwizard-step">
          <a href="#step3" type="button" class="btn btn-default btn-circle" disabled="disabled">3</a>
-         <!-- <p>Step 3</p> -->
       </div>
       <div class="stepwizard-step">
          <a href="#step4" type="button" class="btn btn-default btn-circle" disabled="disabled">4</a>
-         <!-- <p>Step 4</p> -->
       </div>
       <div class="stepwizard-step">
          <a href="#step5" type="button" class="btn btn-default btn-circle" disabled="disabled">5</a>
-         <!-- <p>Step 5</p> -->
       </div>
       <div class="stepwizard-step">
          <a href="#step6" type="button" class="btn btn-default btn-circle" disabled="disabled">6</a>
-         <!-- <p>Step 6</p> -->
       </div>
       <div class="stepwizard-step">
          <a href="#step7" type="button" class="btn btn-default btn-circle" disabled="disabled">7</a>
@@ -36,60 +30,20 @@
 <div>
    <section class="white-bg">
       <div class="container">
+         <div class="form_outter_section">
          <!--HEADER SECTION START-->
-         <h1>Basic Info - Step 1</h1>
-         <hr>
+         <?php // dd($userData);?>
+         <h2 class="title">Let's get started.</h2>
+         <h3 class="subtitle">To incest, please create an account.</h3>
          <form action="{{ url('front/create-step1') }}" method="post">
             {{ csrf_field() }}
-            <div class="form-group">
-            <input
-               id="plan_id"
-               type="hidden"
-               class="form-control"
-               name="plan_id"
-               value="{{ $planData->id }}"
-            />
-            </div>
-            <div class="form-group">
-               <input
-                  id="plan_id"
-                  type="hidden"
-                  class="form-control"
-                  name="plan_id"
-                  value="{{ $planData->id }}"
-               />
-            </div>
-
-            <div class="form-group">
-               <input
-                  id="plan_start_date"
-                  type="hidden"
-                  class="form-control"
-                  name="plan_start_date"
-                  value="{{ $planData->plan_valid_from }}"
-               />
-            </div>
-
-            <div class="form-group">
-               <input
-                  id="plan_end_date"
-                  type="hidden"
-                  class="form-control"
-                  name="plan_end_date"
-                  value="{{ $valid_till }}"
-               />
-            </div>
-
-            <div class="form-group">
-               <input
-                  id="user_id"
-                  type="hidden"
-                  name="user_id"
-                  value="{{ old('user_id',(isset($userData) && !empty($userData->id)) ? $userData->id : '' ) }}"
-               />
-            </div>
-            <div class="form-group">
-               <label for="title">First Name</label>
+            <input id="plan_id" type="hidden" class="form-control" name="plan_id" value="{{ $planData->id }}"/>
+            <input id="plan_id" type="hidden" class="form-control" name="plan_id" value="{{ $planData->id }}"/>
+            <input id="plan_start_date" type="hidden" class="form-control" name="plan_start_date" value="{{ $planData->plan_valid_from }}" />
+            <input id="plan_end_date" type="hidden" class="form-control" name="plan_end_date" value="{{ $valid_till }}" />
+            <input id="user_id" type="hidden" name="user_id" value="{{ old('user_id',(isset($userData) && !empty($userData->id)) ? $userData->id : '' ) }}" />
+            <div class="form-group first_name">
+            <label for="title">First Name</label>
                <input
                   id="first_name"
                   type="text"
@@ -103,7 +57,7 @@
                </span>
                @endif
             </div>
-            <div class="form-group">
+            <div class="form-group last_name">
                <label for="description">Last Name</label>
                <input
                   id="last_name"
@@ -182,35 +136,33 @@
                </div>
             </div>
             <div class="break_section"></div>
-            <h2 class="fs-title">We currently only accept investment from US residents.</h2>
-            <h3 class="fs-subtitle">Please confirm the following:</h3>
-            <div class="form_group"> 
-               <div class="citizenship_field field"> 
+            <h2 class="title">We currently only accept investment from US residents.</h2>
+            <h3 class="subtitle">Please confirm the following:</h3>
+            <div class="form_group">
+               <div class="citizenship_field field">
                   <span class="label">Country of citizenship</span>
-                  <select class="Country_citizenship">
-                     <option value="Iceland">Iceland</option>
-                     <option value="India">India</option>
-                     <option value="United Kingdom">United Kingdom</option>
-                     <option value="United States" selected="">United States</option>
-                  </select>
+                     <select class="Country_citizenship" name="country_citizenship">
+                     @foreach($countryData as $country)
+                        <option value="{{ $country['name']}}" >{{ $country['name']}}</option>
+                     @endforeach
+                     </select>
                </div>
             </div>
             <div class="Residence_field field">
                <span class="label">Country of Residence</span>
-               <select class="Country_Residence">
-                  <option value="Iceland">Iceland</option>
-                  <option value="India">India</option>
-                  <option value="United Kingdom">United Kingdom</option>
-                  <option value="United States" selected="">United States</option>
+               <select class="Country_Residence" name="country_residence">
+                   @foreach($countryData as $country)
+                     <option value="{{ $country['name']}}" >{{ $country['name']}}</option>
+                   @endforeach
                </select>
             </div>
             <a href="#"  class="btn btn-primary">Back</a>
             <button type="submit" class="btn btn-primary">Next</button>
          </form>
+         </div>
       </div>
    </section>
 </div>
 <!--BUY TEMPLATE SECTION END-->
-
 @include('homefooter')
 @include('homescripts')
