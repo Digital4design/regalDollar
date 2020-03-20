@@ -29,12 +29,21 @@
    <section class="white-bg">
       <div class="container">
          <div class="form_outter_section"> 
+         <?php 
+         dd();
+         ?>
             <!--HEADER SECTION START-->
             <h2 class="title">We currently accept investment from US residents.</h2>
             <h3 class="subtitle">Please confirm the following:</h3>
             <form action="{{ url('front/update-amounts') }}" method="post">
                {{ csrf_field() }} 
-               <input type="hidden" value="{{$userData->id}}" class="form-control" id="user_id"  name="user_id">
+               <input
+               type="hidden"
+               value="{{$userData->id}}"
+               class="form-control"
+               id="user_id"
+               name="user_id"
+               />
                <span class="subtitle">How much would you like to invest?</span>
                <div class="form-group">
                   <p>How much should your initial contibution be?</p>
@@ -42,8 +51,8 @@
                <div class="form-group">
                   <select class="form-control" name="amount">
                      <option value="" >Select Amount</option>
-                     <option value="$1000" >$1000</option>
-                     <option value="$2000" >$2000</option>
+                     <option value="$1000"  >$1000</option>
+                     <option value="$2000"  >$2000</option>
                   </select>
                </div>
                <a href="#"  class="btn btn-primary"> Back </a>

@@ -21,7 +21,7 @@ Route::get('/forget-password', function () {
 Route::get('/admin2', function () {
     return view('admindashboard');
 });
-Auth::routes();
+Auth::routes(['verify'=>true]);
 
 Route::group(['prefix' => 'front'], function () {
     Route::get('/create-details/{id}', 'Front\AccountController@index');
@@ -35,7 +35,7 @@ Route::group(['prefix' => 'front'], function () {
     Route::post('/payment-process', 'PaymentController@paymentProcess');
 });
 /**** ================================Admin Routes Start =================================== */
-Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function () {
+Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin','verified']], function () {
     Route::get('/', 'Admin\DashboardController@index');
     Route::post('/states', 'Admin\DashboardController@states');
     Route::post('/cities', 'Admin\DashboardController@cities');
@@ -98,7 +98,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function 
 /****=================================== Admin Routes End ======================================*/
 /**** ================================Client Routes Start =================================== */
 
-Route::group(['prefix' => 'client', 'middleware' => ['auth', 'client']], function () {
+Route::group(['prefix' => 'client', 'middleware' => ['auth', 'client','verified']], function () {
     Route::get('/', 'Client\DashboardController@index');
     Route::post('/states', 'Client\DashboardController@states');
     Route::post('/cities', 'Client\DashboardController@cities');

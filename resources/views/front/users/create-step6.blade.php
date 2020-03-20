@@ -26,21 +26,24 @@
    </div>
 </div>
 <div>
+<?php 
+dd($planData['plan_name']);
+?>
    <section class="white-bg">
       <div class="container">
       <div class="form_outter_section">         
          <!--HEADER SECTION START-->
          <h2 class="title">You're almost done !</h2>
-         <h3 class="subtitle">Please review your information:</h3>
+         <h3 class="subtitle">Please review your information:</h3> 
          <form action="{{ url('front/update-agreement') }}" method="post">
             {{ csrf_field() }}
             <input type="hidden" value="{{$userData->id}}" class="form-control" id="user_id" name="user_id"/>
             <span class="section_title">Basic info</span>
             <div class="form-group">
-               <span class="edit_field" contenteditable="true" >William 
+               <span class="edit_field" contenteditable="true" >{{ $userData['first_name'] }} 
                   <i  class="fa fa-pencil-square-o" aria-hidden="true"></i>
                </span>
-               <span class="edit_field" contenteditable="true">1st Block 1st Cross, Rammurthy nagar, Bangalore-560016 
+               <span class="edit_field" contenteditable="true">{{ $userData['address'] }}  1st Block 1st Cross, Rammurthy nagar, Bangalore-560016 
                   <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                </span>
                <span class="edit_field" contenteditable="true">+91 9988665544 
@@ -52,7 +55,7 @@
             <div class="form-group">
                <span class="edit_field">
                   <span class="title" contenteditable="true">Investment plan</span>
-                  <span class="result">Supplemental Income</span>
+                  <span class="result">{{ planData['plan_name']}}</span>
                   <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                </span> 
                <span class="edit_field">

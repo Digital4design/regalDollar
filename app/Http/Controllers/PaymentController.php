@@ -37,7 +37,7 @@ class PaymentController extends Controller
 
     public function paymentProcess(Request $request)
     {
-        dd($request->all());
+       // dd($request->all());
     }
     /**
      * Store a newly created resource in storage.
