@@ -32,7 +32,7 @@ Route::group(['prefix' => 'front'], function () {
     Route::post('/update-amounts', 'Front\AccountController@postAmountUpdate');
     Route::post('/update-docs', 'Front\AccountController@postDocsUpdate');
     Route::post('/update-agreement', 'Front\AccountController@updateAgreements');
-    Route::post('/payment-process', 'PaymentController@paymentProcess');
+    Route::get('/payment-update/{id}', 'PaymentController@paymentProcess');
 });
 /**** ================================Admin Routes Start =================================== */
 Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin','verified']], function () {

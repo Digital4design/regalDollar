@@ -17,7 +17,7 @@ class userTableSeeder extends Seeder
                 'id' => 1,
                 'name' => 'Admin',
                 'last_name' => 'Dev',
-                'email' => 'devd4d@yopmail.com',
+                'email' => 'testdigital4design@gmail.com',
                 'email_verified_at' => date("Y-m-d H:i:s"),
                 'password' => bcrypt('qwert@123'),
                 'remember_token' => null,
