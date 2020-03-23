@@ -25,7 +25,7 @@
             <div class="block bottom_nav">
                 <h2 class="nav_title">Company</h2>
                 <ul>
-                    <li><a href="/about_us">About</a></li>
+                    <li><a href="{{ url('/') }}/about_us">About</a></li>
                     <li><a href="#">Team</a></li>
                     <li><a href="#">Careers</a></li>
                     <li><a href="#">Press</a></li>
@@ -34,7 +34,7 @@
             <div class="block bottom_nav">
                 <h2 class="nav_title">Resources</h2>
                 <ul>
-                    <li><a href="/faq">Help & FAQs</a></li>
+                    <li><a href="{{ url('/') }}/faq">Help & FAQs</a></li>
                     <li><a href="#">Articles</a></li>
                 </ul>
             </div>

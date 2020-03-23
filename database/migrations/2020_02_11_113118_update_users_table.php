@@ -22,6 +22,7 @@ class UpdateUsersTable extends Migration
             $table->integer('country_id')->after('address2')->unsigned()->nullable();
             $table->integer('state_id')->unsigned()->after('country_id')->nullable();
             $table->integer('city_id')->unsigned()->after('state_id')->nullable();
+            $table->string('city')->after('city_id')->nullable();
             $table->string('zipcode')->after('city_id')->nullable();
             $table->string('accountType')->after('zipcode')->nullable();
             $table->string('phoneNumber')->after('accountType')->nullable();

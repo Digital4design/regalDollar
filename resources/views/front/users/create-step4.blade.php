@@ -48,9 +48,9 @@
                <div class="form-group">
                   <select class="form-control" name="amount">
                      <option value="" >Select Amount</option>
-                     <option value="100"  >$100</option>
-                     <option value="1000"  >$1000</option>
-                     <option value="2000"  >$2000</option>
+                     <option value="100">$100</option>
+                     <option value="1000">$1000</option>
+                     <option value="2000">$2000</option>
                   </select>
                </div>
                <a href="#"  class="btn btn-primary"> Back </a>
