@@ -28,10 +28,7 @@
 <div>
    <section class="white-bg">
       <div class="container">
-         <div class="form_outter_section"> 
-         <?php 
-         //dd();
-         ?>
+         <div class="form_outter_section">
             <!--HEADER SECTION START-->
             <h2 class="title">We currently accept investment from US residents.</h2>
             <h3 class="subtitle">Please confirm the following:</h3>

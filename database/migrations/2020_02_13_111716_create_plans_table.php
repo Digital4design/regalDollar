@@ -23,7 +23,7 @@ class CreatePlansTable extends Migration
             $table->integer('duration')->unsigned();
             $table->string('time_investment')->nullable();
             $table->string('plan_valid_from')->nullable();
-            $table->enum('plan_type', ['0', '1','2'])->default('0')->comment = '0 = No Plan , 1 = Core plan , 2 = Investment plan';
+            $table->enum('plan_type', ['0', '1','2','3'])->default('0')->comment = '0 = No Plan , 1 = Core plan , 2 = Investment plan 3= unassign docs';
             $table->text('descritpion')->nullable();
             $table->timestamps();
         });

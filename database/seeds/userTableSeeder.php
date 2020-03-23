@@ -15,6 +15,8 @@ class userTableSeeder extends Seeder
         $userData = array(
             array(
                 'id' => 1,
+                'first_name'=>'Admin',
+                'last_name'=>'Admin',
                 'name' => 'Admin',
                 'last_name' => 'Dev',
                 'email' => 'testdigital4design@gmail.com',
