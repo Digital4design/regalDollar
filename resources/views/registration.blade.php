@@ -326,21 +326,12 @@
 			<div class="show_result">
 				<span class="section_title">Agreements</span>
 			</div>
-			
-		
-			
-			
-	
-		</div>
-
-		
+			</div>
 			<div class="down">
 				<input type="button" name="previous" class="previous action-button" value="previous" />
 				<input type="button" name="next" class="next action-button" value="next" />
 			</div>
-		
-		
-    </fieldset>
+		</fieldset>
     
     
 </form>

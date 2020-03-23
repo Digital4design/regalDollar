@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use PayPal\Rest\ApiContext;
+use App\User;
+use Auth;
 
 class PaymentController extends Controller
 {
@@ -35,9 +37,16 @@ class PaymentController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function paymentProcess(Request $request)
+    public function paymentProcess($id ,Request $request)
     {
-       // dd($request->all());
+        $userData = User::find(Auth::user()->id);
+        // dd($userData);
+        $userData->paypal_transaction_id = trim($id);
+        $userData->save();
+        $userData = User::find(Auth::user()->id);
+        $userData = $request->session()->put('userData', $userData);
+        $userData = $request->session()->get('userData');
+        return redirect('/');
     }
     /**
      * Store a newly created resource in storage.

@@ -169,7 +169,7 @@ class AccountController extends Controller
         $userData = $request->session()->get('userData');
         $documentData = DocumentManagemetModel::get();
         $data['planData'] = Plan::where('id',$userData['plan_id'])->first();
-        // dd($data['planData']);
+       // dd($data['planData']);
         $data['userData'] = $userData;
         $data['documentData'] = $documentData;
         return view('front.users.create-step6', $data);

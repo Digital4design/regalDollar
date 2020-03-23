@@ -4,24 +4,19 @@
    <div class="stepwizard-row setup-panel">
       <div class="stepwizard-step">
          <a href="#step1" type="button" class="btn btn-primary btn-circle">1</a>
-         <!-- <p>Step 1</p> -->
-      </div>
+       </div>
       <div class="stepwizard-step">
          <a href="#step2" type="button" class="btn btn-primary btn-circle">2</a>
-         <!-- <p>Step 2</p> -->
-      </div>
+       </div>
       <div class="stepwizard-step">
          <a href="#step3" type="button" class="btn btn-primary btn-circle">3</a>
-         <!-- <p>Step 3</p> -->
-      </div>
+       </div>
       <div class="stepwizard-step">
          <a href="#step4" type="button" class="btn btn-primary btn-circle">4</a>
-         <!-- <p>Step 4</p> -->
-      </div>
+       </div>
       <div class="stepwizard-step">
          <a href="#step5" type="button" class="btn btn-primary btn-circle" >5</a>
-         <!-- <p>Step 5</p> -->
-      </div>
+       </div>
       <div class="stepwizard-step">
          <a href="#step6" type="button" class="btn btn-primary btn-circle">6</a>
          <!-- <p>Step 6</p> -->
@@ -52,7 +47,7 @@
     //AWPsCpzkfkeu8vHrBEHS2IXa_EuZz1v-5EtbmiFzFZ1UjqgpqEVX3wuKic4EGz5aW36HTdtqeZujli1x
 </script>
 
-<script src="https://www.paypal.com/sdk/js?client-id=AfzgVTRJ96iUpODF3Pq10ZpzVYRylV5n01-Gx1G0Ap7h5evP7U1tJoAul96LlY3wWiie5l7LeOKJzWJs&currency=INR"></script>
+<script src="https://www.paypal.com/sdk/js?client-id=AfzgVTRJ96iUpODF3Pq10ZpzVYRylV5n01-Gx1G0Ap7h5evP7U1tJoAul96LlY3wWiie5l7LeOKJzWJs&currency=USD"></script>
 <script>
     // Render the PayPal button into #paypal-button-container
     paypal.Buttons({
@@ -61,7 +56,7 @@
             return actions.order.create({
                 purchase_units: [{
                     amount: {
-                        value: 10
+                        value: '{{ $userData->amount }}'
                     }
                 }]
             });
@@ -69,8 +64,10 @@
         // Finalize the transaction
         onApprove: function(data, actions) {
             return actions.order.capture().then(function(details) {
+               alert('Transaction completed by ' + details.payer.name.given_name + '!');
+               exit;
                 // Show a success message to the buyer
-                var url = '{{ url("/") }}//';
+                var url = '{{ url("front/payment-update") }}/' + details.id;
                 window.location.href = url;
                 $(location).attr('href', url);
                 // alert('Transaction completed by ' + details.payer.name.given_name + '!');

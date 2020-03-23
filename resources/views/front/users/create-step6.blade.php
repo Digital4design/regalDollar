@@ -27,7 +27,7 @@
 </div>
 <div>
 <?php 
-dd($planData['plan_name']);
+ // dd($planData['plan_name']);
 ?>
    <section class="white-bg">
       <div class="container">
@@ -55,12 +55,12 @@ dd($planData['plan_name']);
             <div class="form-group">
                <span class="edit_field">
                   <span class="title" contenteditable="true">Investment plan</span>
-                  <span class="result">{{ planData['plan_name']}}</span>
+                  <span class="result">{{ $planData['plan_name'] }}</span>
                   <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                </span> 
                <span class="edit_field">
                   <span contenteditable="true" class="title">Initial Amount</span>
-                  <span class="result">$41000</span>
+                  <span class="result">{{ $userData['amount'] }}</span>
                   <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                </span>            
                <span class="edit_field">
