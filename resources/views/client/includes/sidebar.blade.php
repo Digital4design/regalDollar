@@ -22,7 +22,7 @@
                                 <a href="{{ url('/client/') }}/documents" class="waves-effect"><i class="ti-files"></i><span> Documents & Contracts </span></a>
                             </li>
 
-                            <li class="menu-title">FAQ/Contact</li>
+                            <li class="menu-title">FAQ/Contact</li> 
 
                             <li>
                                 <a href="{{ url('/client/') }}/contact" class="waves-effect"><i class="ti-email"></i><span> Contact Us </span></a>
