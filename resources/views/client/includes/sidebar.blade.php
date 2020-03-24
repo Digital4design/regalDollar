@@ -17,12 +17,12 @@
                             </li>
 
 
-                            <li><a href="{{ url('/client/') }}/view-plans" class="waves-effect"><i class="ti-bar-chart"></i> Open New Account</a></li>
+                            <li><a href="{{ url('/client') }}/create-account" class="waves-effect"><i class="ti-bar-chart"></i> Open New Account</a></li>
                             <li>
                                 <a href="{{ url('/client/') }}/documents" class="waves-effect"><i class="ti-files"></i><span> Documents & Contracts </span></a>
                             </li>
 
-                            <li class="menu-title">FAQ/Contact</li>
+                            <li class="menu-title">FAQ/Contact</li> 
 
                             <li>
                                 <a href="{{ url('/client/') }}/contact" class="waves-effect"><i class="ti-email"></i><span> Contact Us </span></a>

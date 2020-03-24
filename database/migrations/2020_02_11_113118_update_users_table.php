@@ -22,6 +22,7 @@ class UpdateUsersTable extends Migration
             $table->integer('country_id')->after('address2')->unsigned()->nullable();
             $table->integer('state_id')->unsigned()->after('country_id')->nullable();
             $table->integer('city_id')->unsigned()->after('state_id')->nullable();
+            $table->string('city')->after('city_id')->nullable();
             $table->string('zipcode')->after('city_id')->nullable();
             $table->string('accountType')->after('zipcode')->nullable();
             $table->string('phoneNumber')->after('accountType')->nullable();
@@ -30,9 +31,9 @@ class UpdateUsersTable extends Migration
             $table->string('amount')->after('social_security_number')->nullable();
             $table->string('country_citizenship')->after('amount')->nullable();
             $table->string('country_residence')->after('country_citizenship')->nullable();
+            $table->string('paypal_transaction_id')->after('country_residence')->nullable();
         });
     }
-
     /**
      * Reverse the migrations.
      * @return void
@@ -56,6 +57,7 @@ class UpdateUsersTable extends Migration
             $table->dropColumn('amount')->nullable();
             $table->dropColumn('country_citizenship')->nullable();
             $table->dropColumn('country_residence')->nullable();
+            $table->dropColumn('paypal_transaction_id')->nullable();
         });
     }
 }

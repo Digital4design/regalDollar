@@ -73,10 +73,10 @@
                </div>
                <div class="form-group">
                   <label for="description">State</label>
-                  <select class="form-control" name="country">
+                  <select class="form-control" name="state">
                      <option value="" >Select State</option>
                      @foreach ($stateData as $key => $state)
-                     <option  value="{{ $state['id'] }}" >{{ $state['name'] }}</option>
+                        <option  value="{{ $state['name'] }}" >{{ $state['name'] }}</option>
                      @endforeach
                   </select>
                </div>

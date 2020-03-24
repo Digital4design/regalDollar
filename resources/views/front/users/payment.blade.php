@@ -19,11 +19,9 @@
        </div>
       <div class="stepwizard-step">
          <a href="#step6" type="button" class="btn btn-primary btn-circle">6</a>
-         <!-- <p>Step 6</p> -->
       </div>
       <div class="stepwizard-step">
          <a href="#step7" type="button" class="btn btn-primary btn-circle">7</a>
-         <!-- <p>Step 7</p> -->
       </div>
    </div>
 </div>
@@ -38,13 +36,13 @@
 </div>
    </section>
 </div>
-<!--BUY TEMPLATE SECTION END-->
 </div>
 <script>
-    var PAYPAL_CLIENT_ID = '{{ env('PAYPAL_CLIENT ') }}';
+    var PAYPAL_CLIENT_ID = '{{ env('PAYPAL_CLIENT') }}';
     // alert(PAYPAL_CLIENT_ID);
     // AXFpNdPb11eazXIJU3Q2O72EAfmXDeCJK03zhx_mQZrG6Qo2lFEeHeWvaYLrtAd5fN2GxRPMv1sET2wS
-    //AWPsCpzkfkeu8vHrBEHS2IXa_EuZz1v-5EtbmiFzFZ1UjqgpqEVX3wuKic4EGz5aW36HTdtqeZujli1x
+    // AWPsCpzkfkeu8vHrBEHS2IXa_EuZz1v-5EtbmiFzFZ1UjqgpqEVX3wuKic4EGz5aW36HTdtqeZujli1x
+    // AbpeJ8bE592FBrtUFCVEujzGkmtd5PfQLniO_nW6k8GrYlqnbJ4VlZ1XYy_YWY0lWmUC4LnbuvYoWhQW
 </script>
 
 <script src="https://www.paypal.com/sdk/js?client-id=AfzgVTRJ96iUpODF3Pq10ZpzVYRylV5n01-Gx1G0Ap7h5evP7U1tJoAul96LlY3wWiie5l7LeOKJzWJs&currency=USD"></script>
@@ -63,10 +61,10 @@
         },
         // Finalize the transaction
         onApprove: function(data, actions) {
+           // alert(data);
             return actions.order.capture().then(function(details) {
-               alert('Transaction completed by ' + details.payer.name.given_name + '!');
-               exit;
-                // Show a success message to the buyer
+               // alert(details);
+               // Show a success message to the buyer
                 var url = '{{ url("front/payment-update") }}/' + details.id;
                 window.location.href = url;
                 $(location).attr('href', url);

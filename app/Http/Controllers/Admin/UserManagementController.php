@@ -84,7 +84,7 @@ class UserManagementController extends Controller
                 //$data['country'] = Country::select('id', 'name')->get();
                 $data['user'] = $user;
                 $data['roles'] = Role::get();
-                //dd($data);
+                // dd($data);
                 return view('admin.users.user_view', $data);
             }
         } catch (\Exception $e) {
@@ -117,7 +117,7 @@ class UserManagementController extends Controller
                 $data['country'] = Country::select('id', 'name')->get();
                 $data['user'] = $user;
                 $data['roles'] = Role::get();
-
+               // dd($data);
                 return view('admin.users.user_edit', $data);
             }
         } catch (\Exception $e) {

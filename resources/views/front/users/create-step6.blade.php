@@ -26,10 +26,7 @@
    </div>
 </div>
 <div>
-<?php 
- // dd($planData['plan_name']);
-?>
-   <section class="white-bg">
+<section class="white-bg">
       <div class="container">
       <div class="form_outter_section">         
          <!--HEADER SECTION START-->

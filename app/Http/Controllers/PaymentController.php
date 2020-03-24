@@ -46,7 +46,22 @@ class PaymentController extends Controller
         $userData = User::find(Auth::user()->id);
         $userData = $request->session()->put('userData', $userData);
         $userData = $request->session()->get('userData');
-        return redirect('/');
+        return redirect('/client');
+    }
+    public function getTransactionDetails($transaction_id){
+        $curl = curl_init("https://api.sandbox.paypal.com/v1/checkout/orders/$transaction_id");
+        curl_setopt($curl, CURLOPT_POST, false);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($curl, CURLOPT_HEADER, false);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($curl, CURLOPT_HTTPHEADER, array(
+            'Authorization: Bearer ' . '<access_token>',
+            'Accept: application/json',
+            'Content-Type: application/json'
+        ));
+        $response = curl_exec($curl);
+        $result = json_decode($response);
+        dd($result);
     }
     /**
      * Store a newly created resource in storage.

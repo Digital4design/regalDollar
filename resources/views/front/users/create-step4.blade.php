@@ -28,10 +28,7 @@
 <div>
    <section class="white-bg">
       <div class="container">
-         <div class="form_outter_section"> 
-         <?php 
-         //dd();
-         ?>
+         <div class="form_outter_section">
             <!--HEADER SECTION START-->
             <h2 class="title">We currently accept investment from US residents.</h2>
             <h3 class="subtitle">Please confirm the following:</h3>
@@ -51,9 +48,9 @@
                <div class="form-group">
                   <select class="form-control" name="amount">
                      <option value="" >Select Amount</option>
-                     <option value="100"  >$100</option>
-                     <option value="1000"  >$1000</option>
-                     <option value="2000"  >$2000</option>
+                     <option value="100">$100</option>
+                     <option value="1000">$1000</option>
+                     <option value="2000">$2000</option>
                   </select>
                </div>
                <a href="#"  class="btn btn-primary"> Back </a>

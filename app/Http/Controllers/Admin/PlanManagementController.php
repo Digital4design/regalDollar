@@ -10,7 +10,7 @@ use App\Models\State;
 use App\Role;
 use App\User;
 use Crypt;
-use DataTables;
+use DataTables; 
 use Illuminate\Http\Request;
 use Mail;
 use Redirect;

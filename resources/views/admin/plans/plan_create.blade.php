@@ -8,7 +8,7 @@
 @endsection
 @section('content')
 <div class="row">
-   <div class="col-lg-12">
+   <div class="col-lg-12"> 
       <div class="card">
          <div class="card-body">
             <!-- end row -->
@@ -107,6 +107,7 @@
                               <option value="">Select Plan Type</option>
                               <option value="1">Core Plan</option>
                               <option value="2">Investment plan</option>
+                              <option value="3">Unassign Docs</option>
                              
                               </select>
                               @if ($errors->has('plan_type'))

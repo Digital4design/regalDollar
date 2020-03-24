@@ -114,6 +114,12 @@ Route::group(['prefix' => 'client', 'middleware' => ['auth', 'client','verified'
         Route::get('/view/{id}', 'Client\DocumentsManagementController@singleDocuments');
     });
 
+    Route::group(['prefix' => 'create-account', 'middleware' => ['auth', 'client']], function () {
+        Route::get('/', 'Client\DocumentsManagementController@index');
+        Route::get('/documents-data', 'Client\DocumentsManagementController@documentsData');
+        Route::get('/view/{id}', 'Client\DocumentsManagementController@singleDocuments');
+    });
+
     // Route::get('/', function () {
     //     return view('dashboard');
     // });
