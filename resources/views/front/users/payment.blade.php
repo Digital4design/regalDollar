@@ -28,9 +28,10 @@
 <div>
    <section class="white-bg">
       <div class="container">
-      <div class="form_outter_section">         
+      <div class="form_outter_section">
          <!--HEADER SECTION START-->
          <h3 class="subtitle">Payment Process:</h3>
+         <?php//  dd($userData['plan_id']); ?>
       <div id="paypal-button-container"></div>
       </div>
 </div>
@@ -44,7 +45,6 @@
     // AWPsCpzkfkeu8vHrBEHS2IXa_EuZz1v-5EtbmiFzFZ1UjqgpqEVX3wuKic4EGz5aW36HTdtqeZujli1x
     // AbpeJ8bE592FBrtUFCVEujzGkmtd5PfQLniO_nW6k8GrYlqnbJ4VlZ1XYy_YWY0lWmUC4LnbuvYoWhQW
 </script>
-
 <script src="https://www.paypal.com/sdk/js?client-id=AfzgVTRJ96iUpODF3Pq10ZpzVYRylV5n01-Gx1G0Ap7h5evP7U1tJoAul96LlY3wWiie5l7LeOKJzWJs&currency=USD"></script>
 <script>
     // Render the PayPal button into #paypal-button-container
@@ -61,7 +61,7 @@
         },
         // Finalize the transaction
         onApprove: function(data, actions) {
-           // alert(data);
+          
             return actions.order.capture().then(function(details) {
                // alert(details);
                // Show a success message to the buyer

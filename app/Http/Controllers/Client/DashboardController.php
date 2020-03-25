@@ -10,6 +10,8 @@ use App\User;
 use Auth;
 use Hash;
 use Illuminate\Http\Request;
+use App\Models\InvestmentModel;
+use App\Models\Plan;
 use Validator;
 
 class DashboardController extends Controller
@@ -25,8 +27,17 @@ class DashboardController extends Controller
     }
     public function index()
     {
+        //dd(Auth::user()->id);
+        $user_id = Auth::user()->id;
+        $investmentData = InvestmentModel::where('user_id',$user_id)->first();
+        $plan_id = $investmentData['plan_id'];
+        $planData = Plan::where('id',$plan_id)->first();
+        // dd($planData);
         $result = array('pageName' => 'Dashboard',
             'activeMenu' => 'dashboard',
+            'activePlan' => $planData,
+            'investAmount' => $investmentData['amount'],
+            'matureDate' => $investmentData['plan_end_date'],
         );
         return view('client.dashboard.dashboard', $result);
     }

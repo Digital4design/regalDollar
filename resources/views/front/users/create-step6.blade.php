@@ -35,6 +35,7 @@
          <form action="{{ url('front/update-agreement') }}" method="post">
             {{ csrf_field() }}
             <input type="hidden" value="{{$userData->id}}" class="form-control" id="user_id" name="user_id"/>
+            <input type="hidden" value="{{ $userData['plan_id'] }}" class="form-control" id="plan_id"  name="plan_id">
             <span class="section_title">Basic info</span>
             <div class="form-group">
                <span class="edit_field" contenteditable="true" >{{ $userData['first_name'] }} 

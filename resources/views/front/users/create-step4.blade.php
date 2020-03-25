@@ -34,19 +34,14 @@
             <h3 class="subtitle">Please confirm the following:</h3>
             <form action="{{ url('front/update-amounts') }}" method="post">
                {{ csrf_field() }} 
-               <input
-               type="hidden"
-               value="{{$userData->id}}"
-               class="form-control"
-               id="user_id"
-               name="user_id"
-               />
+               <input type="hidden" value="{{$userData->id}}" class="form-control" id="user_id" name="user_id"/>
+               <input type="hidden" value="{{$userData->plan_id}}" class="form-control" id="plan_id" name="plan_id"/>
                <span class="subtitle">How much would you like to invest?</span>
                <div class="form-group">
                   <p>How much should your initial contibution be?</p>
                </div>
                <div class="form-group">
-                  <select class="form-control" name="amount">
+                  <select class="form-control" name="amount" required="required" >
                      <option value="" >Select Amount</option>
                      <option value="100">$100</option>
                      <option value="1000">$1000</option>

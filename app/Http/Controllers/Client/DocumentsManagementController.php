@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Auth;
 class DocumentsManagementController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a listing of the resource. 
      * @return \Illuminate\Http\Response
      */
     public function index()

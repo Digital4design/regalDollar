@@ -42,6 +42,7 @@
             <input id="plan_start_date" type="hidden" class="form-control" name="plan_start_date" value="{{ $planData->plan_valid_from }}" />
             <input id="plan_end_date" type="hidden" class="form-control" name="plan_end_date" value="{{ $valid_till }}" />
             <input id="user_id" type="hidden" name="user_id" value="{{ old('user_id',(isset($userData) && !empty($userData->id)) ? $userData->id : '' ) }}" />
+
             <div class="form-group first_name">
             <label for="title">First Name</label>
                <input
@@ -141,20 +142,30 @@
             <div class="form_group">
                <div class="citizenship_field field">
                   <span class="label">Country of citizenship</span>
-                     <select class="Country_citizenship" name="country_citizenship">
+                     <select class="Country_citizenship" name="country_citizenship" required="required" >
                      @foreach($countryData as $country)
                         <option value="{{ $country['name']}}" >{{ $country['name']}}</option>
                      @endforeach
                      </select>
+                     @if ($errors->has('country_citizenship'))
+                     <span style="display:initial;" class="invalid-feedback" role="alert">
+                     <strong>{{ $errors->first('country_citizenship') }}</strong>
+                     </span>
+                     @endif
                </div>
             </div>
             <div class="Residence_field field">
                <span class="label">Country of Residence</span>
-               <select class="Country_Residence" name="country_residence">
+               <select class="Country_Residence" name="country_residence" required="required" >
                    @foreach($countryData as $country)
                      <option value="{{ $country['name']}}" >{{ $country['name']}}</option>
                    @endforeach
                </select>
+               @if ($errors->has('country_residence'))
+                     <span style="display:initial;" class="invalid-feedback" role="alert">
+                     <strong>{{ $errors->first('country_residence') }}</strong>
+                     </span>
+                     @endif
             </div>
             <a href="#"  class="btn btn-primary">Back</a>
             <button type="submit" class="btn btn-primary">Next</button>

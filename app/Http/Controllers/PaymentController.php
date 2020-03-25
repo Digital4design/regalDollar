@@ -4,17 +4,14 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use PayPal\Rest\ApiContext;
+use App\Models\InvestmentModel;
 use App\User;
 use Auth;
+use DB;
 
 class PaymentController extends Controller
 {
-    private $_api_context;
-    public function __construct()
-    {
-        $paypal_conf = \Config::get('paypal');
-        $this->_api_context = new ApiContext();
-    }
+    
     /**
      * Display a listing of the resource.
      * @return \Illuminate\Http\Response
@@ -40,9 +37,22 @@ class PaymentController extends Controller
     public function paymentProcess($id ,Request $request)
     {
         $userData = User::find(Auth::user()->id);
-        // dd($userData);
-        $userData->paypal_transaction_id = trim($id);
-        $userData->save();
+        $userData = $request->session()->get('userData');
+        // dd($userData); // working here
+
+        // DB::table('investment')
+        // ->where('user_id',$userData['id'])
+        // ->where('plan_id',$userData['plan_id'])
+        // ->update([
+        //     'paypal_transaction_id' => $id,
+        // ]);
+        InvestmentModel::where('user_id',$userData['id'])
+            ->where('plan_id',$userData['plan_id'])
+            ->update(
+                [
+                    'paypal_transaction_id' => $id,
+                ]);
+        
         $userData = User::find(Auth::user()->id);
         $userData = $request->session()->put('userData', $userData);
         $userData = $request->session()->get('userData');
@@ -61,7 +71,7 @@ class PaymentController extends Controller
         ));
         $response = curl_exec($curl);
         $result = json_decode($response);
-        dd($result);
+       // dd($result);
     }
     /**
      * Store a newly created resource in storage.
