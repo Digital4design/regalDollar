@@ -46,13 +46,14 @@
    </div>
    <div class="col-xl-3">
       <div class="card">
+      <?php  // dd($activePlan); ?>
          <div class="card-body">
             <div class="py-4" style="text-align: center;">
                <i class="ion ion-ios-checkmark-circle-outline display-4 text-success"></i>
-               <h5 class="text-primary mt-4">24 Month Plan</h5>
-               <p class="text-muted">You are currently enrolled in the 24 month investment plan with a <span>$10,000</span> fund.</p>
+               <h5 class="text-primary mt-4">{{ $activePlan['time_investment'] }} Month Plan</h5>
+               <p class="text-muted">You are currently enrolled in the {{ $activePlan['time_investment'] }} month investment plan with a <span>${{ $investAmount }}</span> fund.</p>
                <hr />
-               <p class="text-muted mb-5">Your investment account will mature on <u>November 12, 2022</u>.</p>
+               <p class="text-muted mb-5">Your investment account will mature on <u>{{ $matureDate }}</u>.</p>
                <div class="mt-4">
                   <a href="" class="btn btn-secondary btn-sm">Contact Us</a> <a href="" class="btn btn-primary btn-sm">Invest More</a>
                </div>

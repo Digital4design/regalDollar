@@ -21,7 +21,7 @@ Route::get('/forget-password', function () {
 Route::get('/admin2', function () {
     return view('admindashboard');
 });
-Auth::routes(['verify'=>true]);
+Auth::routes();
 
 Route::group(['prefix' => 'front'], function () {
     Route::get('/create-details/{id}', 'Front\AccountController@index');

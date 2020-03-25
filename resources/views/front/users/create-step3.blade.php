@@ -34,13 +34,8 @@
             <hr>
             <form action="{{ url('front/update-info') }}" method="post">
                {{ csrf_field() }}
-               <input
-               type="hidden"
-               value="{{$userData->id}}"
-               class="form-control"
-               id="user_id"
-               name="user_id"
-               />
+               <input type="hidden" value="{{ $userData->id }}" class="form-control" id="user_id" name="user_id" />
+               <input type="hidden" value="{{ $userData->plan_id }}" class="form-control" id="plan_id" name="plan_id" />
                <div class="form-group">
                   <label for="title">Address Line 1</label>
                   <input 
@@ -49,7 +44,13 @@
                   class="form-control"
                   id="address"
                   name="address"
+                  required="required" 
                   />
+                  @if ($errors->has('address'))
+                     <span style="display:initial;" class="invalid-feedback" role="alert">
+                     <strong>{{ $errors->first('address') }}</strong>
+                     </span>
+                     @endif
                </div>
                <div class="form-group">
                   <label for="title">Address Line 2</label>
@@ -59,7 +60,13 @@
                   class="form-control"
                   id="address2"
                   name="address2"
+                  required="required" 
                   />
+                  @if ($errors->has('address2'))
+                     <span style="display:initial;" class="invalid-feedback" role="alert">
+                     <strong>{{ $errors->first('address2') }}</strong>
+                     </span>
+                     @endif
                </div>
                <div class="form-group">
                   <label for="title">City</label>
@@ -69,16 +76,27 @@
                   class="form-control"
                   id="city"
                   name="city"
+                  required="required" 
                   />
+                  @if ($errors->has('city'))
+                     <span style="display:initial;" class="invalid-feedback" role="alert">
+                     <strong>{{ $errors->first('city') }}</strong>
+                     </span>
+                     @endif
                </div>
                <div class="form-group">
                   <label for="description">State</label>
-                  <select class="form-control" name="state">
+                  <select class="form-control" name="state" required="required" >
                      <option value="" >Select State</option>
                      @foreach ($stateData as $key => $state)
                         <option  value="{{ $state['name'] }}" >{{ $state['name'] }}</option>
                      @endforeach
                   </select>
+                  @if ($errors->has('state'))
+                     <span style="display:initial;" class="invalid-feedback" role="alert">
+                     <strong>{{ $errors->first('state') }}</strong>
+                     </span>
+                     @endif
                </div>
                <div class="form-group">
                   <label for="title">ZIP Code</label>
@@ -91,7 +109,13 @@
                   id="zipcode" 
                   name="zipcode" 
                   placeholder="Zip Code"
+                  required="required" 
                   />
+                  @if ($errors->has('zipcode'))
+                     <span style="display:initial;" class="invalid-feedback" role="alert">
+                     <strong>{{ $errors->first('zipcode') }}</strong>
+                     </span>
+                     @endif
                </div>
                <div class="form-group">
                   <label for="description">Phone Number</label>
@@ -107,6 +131,11 @@
                   name="phoneNumber"
                   placeholder="Phone Number"
                   />
+                  @if ($errors->has('phoneNumber'))
+                     <span style="display:initial;" class="invalid-feedback" role="alert">
+                     <strong>{{ $errors->first('phoneNumber') }}</strong>
+                     </span>
+                     @endif
                </div>
                <div class="break_section"></div>
                <h2 class="title">Tax Reporting Information</h2>
@@ -121,7 +150,13 @@
                   name="social_security_number"
                   maxlength="14" aria-required="true" 
                   placeholder="Social Security Number"
+                  required="required" 
                   />
+                  @if ($errors->has('social_security_number'))
+                     <span style="display:initial;" class="invalid-feedback" role="alert">
+                     <strong>{{ $errors->first('social_security_number') }}</strong>
+                     </span>
+                     @endif
                </div>
                <div class="form-group">
                   <label for="description">Date of Birth</label><br/>
@@ -132,7 +167,13 @@
                   id="birthday"
                   name="birthday"
                   placeholder="___-__-____"
+                  required="required" 
                   />
+                  @if ($errors->has('birthday'))
+                     <span style="display:initial;" class="invalid-feedback" role="alert">
+                     <strong>{{ $errors->first('birthday') }}</strong>
+                     </span>
+                     @endif
                </div>
                <a href="#"  class="btn btn-primary">Back</a>
                <button type="submit" class="btn btn-primary"> Next </button>

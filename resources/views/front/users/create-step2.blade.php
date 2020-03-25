@@ -31,18 +31,26 @@
             <!--HEADER SECTION START-->
             <h2 class="title">We currently accept investment from US residents.</h2>
             <h3 class="subtitle">Please confirm the following:</h3>
+            <?php // dd($userData['plan_id']); ?>
             <form action="{{ url('front/create-update') }}" method="post">
                {{ csrf_field() }}
-               <input type="hidden" value="{{$userData->id}}" class="form-control" id="user_id"  name="user_id">
+               <input type="hidden" value="{{ $userData['id'] }}" class="form-control" id="user_id"  name="user_id">
+               <input type="hidden" value="{{ $userData['plan_id'] }}" class="form-control" id="plan_id"  name="plan_id">
                <div class="form-group">
                   <label for="description">Account Type</label>
-                  <select class="form-control" name="accountType">
+                  <select class="form-control" name="accountType" required="required" >
                      <option value="" >Select Account Type</option>
                      <option value="individual" {{ ( $userData->accountType == "individual" ) ? 'selected' : '' }}>Individual</option>
                      <!-- <option value="company" {{ ( $userData->accountType == "company") ? 'selected' : '' }}>Company</option> -->
                   </select>
+                  @if ($errors->has('accountType'))
+                     <span style="display:initial;" class="invalid-feedback" role="alert">
+                     <strong>{{ $errors->first('accountType') }}</strong>
+                     </span>
+                     @endif
+
                </div>
-               <div class="break_section"></div>
+               <!-- <div class="break_section"></div>
                <h2 class="title">Let's finish getting your account set up.</h2>
                <h3 class="subtitle">What type of account would you like to open?</h3>
                <div class="form_group">
@@ -52,7 +60,7 @@
                         <p>Individual account</p>
                      </div>
                   </div>
-               </div>
+               </div> -->
                <a href="#"  class="btn btn-primary">Back</a>
                <button type="submit" class="btn btn-primary">Next</button>
             </form>
