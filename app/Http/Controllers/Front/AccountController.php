@@ -82,9 +82,9 @@ class AccountController extends Controller
                 $userData = $request->session()->put('userData', $userData);
                 $userData = $request->session()->get('userData');
                 return redirect('/front/create-step2');
-        } catch (\Exception $e) {
-            echo $e->getMessage();
-        }
+            } catch (\Exception $e) {
+                echo $e->getMessage();
+            }
         } else {
             $rules = [
                 'first_name' => 'required|min:2',

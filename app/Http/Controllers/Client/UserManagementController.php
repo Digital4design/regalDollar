@@ -20,5 +20,11 @@ use Validator;
 
 class UserManagementController extends Controller
 {
-    //
+    public function index(){
+
+        $result = array('pageName' => 'Dashboard',
+            'activeMenu' => 'create-account',
+        );
+        return view('client.userManagemet.create_user', $result);
+    }
 }

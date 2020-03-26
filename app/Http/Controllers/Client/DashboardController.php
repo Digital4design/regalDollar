@@ -73,7 +73,6 @@ class DashboardController extends Controller
 
     public function editAccount(Request $request)
     {
-        // dd($request->all());
         $rules = [
             'first_name' => 'required|min:2|regex:/^[A-Za-z. -]+$/',
             'last_name' => 'required|min:2|regex:/^[A-Za-z. -]+$/',

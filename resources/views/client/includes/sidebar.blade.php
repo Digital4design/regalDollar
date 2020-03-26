@@ -12,7 +12,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="{{ url('/client/') }}" class="waves-effect">
+                                <a href="{{ url('/client/withdraw-management') }}" class="waves-effect">
                                     <i class="ti-reload"></i>
                                     <span> Withdraw Money </span>
                                 </a>

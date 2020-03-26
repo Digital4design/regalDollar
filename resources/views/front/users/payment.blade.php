@@ -31,7 +31,7 @@
       <div class="form_outter_section">
          <!--HEADER SECTION START-->
          <h3 class="subtitle">Payment Process:</h3>
-         <?php//  dd($userData['plan_id']); ?>
+		 <?php // dd($userData->amount);?>
       <div id="paypal-button-container"></div>
       </div>
 </div>
