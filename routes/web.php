@@ -44,7 +44,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin','verified']]
         Route::post('/edit', 'Admin\DashboardController@editAccount');
         Route::post('/edit-password', 'Admin\DashboardController@editAccountPassword');
     });
-    /**
+    /**  
      * User Management routes here
      **/
     Route::group(['prefix' => 'users-management'], function () {
@@ -115,9 +115,26 @@ Route::group(['prefix' => 'client', 'middleware' => ['auth', 'client','verified'
     });
 
     Route::group(['prefix' => 'create-account', 'middleware' => ['auth', 'client']], function () {
-        Route::get('/', 'Client\DocumentsManagementController@index');
-        Route::get('/documents-data', 'Client\DocumentsManagementController@documentsData');
-        Route::get('/view/{id}', 'Client\DocumentsManagementController@singleDocuments');
+        Route::get('/', 'Client\UserManagementController@index');
+        Route::get('/documents-data', 'Client\UserManagementController@documentsData');
+        Route::get('/view/{id}', 'Client\UserManagementController@singleDocuments');
+    });
+
+    Route::group(['prefix' => 'withdraw-management', 'middleware' => ['auth', 'client']], function () {
+        Route::get('/', 'Client\WithdrawManagamentController@index');
+        Route::get('/documents-data', 'Client\WithdrawManagamentController@documentsData');
+        Route::get('/view/{id}', 'Client\WithdrawManagamentController@singleDocuments');
+    });
+
+    Route::group(['prefix' => 'bank-account-management', 'middleware' => ['auth', 'client']], function () {
+        Route::get('/', 'Client\BankAccountManagamentController@index');
+        Route::post('/save-data', 'Client\BankAccountManagamentController@store');
+        Route::get('/view/{id}', 'Client\BankAccountManagamentController@singleDocuments');
+    });
+
+    Route::group(['prefix' => 'contact-us-management', 'middleware' => ['auth', 'client']], function () {
+        Route::get('/', 'Client\ContactUsController@index');
+        Route::post('/save-data', 'Client\ContactUsController@store');
     });
 
     // Route::get('/', function () {

@@ -15,7 +15,7 @@ class CreateInvestmentTable extends Migration
     {
         Schema::create('investment', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('user_id')->nullable();
+            $table->integer('user_id')->nullable(); 
             //$table->unsignedInteger('user_id');
             //$table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             //$table->unsignedInteger('plan_id');
