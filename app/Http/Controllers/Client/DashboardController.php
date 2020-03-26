@@ -70,15 +70,12 @@ class DashboardController extends Controller
         $vars['states'] = $this->gen_states();
         return view('client.dashboard.profile', compact('vars', 'states', 'city'));
     }
-
     public function editAccount(Request $request)
     {
         $rules = [
             'first_name' => 'required|min:2|regex:/^[A-Za-z. -]+$/',
             'last_name' => 'required|min:2|regex:/^[A-Za-z. -]+$/',
             'birthday' => 'required',
-            // 'info_state' => 'required|numeric',
-            // 'info_city' => 'required|numeric',
             'zipcode' => 'required|numeric',
         ];
         $messages = [
@@ -106,7 +103,6 @@ class DashboardController extends Controller
             return back()->with(['pstatus' => 'danger', 'pmessage' => $e->getMessage()]);
         }
     }
-
     public function editAccountPassword(Request $request)
     {
         $rules = [
@@ -135,12 +131,9 @@ class DashboardController extends Controller
         } catch (\Exception $e) {
             return back()->with(['status' => 'danger', 'message' => $e->getMessage()]);
         }
-
     }
-
     /**
      * Store a newly created resource in storage.
-     *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
@@ -151,7 +144,6 @@ class DashboardController extends Controller
 
     /**
      * Display the specified resource.
-     *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
@@ -162,7 +154,6 @@ class DashboardController extends Controller
 
     /**
      * Show the form for editing the specified resource.
-     *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
@@ -173,7 +164,6 @@ class DashboardController extends Controller
 
     /**
      * Update the specified resource in storage.
-     *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
@@ -185,7 +175,6 @@ class DashboardController extends Controller
 
     /**
      * Remove the specified resource from storage.
-     *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */

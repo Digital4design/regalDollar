@@ -4,14 +4,13 @@ namespace App\Http\Controllers\Client;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\BankAccountModel;
-use Validator;
-use App\User;
-use Auth;
+use App\Models\ContactUsModel;
 use Crypt;
-use Hash;
+use DataTables;
+use Illuminate\Support\Facades\Auth;
+use Validator;
 
-class BankAccountManagamentController extends Controller
+class ContactUsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,11 +18,12 @@ class BankAccountManagamentController extends Controller
      */
     public function index()
     {
-        $result = array('pageName' => 'Bank Accounts',
-            'activeMenu' => 'bank-account-management',
+        $result = array('pageName' => 'Contact Us',
+            'activeMenu' => 'contact-us-management',
         );
-        return view('client.bankAccountManagement.createBankAccount', $result);
+        return view('client.contactUs.contact_us', $result);
     }
+
     /**
      * Show the form for creating a new resource.
      * @return \Illuminate\Http\Response
@@ -34,34 +34,34 @@ class BankAccountManagamentController extends Controller
     }
     /**
      * Store a newly created resource in storage.
+     *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
+        // dd($request->all());
         $rules = [
-            'first_name' => 'required|min:2',
-            'last_name' => 'required|min:2',
-            'bank_name' => 'required',
-            'account_number' => 'required|numeric',
-            'swift_code' => 'required',
+            'name' => 'required|min:2',
+            'contact_subject' => 'required|min:2',
+            'contact_option' => 'required',
+            'message' => 'required',
         ];
         $messages = [
-            'first_name.required' => 'Your first name is required.',
-            'last_name.min' => 'First name should contain at least 2 characters.',
+            'name.required' => 'Your first name is required.',
+            'name.min' => 'First name should contain at least 2 characters.',
         ];
         $validator = Validator::make($request->all(), $rules, $messages);
+        //dd($validator);
         if ($validator->fails()) {
             return back()->withErrors($validator)->withInput();
         }
         try {
-            $bankData = BankAccountModel::create([
-                'user_id' => Auth::user()->id,
-                'first_name' => $request->first_name,
-                'last_name' => $request->last_name,
-                'bank_name' => $request->bank_name,
-                'account_number' => $request->account_number,
-                'swift_code' => $request->swift_code,
+            $bankData = ContactUsModel::create([
+                'name' => $request->name,
+                'contact_subject' => $request->contact_subject,
+                'contact_option' => $request->contact_option,
+                'message' => $request->message,
             ]);
             return redirect('/client/withdraw-management')->with(['pstatus' => 'success', 'pmessage' => 'Your account added successfully!']);
         } catch (\Exception $e) {
@@ -70,6 +70,7 @@ class BankAccountManagamentController extends Controller
     }
     /**
      * Display the specified resource.
+     *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
@@ -86,6 +87,7 @@ class BankAccountManagamentController extends Controller
     {
         //
     }
+
     /**
      * Update the specified resource in storage.
      * @param  \Illuminate\Http\Request  $request
@@ -96,6 +98,7 @@ class BankAccountManagamentController extends Controller
     {
         //
     }
+
     /**
      * Remove the specified resource from storage.
      * @param  int  $id

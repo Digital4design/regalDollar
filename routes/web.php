@@ -132,6 +132,11 @@ Route::group(['prefix' => 'client', 'middleware' => ['auth', 'client','verified'
         Route::get('/view/{id}', 'Client\BankAccountManagamentController@singleDocuments');
     });
 
+    Route::group(['prefix' => 'contact-us-management', 'middleware' => ['auth', 'client']], function () {
+        Route::get('/', 'Client\ContactUsController@index');
+        Route::post('/save-data', 'Client\ContactUsController@store');
+    });
+
     // Route::get('/', function () {
     //     return view('dashboard');
     // });

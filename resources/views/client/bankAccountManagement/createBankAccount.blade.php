@@ -88,13 +88,11 @@
                   @endif
                 </div>
               </div>
-
-            </div>
+              </div>
             <button class="btn btn-primary" type="submit">Save Account</button>
           </form>
         </div>
-        
-      </div>
+        </div>
     </div>
   </div>
 </div>
