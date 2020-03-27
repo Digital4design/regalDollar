@@ -15,15 +15,17 @@ use App\Models\Role;
 use Validator;
 use App\User;
 use Auth;
-use Crypt;
+use Crypt; 
 use Hash;
 
 class UserManagementController extends Controller
 {
     public function index(){
-
+        $planData = Plan::where('plan_type', '1')->orderBy('id', 'desc')->get();
+        // dd($planData);
         $result = array('pageName' => 'Dashboard',
             'activeMenu' => 'create-account',
+            'planData'=>$planData,
         );
         return view('client.userManagemet.create_user', $result);
     }

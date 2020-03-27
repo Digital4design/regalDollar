@@ -64,80 +64,6 @@
 					</div>
 				</div>
 				<?php } ?>
-
-
-				<!--
-				<div class="block">
-					<div class="image_sec">
-						<img src="{{ asset('public/assets/images/Balanced_Investing.jpg') }}" alt="">
-						<div class="icon_sec">
-							<img src="{{ asset('public/assets/images/libra.png') }}" alt="">
-						</div>
-					</div>
-					<div class="detail_sec">
-						<h2 class="title">Balanced Investing</h2>
-						<p>Build wealth confidently with high diversification.</p>
-						
-						<div class="progress_bar Balanced_track">
-							<div class="row">
-								<span class="bar_title">Dividends</span>
-								<div class="track">
-									<span class="show_result"></span>
-								</div>
-							</div>
-							<div class="row">
-								<span class="bar_title">Appreciation</span>
-								<div class="track">
-									<span class="show_result"></span>
-								</div>
-							</div>
-							<div class="row">
-								<span class="bar_title">Total return</span>
-								<div class="track">
-									<span class="show_result"></span>
-								</div>
-							</div>
-						</div>
-						
-						<a class="btn">View detail</a>
-					</div>
-				</div>
-				
-				<div class="block">
-					<div class="image_sec">
-						<img src="{{ asset('public/assets/images/Long-Term_Growth.jpeg') }}" alt="">
-						<div class="icon_sec">
-							<img src="{{ asset('public/assets/images/money.png') }}" alt="">
-						</div>
-					</div>
-					<div class="detail_sec">
-						<h2 class="title">Long-Term Growth</h2>
-						<p>Pursue superior overall returns over the long term.</p>
-						
-						<div class="progress_bar Long-Term_track">
-							<div class="row">
-								<span class="bar_title">Dividends</span>
-								<div class="track">
-									<span class="show_result"></span>
-								</div>
-							</div>
-							<div class="row">
-								<span class="bar_title">Appreciation</span>
-								<div class="track">
-									<span class="show_result"></span>
-								</div>
-							</div>
-							<div class="row">
-								<span class="bar_title">Total return</span>
-								<div class="track">
-									<span class="show_result"></span>
-								</div>
-							</div>   
-						</div>
-						<a class="btn">View detail</a>
-					</div>
-				</div>
-				-->
 			</div>
 		</div>
 	</div>
@@ -154,7 +80,7 @@
 			<div class="plans">
 				<div class="row">
 					<?php   
-					foreach ($investmentData as $key=>$plan) { 
+					foreach ($investmentData as $key=>$plan) {  
 					?>
 					<div class="col-md-3">
 						<div class="kode-event-list-2">
@@ -165,76 +91,29 @@
 							<div class="kode-text">
 								<h2>{{ $plan->time_investment}} Month Plan</h2>
 								<p class="title">
-									<?php $planDescription=json_decode($plan->descritpion); foreach ($planDescription as $key => $planDesc) { ?>
+									<?php $planDescription=json_decode($plan->descritpion); 
+									foreach ($planDescription as $key => $planDesc) { 
+										?>
 									<p style="text-align: left;"><i class="fa fa-arrow-right"></i> {{ $planDesc }}</p>
+
 									<?php } ?>
 									<!-- <p style="text-align: left;"><i class="fa fa-arrow-right"></i> You will be able to withdrawal your earnings every month.</p>
 									<p style="text-align: left;"><i class="fa fa-arrow-right"></i> You cannot cancel within the first year.</p>
 									<p style="text-align: left;"><i class="fa fa-arrow-right"></i> $50,000 become $68,000 in one year // $1,500 a month.</p>
 									</p> -->
-									<?php if(date("Y-m-d") >= $plan['plan_valid_from']){ ?> <a class="btn-filled" href="<?php echo url('/front/create-details') . '/' . Crypt::encrypt($plan->id)  ?>">Get Started</a>
+									<?php if(date("Y-m-d") >= $plan['plan_valid_from']){ ?> 
+									<a class="btn-filled" href="<?php echo url('/front/create-details') . '/' . Crypt::encrypt($plan->id)  ?>">Get Started</a>
+									
 									<?php }else{ ?>
+
 									<div class="alert alert-warning">This plan will be available in <b> {{ date('m/d/yy', strtotime($plan->plan_valid_from)) }} </b>
 									</div> <a class="btn-filled" href="#">Get Started</a>
+									
 									<?php } ?>
 							</div>
 						</div>
 					</div>
 					<?php } ?>
-					<!--
-						<div class="col-md-3">
-						<div class="kode-event-list-2">
-							<div class="kode-thumb">
-								<a href="#"><img alt="" src="{{ asset('images/news-img2.png') }}"></a>
-							</div>
-							<div class="kode-text">
-								<h2>24 Month Plan</h2>
-								<p class="title">
-								<p style="text-align: left;"><i class="fa fa-arrow-right"></i> Guaranteed return of 20% annually.</p>
-								<p style="text-align: left;"><i class="fa fa-arrow-right"></i> Two-year commitment, you cannot cancel on the first year.</p>
-								<p style="text-align: left;"><i class="fa fa-arrow-right"></i> $50,000 become $72,000 in 2 years.</p>
-								</p>
-								<a class="btn-filled" href="#">Get Started</a>
-							</div>
-						</div>
-						</div>
-						<div class="col-md-3">
-						<div class="kode-event-list-2">
-							<div class="kode-thumb">
-								<a href="#"><img alt="" src="{{ asset('images/news-img3.png') }}"></a>
-							</div>
-							<div class="kode-text">
-								<h2>36 Month Plan</h2>
-								<p class="title">
-								<p style="text-align: left;"><i class="fa fa-arrow-right"></i> Guaranteed return of 25% annually.</p>
-								<p style="text-align: left;"><i class="fa fa-arrow-right"></i> Three-year commitment, you cannot cancel on the first year.</p>
-								<p style="text-align: left;"><i class="fa fa-arrow-right"></i> When you finish the three years, we will bonus your account $2,500 that's our reward for your commitment.</p>
-								<p style="text-align: left;"><i class="fa fa-arrow-right"></i> $50,000 become $90,000 in 3 years.</p>
-								</p>
-								<a class="btn-filled" href="#">Get Started</a>
-							</div>
-						</div>
-						</div>
-						<div class="col-md-3">
-						<div class="kode-event-list-2">
-							<div class="kode-thumb">
-								<a href="#"><img alt="" src="{{ asset('images/news-img4.png') }}"></a>
-							</div>
-							<div class="kode-text">
-								<h2>60 Month Plan</h2>
-								<p class="title">
-								<p style="text-align: left;"><i class="fa fa-arrow-right"></i> Guaranteed return 150% on completion.</p>
-								<p style="text-align: left;"><i class="fa fa-arrow-right"></i> Five-year commitment, you cannot cancel this plan.</p>
-								<p style="text-align: left;"><i class="fa fa-arrow-right"></i> At completion, we will bonus your account with $5,000 as gratitude of doing business with us.</p>
-								<p style="text-align: left;"><i class="fa fa-arrow-right"></i> $50,000 become $150,000 in 5 years. Bonus and rewards only apply to $50,000 accounts</p>
-								</p>
-								<a class="btn-filled" href="#">Get Started</a>
-							</div>
-						</div>
-						</div>
-					</div>
-				</div>  
-            -->
 			</div>
 			</div>
 		</div>

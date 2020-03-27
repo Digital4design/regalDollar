@@ -20,10 +20,12 @@ class WithdrawManagamentController extends Controller
     public function index()
     {
         $bankData = BankAccountModel::where('user_id', Auth::user()->id)->orderBy('id', 'desc')->get();
-        // dd($bankData);
+        $InvestmentData = InvestmentModel::where('user_id', Auth::user()->id)->orderBy('id', 'desc')->get();
+        // dd($InvestmentData[0]['amount']);
         $result = array('pageName' => 'Withdraw',
             'activeMenu' => 'withdraw-management',
             'bankData'=>$bankData,
+            'investmentData'=>$InvestmentData,
         );
         return view('client.withdrawSection.withdraw_view', $result);
     }

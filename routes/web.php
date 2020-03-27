@@ -137,6 +137,11 @@ Route::group(['prefix' => 'client', 'middleware' => ['auth', 'client','verified'
         Route::post('/save-data', 'Client\ContactUsController@store');
     });
 
+    Route::group(['prefix' => 'purchase-new-plan', 'middleware' => ['auth', 'client']], function () {
+        Route::get('/start-with/{id}', 'Client\AdditionalPlanManagmentController@index');
+        Route::post('/save-data', 'Client\AdditionalPlanManagmentController@store');
+    });
+
     // Route::get('/', function () {
     //     return view('dashboard');
     // });
