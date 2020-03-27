@@ -30,7 +30,7 @@
                 <h4 class="mt-0 mb-5" style="border-bottom:1px solid #ddd;">Withdraw Dividends</h4>
                 <div class="row">
                   <div class="col-sm-12">
-                    <p></p><h1 style="text-align: center;">$10000</h1><p></p>
+                    <p></p><h1 style="text-align: center;">${{ $investmentData[0]['amount']}}</h1><p></p>
                     <p class="card-subtitle">
                       *Dividends cumulative through <span>Nov 2019</span>.
                     </p>

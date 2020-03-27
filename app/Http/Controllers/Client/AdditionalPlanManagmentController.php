@@ -2,48 +2,34 @@
 
 namespace App\Http\Controllers\Client;
 
-use App\Http\Controllers\Controller;
-use App\Models\DocumentManagemetModel;
-use Crypt;
-use DataTables;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\Controller;
+use App\Models\Plan;
+use App\Models\InvestmentModel;
+use App\User;
+use Auth;
+use Crypt;
+use Hash;
 
-class DocumentsManagementController extends Controller
+class AdditionalPlanManagmentController extends Controller
 {
     /**
-     * Display a listing of the resource. 
+     * Display a listing of the resource.
+     *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($id, Request $request)
     {
-        $result = array(
-            'pageName' => 'Documents Listing',
-            'activeMenu' => 'documents',
+        
+        $planData = Plan::where('plan_type', '1')->orderBy('id', 'desc')->get();
+        // dd($planData);
+        $result = array('pageName' => 'Dashboard',
+            'activeMenu' => 'create-account',
+            'planData'=>$planData,
         );
-        return view('client.documentManagemet.documents-listing', $result);
-
+        return view('client.newPlanManagment.selectNewPlan', $result);
     }
 
-    public function documentsData()
-    {
-        $userList = DocumentManagemetModel::where('users_id', Auth::user()->id)->orderBy('id', 'desc')->first();
-        return Datatables::of($userList)
-            ->addColumn('action', function ($userList) {
-                return '<a href ="' . url('/client/documents/view') . '/' . Crypt::encrypt($userList->id) . '"  class="btn btn-xs btn-primary view"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> View</a>';
-            })->make(true);
-    }
-
-    public function singleDocuments($id, Request $request)
-    {
-        $documentData = DocumentManagemetModel::find(\Crypt::decrypt($id));
-        $result = array(
-            'pageName' => 'Documents View',
-            'activeMenu' => 'documents',
-            'documentData' =>$documentData,
-        );
-        return view('client.documentManagemet.docs_view', $result);
-    }
     /**
      * Show the form for creating a new resource.
      * @return \Illuminate\Http\Response
@@ -52,6 +38,7 @@ class DocumentsManagementController extends Controller
     {
         //
     }
+
     /**
      * Store a newly created resource in storage.
      * @param  \Illuminate\Http\Request  $request
@@ -59,8 +46,21 @@ class DocumentsManagementController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $planData = Plan::find($request->plan_id);
+        $date = $planData->plan_start_date;
+        $date = strtotime($date);
+        $new_date = strtotime('+ ' . $planData->time_investment . ' month', $date);
+        $valid_till = date('Y-m-d', $new_date);
+        InvestmentModel::create([
+            'user_id' => Auth::user()->id,
+            'plan_id' => $request->plan_id,
+            'plan_start_date'=>$planData['plan_valid_from'],
+            'plan_end_date'=>$valid_till,
+            'amount'=>$planData['price'],
+        ]);
+        return view('front.users.create-step6', $data);
     }
+
     /**
      * Display the specified resource.
      * @param  int  $id
@@ -70,6 +70,7 @@ class DocumentsManagementController extends Controller
     {
         //
     }
+
     /**
      * Show the form for editing the specified resource.
      * @param  int  $id
@@ -79,8 +80,10 @@ class DocumentsManagementController extends Controller
     {
         //
     }
+
     /**
      * Update the specified resource in storage.
+     *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
@@ -89,8 +92,10 @@ class DocumentsManagementController extends Controller
     {
         //
     }
+
     /**
      * Remove the specified resource from storage.
+     *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */

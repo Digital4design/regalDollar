@@ -26,7 +26,7 @@ class AccountController extends Controller
      * Display a listing of the resource.
      * @return \Illuminate\Http\Response
      */
-    public function index($id, Request $request)
+    public function index($id, Request $request) 
     {
         $userData = $request->session()->get('userData');
         if ($userData) {
@@ -42,7 +42,7 @@ class AccountController extends Controller
         $date = $planData->plan_start_date;
         $date = strtotime($date);
         $new_date = strtotime('+ ' . $planData->time_investment . ' month', $date);
-        $valid_till = date('d-m-Y', $new_date);
+        $valid_till = date('Y-m-d', $new_date);
         $data['roles'] = Role::get();
         $data['countryData'] = Country::get();
         $data['userData'] = $userData;
@@ -250,10 +250,10 @@ class AccountController extends Controller
                 ]);
             // $investData = InvestmentModel::where('user_id',$request->user_id)->where('plan_id',$request->plan_id)->first();
             // dd($investData);
-            //$userData = User::find($investData->id);
-            //dd($userData);
-            //$userData->amount = trim($request->amount);
-            //$userData->save();
+            // $userData = User::find($investData->id);
+            // dd($userData);
+            // $userData->amount = trim($request->amount);
+            // $userData->save();
             $userData = User::find($request->user_id);
             $userData['plan_id'] = $request->plan_id;
             $userData = $request->session()->put('userData', $userData);
@@ -322,18 +322,7 @@ class AccountController extends Controller
     {
         //
     }
-
-    /**
-     * Store a newly created resource in storage.
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
+   /**
      * Display the specified resource.
      * @param  int  $id
      * @return \Illuminate\Http\Response
@@ -342,34 +331,7 @@ class AccountController extends Controller
     {
         //
     }
-
-    /**
-     * Show the form for editing the specified resource.
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
+   public function destroy($id)
     {
         //
     }
