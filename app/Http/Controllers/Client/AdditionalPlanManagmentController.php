@@ -32,7 +32,6 @@ class AdditionalPlanManagmentController extends Controller
 
     /**
      * Show the form for creating a new resource.
-     *
      * @return \Illuminate\Http\Response
      */
     public function create()
@@ -59,6 +58,7 @@ class AdditionalPlanManagmentController extends Controller
             'plan_end_date'=>$valid_till,
             'amount'=>$planData['price'],
         ]);
+        return view('front.users.create-step6', $data);
     }
 
     /**
