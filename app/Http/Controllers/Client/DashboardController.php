@@ -27,7 +27,7 @@ class DashboardController extends Controller
     }
     public function index()
     {
-        //dd(Auth::user()->id);
+        
         $user_id = Auth::user()->id;
         $investmentData = InvestmentModel::where('user_id',$user_id)->first();
         $plan_id = $investmentData['plan_id'];

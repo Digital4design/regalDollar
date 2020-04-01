@@ -1,12 +1,13 @@
 <?php
 
-namespace App\Notifications;
+namespace App\Notifications\Client;
 
 use Illuminate\Bus\Queueable;
-use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
+use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Notifications\Messages\MailMessage;
 
-class ContactUs extends Notification
+class UsersReaction extends Notification
 {
     use Queueable;
 
@@ -17,6 +18,7 @@ class ContactUs extends Notification
      */
     public function __construct($notificationdata)
     {
+        // dd($notificationdata);
         $this->details = $notificationdata;
     }
 
@@ -39,19 +41,20 @@ class ContactUs extends Notification
      */
     public function toMail($notifiable)
     {
-        // dd($notifiable);
+        // dd($notifiable->name);
         return (new MailMessage)
-            ->subject('Contact Us')
-            //->greeting('Hi ' . $notifiable->name)
-            ->markdown('mailTemplete.contactUs', array(
-                'adminName'=> $this->details['adminName'],
-                'useremail' => $this->details['useremail'],
-                'message' => $this->details['message'],
-                'username' => $this->details['username'],
-                'companyName' => $this->details['userPhone'],
-            ));
+            ->subject('Withdraw Request')
+            ->markdown('mailTemplete.clientWithdrawRequest',
+                [
+                    'adminUser' => $notifiable->name,
+                    'username' => $this->details['user'],
+                    'message' => $this->details['message'],
+                ]);
+        // return (new MailMessage)
+        //             ->line('The introduction to the notification.')
+        //             ->action('Notification Action', url('/'))
+        //             ->line('Thank you for using our application!');
     }
-
     /**
      * Get the array representation of the notification.
      *
@@ -61,7 +64,7 @@ class ContactUs extends Notification
     public function toArray($notifiable)
     {
         return [
-            //
+            'data' => $this->details['user'] .'  Request for Withdraw',
         ];
     }
 }

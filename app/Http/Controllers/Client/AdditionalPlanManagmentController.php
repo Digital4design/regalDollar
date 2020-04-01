@@ -51,14 +51,21 @@ class AdditionalPlanManagmentController extends Controller
         $date = strtotime($date);
         $new_date = strtotime('+ ' . $planData->time_investment . ' month', $date);
         $valid_till = date('Y-m-d', $new_date);
-        InvestmentModel::create([
+        $investmentdata = InvestmentModel::create([
             'user_id' => Auth::user()->id,
             'plan_id' => $request->plan_id,
             'plan_start_date'=>$planData['plan_valid_from'],
             'plan_end_date'=>$valid_till,
             'amount'=>$planData['price'],
         ]);
-        return view('front.users.create-step6', $data);
+        $userData = $request->session()->put('investmentdata', $investmentdata);
+        $result = array(
+            'pageName' => 'Dashboard',
+            'activeMenu' => 'create-account',
+            'investmentId'=>$investmentdata['id'],
+            
+        );
+        return view('client.newPlanManagment.aggrement', $result);
     }
 
     /**
@@ -66,11 +73,31 @@ class AdditionalPlanManagmentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
-        //
+    public function updateAggrement(Request $request){
+        // dd($request->all());
+        $indicate = json_encode($request->indicateagreement);
+        $userData = InvestmentModel::find($request->investmentId);
+        $userData->indicateagreement = $indicate;
+        $userData->reinvestment = $request->reinvestment;
+        $userData->save();
+        $investmentdata = InvestmentModel::find($request->investmentId);
+        $investmentdata = $request->session()->put('investmentdata', $investmentdata);
+        $investmentdata = $request->session()->get('investmentdata');
+        $result = array(
+            'pageName' => 'Dashboard',
+            'activeMenu' => 'create-account',
+        );
+        return view('client.newPlanManagment.paymentProcess', $result);
     }
-
+    public function updatePayment($id,Request $request)
+    {
+        $investmentdata = $request->session()->get('investmentdata');
+        $userData = InvestmentModel::find($investmentdata['id']);
+        $userData->paypal_transaction_id = $id;
+        $userData->save();
+        $investmentdata = InvestmentModel::find($request->investmentId);
+        return redirect('/client');
+    } 
     /**
      * Show the form for editing the specified resource.
      * @param  int  $id
@@ -80,10 +107,8 @@ class AdditionalPlanManagmentController extends Controller
     {
         //
     }
-
     /**
      * Update the specified resource in storage.
-     *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
@@ -95,7 +120,6 @@ class AdditionalPlanManagmentController extends Controller
 
     /**
      * Remove the specified resource from storage.
-     *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */

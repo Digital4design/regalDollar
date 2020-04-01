@@ -36,6 +36,7 @@
                {{ csrf_field() }}
                <input type="hidden" value="{{ $userData['id'] }}" class="form-control" id="user_id"  name="user_id">
                <input type="hidden" value="{{ $userData['plan_id'] }}" class="form-control" id="plan_id"  name="plan_id">
+               <input type="hidden" value="{{ $userData['investmentId'] }}" class="form-control" id="investmentId"  name="investmentId">
                <div class="form-group">
                   <label for="description">Account Type</label>
                   <select class="form-control" name="accountType" required="required" >

@@ -52,7 +52,6 @@ class ContactUsController extends Controller
             'name.min' => 'First name should contain at least 2 characters.',
         ];
         $validator = Validator::make($request->all(), $rules, $messages);
-        //dd($validator);
         if ($validator->fails()) {
             return back()->withErrors($validator)->withInput();
         }
@@ -63,6 +62,7 @@ class ContactUsController extends Controller
                 'contact_option' => $request->contact_option,
                 'message' => $request->message,
             ]);
+            
             return redirect('/client/withdraw-management')->with(['pstatus' => 'success', 'pmessage' => 'Your account added successfully!']);
         } catch (\Exception $e) {
             return back()->with(['pstatus' => 'danger', 'pmessage' => $e->getMessage()]);

@@ -35,7 +35,7 @@ Route::group(['prefix' => 'front'], function () {
     Route::get('/payment-update/{id}', 'PaymentController@paymentProcess');
 });
 /**** ================================Admin Routes Start =================================== */
-Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin','verified']], function () {
+Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function () {
     Route::get('/', 'Admin\DashboardController@index');
     Route::post('/states', 'Admin\DashboardController@states');
     Route::post('/cities', 'Admin\DashboardController@cities');
@@ -94,6 +94,13 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin','verified']]
         Route::get('/delete/{id}', 'Admin\DocumentsManagementController@destroy');
     });
 
+    Route::group(['prefix' => 'withdraw-request-managment' ], function () {
+        Route::get('/', 'Admin\WithdrowManagementController@index');
+        Route::get('/withdraw-data', 'Admin\WithdrowManagementController@withdrawData');
+        Route::get('/edit/{id}', 'Admin\WithdrowManagementController@edit');
+        Route::post('/update/{id}', 'Admin\WithdrowManagementController@update');
+    });
+
 });
 /****=================================== Admin Routes End ======================================*/
 /**** ================================Client Routes Start =================================== */
@@ -124,7 +131,18 @@ Route::group(['prefix' => 'client', 'middleware' => ['auth', 'client','verified'
         Route::get('/', 'Client\WithdrawManagamentController@index');
         Route::get('/documents-data', 'Client\WithdrawManagamentController@documentsData');
         Route::get('/view/{id}', 'Client\WithdrawManagamentController@singleDocuments');
+        Route::post('/withdrowRequest', 'Client\WithdrawManagamentController@withdrowRequest');
     });
+
+    Route::group(['prefix' => 'withdraw-request-managment', 'middleware' => ['auth', 'client']], function () {
+        Route::get('/', 'Client\WithdrawManagamentController@index');
+        Route::get('/documents-data', 'Client\WithdrawManagamentController@documentsData');
+        Route::get('/view/{id}', 'Client\WithdrawManagamentController@singleDocuments');
+        Route::post('/withdrowRequest', 'Client\WithdrawManagamentController@withdrowRequest');
+    });
+
+
+    
 
     Route::group(['prefix' => 'bank-account-management', 'middleware' => ['auth', 'client']], function () {
         Route::get('/', 'Client\BankAccountManagamentController@index');
@@ -140,6 +158,11 @@ Route::group(['prefix' => 'client', 'middleware' => ['auth', 'client','verified'
     Route::group(['prefix' => 'purchase-new-plan', 'middleware' => ['auth', 'client']], function () {
         Route::get('/start-with/{id}', 'Client\AdditionalPlanManagmentController@index');
         Route::post('/save-data', 'Client\AdditionalPlanManagmentController@store');
+        Route::post('/update-aggrement-data', 'Client\AdditionalPlanManagmentController@updateAggrement');
+        Route::get('/update-payment/{id}', 'Client\AdditionalPlanManagmentController@updatePayment');
+        Route::get('/update-plan-payment/{id}', 'Client\AdditionalPlanManagmentController@updatePayment');
+
+        
     });
 
     // Route::get('/', function () {
