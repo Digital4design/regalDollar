@@ -24,9 +24,9 @@
                                 </a>
                             </li>
                             
-                            <!-- <li>
-                                <a href="/withdraw" class="waves-effect"><i class="ti-reload"></i><span> Withdraw Money </span></a>
-                            </li> -->
+                            <li>
+                                <a href="{{ url('/admin/withdraw-request-managment') }}" class="waves-effect"><i class="ti-reload"></i><span>Withdraw Money</span></a>
+                            </li>
 
 
                             <!-- <li>

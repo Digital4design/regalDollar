@@ -72,9 +72,9 @@ class User extends Authenticatable
         return $role->name == 'admin' ? true : false;
 
     }
-    public function getRoles()
+    public function getRole()
     {
-        return $this->hasOneThrough('App\Models\Role', 'App\Models\UserRoleRelation', 'user_id', 'id', 'id', 'role_id');
+        return $this->hasOneThrough('App\Role', 'App\Models\UserRoleRelation', 'user_id', 'id', 'id', 'role_id');
     }
     /**
      * Check Roles customer here

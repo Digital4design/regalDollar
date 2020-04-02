@@ -1,12 +1,13 @@
 <?php
 
-namespace App\Notifications;
+namespace App\Notifications\Admin;
 
 use Illuminate\Bus\Queueable;
-use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
+use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Notifications\Messages\MailMessage;
 
-class ContactUs extends Notification
+class WithdrawReaction extends Notification
 {
     use Queueable;
 
@@ -17,6 +18,7 @@ class ContactUs extends Notification
      */
     public function __construct($notificationdata)
     {
+        // dd($notificationdata);
         $this->details = $notificationdata;
     }
 
@@ -41,15 +43,17 @@ class ContactUs extends Notification
     {
         // dd($notifiable);
         return (new MailMessage)
-            ->subject('Contact Us')
-            //->greeting('Hi ' . $notifiable->name)
-            ->markdown('mailTemplete.contactUs', array(
-                'adminName'=> $this->details['adminName'],
-                'useremail' => $this->details['useremail'],
-                'message' => $this->details['message'],
-                'username' => $this->details['username'],
-                'companyName' => $this->details['userPhone'],
-            ));
+            ->subject('Admin Reaction on Request')
+            ->markdown('mailTemplete.adminWithdrawReaction',
+                [
+                    'adminUser' => $notifiable->name,
+                    'username' => $this->details['user'],
+                    'message' => $this->details['message'],
+                ]);
+        // return (new MailMessage)
+        //             ->line('The introduction to the notification.')
+        //             ->action('Notification Action', url('/'))
+        //             ->line('Thank you for using our application!');
     }
 
     /**
@@ -61,7 +65,7 @@ class ContactUs extends Notification
     public function toArray($notifiable)
     {
         return [
-            //
+            'data' =>$this->details['message'],
         ];
     }
 }

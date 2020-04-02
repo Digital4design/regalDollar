@@ -52,26 +52,40 @@
         <li class="dropdown notification-list">
             <a class="nav-link dropdown-toggle arrow-none waves-effect" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
                 <i class="mdi mdi-bell-outline noti-icon"></i>
-                <span class="badge badge-pill badge-danger noti-icon-badge">2</span>
+                @if(auth()->user()->unreadnotifications->count())
+                <span class="badge badge-pill badge-danger noti-icon-badge">{{ auth()->user()->unreadnotifications->count() }}</span>
+                @endif
             </a>
             <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg">
                 <!-- item-->
                 <h6 class="dropdown-item-text">
-                        Notifications (2)
-                    </h6>
+                    Notifications @if(auth()->user()->unreadnotifications->count()) ({{ auth()->user()->unreadnotifications->count() }}) @endif
+                </h6>
                 <div class="slimscroll notification-item-list">
+                <div class="markassRead">
+                <a href="{{ route('markRead')}}">Mark all as Read</a>
+                </div>
+                @foreach( auth()->user()->unreadnotifications as $notification)
                     <a href="javascript:void(0);" class="dropdown-item notify-item">
                         <div class="notify-icon bg-warning"><i class="mdi mdi-message-text-outline"></i></div>
-                        <p class="notify-details">Monthly Allowance Ready<span class="text-muted">You can withdraw your monthly allowance of $435.35 now!</span></p>
+                        <p class="notify-details unread">{{ $notification->data['data'] }}<span class="text-muted">{{ $notification->data['data'] }}</span></p>
                     </a>
+                    @endforeach
+
+                    @foreach( auth()->user()->readnotifications as $notification)
+                    <a href="javascript:void(0);" class="dropdown-item notify-item">
+                        <div class="notify-icon bg-warning"><i class="mdi mdi-message-text-outline"></i></div>
+                        <p class="notify-details unread">{{ $notification->data['data'] }}<span class="text-muted">{{ $notification->data['data'] }}</span></p>
+                    </a>
+                    @endforeach
                     <!-- item-->
-                    <a href="javascript:void(0);" class="dropdown-item notify-item active">
+                    <!-- <a href="javascript:void(0);" class="dropdown-item notify-item active">
                         <div class="notify-icon bg-success"><i class="mdi mdi-account-card-details"></i></div>
                         <p class="notify-details">New Investment Created<span class="text-muted">You have signed up for a 24 mo / $10,000 plan on Sept 12, 2019.</span></p>
-                    </a>
+                    </a> -->
                 </div>
                 <!-- All-->
-                <a href="javascript:void(0);" class="dropdown-item text-center text-primary">
+                <a href="{{  url('client/notifications-managment') }}" class="dropdown-item text-center text-primary">
                         View all <i class="fi-arrow-right"></i>
                     </a>
             </div>

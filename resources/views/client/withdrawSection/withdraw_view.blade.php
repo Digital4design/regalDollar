@@ -24,24 +24,37 @@
         </div>
         <!-- end row -->
         <div class="row">
+          <form method="post" action="{{ url('client/withdraw-management/withdrowRequest') }}">
+          {{ csrf_field() }}
+         
           <div class="col-xl-6">
             <div class="card">
               <div class="card-body">
                 <h4 class="mt-0 mb-5" style="border-bottom:1px solid #ddd;">Withdraw Dividends</h4>
                 <div class="row">
                   <div class="col-sm-12">
-                    <p></p><h1 style="text-align: center;">${{ $investmentData[0]['amount']}}</h1><p></p>
+                    <p></p><h1 style="text-align: center;">
+                      @if(count($investmentData) > 0)
+                       ${{ $investmentData[0]['amount']}}
+                       @else
+                          No Data
+                       @endif
+                       </h1><p></p>
                     <p class="card-subtitle">
                       *Dividends cumulative through <span>Nov 2019</span>.
                     </p>
+                    @if(count($investmentData) > 0)
+                    <input type="hidden" name="investId" value="{{ $investmentData[0]['id']}}">
+                    @else
+                       @endif
                     <p>
-                    <select class="form-control" style="margin:10px;" name="">
+                    <select class="form-control" style="margin:10px;" name="linkAccount" required="required">
                         <option value="">Select an account...</option>
                         @foreach($bankData as $invest)
-                        <option value="1">Checking account ending in {{ $invest['account_number'] }}</option>
+                        <option value="{{ $invest['id'] }}">Checking account ending in {{ $invest['account_number'] }}</option>
                         @endforeach
                       </select>
-                      <button class="btn btn-primary">Transfer to Linked Account</button>
+                      <button type="submit" class="btn btn-primary">Transfer to Linked Account</button>
                       <a href="{{ url('/client/bank-account-management') }}" class="btn btn-secondary">Add Bank Account...</a>
                     </p>
                   </div>
@@ -67,6 +80,7 @@
               </div>
             </div>
           </div>
+          </form>
         </div>
         <!-- end row -->
       </div>

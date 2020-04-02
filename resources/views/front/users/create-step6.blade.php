@@ -1,5 +1,6 @@
 @include('homeheader')
 <!--CONTENT START-->
+<?php // dd($investmentData); ?>
 <div class="content form-steps">
    <div class="stepwizard-row setup-panel">
       <div class="stepwizard-step">
@@ -36,15 +37,16 @@
             {{ csrf_field() }}
             <input type="hidden" value="{{$userData->id}}" class="form-control" id="user_id" name="user_id"/>
             <input type="hidden" value="{{ $userData['plan_id'] }}" class="form-control" id="plan_id"  name="plan_id">
+            <input type="hidden" value="{{ $userData['investmentId'] }}" class="form-control" id="investmentId"  name="investmentId">
             <span class="section_title">Basic info</span>
             <div class="form-group">
                <span class="edit_field" contenteditable="true" >{{ $userData['first_name'] }} 
                   <i  class="fa fa-pencil-square-o" aria-hidden="true"></i>
                </span>
-               <span class="edit_field" contenteditable="true">{{ $userData['address'] }}  1st Block 1st Cross, Rammurthy nagar, Bangalore-560016 
+               <span class="edit_field" contenteditable="true">{{ $userData['address'] }}
                   <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                </span>
-               <span class="edit_field" contenteditable="true">+91 9988665544 
+               <span class="edit_field" contenteditable="true">{{ $userData['phoneNumber'] }}
                   <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                </span>
             </div>
@@ -58,19 +60,19 @@
                </span> 
                <span class="edit_field">
                   <span contenteditable="true" class="title">Initial Amount</span>
-                  <span class="result">{{ $userData['amount'] }}</span>
+                  <span class="result">{{ $investmentData['amount'] }}</span>
                   <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                </span>            
-               <span class="edit_field">
+               <!-- <span class="edit_field">
                   <span contenteditable="true" class="title">Time plans end</span>
                   <span class="result">22-Mar-2020</span>
                   <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-               </span>            
-               <span class="edit_field">
+               </span>             -->
+               <!-- <span class="edit_field">
                   <span contenteditable="true" class="title">Payment method</span>
                   <span class="result">Bank of america 5544</span>
                   <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-               </span>            
+               </span>             -->
             </div>
             <div class="break_section"></div>
             <span class="section_title">Agreements</span> 
