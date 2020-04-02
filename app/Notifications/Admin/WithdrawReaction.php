@@ -41,6 +41,7 @@ class WithdrawReaction extends Notification
      */
     public function toMail($notifiable)
     {
+        // dd($notifiable);
         return (new MailMessage)
             ->subject('Admin Reaction on Request')
             ->markdown('mailTemplete.adminWithdrawReaction',
@@ -64,7 +65,7 @@ class WithdrawReaction extends Notification
     public function toArray($notifiable)
     {
         return [
-            'data' => $this->details['user'] .'  approve your request',
+            'data' =>$this->details['message'],
         ];
     }
 }

@@ -39,18 +39,29 @@
         <li class="dropdown notification-list">
             <a class="nav-link dropdown-toggle arrow-none waves-effect" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
                 <i class="mdi mdi-bell-outline noti-icon"></i>
-                <span class="badge badge-pill badge-danger noti-icon-badge">{{ auth()->user()->notifications->count() }}</span>
+                @if(auth()->user()->unreadnotifications->count())
+                <span class="badge badge-pill badge-danger noti-icon-badge">{{ auth()->user()->unreadnotifications->count() }}</span>
+                @endif
             </a>
             <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg">
                 <!-- item-->
                 <h6 class="dropdown-item-text">
-                        Notifications ({{ auth()->user()->notifications->count() }})
+                Notifications @if(auth()->user()->unreadnotifications->count()) ({{ auth()->user()->unreadnotifications->count() }}) @endif
                 </h6>
                 <div class="slimscroll notification-item-list">
-                     @foreach( auth()->user()->notifications as $notification)
+                <div class="markassRead">
+                <a href="{{ route('markRead') }}">Mark all as Read</a>
+                </div>
+                     @foreach( auth()->user()->unreadnotifications as $notification)
                     <a href="javascript:void(0);" class="dropdown-item notify-item">
                         <div class="notify-icon bg-warning"><i class="mdi mdi-message-text-outline"></i></div>
-                        <p class="notify-details">{{ $notification->data['data'] }}<span class="text-muted">{{ $notification->data['data'] }}</span></p>
+                        <p class="notify-details unread">{{ $notification->data['data'] }}<span class="text-muted">{{ $notification->data['data'] }}</span></p>
+                    </a>
+                    @endforeach
+                    @foreach( auth()->user()->readnotifications as $notification)
+                    <a href="javascript:void(0);" class="dropdown-item notify-item">
+                        <div class="notify-icon bg-warning"><i class="mdi mdi-message-text-outline"></i></div>
+                        <p class="notify-details unread">{{ $notification->data['data'] }}<span class="text-muted">{{ $notification->data['data'] }}</span></p>
                     </a>
                     @endforeach
                     <!-- item-->
@@ -60,7 +71,7 @@
                     </a> -->
                 </div>
                 <!-- All-->
-                <a href="javascript:void(0);" class="dropdown-item text-center text-primary">
+                <a href="{{  url('admin/notifications-managment') }}" class="dropdown-item text-center text-primary">
                         View all <i class="fi-arrow-right"></i>
                     </a>
             </div>

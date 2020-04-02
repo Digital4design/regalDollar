@@ -22,6 +22,7 @@ class WithdrowManagementController extends Controller
      */
     public function index()
     {
+       
         $result = array(
             'pageName' => 'Request Listing',
             'activeMenu' => 'withdraw-request-managment',
@@ -81,6 +82,7 @@ class WithdrowManagementController extends Controller
             }else{
                 $statusChange= 'Unapprove';
             }
+
             $investmentData = InvestmentModel::find(\Crypt::decrypt($id));
             $investmentData->is_request = $request->is_request;
             $investmentData->save();
@@ -92,6 +94,7 @@ class WithdrowManagementController extends Controller
                 "message" => Auth::user()->first_name." ".$statusChange." your request for withdraw", 
                 "action" => ""
             ];
+            // dd($notificationData);
             $userData->notify(new WithdrawReaction($notificationData));
             return redirect('/admin/withdraw-request-managment/')->with(['status' => 'success', 'message' => $statusChange.' successfully.']);
         } catch (\exception $e) {

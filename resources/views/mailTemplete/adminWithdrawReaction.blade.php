@@ -1,3 +1,7 @@
+
+<?php 
+// dd($message);
+?>
 <body style="margin:0; padding:15px; background-color:#F4F6F8">
     <center>
         <table border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#F4F6F8" class="wrapper">

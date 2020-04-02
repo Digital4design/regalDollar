@@ -21,6 +21,20 @@ Route::get('/forget-password', function () {
 Route::get('/admin2', function () {
     return view('admindashboard');
 });
+
+
+
+Route::get('markAsRead',function(){
+    auth()->user()->unreadNotifications->markAsRead();
+    return redirect()->back();
+})->name('markRead');
+
+Route::get('allNotification',function(){
+    $notificationData = auth()->user()->unreadnotifications;
+    dd($notificationData);
+    return redirect()->back();
+})->name('allNotification');
+
 Auth::routes();
 
 Route::group(['prefix' => 'front'], function () {
@@ -101,6 +115,11 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function 
         Route::post('/update/{id}', 'Admin\WithdrowManagementController@update');
     });
 
+    Route::group(['prefix' => 'notifications-managment' ], function () {
+        Route::get('/', 'Admin\NotificationsManagementController@index');
+        Route::get('/notification-data', 'Admin\NotificationsManagementController@notificationData');
+    });
+
 });
 /****=================================== Admin Routes End ======================================*/
 /**** ================================Client Routes Start =================================== */
@@ -163,6 +182,11 @@ Route::group(['prefix' => 'client', 'middleware' => ['auth', 'client','verified'
         Route::get('/update-plan-payment/{id}', 'Client\AdditionalPlanManagmentController@updatePayment');
 
         
+    });
+
+    Route::group(['prefix' => 'notifications-managment' ], function () {
+        Route::get('/', 'Client\NotificationsManagementController@index');
+        Route::get('/notification-data', 'Client\NotificationsManagementController@notificationData');
     });
 
     // Route::get('/', function () {
