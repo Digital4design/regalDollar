@@ -25,8 +25,9 @@
                <table class="table table-hover">
                   <thead>
                      <tr>
-                        <th scope="col">(#) Id</th>
+                        <th scope="col">(#) SR. Number</th>
                         <th scope="col">Notification</th>
+                        <th scope="col">View</th>
                         <!-- <th scope="col">Date</th>
                         <th scope="col">Amount</th> 
                         <th scope="col" colspan="2">Status</th> -->
@@ -43,8 +44,8 @@
                               <i class="fa fa-arrow-alt-circle-left"></i> {{ $notification->data['data'] }}
                            </div>
                         </td>
-                        <!-- <td>Dec 12, 2019</td>
-                        <td>$115.21</td>
+                        <td><a href="">View</a></td>
+                        <!-- <td>$115.21</td>
                         <td><span class="badge badge-success">Delivered</span></td> -->
                      </tr>
                      <?php $i++;?>

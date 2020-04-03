@@ -82,17 +82,15 @@ class WithdrowManagementController extends Controller
             }else{
                 $statusChange= 'Unapprove';
             }
-
             $investmentData = InvestmentModel::find(\Crypt::decrypt($id));
             $investmentData->is_request = $request->is_request;
             $investmentData->save();
             $investmentData = InvestmentModel::find(\Crypt::decrypt($id));
             $userData = User::find($investmentData['user_id']);
-            // dd($userData);
             $notificationData = [
                 "user" => $userData['name'],
                 "message" => Auth::user()->first_name." ".$statusChange." your request for withdraw", 
-                "action" => ""
+                "investmentId" => "\Crypt::decrypt($id)"
             ];
             // dd($notificationData);
             $userData->notify(new WithdrawReaction($notificationData));

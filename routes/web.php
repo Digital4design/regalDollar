@@ -29,13 +29,10 @@ Route::get('markAsRead',function(){
     return redirect()->back();
 })->name('markRead');
 
-Route::get('allNotification',function(){
-    $notificationData = auth()->user()->unreadnotifications;
-    dd($notificationData);
-    return redirect()->back();
-})->name('allNotification');
 
-Auth::routes();
+
+// Auth::routes();
+Auth::routes(['verify' => true]);
 
 Route::group(['prefix' => 'front'], function () {
     Route::get('/create-details/{id}', 'Front\AccountController@index');
@@ -49,7 +46,7 @@ Route::group(['prefix' => 'front'], function () {
     Route::get('/payment-update/{id}', 'PaymentController@paymentProcess');
 });
 /**** ================================Admin Routes Start =================================== */
-Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function () {
+Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin','verified']], function () {
     Route::get('/', 'Admin\DashboardController@index');
     Route::post('/states', 'Admin\DashboardController@states');
     Route::post('/cities', 'Admin\DashboardController@cities');
