@@ -121,16 +121,16 @@
                <div class="form-group">
                   <label for="description">Phone Number</label>
                   <input 
-                  type="text" 
-                  required="required" 
-                  class="form-control phone required_field valid" 
-                  maxlength="14" 
-                  aria-required="true" 
-                  aria-invalid="false" 
-                  value="{{ old('phoneNumber',(isset($userData) && !empty($userData->phoneNumber)) ? $userData->phoneNumber : '' ) }}" 
-                  id="phoneNumber"
-                  name="phoneNumber"
-                  placeholder="Phone Number"
+                     type="tel"
+                     required="required"
+                     class="form-control phone required_field valid" 
+                     maxlength="14" 
+                     aria-required="true" 
+                     aria-invalid="false" 
+                     value="{{ old('phoneNumber',(isset($userData) && !empty($userData->phoneNumber)) ? $userData->phoneNumber : '' ) }}" 
+                     id="phoneNumber"
+                     name="phoneNumber"
+                     placeholder="Phone Number"
                   />
                   @if ($errors->has('phoneNumber'))
                      <span style="display:initial;" class="invalid-feedback" role="alert">
@@ -183,6 +183,16 @@
       </div>
    </section>
 </div>
+<script>
+
+const $input = document.querySelector("#phoneNumber");
+const BIRTHNUMBER_ALLOWED_CHARS_REGEXP = /[0-9\/]+/;
+$input.addEventListener("keypress", event => {
+  if (!BIRTHNUMBER_ALLOWED_CHARS_REGEXP.test(event.key)) {
+    event.preventDefault();
+  }
+});
+</script>
 <!--BUY TEMPLATE SECTION END-->
 @include('homefooter')
 @include('homescripts')
