@@ -121,7 +121,7 @@
                <div class="form-group">
                   <label for="description">Phone Number</label>
                   <input 
-                     type="tel"
+                     type="text"
                      required="required"
                      class="form-control phone required_field valid" 
                      maxlength="14" 
@@ -130,7 +130,8 @@
                      value="{{ old('phoneNumber',(isset($userData) && !empty($userData->phoneNumber)) ? $userData->phoneNumber : '' ) }}" 
                      id="phoneNumber"
                      name="phoneNumber"
-                     placeholder="Phone Number"
+                     placeholder="(123) 456-7890" 
+                     onkeydown="javascript:backspacerDOWN(this,event);" onkeyup="javascript:backspacerUP(this,event);"
                   />
                   @if ($errors->has('phoneNumber'))
                      <span style="display:initial;" class="invalid-feedback" role="alert">
@@ -146,10 +147,11 @@
                   <input 
                   type="text" 
                   value="{{ old('social_security_number',(isset($userData) && !empty($userData->social_security_number)) ? $userData->social_security_number : '' ) }}" 
-                  class="form-control"
+                  class="form-control social_security_number"
                   id="social_security_number" 
                   name="social_security_number"
-                  maxlength="14" aria-required="true" 
+                  maxlength="14" 
+                  aria-required="true" 
                   placeholder="Social Security Number"
                   required="required" 
                   />
@@ -167,7 +169,6 @@
                   class="form-control"
                   id="birthday"
                   name="birthday"
-                  placeholder="___-__-____"
                   required="required" 
                   />
                   @if ($errors->has('birthday'))
@@ -185,13 +186,225 @@
 </div>
 <script>
 
-const $input = document.querySelector("#phoneNumber");
-const BIRTHNUMBER_ALLOWED_CHARS_REGEXP = /[0-9\/]+/;
-$input.addEventListener("keypress", event => {
-  if (!BIRTHNUMBER_ALLOWED_CHARS_REGEXP.test(event.key)) {
-    event.preventDefault();
-  }
+
+// main.js
+<!-- This script is based on the javascript code of Roman Feldblum (web.developer@programmer.net) -->
+<!-- Original script : http://javascript.internet.com/forms/format-phone-number.html -->
+<!-- Original script is revised by Eralper Yilmaz (http://www.eralper.com) -->
+<!-- Revised script : http://www.kodyaz.com -->
+
+var zChar = new Array(' ', '(', ')', '-', '.');
+var maxphonelength = 13;
+var phonevalue1;
+var phonevalue2;
+var cursorposition;
+
+function ParseForNumber1(object) {
+    phonevalue1 = ParseChar(object.value, zChar);
+}
+
+function ParseForNumber2(object) {
+    phonevalue2 = ParseChar(object.value, zChar);
+}
+
+function backspacerUP(object, e) {
+    if (e) {
+        e = e
+    } else {
+        e = window.event
+    }
+    if (e.which) {
+        var keycode = e.which
+    } else {
+        var keycode = e.keyCode
+    }
+
+    ParseForNumber1(object)
+
+    if (keycode >= 48) {
+        ValidatePhone(object)
+    }
+}
+
+function backspacerDOWN(object, e) {
+    if (e) {
+        e = e
+    } else {
+        e = window.event
+    }
+    if (e.which) {
+        var keycode = e.which
+    } else {
+        var keycode = e.keyCode
+    }
+    ParseForNumber2(object)
+}
+
+function GetCursorPosition() {
+
+    var t1 = phonevalue1;
+    var t2 = phonevalue2;
+    var bool = false
+    for (i = 0; i < t1.length; i++) {
+        if (t1.substring(i, 1) != t2.substring(i, 1)) {
+            if (!bool) {
+                cursorposition = i
+                bool = true
+            }
+        }
+    }
+}
+
+function ValidatePhone(object) {
+
+    var p = phonevalue1
+
+    p = p.replace(/[^\d]*/gi, "")
+
+    if (p.length < 3) {
+        object.value = p
+    } else if (p.length == 3) {
+        pp = p;
+        d4 = p.indexOf('(')
+        d5 = p.indexOf(')')
+        if (d4 == -1) {
+            pp = "(" + pp;
+        }
+        if (d5 == -1) {
+            pp = pp + ")";
+        }
+        object.value = pp;
+    } else if (p.length > 3 && p.length < 7) {
+        p = "(" + p;
+        l30 = p.length;
+        p30 = p.substring(0, 4);
+        p30 = p30 + ")"
+
+        p31 = p.substring(4, l30);
+        pp = p30 + p31;
+
+        object.value = pp;
+
+    } else if (p.length >= 7) {
+        p = "(" + p;
+        l30 = p.length;
+        p30 = p.substring(0, 4);
+        p30 = p30 + ")"
+
+        p31 = p.substring(4, l30);
+        pp = p30 + p31;
+
+        l40 = pp.length;
+        p40 = pp.substring(0, 8);
+        p40 = p40 + "-"
+
+        p41 = pp.substring(8, l40);
+        ppp = p40 + p41;
+
+        object.value = ppp.substring(0, maxphonelength);
+    }
+
+    GetCursorPosition()
+
+    if (cursorposition >= 0) {
+        if (cursorposition == 0) {
+            cursorposition = 2
+        } else if (cursorposition <= 2) {
+            cursorposition = cursorposition + 1
+        } else if (cursorposition <= 5) {
+            cursorposition = cursorposition + 2
+        } else if (cursorposition == 6) {
+            cursorposition = cursorposition + 2
+        } else if (cursorposition == 7) {
+            cursorposition = cursorposition + 4
+            e1 = object.value.indexOf(')')
+            e2 = object.value.indexOf('-')
+            if (e1 > -1 && e2 > -1) {
+                if (e2 - e1 == 4) {
+                    cursorposition = cursorposition - 1
+                }
+            }
+        } else if (cursorposition < 11) {
+            cursorposition = cursorposition + 3
+        } else if (cursorposition == 11) {
+            cursorposition = cursorposition + 1
+        } else if (cursorposition >= 12) {
+            cursorposition = cursorposition
+        }
+
+        var txtRange = object.createTextRange();
+        txtRange.moveStart("character", cursorposition);
+        txtRange.moveEnd("character", cursorposition - object.value.length);
+        txtRange.select();
+    }
+
+}
+
+function ParseChar(sStr, sChar) {
+    if (sChar.length == null) {
+        zChar = new Array(sChar);
+    } else zChar = sChar;
+
+    for (i = 0; i < zChar.length; i++) {
+        sNewStr = "";
+
+        var iStart = 0;
+        var iEnd = sStr.indexOf(sChar[i]);
+
+        while (iEnd != -1) {
+            sNewStr += sStr.substring(iStart, iEnd);
+            iStart = iEnd + 1;
+            iEnd = sStr.indexOf(sChar[i], iStart);
+        }
+        sNewStr += sStr.substring(sStr.lastIndexOf(sChar[i]) + 1, sStr.length);
+
+        sStr = sNewStr;
+    }
+
+    return sNewStr;
+}
+var clipboard = new Clipboard('.btn');
+
+clipboard.on('success', function(e) {
+    console.log(e);
 });
+
+clipboard.on('error', function(e) {
+    console.log(e);
+});
+
+
+
+// $('#social_security_number').on('keydown keyup mousedown mouseup', function() {
+//      var res = this.value, //grabs the value
+//          len = res.length, //grabs the length
+//          max = 9, //sets a max chars
+//          stars = len>0?len>1?len>2?len>3?len>4?'XXX-XX-':'XXX-X':'XXX-':'XX':'X':'', //this provides the masking and formatting
+//         result = stars+res.substring(5); //this is the result
+//      $(this).attr('maxlength', max); //setting the max length
+//     $(".number").val(result); //spits the value into the input
+// });
+
+
+/*
+
+let telEl = document.querySelector('#phoneNumber')
+
+telEl.addEventListener('keyup', (e) => {
+  let val = e.target.value;
+  e.target.value = val
+    .replace(/\D/g, '')
+    .replace(/(\d{1,4})(\d{1,3})?(\d{1,3})?/g, function(txt, f, s, t) {
+      if (t) {
+        return `(${f}) ${s}-${t}`
+      } else if (s) {
+        return `(${f}) ${s}`
+      } else if (f) {
+        return `(${f})`
+      }
+    });
+})
+*/
 </script>
 <!--BUY TEMPLATE SECTION END-->
 @include('homefooter')

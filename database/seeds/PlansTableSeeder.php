@@ -6,7 +6,6 @@ class PlansTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
-     *
      * @return void
      */
     public function run()
@@ -52,7 +51,71 @@ class PlansTableSeeder extends Seeder
                 'plan_type'=>'1',
                 'descritpion'=>'["Guaranteed return 150% on completion.","Five-year commitment, you cannot cancel this plan.","At completion, we will bonus your account with $5,000 as gratitude of doing business with us.","$50,000 become $150,000 in 5 years. Bonus and rewards only apply to $50,000 accounts"]',
                 ),
-            
+            array(
+                'id' => 4, 
+                'plan_name' => 'Long-Term Growth', 
+                'slogan' => "long-term-growth", 
+                'icon' => 'news-img4.png',
+                'banner'=>'',
+                'price'=>'34532',
+                'duration'=>'5',
+                'time_investment'=>'60',
+                'plan_valid_from'=>'2020-02-18',
+                'plan_type'=>'1',
+                'descritpion'=>'["Guaranteed return 150% on completion.","Five-year commitment, you cannot cancel this plan.","At completion, we will bonus your account with $5,000 as gratitude of doing business with us.","$50,000 become $150,000 in 5 years. Bonus and rewards only apply to $50,000 accounts"]',
+            ),
+            array(
+                'id' => 5, 
+                'plan_name' => 'Income',
+                'slogan' => "Enjoy guarantee return of 3% each month",
+                'icon' => 'cash.png',
+                'banner'=>'Supplemental_Income.jpg',
+                'price'=>'2',
+                'duration'=>'2',
+                'time_investment'=>'',
+                'plan_valid_from'=>'2020-02-18',
+                'plan_type'=>'2',
+                'descritpion'=>'["Guaranteed return 150% on completion.","Five-year commitment, you cannot cancel this plan.","At completion, we will bonus your account with $5,000 as gratitude of doing business with us.","$50,000 become $150,000 in 5 years. Bonus and rewards only apply to $50,000 accounts"]',
+            ),
+            array(
+                'id' => 6,
+                'plan_name' => 'Balanced plan', 
+                'slogan' => "Relish life assuredly",
+                'icon' => 'libra.png',
+                'banner'=>'Balanced_Investing.jpg',
+                'price'=>'2',
+                'duration'=>'2',
+                'time_investment'=>'',
+                'plan_valid_from'=>'2020-02-18',
+                'plan_type'=>'2',
+                'descritpion'=>'["Guaranteed return 150% on completion.","Five-year commitment, you cannot cancel this plan.","At completion, we will bonus your account with $5,000 as gratitude of doing business with us.","$50,000 become $150,000 in 5 years. Bonus and rewards only apply to $50,000 accounts"]',
+            ),
+            array(
+                'id' => 7, 
+                'plan_name' => 'Growth plan', 
+                'slogan' => "Grow wealth with confidence", 
+                'icon' => 'money.png',
+                'banner'=>'Long-Term_Growth.jpeg',
+                'price'=>'2',
+                'duration'=>'2',
+                'time_investment'=>'',
+                'plan_valid_from'=>'2020-02-18',
+                'plan_type'=>'2',
+                'descritpion'=>'["Guaranteed return 150% on completion.","Five-year commitment, you cannot cancel this plan.","At completion, we will bonus your account with $5,000 as gratitude of doing business with us.","$50,000 become $150,000 in 5 years. Bonus and rewards only apply to $50,000 accounts"]',
+            ),
+            array(
+                'id' => 8, 
+                'plan_name' => 'Wealth plan', 
+                'slogan' => "Superb returns over 5 years", 
+                'icon' => 'money.png',
+                'banner'=>'Long-Term_Growth.jpeg',
+                'price'=>'2',
+                'duration'=>'2',
+                'time_investment'=>'',
+                'plan_valid_from'=>'2020-02-18',
+                'plan_type'=>'2',
+                'descritpion'=>'["Guaranteed return 150% on completion.","Five-year commitment, you cannot cancel this plan.","At completion, we will bonus your account with $5,000 as gratitude of doing business with us.","$50,000 become $150,000 in 5 years. Bonus and rewards only apply to $50,000 accounts"]',
+            ),
         );
         DB::table('plans')->insert($plans);
     }

@@ -184,8 +184,8 @@ class PlanManagementController extends Controller
                 $plan_save->documents_path = $filename;
                 $plan_save->save();
             }
-            /*
 
+            /*
             if ($request->plan_doc != "") {
                 $docs_save = DocumentManagemetModel::where('plan_id', $docData->id)->first();
                 foreach($request->file('plan_doc') as $file){
@@ -196,9 +196,10 @@ class PlanManagementController extends Controller
                     $docs_save->save();
                 }
             }
-            
             */
-            /* if ($request->icon != "") {
+
+            /* 
+            if ($request->icon != "") {
                 $plan_save = Plan::where('id', $planData->id)->first();
                 if ($plan_save->icon != "") {
                     if (file_exists(public_path('/uploads/plan_icon/' . $plan_save->icon))) {
@@ -222,7 +223,7 @@ class PlanManagementController extends Controller
      */
     public function updatePlans(Request $request, $id)
     {
-
+       //  dd($request->all());        
         $rules = [
             'plan_name' => 'required|min:4',
             'slogan' => 'required|min:2',
@@ -253,6 +254,7 @@ class PlanManagementController extends Controller
             $planData->plan_type = $request->plan_type;
             $planData->descritpion = $descritpion;
             $planData->save();
+
             if ($request->icon != "") {
                 $plan_save = Plan::where('id', $planData->id)->first();
                 if ($plan_save->icon != "") {
@@ -266,6 +268,42 @@ class PlanManagementController extends Controller
                 $plan_save->icon = $filename;
                 $plan_save->save();
             }
+
+           /* $docData = DocumentManagemetModel::where('plan_id', $planData->id)->get();
+            // dd($docData);
+            if(count($docData) > 0) {
+                 if ($request->plan_doc != "") {
+                    $doc_save = DocumentManagemetModel::where('plan_id', $planData->id)->first();
+                    // dd($doc_save);
+                    if ($doc_save->documents_path != "") {
+                        if (file_exists(public_path('/uploads/documents_management/' . $doc_save->documents_path))) {
+                            $del_previous_pic = unlink(public_path('/uploads/documents_management/' . $doc_save->documents_path));
+                        }
+                    }
+                    $docfile = $request->file('plan_doc');
+                    $filename = 'docs-' . time() . '.' . $docfile->getClientOriginalExtension();
+                    $docfile->move('public/uploads/documents_management', $filename);
+                    $doc_save->documents_path = $filename;
+                    $doc_save->save();
+                }
+            }else{
+                $docData = DocumentManagemetModel::create([
+                    'plan_id' => $planData->id,
+                ]);
+                if ($request->plan_doc != "") {
+                    $plan_save = DocumentManagemetModel::where('id', $docData->id)->first();
+                    if ($plan_save->documents_path != "") {
+                        if (file_exists(public_path('/uploads/documents_management/' . $plan_save->documents_path))) {
+                            $del_previous_pic = unlink(public_path('/uploads/documents_management/' . $plan_save->documents_path));
+                        }
+                    }
+                    $file = $request->file('plan_doc');
+                    $filename = 'docs-' . time() . '.' . $file->getClientOriginalExtension();
+                    $file->move('public/uploads/documents_management', $filename);
+                    $plan_save->documents_path = $filename;
+                    $plan_save->save();
+                }
+            }*/
             return redirect('/admin/plan-management/')->with(['status' => 'success', 'message' => 'Update record successfully.']);
         } catch (\exception $e) {
             return back()->with(['status' => 'danger', 'message' => $e->getMessage()]);

@@ -81,7 +81,7 @@
                               <input
                               type="file"
                               class="form-control"
-                              name="plan_doc[]"
+                              name="plan_doc"
                               multiple
                               />
                               @if ($errors->has('plan_doc'))
