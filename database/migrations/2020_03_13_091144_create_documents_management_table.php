@@ -15,10 +15,15 @@ class CreateDocumentsManagementTable extends Migration
     {
         Schema::create('documents_management', function (Blueprint $table) {
             $table->increments('id');
-            // $table->biginteger('users_id')->unsigned()->nullable();
+           // $table->biginteger('users_id')->unsigned()->nullable();
             // $table->foreign('users_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
             $table->integer('users_id')->nullable();
-            $table->string('documents_title')->nullable();
+
+            // $table->biginteger('plan_id')->unsigned()->nullable();
+            // $table->foreign('plan_id')->references('id')->on('plans')->onUpdate('cascade')->onDelete('cascade');
+
+            $table->integer('plan_id')->nullable();
+            $table->string('documents_title')->nullable();                        
             $table->string('documents_path')->nullable();
             $table->longText('message')->nullable();
             $table->timestamps();

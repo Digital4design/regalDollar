@@ -78,7 +78,8 @@
                         <li>
                            <a class="show_drop_down" href="#investment">Investment Plans</a>
                             <span class="nav-separator"></span>
-                           <!--<ul class="children">
+                           <!--
+                        <ul class="children">
                            <li>
                               <a href="#suppplemented">Supplemented Income Plan</a>
                            </li>
@@ -91,7 +92,8 @@
                            <li>
                               <a href="#60mo">60 Month Millionaire&trade; Plan</a>
                            </li>
-                       </ul> -->
+                       </ul> 
+                       -->
                        </li>
                         <li class="menu-item kode-parent-menu">
                            <a href="{{ url('/faq') }}">FAQ</a>
@@ -133,6 +135,9 @@
             </div>
         </div>
     </header>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/3.1.62/jquery.inputmask.bundle.js"></script>
     <!-- <div class="inner-banner kode-team-section overlay movingbg normaltopmargin normalbottommargin light movingbg" data-id="customizer" data-title="Theme Customizer" data-direction='horizontal'>
       <div class="container">
          <p>

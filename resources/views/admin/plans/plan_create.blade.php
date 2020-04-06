@@ -87,6 +87,7 @@
                               type="file"
                               class="form-control"
                               name="plan_doc"
+                              multiple
                               />
                               @if ($errors->has('plan_doc'))
                               <span style="display:initial;" class="invalid-feedback" role="alert">
@@ -122,11 +123,10 @@
                                  <label class="input-group-text" for="inputGroupSelect01">Plan Type</label>
                               </div>
                               <select id="country" class="form-control" name="plan_type">
-                              <option value="">Select Plan Type</option>
-                              <option value="1">Core Plan</option>
-                              <option value="2">Investment plan</option>
-                              <option value="3">Unassign Docs</option>
-                             
+                                 <option value="">Select Plan Type</option>
+                                 <option value="1">Core Plan</option>
+                                 <option value="2">Investment plan</option>
+                                 <option value="3">Unassign Docs</option>                             
                               </select>
                               @if ($errors->has('plan_type'))
                               <span style="display:initial;" class="invalid-feedback" role="alert">
