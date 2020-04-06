@@ -1,28 +1,19 @@
 <?php
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
- */
+
 Route::get('/', 'HomeController@getPlanData');
 Route::post('/contact', 'HomeController@contactUs');
 
 // Route::get('/', function () {
 //     return view('public.home');
 // });
+
 Route::get('/forget-password', function () {
     return view('pages-recoverpw');
 });
 Route::get('/admin2', function () {
     return view('admindashboard');
 });
-
-
 
 Route::get('markAsRead',function(){
     auth()->user()->unreadNotifications->markAsRead();
@@ -31,8 +22,8 @@ Route::get('markAsRead',function(){
 
 
 
-// Auth::routes();
-Auth::routes(['verify' => true]);
+Auth::routes();
+// Auth::routes(['verify' => true]);
 
 Route::group(['prefix' => 'front'], function () {
     Route::get('/create-details/{id}', 'Front\AccountController@index');
@@ -121,7 +112,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin','verified']]
 /****=================================== Admin Routes End ======================================*/
 /**** ================================Client Routes Start =================================== */
 
-Route::group(['prefix' => 'client', 'middleware' => ['auth', 'client','verified']], function () {
+Route::group(['prefix' => 'client', 'middleware' => ['auth', 'client']], function () {
     Route::get('/', 'Client\DashboardController@index');
     Route::post('/states', 'Client\DashboardController@states');
     Route::post('/cities', 'Client\DashboardController@cities');

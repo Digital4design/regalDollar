@@ -17,6 +17,7 @@ class DocumentManagemetModel extends Model
      */
     protected $fillable = [
         'users_id',
+        'plan_id',
         'documents_title',
         'documents_path',
         'message',

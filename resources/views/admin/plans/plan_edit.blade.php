@@ -72,6 +72,26 @@
                               @endif
                            </div>
                         </div>
+
+                        <div class="col-sm-12">
+                           <div class="input-group mb-3">
+                              <div class="input-group-prepend">
+                                 <label class="input-group-text" for="inputGroupSelect01">Plan Docs</label>
+                              </div>
+                              <input
+                              type="file"
+                              class="form-control"
+                              name="plan_doc[]"
+                              multiple
+                              />
+                              @if ($errors->has('plan_doc'))
+                              <span style="display:initial;" class="invalid-feedback" role="alert">
+                              <strong>{{ $errors->first('plan_doc') }}</strong>
+                              </span>
+                              @endif
+                           </div>
+                        </div>
+                        
                         <div class="col-sm-4">
                            <div class="input-group mb-3">
                               <div class="input-group-prepend">
