@@ -45,8 +45,13 @@
                   <select class="form-control" name="amount" required="required" >
                      <option value="" >Select Amount</option>
                      <option value="100">$100</option>
-                     <option value="1000">$1000</option>
-                     <option value="2000">$2000</option>
+                     <option value="10,000">$10,000</option>
+                     <option value="20,000">$20,000</option>
+                     <option value="30,000">$30,000</option>
+                     <option value="40,000">$40,000</option>
+                     <option value="50,000">$50,000</option>
+                     <option value="60,000">$60,000</option>
+                     <option value="70,000">$70,000</option>
                   </select>
                </div>
                <a href="#"  class="btn btn-primary"> Back </a>

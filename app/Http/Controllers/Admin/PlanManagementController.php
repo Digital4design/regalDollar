@@ -116,7 +116,7 @@ class PlanManagementController extends Controller
     /*
      * Crate New Plan
      */
-    public function storePlan(Request $request)
+    public function storePlan(Request $request) 
     {
         $rules = [
             'plan_name' => 'required|min:4',
