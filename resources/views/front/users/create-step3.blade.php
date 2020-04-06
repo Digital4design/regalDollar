@@ -148,13 +148,15 @@
                   type="text" 
                   value="{{ old('social_security_number',(isset($userData) && !empty($userData->social_security_number)) ? $userData->social_security_number : '' ) }}" 
                   class="form-control social_security_number"
-                  id="social_security_number" 
+                  id="social_security_number_id" 
                   name="social_security_number"
                   maxlength="14" 
                   aria-required="true" 
                   placeholder="Social Security Number"
                   required="required" 
                   />
+
+                  
                   @if ($errors->has('social_security_number'))
                      <span style="display:initial;" class="invalid-feedback" role="alert">
                      <strong>{{ $errors->first('social_security_number') }}</strong>
@@ -363,27 +365,21 @@ function ParseChar(sStr, sChar) {
 
     return sNewStr;
 }
-var clipboard = new Clipboard('.btn');
+// var clipboard = new Clipboard('.btn');
 
-clipboard.on('success', function(e) {
-    console.log(e);
-});
-
-clipboard.on('error', function(e) {
-    console.log(e);
-});
-
-
-
-// $('#social_security_number').on('keydown keyup mousedown mouseup', function() {
-//      var res = this.value, //grabs the value
-//          len = res.length, //grabs the length
-//          max = 9, //sets a max chars
-//          stars = len>0?len>1?len>2?len>3?len>4?'XXX-XX-':'XXX-X':'XXX-':'XX':'X':'', //this provides the masking and formatting
-//         result = stars+res.substring(5); //this is the result
-//      $(this).attr('maxlength', max); //setting the max length
-//     $(".number").val(result); //spits the value into the input
+// clipboard.on('success', function(e) {
+//     console.log(e);
 // });
+
+// clipboard.on('error', function(e) {
+//     console.log(e);
+// });
+
+
+
+
+
+
 
 
 /*
@@ -409,3 +405,26 @@ telEl.addEventListener('keyup', (e) => {
 <!--BUY TEMPLATE SECTION END-->
 @include('homefooter')
 @include('homescripts')
+
+<script>
+   $(document).ready(function(){
+      // $('#social_security_number_id').on('keydown keyup mousedown mouseup', function() {
+      //  	 var res = this.value, //grabs the value
+      //  		 len = res.length, //grabs the length
+      //  		 max = 9, //sets a max chars
+      //  		 stars = len>0?len>1?len>2?len>3?len>4?'XXX-XX-':'XXX-X':'XXX-':'XX':'X':'', //this provides the masking and formatting
+      //  		result = stars+res.substring(5); //this is the result
+      //  	 $(this).attr('maxlength', max); //setting the max length
+      //  	$("#social_security_number_id").val(result); //spits the value into the input
+      //  });
+      
+      $('#social_security_number_id').keyup(function() {
+         var val = this.value.replace(/\D/g, '');
+         val = val.replace(/^(\d{3})/, '$1-');
+         val = val.replace(/-(\d{2})/, '-$1-');
+         val = val.replace(/(\d)-(\d{4}).*/, '$1-$2');
+         this.value = val;
+      });
+
+});
+</script>
