@@ -103,6 +103,10 @@
                </span>
                @endif
             </div>
+           <?php
+            if(Auth::user()){
+
+            }else{?>
             <div class="form-group">
                <label for="userpassword">Password</label>
                <input
@@ -130,6 +134,9 @@
                   value="{{ old('password',(isset($userData) && !empty($userData->password)) ? $userData->password : '' ) }}"
                />
             </div>
+
+            <?php } ?>
+            
             <div class="form_group">
                <div class="term_field field">
                   <input type="checkbox">
