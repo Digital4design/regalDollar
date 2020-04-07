@@ -31,7 +31,7 @@
          <div class="form_outter_section"> 
             <!--HEADER SECTION START-->
             <h3 class="subtitle">Agreement</h3>
-            <form action="{{ url('front/update-docs') }}" method="post">
+            <form action="{{ url('front/create-step6') }}" method="post">
                {{ csrf_field() }}
                <input type="hidden" value="{{$userData->id}}" class="form-control" id="user_id" name="user_id"/>
                <input type="hidden" value="{{ $userData['plan_id'] }}" class="form-control" id="plan_id"  name="plan_id">

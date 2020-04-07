@@ -1,4 +1,5 @@
 @include('homeheader')
+<?php // dd($activePlan['plan_id']);?>
 <!--CONTENT START-->
 <div class="content">
 <div class="inner-banner kode-team-section overlay movingbg normaltopmargin normalbottommargin light movingbg" data-id="customizer" data-title="Theme Customizer" data-direction='horizontal'>
@@ -96,20 +97,27 @@
 										?>
 									<p style="text-align: left;"><i class="fa fa-arrow-right"></i> {{ $planDesc }}</p>
 
-									<?php } ?>
-									<!-- <p style="text-align: left;"><i class="fa fa-arrow-right"></i> You will be able to withdrawal your earnings every month.</p>
-									<p style="text-align: left;"><i class="fa fa-arrow-right"></i> You cannot cancel within the first year.</p>
-									<p style="text-align: left;"><i class="fa fa-arrow-right"></i> $50,000 become $68,000 in one year // $1,500 a month.</p>
-									</p> -->
-									<?php if(date("Y-m-d") >= $plan['plan_valid_from']){ ?> 
-									<a class="btn-filled" href="<?php echo url('/front/create-details') . '/' . Crypt::encrypt($plan->id)  ?>">Get Started</a>
+									<?php 
+									} 
+									?>
+
+									<?php if(date("Y-m-d") >= $plan['plan_valid_from']){ 
+										
+									?>
+									 <a class="btn-filled" href="<?php echo url('/front/create-details') . '/' . $plan->id  ?>">Get Started </a>
 									
-									<?php }else{ ?>
+									<?php 
+									}
+									else
+									{ 
+									?>
 
 									<div class="alert alert-warning">This plan will be available in <b> {{ date('m/d/yy', strtotime($plan->plan_valid_from)) }} </b>
 									</div> <a class="btn-filled" href="#">Get Started</a>
 									
-									<?php } ?>
+									<?php
+									 } 
+									 ?>
 							</div>
 						</div>
 					</div>

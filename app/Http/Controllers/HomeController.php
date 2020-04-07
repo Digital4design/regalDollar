@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\ContactUsModel;
 use App\Models\Plan;
+use App\Models\InvestmentModel;
 use App\Notifications\ContactUs;
 use App\User;
 use Auth;
@@ -42,12 +43,31 @@ class HomeController extends Controller
     }
     public function getPlanData()
     {
+        if(Auth::user()){
+            // dd(Auth::user());
+            $investmentData = Plan::where('plan_type', '1')->get();
+            $coreData = Plan::where('plan_type', '2')->get();
+            $activePlan = InvestmentModel::where('user_id', Auth::user()->id)
+                // ->where('paypal_transaction_id','=','')
+                ->first();
+                // dd($activePlan);
+            return view('public.home')->with([
+                'investmentData' => $investmentData,
+                'coreData' => $coreData,
+                'activePlan'=>$activePlan,
+                ]);
+        }else{
+            // dd(Auth::user());
         $investmentData = Plan::where('plan_type', '1')->get();
         $coreData = Plan::where('plan_type', '2')->get();
+        $activePlan=array();
         return view('public.home')->with([
             'investmentData' => $investmentData, 
-            'coreData' => $coreData
-            ]);
+            'coreData' => $coreData,
+            'activePlan'=>$activePlan,
+        ]);
+        }
+        
     }
 
     public function contactUs(Request $request)

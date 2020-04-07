@@ -33,7 +33,7 @@
          <!--HEADER SECTION START-->
          <h2 class="title">You're almost done !</h2>
          <h3 class="subtitle">Please review your information:</h3> 
-         <form action="{{ url('front/update-agreement') }}" method="post">
+         <form action="{{ url('front/create-step7') }}" method="post">
             {{ csrf_field() }}
             <input type="hidden" value="{{$userData->id}}" class="form-control" id="user_id" name="user_id"/>
             <input type="hidden" value="{{ $userData['plan_id'] }}" class="form-control" id="plan_id"  name="plan_id">

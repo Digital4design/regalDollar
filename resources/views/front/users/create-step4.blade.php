@@ -32,7 +32,7 @@
             <!--HEADER SECTION START-->
             <h2 class="title">We currently accept investment from US residents.</h2>
             <h3 class="subtitle">Please confirm the following:</h3>
-            <form action="{{ url('front/update-amounts') }}" method="post">
+            <form action="{{ url('front/create-step5') }}" method="post">
                {{ csrf_field() }} 
                <input type="hidden" value="{{$userData->id}}" class="form-control" id="user_id" name="user_id"/>
                <input type="hidden" value="{{$userData->plan_id}}" class="form-control" id="plan_id" name="plan_id"/>

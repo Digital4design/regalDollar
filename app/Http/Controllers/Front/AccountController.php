@@ -38,7 +38,7 @@ class AccountController extends Controller
             'pageName' => 'User Listing',
             'activeMenu' => 'user-management',
         );
-        $planData = Plan::find(Crypt::decrypt($id));
+        $planData = Plan::find($id);
         $date = $planData->plan_start_date;
         $date = strtotime($date);
         $new_date = strtotime('+ ' . $planData->time_investment . ' month', $date);
@@ -106,13 +106,11 @@ class AccountController extends Controller
                 return back()->withErrors($validator)->withInput();
             }
             try {
-
                 $planData = Plan::find($request->plan_id);
                 $date = $planData['plan_valid_from'];
                 $date = strtotime($date);
                 $new_date = strtotime('+ ' . $planData["time_investment"] . ' month', $date);
                 $valid_till = date('Y-m-d', $new_date);
-                
                 $userData = User::create([
                     'first_name' => $request->first_name,
                     'last_name' => $request->last_name,

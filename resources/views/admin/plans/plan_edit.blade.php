@@ -170,11 +170,11 @@
                                  <label class="input-group-text" for="inputGroupSelect01">Valid From</label>
                               </div>
                               <input
-                              class="form-control"
-                              type="date"
-                              name="plan_valid_from"
-                              placeholder="" 
-                               value="{{ old('plan_valid_from',(isset($planData) && !empty($planData->plan_valid_from)) ? $planData->plan_valid_from : '' ) }}" />
+                                 class="form-control"
+                                 type="date"
+                                 name="plan_valid_from"
+                                 value="{{ old('plan_valid_from',(isset($planData) && !empty($planData->plan_valid_from)) ? $planData->plan_valid_from : '' ) }}" 
+                              />
                               @if ($errors->has('plan_valid_from'))
                               <span style="display:initial;" class="invalid-feedback" role="alert">
                               <strong>{{ $errors->first('plan_valid_from') }}</strong>
@@ -198,7 +198,8 @@
                                  type="text" 
                                  name="descritpion[]" 
                                  placeholder="" 
-                                 value="{{ old('descritpion',(isset($des) && !empty($des)) ? $des : '' ) }}" />
+                                 value="{{ old('descritpion',(isset($des) && !empty($des)) ? $des : '' ) }}" 
+                              />
                               @if ($errors->has('descritpion'))
                               <span style="display:initial;" class="invalid-feedback" role="alert">
                               <strong>{{ $errors->first('descritpion') }}</strong>
@@ -206,7 +207,7 @@
                               @endif
                            </div>
                         </div>
-                        <?php }?>
+                        <?php } ?>
 
                         <div class="col-sm-12 more-feilds"></div>
 
@@ -216,8 +217,7 @@
                               <a class="btn btn-success add-more">+ Add More descritpion</a>
                            </div>
                         </div>
-                     </div>
-                           
+                     </div>                           
                      <button class="btn btn-primary" type="submit">Update Plan</button>
                   </form>
                </div>

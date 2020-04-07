@@ -32,7 +32,7 @@
             <h2 class="title">Thanks, William!</h2>
             <h3 class="subtitle">We just need a few more details.</h3>
             <hr>
-            <form action="{{ url('front/update-info') }}" method="post">
+            <form action="{{ url('front/create-step4') }}" method="post">
                {{ csrf_field() }}
                <input type="hidden" value="{{ $userData->id }}" class="form-control" id="user_id" name="user_id" />
                <input type="hidden" value="{{ $userData->plan_id }}" class="form-control" id="plan_id" name="plan_id" />
