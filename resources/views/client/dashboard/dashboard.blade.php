@@ -80,18 +80,32 @@
                      </tr>
                   </thead>
                   <tbody>
-                     <tr>
-                        <th scope="row">#14276</th>
+                  <?php $i=1; ?>
+                  @forelse($investData as $invest)
+                     <tr>    
+                     <?php // dd($invest->plan_name); ?>                   
+                        
+                        <th scope="row">#{{ $i }}</th>
                         <td>
                            <div>
-                              <i class="fa fa-arrow-alt-circle-left"></i> Monthly Dividend (December)
+                              Added Money to Investment {{ $invest->plan_name }}  <i class="fa fa-arrow-alt-circle-right"></i>
                            </div>
                         </td>
-                        <td>Dec 12, 2019</td>
-                        <td>$115.21</td>
-                        <td><span class="badge badge-success">Delivered</span></td>
+                        <td>{{ $invest->created_at }}</td>
+                        <td>${{ $invest->amount }}</td>
+                        <td><span class="badge badge-success">Delivered</span></td>                       
                      </tr>
+                     <?php $i++; ?>
+                     @empty
                      <tr>
+                        <th></th>
+                        <td></td>
+                        <td>No data found </td>
+                        <td></td>
+                        <td></td>
+                     </tr>
+                     @endforelse
+                     <!-- <tr>
                         <th scope="row">#14256</th>
                         <td>
                            <div>
@@ -134,7 +148,7 @@
                         <td>Sept 11, 2019</td>
                         <td>$10,000.00</td>
                         <td><span class="badge badge-success">Delivered</span></td>
-                     </tr>
+                     </tr>--> 
                   </tbody>
                </table>
             </div>

@@ -11,6 +11,7 @@ use Auth;
 use Hash;
 use Illuminate\Http\Request;
 use Validator;
+use DB;
 
 class DashboardController extends Controller
 {
@@ -30,8 +31,17 @@ class DashboardController extends Controller
      */
     public function index()
     {
+        $investData = DB::table('investment')
+              ->select('investment.*','plans.plan_name','users.name')
+               ->join('plans','plans.id','=','investment.plan_id')
+               ->join('users','users.id','=','investment.user_id')
+               //->where(['investment.user_id' => $user_id])
+               ->get();
+        // dd($investData);
         $result = array('pageName' => 'Dashboard',
             'activeMenu' => 'dashboard',
+            'investData' => $investData,
+
         );
         return view('admin.dashboard.dashboard', $result);
     }

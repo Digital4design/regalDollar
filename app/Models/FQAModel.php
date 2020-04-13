@@ -16,8 +16,8 @@ class FQAModel extends Model
      * @var array
      */
     protected $fillable = [
-        'fqa_headding',
-        'fqa_answer',
+        'fqaHeadding',
+        'fqaAnswer',
         'fqa_type',
     ];
     /**

@@ -28,12 +28,12 @@
                               </div>
                               <input
                                 class="form-control"
-                                name="fqa_headding"
+                                name="fqaHeadding"
                                 value=""
                               />
-                              @if ($errors->has('fqa_headding'))
+                              @if ($errors->has('fqaHeadding'))
                               <span style="display:initial;" class="invalid-feedback" role="alert">
-                              <strong>{{ $errors->first('fqa_headding') }}</strong>
+                              <strong>{{ $errors->first('fqaHeadding') }}</strong>
                               </span>
                               @endif
                            </div>
@@ -44,15 +44,15 @@
                               <div class="input-group-prepend">
                                  <label class="input-group-text" for="inputGroupSelect01">FQA Answer</label>
                               </div>
-                               <textarea class="form-control"  rows="4" cols="50" name="fqa_answer"></textarea>
+                               <textarea class="form-control"  rows="4" cols="50" name="fqaAnswer"></textarea>
                               <!-- <input
                               class="form-control"
                               name="fqa_answer"
                               value=""
                               /> -->
-                              @if ($errors->has('fqa_answer'))
+                              @if ($errors->has('fqaAnswer'))
                               <span style="display:initial;" class="invalid-feedback" role="alert">
-                              <strong>{{ $errors->first('fqa_answer') }}</strong>
+                              <strong>{{ $errors->first('fqaAnswer') }}</strong>
                               </span>
                               @endif
                            </div>

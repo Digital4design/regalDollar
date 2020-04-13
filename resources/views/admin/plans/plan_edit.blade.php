@@ -210,7 +210,6 @@
                         <?php } ?>
 
                         <div class="col-sm-12 more-feilds"></div>
-
                         <div class="col-sm-12">
                            <div class="form-group change">
                               <label for="">&nbsp;</label><br/>

@@ -113,6 +113,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin','verified']]
 /**** ================================Client Routes Start =================================== */
 
 Route::group(['prefix' => 'client', 'middleware' => ['auth', 'client']], function () {
+    
     Route::get('/', 'Client\DashboardController@index');
     Route::post('/states', 'Client\DashboardController@states');
     Route::post('/cities', 'Client\DashboardController@cities');
