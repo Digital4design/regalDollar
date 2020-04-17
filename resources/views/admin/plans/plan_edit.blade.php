@@ -7,6 +7,7 @@
 </div>
 @endsection
 @section('content')
+<?php // dd($planDocs);?>
 <div class="row">
    <div class="col-lg-12">
       <div class="card">
@@ -81,7 +82,7 @@
                               <input
                               type="file"
                               class="form-control"
-                              name="plan_doc"
+                              name="plan_doc[]"
                               multiple
                               />
                               @if ($errors->has('plan_doc'))
@@ -91,7 +92,19 @@
                               @endif
                            </div>
                         </div>
-                        
+                        <div class="col-sm-12">
+                        <ul>
+                        @forelse($planDocs as $docs)
+                        <li>
+                        {{ $docs->documents_path }}
+                           <!-- <img src="{!! url('public/uploads/documents_management/'.$docs->documents_path) !!}" alt="Italian Trulli" width="200" height="100"> -->
+                        </li>
+                        <br>
+                        @empty
+                           No docs found.
+                        @endforelse
+                        </ul>
+                        </div>
                         <div class="col-sm-4">
                            <div class="input-group mb-3">
                               <div class="input-group-prepend">

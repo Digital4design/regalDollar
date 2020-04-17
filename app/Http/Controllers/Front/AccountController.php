@@ -272,7 +272,8 @@ class AccountController extends Controller
             $userData['investmentId'] = $request->investmentId;
             $userData = $request->session()->put('userData', $userData);
             $userData = $request->session()->get('userData');
-            $documentData = DocumentManagemetModel::get();
+            $documentData = DocumentManagemetModel::where('plan_id',$request->plan_id)->get();
+            // dd($documentData);
             $data['userData'] = $userData;
             $data['documentData'] = $documentData;
             $data['investmentData'] = $investmentData;
@@ -311,12 +312,8 @@ class AccountController extends Controller
             $userData['investmentId'] = $request->investmentId;
             $userData = $request->session()->put('userData', $userData);
             $userData = $request->session()->get('userData');
-            $documentData = DocumentManagemetModel::get();
+            $documentData = DocumentManagemetModel::where('plan_id',$request->plan_id)->get();
             $data['planData'] = Plan::where('id',$userData['plan_id'])->first();
-
-
-
-            
             $data['userData'] = $userData;
             $data['documentData'] = $documentData;
             return view('front.users.create-step6', $data);
@@ -329,14 +326,12 @@ class AccountController extends Controller
     {
         $userData = User::find($request->user_id);
         $investData = InvestmentModel::where('id',$request->investmentId)->first();
-        
         $userData['investmentId']   = $request->investmentId;
         $userData['plan_id']        = $request->plan_id;
         $userData['amount']         = $investData['amount'];
         $userData                   = $request->session()->put('userData', $userData);
         $userData                   = $request->session()->get('userData');
         $data['userData']           = $userData;
-
         return view('front.users.payment', $data);
     }
 

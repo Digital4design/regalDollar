@@ -31,6 +31,7 @@
       <div class="container">
       <div class="form_outter_section">         
          <!--HEADER SECTION START-->
+         <?php // dd($userData);?>
          <h2 class="title">You're almost done !</h2>
          <h3 class="subtitle">Please review your information:</h3> 
          <form action="{{ url('front/create-step7') }}" method="post">
@@ -43,7 +44,7 @@
                <span class="edit_field" contenteditable="true" >{{ $userData['first_name'] }} 
                   <i  class="fa fa-pencil-square-o" aria-hidden="true"></i>
                </span>
-               <span class="edit_field" contenteditable="true">{{ $userData['address'] }}
+               <span class="edit_field" contenteditable="true">{{ $userData['address'] }} {{ $userData['city'] }} {{ $userData['state'] }} {{ $userData['country_id'] }} {{ $userData['zipcode'] }}
                   <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                </span>
                <span class="edit_field" contenteditable="true">{{ $userData['phoneNumber'] }}

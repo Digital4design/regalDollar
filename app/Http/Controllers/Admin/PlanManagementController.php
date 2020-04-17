@@ -84,24 +84,7 @@ class PlanManagementController extends Controller
             return back()->with(['status' => 'danger', 'message' => $e->getMessage()]);
         }
     }
-    /*
-     *  @edit Plan View
-     */
-    public function editViewPlan($id)
-    {
-        try {
-            $plan = Plan::find(Crypt::decrypt($id));
-            $data = array(
-                'pageName' => 'Edit Plan',
-                'activeMenu' => 'plan-management',
-            );
-            $data['planData'] = $plan;
-            $data['roles'] = Role::get();
-            return view('admin.plans.plan_edit', $data);
-        } catch (\Exception $e) {
-            return back()->with(['status' => 'danger', 'message' => $e->getMessage()]);
-        }
-    }
+   
     /***
      * Crate New Plan
      **/
@@ -152,8 +135,6 @@ class PlanManagementController extends Controller
                 'plan_valid_from' => $request->plan_valid_from,
                 'descritpion' => $descritpion,
             ]);
-
-            
             if ($request->icon != "") {
                 $plan_save = Plan::where('id', $planData->id)->first();
                 if ($plan_save->icon != "") {
@@ -167,54 +148,40 @@ class PlanManagementController extends Controller
                 $plan_save->icon = $filename;
                 $plan_save->save();
             }
-
-            $docData = DocumentManagemetModel::create([
-                'plan_id' => $planData->id,
-            ]);
             if ($request->plan_doc != "") {
-                $plan_save = DocumentManagemetModel::where('id', $docData->id)->first();
-                if ($plan_save->documents_path != "") {
-                    if (file_exists(public_path('/uploads/documents_management/' . $plan_save->documents_path))) {
-                        $del_previous_pic = unlink(public_path('/uploads/documents_management/' . $plan_save->documents_path));
-                    }
-                }
-                $file = $request->file('plan_doc');
-                $filename = 'docs-' . time() . '.' . $file->getClientOriginalExtension();
-                $file->move('public/uploads/documents_management', $filename);
-                $plan_save->documents_path = $filename;
-                $plan_save->save();
-            }
-
-            /*
-            if ($request->plan_doc != "") {
-                $docs_save = DocumentManagemetModel::where('plan_id', $docData->id)->first();
-                foreach($request->file('plan_doc') as $file){
-                    dd($file);
-                    $filename = 'plan-' . time() . '.' . $file->getClientOriginalExtension();
-                    $file->move('public/uploads/plan_icon', $filename);
-                    $docs_save->documents_path = $filename;
-                    $docs_save->save();
+                foreach ($request->plan_doc as $photo) {
+                    $filename = 'docs-' . time() .'-'. rand(15,35) .'.' . $photo->getClientOriginalExtension();
+                    // dd($filename);
+                    $updaloadFile = $photo->move('public/uploads/documents_management',$filename);
+                    DocumentManagemetModel::create([
+                        'plan_id' => $planData->id,
+                        'documents_path' => $filename
+                    ]);
                 }
             }
-            */
-
-            /* 
-            if ($request->icon != "") {
-                $plan_save = Plan::where('id', $planData->id)->first();
-                if ($plan_save->icon != "") {
-                    if (file_exists(public_path('/uploads/plan_icon/' . $plan_save->icon))) {
-                        $del_previous_pic = unlink(public_path('/uploads/plan_icon/' . $plan_save->icon));
-                    }
-                }
-                $file = $request->file('icon');
-                $filename = 'plan-' . time() . '.' . $file->getClientOriginalExtension();
-                $file->move('public/uploads/plan_icon', $filename);
-                $plan_save->icon = $filename;
-                $plan_save->save();
-            }
-            */
             return redirect('/admin/plan-management/')->with(['status' => 'success', 'message' => 'Create New Plan Created successfully.']);
         } catch (\exception $e) {
+            return back()->with(['status' => 'danger', 'message' => $e->getMessage()]);
+        }
+    }
+     /*
+     *  @edit Plan View
+     */
+    public function editViewPlan($id)
+    {
+        try {
+            $plan = Plan::find(Crypt::decrypt($id));
+            $planDocs = DocumentManagemetModel::where('plan_id',Crypt::decrypt($id))->get();
+            $data = array(
+                'pageName' => 'Edit Plan',
+                'activeMenu' => 'plan-management',
+                'planData' => $plan,
+                'planDocs' => $planDocs,
+            );
+            
+            $data['roles'] = Role::get();
+            return view('admin.plans.plan_edit', $data);
+        } catch (\Exception $e) {
             return back()->with(['status' => 'danger', 'message' => $e->getMessage()]);
         }
     }
@@ -268,47 +235,35 @@ class PlanManagementController extends Controller
                 $plan_save->icon = $filename;
                 $plan_save->save();
             }
-
-           /* $docData = DocumentManagemetModel::where('plan_id', $planData->id)->get();
-            // dd($docData);
-            if(count($docData) > 0) {
-                 if ($request->plan_doc != "") {
-                    $doc_save = DocumentManagemetModel::where('plan_id', $planData->id)->first();
-                    // dd($doc_save);
-                    if ($doc_save->documents_path != "") {
-                        if (file_exists(public_path('/uploads/documents_management/' . $doc_save->documents_path))) {
-                            $del_previous_pic = unlink(public_path('/uploads/documents_management/' . $doc_save->documents_path));
+            if ($request->plan_doc != "") {
+                $docData = DocumentManagemetModel::where('plan_id', $planData->id)->count();
+                if($docData > 0) {
+                    DocumentManagemetModel::where('plan_id', $planData->id)->delete();
+                    foreach ($request->plan_doc as $photo) {
+                        $filename = 'docs-' . time() .'-'. rand(15,35) .'.' . $photo->getClientOriginalExtension();
+                        $updaloadFile = $photo->move('public/uploads/documents_management',$filename);
+                        DocumentManagemetModel::create([
+                            'plan_id' => $planData->id,
+                            'documents_path' => $filename
+                            ]);
+                        }
+                    }else{
+                        DocumentManagemetModel::where('plan_id', $planData->id)->delete();
+                        foreach ($request->plan_doc as $photo) {
+                            $filename = 'docs-' . time() .'-'. rand(15,35) .'.' . $photo->getClientOriginalExtension();
+                            $updaloadFile = $photo->move('public/uploads/documents_management',$filename);
+                            DocumentManagemetModel::create([
+                                'plan_id' => $planData->id,
+                                'documents_path' => $filename
+                                ]);
+                            }
                         }
                     }
-                    $docfile = $request->file('plan_doc');
-                    $filename = 'docs-' . time() . '.' . $docfile->getClientOriginalExtension();
-                    $docfile->move('public/uploads/documents_management', $filename);
-                    $doc_save->documents_path = $filename;
-                    $doc_save->save();
+                    return redirect('/admin/plan-management/')->with(['status' => 'success', 'message' => 'Update record successfully.']);
+                } catch (\exception $e) {
+                    return back()->with(['status' => 'danger', 'message' => $e->getMessage()]);
                 }
-            }else{
-                $docData = DocumentManagemetModel::create([
-                    'plan_id' => $planData->id,
-                ]);
-                if ($request->plan_doc != "") {
-                    $plan_save = DocumentManagemetModel::where('id', $docData->id)->first();
-                    if ($plan_save->documents_path != "") {
-                        if (file_exists(public_path('/uploads/documents_management/' . $plan_save->documents_path))) {
-                            $del_previous_pic = unlink(public_path('/uploads/documents_management/' . $plan_save->documents_path));
-                        }
-                    }
-                    $file = $request->file('plan_doc');
-                    $filename = 'docs-' . time() . '.' . $file->getClientOriginalExtension();
-                    $file->move('public/uploads/documents_management', $filename);
-                    $plan_save->documents_path = $filename;
-                    $plan_save->save();
-                }
-            }*/
-            return redirect('/admin/plan-management/')->with(['status' => 'success', 'message' => 'Update record successfully.']);
-        } catch (\exception $e) {
-            return back()->with(['status' => 'danger', 'message' => $e->getMessage()]);
-        }
-    }
+            }
     /**
      * Delete Plan
      *

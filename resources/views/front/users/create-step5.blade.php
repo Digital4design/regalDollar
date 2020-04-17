@@ -86,8 +86,16 @@
                   <input type="radio" id="female" name="reinvestment" value="2" required="required">
                   <label class="container" for="female">I would like my dividends distributed to my bank account.</label>
                </div>
+               <div class="break_section1"></div> 
+               <div id="signArea" class="form-group">
+                  <h2 class="tag-ingo">Put signature below,</h2>
+                     <div class="sig sigWrapper" style="height:auto;">
+                     <div class="typed"></div>
+                        <canvas class="sign-pad" id="sign-pad" width="300" height="100"></canvas>
+                     </div>
+               </div>
                <a href="#"  class="btn btn-primary">Back</a>
-               <button type="submit" class="btn btn-primary"> Next </button>
+               <button type="submit" id="" class="btn btn-primary"> Next </button>
             </form>
          </div>
       </div>
@@ -96,3 +104,27 @@
 <!--BUY TEMPLATE SECTION END-->
 @include('homefooter')
 @include('homescripts')
+
+<script>
+			$(document).ready(function() {
+				$('#signArea').signaturePad({drawOnly:true, drawBezierCurves:true, lineTop:90});
+			});
+			$("#btnSaveSign").click(function(e){
+				html2canvas([document.getElementById('sign-pad')], {
+					onrendered: function (canvas) {
+						var canvas_img_data = canvas.toDataURL('image/png');
+						var img_data = canvas_img_data.replace(/^data:image\/(png|jpg);base64,/, "");
+						//ajax call to save image inside folder
+						$.ajax({
+							url: 'save_sign.php',
+							data: { img_data:img_data },
+							type: 'post',
+							dataType: 'json',
+							success: function (response) {
+							   window.location.reload();
+							}
+						});
+					}
+				});
+			});
+		  </script> 
