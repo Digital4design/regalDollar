@@ -31,7 +31,7 @@
          <div class="form_outter_section">  
             <!--HEADER SECTION START-->
             <h3 class="subtitle">Agreement</h3>
-            <form action="{{ url('front/create-step6') }}" method="post">
+            <form action="{{ url('front/create-step6') }}" id="registrationform" name="registration" method="post">
                {{ csrf_field() }}
                <input type="hidden" value="{{$userData->id}}" class="form-control" id="user_id" name="user_id"/>
                <input type="hidden" value="{{ $userData['plan_id'] }}" class="form-control" id="plan_id"  name="plan_id">
@@ -105,6 +105,24 @@
 <!--BUY TEMPLATE SECTION END-->
 @include('homefooter')
 @include('homescripts')
+
+<script type="text/javascript">
+$(document).ready(function(){
+   $("#registrationform").validate({
+      rules : {
+         indicateagreement : {
+            required : true
+         }
+      },
+      messages: {
+         indicateagreement: "Please check indicateagreement",
+      },
+      submitHandler: function(form) {
+         form.submit();
+      }
+   });
+});
+</script>
 <script>
 $(document).ready(function() {
    $('#signArea').signaturePad({drawOnly:true, drawBezierCurves:true, lineTop:90});
