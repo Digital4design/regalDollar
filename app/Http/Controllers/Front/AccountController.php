@@ -285,8 +285,7 @@ class AccountController extends Controller
     }
     public function postDocsUpdate(Request $request)
     {
-        // dd($request->all());
-        $rules = [
+         $rules = [
             'indicateagreement' => 'required',
             'reinvestment' => 'required',
         ];
@@ -299,13 +298,24 @@ class AccountController extends Controller
             return back()->withErrors($validator)->withInput();
         }
         try {
+            
+
+            $imagedata = base64_decode($request->signature);
+            $filename = md5(date("dmYhisA"));
+            $file_path = 'public/uploads/signature'.'/'.$filename.'.png';
+            
+            file_put_contents($file_path,$imagedata); 
+            
             $indicate = json_encode($request->indicateagreement);
             $userData = User::find($request->user_id);
             $investmentData = InvestmentModel::find($request->investmentId);
-            // dd($userData);
-            $userData->indicateagreement = $indicate;
-            $userData->reinvestment = $request->reinvestment;
-            $userData->save();
+            
+            $investmentData->indicateagreement = $indicate;
+            $investmentData->reinvestment = $request->reinvestment;
+            $investmentData->signature=$filename.'.png';
+            $investmentData->save();
+            $investmentData = InvestmentModel::find($request->investmentId);
+            // dd($investmentData);
             $userData = User::find($request->user_id);
             $data['investmentData'] = $investmentData;
             $userData['plan_id'] = $request->plan_id;

@@ -31,7 +31,7 @@
          <div class="form_outter_section">  
             <!--HEADER SECTION START-->
             <h3 class="subtitle">Agreement</h3>
-            <form action="{{ url('front/create-step6') }}" id="registrationform" name="registration" method="post">
+            <form action="{{ url('front/create-step6') }}"  id="registrationform" name="registration" method="post" enctype= "multipart/form-data">
                {{ csrf_field() }}
                <input type="hidden" value="{{$userData->id}}" class="form-control" id="user_id" name="user_id"/>
                <input type="hidden" value="{{ $userData['plan_id'] }}" class="form-control" id="plan_id"  name="plan_id">
@@ -95,6 +95,7 @@
                      </div>
                </div>
                <input type="hidden" name="signature" id="sing">
+               
                <a href="{{ url('/front/create-step4') }}"  class="btn btn-primary">Back</a>
                <button type="submit" id="btnSaveSign" class="btn btn-primary"> Next </button>
             </form>
@@ -127,22 +128,41 @@ $(document).ready(function(){
 $(document).ready(function() {
    $('#signArea').signaturePad({drawOnly:true, drawBezierCurves:true, lineTop:90});
 });
-$("#btnSaveSign").click(function(e){
+
+$("#sign-pad").mouseleave(function(){
    html2canvas([document.getElementById('sign-pad')], {
       onrendered: function (canvas) {
          var canvas_img_data = canvas.toDataURL('image/png');
          var img_data = canvas_img_data.replace(/^data:image\/(png|jpg);base64,/, "");
-         //ajax call to save image inside folder
-         $.ajax({
-            url: 'save_sign.php',
-            data: { img_data:img_data },
-            type: 'post',
-            dataType: 'json',
-							success: function (response) {
-							   window.location.reload();
-							}
-						});
-					}
-				});
-			});
+         $("#sing").val(img_data);
+         
+      }
+   });
+});
+
+
+
+
+// $("#btnSaveSign").click(function(e){
+//    html2canvas([document.getElementById('sign-pad')], {
+//       onrendered: function (canvas) {
+//          var canvas_img_data = canvas.toDataURL('image/png');
+//          var img_data = canvas_img_data.replace(/^data:image\/(png|jpg);base64,/, "");
+
+//          $("#sing").val(img_data);
+//          //ajax call to save image inside folder
+//          $.ajax({
+//             url      : "{{ url('front/create-step6') }}",
+//             // data: { img_data:img_data },
+//             data: $("#registrationform").serialize(),
+//             type: 'post',
+//             dataType: 'json',
+//             success: function (response) {
+//                window.location.href = "{{ url('front/create-step7') }}";
+//                // window.location.reload();
+//             }
+//          });
+//       }
+//    });
+// });
 		  </script> 
