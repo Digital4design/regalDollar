@@ -32,7 +32,7 @@
             <!--HEADER SECTION START-->
             <h2 class="title">We currently accept investment from US residents.</h2>
             <h3 class="subtitle">Please confirm the following:</h3>
-            <form action="{{ url('front/create-step5') }}" method="post">
+            <form action="{{ url('front/create-step5') }}" id="registrationform" name="registration" method="post">
                {{ csrf_field() }} 
                <input type="hidden" value="{{$userData->id}}" class="form-control" id="user_id" name="user_id"/>
                <input type="hidden" value="{{$userData->plan_id}}" class="form-control" id="plan_id" name="plan_id"/>
@@ -54,7 +54,7 @@
                      <option value="70,000">$70,000</option>
                   </select>
                </div>
-               <a href="#"  class="btn btn-primary"> Back </a>
+               <a href="{{ url('front/create-step3') }}"  class="btn btn-primary"> Back </a>
                <button type="submit" class="btn btn-primary"> Next </button>
             </form>
          </div>
@@ -64,3 +64,28 @@
 <!--BUY TEMPLATE SECTION END-->
 @include('homefooter')
 @include('homescripts')
+
+<script type="text/javascript">
+$(document).ready(function(){
+   
+    // Selecting the form and defining validation method
+    $("#registrationform").validate({
+      
+        // Passing the object with custom rules
+        rules : {
+            // login - is the name of an input in the form
+            amount : {
+               required : true
+            }
+        },
+        // Setting error messages for the fields
+        messages: {
+         amount: "Please setect amount",
+        },
+        // Setting submit handler for the form
+        submitHandler: function(form) {
+            form.submit();
+        }
+    });
+});
+</script>

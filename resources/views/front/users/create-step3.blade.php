@@ -29,10 +29,10 @@
    <section class="white-bg">
       <div class="container">
          <div class="form_outter_section">
-            <h2 class="title">Thanks, William!</h2>
+            <h2 class="title">Thanks, {{ Auth::user()->name}}</h2>
             <h3 class="subtitle">We just need a few more details.</h3>
             <hr>
-            <form action="{{ url('front/create-step4') }}" method="post">
+            <form action="{{ url('front/create-step4') }}" id="registrationform" name="registration" method="post">
                {{ csrf_field() }}
                <input type="hidden" value="{{ $userData->id }}" class="form-control" id="user_id" name="user_id" />
                <input type="hidden" value="{{ $userData->plan_id }}" class="form-control" id="plan_id" name="plan_id" />
@@ -179,14 +179,78 @@
                      </span>
                      @endif
                </div>
-               <a href="#"  class="btn btn-primary">Back</a>
+               <a href="{{ url('/front/create-step2') }}"  class="btn btn-primary">Back</a>
                <button type="submit" class="btn btn-primary"> Next </button>
             </form>
          </div>
       </div>
    </section>
 </div>
-<script>
+
+<!--BUY TEMPLATE SECTION END-->
+@include('homefooter')
+@include('homescripts')
+
+<script type="text/javascript">
+   $(document).ready(function(){
+       $('#social_security_number_id').keyup(function() {
+         var val = this.value.replace(/\D/g, '');
+         val = val.replace(/^(\d{3})/, '$1-');
+         val = val.replace(/-(\d{2})/, '-$1-');
+         val = val.replace(/(\d)-(\d{4}).*/, '$1-$2');
+         this.value = val;
+      });
+
+});
+
+// Selecting the form and defining validation method
+$("#registrationform").validate({
+     rules : {
+        address : {
+            required : true
+        },
+        address2 : {
+            required : true
+        },
+        city : {
+            required : true
+        },
+        state : {
+            required : true
+        },
+        zipcode : {
+            required : true
+        },
+        phoneNumber : {
+            required : true
+        },
+        social_security_number : {
+            required : true
+        },
+        state : {
+            required : true
+        },
+        birthday:{
+            required : true
+        }
+
+        },
+        messages: {
+            address: "Please enter address",
+            address2:"Please enter address2",
+            city:"Please enter city",
+            state:"Please select state",
+            zipcode:"Please enter zipcode",
+            phoneNumber:"Please enter phone Number",
+            social_security_number:"Please enter social security number",
+            birthday:"Please enter birthday",
+        },
+        submitHandler: function(form) {
+            form.submit();
+        }
+    });
+
+
 
 
 // main.js
@@ -365,15 +429,7 @@ function ParseChar(sStr, sChar) {
 
     return sNewStr;
 }
-// var clipboard = new Clipboard('.btn');
 
-// clipboard.on('success', function(e) {
-//     console.log(e);
-// });
-
-// clipboard.on('error', function(e) {
-//     console.log(e);
-// });
 
 
 
@@ -401,30 +457,4 @@ telEl.addEventListener('keyup', (e) => {
     });
 })
 */
-</script>
-<!--BUY TEMPLATE SECTION END-->
-@include('homefooter')
-@include('homescripts')
-
-<script>
-   $(document).ready(function(){
-      // $('#social_security_number_id').on('keydown keyup mousedown mouseup', function() {
-      //  	 var res = this.value, //grabs the value
-      //  		 len = res.length, //grabs the length
-      //  		 max = 9, //sets a max chars
-      //  		 stars = len>0?len>1?len>2?len>3?len>4?'XXX-XX-':'XXX-X':'XXX-':'XX':'X':'', //this provides the masking and formatting
-      //  		result = stars+res.substring(5); //this is the result
-      //  	 $(this).attr('maxlength', max); //setting the max length
-      //  	$("#social_security_number_id").val(result); //spits the value into the input
-      //  });
-      
-      $('#social_security_number_id').keyup(function() {
-         var val = this.value.replace(/\D/g, '');
-         val = val.replace(/^(\d{3})/, '$1-');
-         val = val.replace(/-(\d{2})/, '-$1-');
-         val = val.replace(/(\d)-(\d{4}).*/, '$1-$2');
-         this.value = val;
-      });
-
-});
 </script>

@@ -14,6 +14,10 @@
 <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js" type="text/javascript"></script> -->
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 
+
+
+<script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
+<script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js"></script>
 <!-- sign-->
 <script src="{{ URL::asset('public/assets/js/jquery.signaturepad.js') }}"></script>
 <script src="{{ URL::asset('public/assets/js/bezier.js') }}"></script>

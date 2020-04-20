@@ -1,4 +1,5 @@
 @include('homeheader')
+
 <?php // dd($userData->country_citizenship); ?>
 <div class="content form-steps">
    <div class="stepwizard-row setup-panel">
@@ -35,7 +36,7 @@
          <?php // dd($userData);?>
          <h2 class="title">Let's get started.</h2>
          <h3 class="subtitle">To incest, please create an account.</h3>
-         <form action="{{ url('front/create-step1') }}" method="post">
+         <form action="{{ url('front/create-step1') }}" id="registrationform" name="registration" method="post">
             {{ csrf_field() }}
             <input id="plan_id" type="hidden" class="form-control" name="plan_id" value="{{ $planData->id }}"/>
             <input id="plan_id" type="hidden" class="form-control" name="plan_id" value="{{ $planData->id }}"/>
@@ -51,6 +52,7 @@
                   class="form-control"
                   name="first_name"
                   value="{{ old('first_name',(isset($userData) && !empty($userData->first_name)) ? $userData->first_name : '' ) }}"
+                  required="required"
                />
                @if ($errors->has('first_name'))
                <span style="display:initial;" class="invalid-feedback" role="alert">
@@ -66,6 +68,7 @@
                   class="form-control"
                   name="last_name"
                   value="{{ old('last_name',(isset($userData) && !empty($userData->last_name)) ? $userData->last_name : '' ) }}"
+                  required="required"
                />
                @if ($errors->has('last_name'))
                <span style="display:initial;" class="invalid-feedback" role="alert">
@@ -81,6 +84,7 @@
                   class="form-control"
                   name="name"
                   value="{{ old('name',(isset($userData) && !empty($userData->name)) ? $userData->name : '' ) }}"
+                  required="required"
                />
                @if ($errors->has('name'))
                <span style="display:initial;" class="invalid-feedback" role="alert">
@@ -150,6 +154,7 @@
                <div class="citizenship_field field">
                   <span class="label">Country of citizenship</span>
                      <select class="Country_citizenship" name="country_citizenship" required="required" >
+                     <option value="" >Please setect country citizenship</option>
                      @foreach($countryData as $country)
                         <option value="{{ $country['name']}}" >{{ $country['name']}}</option>
                      @endforeach
@@ -164,6 +169,7 @@
             <div class="Residence_field field">
                <span class="label">Country of Residence</span>
                <select class="Country_Residence" name="country_residence" required="required" >
+               <option value="" >Please setect country residence</option>
                    @foreach($countryData as $country)
                      <option value="{{ $country['name']}}" >{{ $country['name']}}</option>
                    @endforeach
@@ -184,3 +190,60 @@
 <!--BUY TEMPLATE SECTION END-->
 @include('homefooter')
 @include('homescripts')
+
+<script type="text/javascript">
+$(document).ready(function(){
+   
+    // Selecting the form and defining validation method
+    $("#registrationform").validate({
+      
+        // Passing the object with custom rules
+        rules : {
+            // login - is the name of an input in the form
+            first_name : {
+               required : true
+            },
+            last_name : {
+               required : true
+            },
+            name:{
+               required : true
+            },
+            email : {
+                required : true,
+                email : true
+            },
+            country_citizenship:{
+               required : true
+            },
+            country_residence:{
+               required : true
+            }
+            // password : {
+            //     required : true,
+            //     // Setting minimum and maximum lengths of a password
+            //     minlength : 5,
+            //     maxlength : 8
+            // }
+        },
+        // Setting error messages for the fields
+        messages: {
+           first_name: "Enter first name",
+           last_name: "Enter last name",
+           name: "Enter user name",
+           country_citizenship:"Please select country citizenship",
+           country_residence:"Please select country residence",
+           //   password: {
+              //        required: "Enter your password",
+              //        minlength: "Minimum password length is 5",
+              //        maxlength: "Maximum password length is 8"
+              //    },
+           email: "Enter valid email"
+        },
+        // Setting submit handler for the form
+        submitHandler: function(form) {
+            form.submit();
+        }
+    });
+});
+</script>
