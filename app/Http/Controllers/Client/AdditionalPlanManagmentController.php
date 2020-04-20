@@ -61,7 +61,7 @@ class AdditionalPlanManagmentController extends Controller
         $userData = $request->session()->put('investmentdata', $investmentdata);
         $result = array(
             'pageName' => 'Dashboard',
-            'activeMenu' => 'create-account',
+            'activeMenu' => 'create-account', 
             'investmentId'=>$investmentdata['id'],
             
         );

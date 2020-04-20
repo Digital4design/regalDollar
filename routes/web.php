@@ -169,8 +169,6 @@ Route::group(['prefix' => 'client', 'middleware' => ['auth', 'client']], functio
         Route::post('/update-aggrement-data', 'Client\AdditionalPlanManagmentController@updateAggrement');
         Route::get('/update-payment/{id}', 'Client\AdditionalPlanManagmentController@updatePayment');
         Route::get('/update-plan-payment/{id}', 'Client\AdditionalPlanManagmentController@updatePayment');
-
-        
     });
 
     Route::group(['prefix' => 'notifications-managment' ], function () {

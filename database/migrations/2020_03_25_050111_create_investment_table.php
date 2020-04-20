@@ -28,6 +28,7 @@ class CreateInvestmentTable extends Migration
             $table->string('reinvestment')->nullable();
             $table->enum('is_request', ['0', '1','2','3'])->default('0')->comment = '0 = No Request , 1 = Request for withdrow , 2 = Request accept, 3 Request reject';
             $table->string('linked_account')->nullable();
+            $table->string('signature')->nullable();            
             $table->timestamps();
         });
     }
