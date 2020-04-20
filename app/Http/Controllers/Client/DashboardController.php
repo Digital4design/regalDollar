@@ -36,7 +36,8 @@ class DashboardController extends Controller
         $investData = DB::table('investment')
               ->select('investment.*','plans.plan_name')
                ->join('plans','plans.id','=','investment.plan_id')
-               ->where(['investment.user_id' => $user_id])
+               ->where('investment.user_id', $user_id)
+               ->where('investment.paypal_transaction_id','!=', '')
                ->get();
         // dd($investData);
         $result = array(

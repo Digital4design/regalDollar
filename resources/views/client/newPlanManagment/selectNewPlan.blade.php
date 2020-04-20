@@ -8,7 +8,6 @@
 @endsection
 @section('content')
 <div class="row">
-    <?php // dd($planData); ?>
     <div class="card">
         <div class="card-body">
             <div class="row justify-content-center mb-5">
@@ -23,7 +22,7 @@
                 </div>
             </div>
             <!-- end row -->
-            <form id="frm_info_basic" method="post" action="{{ url('client/purchase-new-plan/save-data') }}">
+            <form  method="post" action="{{ url('client/purchase-new-plan/save-data') }}" id="registrationform" name="registration" enctype= "multipart/form-data">
                 {{ csrf_field() }}
                 <div class="row">
                     <div class="col-xl-12">
@@ -34,7 +33,7 @@
                             <select class="custom-select" id="inputGroupSelect01" name="plan_id">
                                 <option value="0" selected="">Choose an investment plan...</option>
                                 @foreach($planData as $plan)
-                                <option value="{{ $plan['id']}}">{{ $plan['time_investment']}} Month Plan</option>
+                                <option value="{{ $plan['id']}}" >{{ $plan['time_investment']}} Month Plan</option>
                                 @endforeach
                                 <!-- <option value="2" selected="">24 Month Plan</option>
                                     <option value="3">48 Month Plan</option>
@@ -62,8 +61,31 @@
 @endsection
 @section('script')
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-<script>
-  
-
+<script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
+<script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+   
+    // Selecting the form and defining validation method
+    $("#registrationform").validate({
+      
+        // Passing the object with custom rules
+        rules : {
+            // login - is the name of an input in the form
+            plan_id : {
+               required : true
+            }
+            
+        },
+        // Setting error messages for the fields
+        messages: {
+            plan_id: "Enter first name",
+        },
+        // Setting submit handler for the form
+        submitHandler: function(form) {
+            form.submit();
+        }
+    });
+});
 </script>
 @endsection

@@ -113,10 +113,14 @@ $(document).ready(function(){
       rules : {
          indicateagreement : {
             required : true
+         },
+         reinvestment:{
+            required : true
          }
       },
       messages: {
          indicateagreement: "Please check indicateagreement",
+         reinvestment: "Please check reinvestment",
       },
       submitHandler: function(form) {
          form.submit();
