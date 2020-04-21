@@ -299,12 +299,13 @@ class AccountController extends Controller
         }
         try {
             
-
-            $imagedata = base64_decode($request->signature);
-            $filename = md5(date("dmYhisA"));
-            $file_path = 'public/uploads/signature'.'/'.$filename.'.png';
-            
-            file_put_contents($file_path,$imagedata); 
+            if($request->signature){
+                $imagedata = base64_decode($request->signature);
+                $filename = md5(date("dmYhisA"));
+                $file_path = 'public/uploads/signature'.'/'.$filename.'.png';
+                file_put_contents($file_path,$imagedata);
+            }
+             
             
             $indicate = json_encode($request->indicateagreement);
             $userData = User::find($request->user_id);
@@ -312,7 +313,9 @@ class AccountController extends Controller
             
             $investmentData->indicateagreement = $indicate;
             $investmentData->reinvestment = $request->reinvestment;
-            $investmentData->signature=$filename.'.png';
+            if($request->signature){
+                $investmentData->signature=$filename.'.png';
+            }
             $investmentData->save();
             $investmentData = InvestmentModel::find($request->investmentId);
             // dd($investmentData);

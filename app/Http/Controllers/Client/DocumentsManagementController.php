@@ -27,7 +27,7 @@ class DocumentsManagementController extends Controller
 
     public function documentsData()
     {
-        $userList = DocumentManagemetModel::where('users_id', Auth::user()->id)->orderBy('id', 'desc')->first();
+        $userList = DocumentManagemetModel::where('users_id', Auth::user()->id)->orderBy('id', 'desc')->get();
         return Datatables::of($userList)
             ->addColumn('action', function ($userList) {
                 return '<a href ="' . url('/client/documents/view') . '/' . Crypt::encrypt($userList->id) . '"  class="btn btn-xs btn-primary view"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> View</a>';
