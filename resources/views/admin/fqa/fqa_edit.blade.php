@@ -30,11 +30,11 @@
                               </div>
                               <input 
                                  class="form-control" 
-                                 name="fqa_headding" 
-                                 value="{{ old('fqa_headding',(isset($planData) && !empty($planData->fqa_headding)) ? $planData->fqa_headding : '' ) }}" />
-                              @if ($errors->has('fqa_headding'))
+                                 name="fqaHeadding" 
+                                 value="{{ old('fqaHeadding',(isset($planData) && !empty($planData->fqaHeadding)) ? $planData->fqaHeadding : '' ) }}" />
+                              @if ($errors->has('fqaHeadding'))
                               <span style="display:initial;" class="invalid-feedback" role="alert">
-                              <strong>{{ $errors->first('fqa_headding') }}</strong>
+                              <strong>{{ $errors->first('fqaHeadding') }}</strong>
                               </span>
                               @endif
                            </div>
@@ -44,14 +44,14 @@
                               <div class="input-group-prepend">
                                  <label class="input-group-text" for="inputGroupSelect01">FQA Answer</label>
                               </div>
-                              <textarea class="form-control"  rows="4" cols="50" name="fqa_answer">{{ old('fqa_answer',(isset($planData) && !empty($planData->fqa_answer)) ? $planData->fqa_answer : '' ) }}</textarea>
-                              <!-- <input 
-                                 class="form-control" 
-                                 name="fqa_answer" 
-                                 value="{{ old('fqa_answer',(isset($planData) && !empty($planData->fqa_answer)) ? $planData->fqa_answer : '' ) }}" /> -->
-                              @if ($errors->has('fqa_answer'))
+                              <textarea 
+                              class="form-control"  
+                              rows="4" cols="50" 
+                              name="fqaAnswer">{{ old('fqaAnswer',(isset($planData) && !empty($planData->fqaAnswer)) ? $planData->fqaAnswer : '' ) }}</textarea>
+                             
+                             @if ($errors->has('fqaAnswer'))
                               <span style="display:initial;" class="invalid-feedback" role="alert">
-                              <strong>{{ $errors->first('fqa_answer') }}</strong>
+                              <strong>{{ $errors->first('fqaAnswer') }}</strong>
                               </span>
                               @endif
                            </div>

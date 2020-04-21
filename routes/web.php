@@ -29,11 +29,11 @@ Route::group(['prefix' => 'front'], function () {
     Route::get('/create-details/{id}', 'Front\AccountController@index');
     Route::post('/create-step1', 'Front\AccountController@postCreateStep1');
     Route::get('/create-step2', 'Front\AccountController@createStep2');
-    Route::post('/create-update', 'Front\AccountController@postCreateUpdate');
-    Route::post('/update-info', 'Front\AccountController@postInfoUpdate');
-    Route::post('/update-amounts', 'Front\AccountController@postAmountUpdate');
-    Route::post('/update-docs', 'Front\AccountController@postDocsUpdate');
-    Route::post('/update-agreement', 'Front\AccountController@updateAgreements');
+    Route::post('/create-step3', 'Front\AccountController@postCreateUpdate');
+    Route::post('/create-step4', 'Front\AccountController@postInfoUpdate');
+    Route::post('/create-step5', 'Front\AccountController@postAmountUpdate');
+    Route::post('/create-step6', 'Front\AccountController@postDocsUpdate');
+    Route::post('/create-step7', 'Front\AccountController@updateAgreements');
     Route::get('/payment-update/{id}', 'PaymentController@paymentProcess');
 });
 /**** ================================Admin Routes Start =================================== */
@@ -168,8 +168,6 @@ Route::group(['prefix' => 'client', 'middleware' => ['auth', 'client']], functio
         Route::post('/update-aggrement-data', 'Client\AdditionalPlanManagmentController@updateAggrement');
         Route::get('/update-payment/{id}', 'Client\AdditionalPlanManagmentController@updatePayment');
         Route::get('/update-plan-payment/{id}', 'Client\AdditionalPlanManagmentController@updatePayment');
-
-        
     });
 
     Route::group(['prefix' => 'notifications-managment' ], function () {

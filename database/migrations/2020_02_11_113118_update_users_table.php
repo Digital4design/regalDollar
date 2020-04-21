@@ -13,7 +13,7 @@ class UpdateUsersTable extends Migration
     public function up()
     {
         Schema::table('users', function ($table) {
-            $table->string('first_name')->after('id')->nullable();
+            $table->string('first_name')->after('password')->nullable();
             $table->string('last_name')->after('first_name')->nullable();
             $table->text('address')->after('last_name')->nullable();
             $table->text('address2')->after('address')->nullable();
@@ -41,21 +41,21 @@ class UpdateUsersTable extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('first_name')->nullable();
-            $table->dropColumn('last_name')->nullable();
-            $table->dropColumn('address')->nullable();
-            $table->dropColumn('address2')->nullable();
-            $table->dropColumn('country_id')->nullable();
-            $table->dropColumn('state_id')->nullable();
-            $table->dropColumn('city_id')->nullable();
-            $table->dropColumn('zipcode')->nullable();
-            $table->dropColumn('accountType')->nullable();
-            $table->dropColumn('phoneNumber')->nullable();
-            $table->dropColumn('birthday')->nullable();
-            $table->dropColumn('social_security_number')->nullable();
-            $table->dropColumn('country_citizenship')->nullable();
-            $table->dropColumn('country_residence')->nullable();
-            $table->dropColumn('indicateagreement')->nullable();
+            $table->dropColumn('first_name')->after('password')->nullable();
+            $table->dropColumn('last_name')->after('first_name')->nullable();
+            $table->dropColumn('address')->after('last_name')->nullable();
+            $table->dropColumn('address2')->after('address')->nullable();
+            $table->dropColumn('country_id')->after('address2')->nullable();
+            $table->dropColumn('state_id')->after('country_id')->nullable();
+            $table->dropColumn('city_id')->after('state_id')->nullable();
+            $table->dropColumn('zipcode')->after('city_id')->nullable();
+            $table->dropColumn('accountType')->after('zipcode')->nullable();
+            $table->dropColumn('phoneNumber')->after('accountType')->nullable();
+            $table->dropColumn('birthday')->after('phoneNumber')->nullable();
+            $table->dropColumn('social_security_number')->after('birthday')->nullable();
+            $table->dropColumn('country_citizenship')->after('social_security_number')->nullable();
+            $table->dropColumn('country_residence')->after('country_citizenship')->nullable();
+            $table->dropColumn('indicateagreement')->after('country_residence')->nullable();
         });
     }
 }

@@ -22,6 +22,11 @@ class InvestmentModel extends Model
         'plan_end_date',
         'paypal_transaction_id',
         'amount',
+        'indicateagreement',
+        'reinvestment',
+        'is_request',
+        'linked_account',
+        'signature',
         ];
     /**
      * Return current login user role here.

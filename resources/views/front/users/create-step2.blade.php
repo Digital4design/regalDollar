@@ -32,7 +32,7 @@
             <h2 class="title">We currently accept investment from US residents.</h2>
             <h3 class="subtitle">Please confirm the following:</h3>
             <?php // dd($userData['plan_id']); ?>
-            <form action="{{ url('front/create-update') }}" method="post">
+            <form action="{{ url('front/create-step3') }}" id="registrationform" name="registration" method="post">
                {{ csrf_field() }}
                <input type="hidden" value="{{ $userData['id'] }}" class="form-control" id="user_id"  name="user_id">
                <input type="hidden" value="{{ $userData['plan_id'] }}" class="form-control" id="plan_id"  name="plan_id">
@@ -49,20 +49,9 @@
                      <strong>{{ $errors->first('accountType') }}</strong>
                      </span>
                      @endif
-
-               </div>
-               <!-- <div class="break_section"></div>
-               <h2 class="title">Let's finish getting your account set up.</h2>
-               <h3 class="subtitle">What type of account would you like to open?</h3>
-               <div class="form_group">
-                  <div class="account_type_fields field">
-                     <div class="account">
-                        <input type="radio">
-                        <p>Individual account</p>
                      </div>
-                  </div>
-               </div> -->
-               <a href="#"  class="btn btn-primary">Back</a>
+              
+               <a href="{{ url('front/create-step2') }}"  class="btn btn-primary">Back</a>
                <button type="submit" class="btn btn-primary">Next</button>
             </form>
          </div>
@@ -71,3 +60,28 @@
 </div>
 @include('homefooter')
 @include('homescripts')
+
+<script type="text/javascript">
+$(document).ready(function(){
+   
+    // Selecting the form and defining validation method
+    $("#registrationform").validate({
+      
+        // Passing the object with custom rules
+        rules : {
+            // login - is the name of an input in the form
+            accountType : {
+               required : true
+            }
+        },
+        // Setting error messages for the fields
+        messages: {
+         accountType: "Please setect account type",
+        },
+        // Setting submit handler for the form
+        submitHandler: function(form) {
+            form.submit();
+        }
+    });
+});
+</script>

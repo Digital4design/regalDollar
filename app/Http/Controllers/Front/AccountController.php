@@ -38,7 +38,7 @@ class AccountController extends Controller
             'pageName' => 'User Listing',
             'activeMenu' => 'user-management',
         );
-        $planData = Plan::find(Crypt::decrypt($id));
+        $planData = Plan::find($id);
         $date = $planData->plan_start_date;
         $date = strtotime($date);
         $new_date = strtotime('+ ' . $planData->time_investment . ' month', $date);
@@ -81,6 +81,25 @@ class AccountController extends Controller
                 $userData = User::find($request->user_id);
                 $userData = $request->session()->put('userData', $userData);
                 $userData = $request->session()->get('userData');
+
+                $planData = Plan::find($request->plan_id);
+                $date = $planData['plan_valid_from'];
+                $date = strtotime($date);
+                $new_date = strtotime('+ ' . $planData["time_investment"] . ' month', $date);
+                $valid_till = date('Y-m-d', $new_date);
+
+                $InvestmentData =InvestmentModel::create([
+                    'user_id' => $userData->id,
+                    'plan_id' => $request->plan_id,
+                    'plan_start_date'=>$planData['plan_valid_from'],
+                    'plan_end_date'=>$valid_till,
+                ]);
+
+                $userData['plan_id']=$request->plan_id;
+                $userData['investmentId']=$InvestmentData['id'];
+                Auth::loginUsingId($userData->id);
+                $request->session()->put('userData', $userData);
+
                 return redirect('/front/create-step2');
             } catch (\Exception $e) {
                 echo $e->getMessage();
@@ -106,13 +125,11 @@ class AccountController extends Controller
                 return back()->withErrors($validator)->withInput();
             }
             try {
-
                 $planData = Plan::find($request->plan_id);
                 $date = $planData['plan_valid_from'];
                 $date = strtotime($date);
                 $new_date = strtotime('+ ' . $planData["time_investment"] . ' month', $date);
                 $valid_till = date('Y-m-d', $new_date);
-                
                 $userData = User::create([
                     'first_name' => $request->first_name,
                     'last_name' => $request->last_name,
@@ -235,7 +252,6 @@ class AccountController extends Controller
     }
     public function postAmountUpdate(Request $request)
     {
-        // dd($request->all());
         $rules = [
             'amount' => 'required',
         ];
@@ -247,23 +263,17 @@ class AccountController extends Controller
             return back()->withErrors($validator)->withInput();
         }
         try {
-            InvestmentModel::where('id',$request->investmentId)->update(
-                [
-                    'amount' => $request->amount,
-                ]);
-            // $investData = InvestmentModel::where('user_id',$request->user_id)->where('plan_id',$request->plan_id)->first();
-            // dd($investData);
-            // $userData = User::find($investData->id);
-            // dd($userData);
-            // $userData->amount = trim($request->amount);
-            // $userData->save();
+
+            InvestmentModel::where('id',$request->investmentId)->update(['amount' => $request->amount,]);
+            
             $investmentData = InvestmentModel::where('id',$request->investmentId)->get();
             $userData = User::find($request->user_id);
             $userData['plan_id'] = $request->plan_id;
             $userData['investmentId'] = $request->investmentId;
             $userData = $request->session()->put('userData', $userData);
             $userData = $request->session()->get('userData');
-            $documentData = DocumentManagemetModel::get();
+            $documentData = DocumentManagemetModel::where('plan_id',$request->plan_id)->get();
+            // dd($documentData);
             $data['userData'] = $userData;
             $data['documentData'] = $documentData;
             $data['investmentData'] = $investmentData;
@@ -275,8 +285,7 @@ class AccountController extends Controller
     }
     public function postDocsUpdate(Request $request)
     {
-        // dd($request->all());
-        $rules = [
+         $rules = [
             'indicateagreement' => 'required',
             'reinvestment' => 'required',
         ];
@@ -289,36 +298,35 @@ class AccountController extends Controller
             return back()->withErrors($validator)->withInput();
         }
         try {
+            
+            if($request->signature){
+                $imagedata = base64_decode($request->signature);
+                $filename = md5(date("dmYhisA"));
+                $file_path = 'public/uploads/signature'.'/'.$filename.'.png';
+                file_put_contents($file_path,$imagedata);
+            }
+             
+            
             $indicate = json_encode($request->indicateagreement);
             $userData = User::find($request->user_id);
             $investmentData = InvestmentModel::find($request->investmentId);
-            // dd($userData);
-            $userData->indicateagreement = $indicate;
-            $userData->reinvestment = $request->reinvestment;
-            $userData->save();
+            
+            $investmentData->indicateagreement = $indicate;
+            $investmentData->reinvestment = $request->reinvestment;
+            if($request->signature){
+                $investmentData->signature=$filename.'.png';
+            }
+            $investmentData->save();
+            $investmentData = InvestmentModel::find($request->investmentId);
+            // dd($investmentData);
             $userData = User::find($request->user_id);
             $data['investmentData'] = $investmentData;
             $userData['plan_id'] = $request->plan_id;
             $userData['investmentId'] = $request->investmentId;
             $userData = $request->session()->put('userData', $userData);
             $userData = $request->session()->get('userData');
-            $documentData = DocumentManagemetModel::get();
+            $documentData = DocumentManagemetModel::where('plan_id',$request->plan_id)->get();
             $data['planData'] = Plan::where('id',$userData['plan_id'])->first();
-
-
-
-            // $indicate = json_encode($request->indicateagreement);
-            // $userData = User::find($request->user_id);
-            // $userData->indicateagreement = $indicate;
-            // $userData->reinvestment = $request->reinvestment;
-            // $userData->save();
-            // $userData = User::find($request->user_id);
-            // $userData['plan_id'] = $request->plan_id;
-            // $userData = $request->session()->put('userData', $userData);
-            // $userData = $request->session()->get('userData');
-            // $documentData = DocumentManagemetModel::get();
-            // $data['planData'] = Plan::where('id',$userData['plan_id'])->first();
-            // dd($data['planData']);
             $data['userData'] = $userData;
             $data['documentData'] = $documentData;
             return view('front.users.create-step6', $data);
@@ -331,14 +339,12 @@ class AccountController extends Controller
     {
         $userData = User::find($request->user_id);
         $investData = InvestmentModel::where('id',$request->investmentId)->first();
-        
         $userData['investmentId']   = $request->investmentId;
         $userData['plan_id']        = $request->plan_id;
         $userData['amount']         = $investData['amount'];
         $userData                   = $request->session()->put('userData', $userData);
         $userData                   = $request->session()->get('userData');
         $data['userData']           = $userData;
-
         return view('front.users.payment', $data);
     }
 

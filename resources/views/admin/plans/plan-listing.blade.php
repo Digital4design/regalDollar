@@ -20,10 +20,8 @@
 		<div class="col-lg-12">
             <div class="card">
                 <div class="card-body">
-                    
-                    <!-- end row -->
-
-                    <div class="row">
+                <!-- end row -->
+                <div class="row">
                         <div class="col-xl-8">
                             <h4>{{ $pageName }}</h4>
 							@if(Session::has('status'))

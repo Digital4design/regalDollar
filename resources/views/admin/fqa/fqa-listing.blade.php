@@ -15,6 +15,9 @@
  
     <div class="row">
         <div class="col-md-12 text-right my-3">
+        @if(Session::has('status'))
+            <div class="alert alert-{{ Session::get('status') }} clearfix">{{ Session::get('message') }}</div>
+        @endif 
         <a href="{{ url('/admin/fqa-management/add-FQA') }}"><button class="btn btn-xs btn-primary" type="button">Create FQA</button></a>
     </div>
 		<div class="col-lg-12">
@@ -26,20 +29,16 @@
                     <div class="row">
                         <div class="col-xl-8">
                             <h4>{{ $pageName }}</h4>
-							@if(Session::has('status'))
-								<div class="alert alert-{{ Session::get('status') }} clearfix">{{ Session::get('message') }}</div>
-							@endif 	
-						</div>
-						
-					  <div class="table-responsive m-t-40">
-					
-						<table class="table table-striped table-bordered table-hover dataTable  dtr-inline " id="myTable">
+                        </div>
+                        <div class="table-responsive m-t-40">
+                        <table class="table table-striped table-bordered table-hover dataTable  dtr-inline " id="myTable">
 					<!--	<table id="myTable" class="table table-bordered table-striped"> -->
 							<thead>
 								<tr>
 									<!-- <th>Sr.No</th> -->
 									<th>FQA Heading</th>
 									<th>FQA Answer </th>
+                                    <th>FQA Type </th>
 									<th>Action</th>
 								</tr>
 							</thead>
@@ -79,8 +78,9 @@ $(function() {
         order: [[1,'desc']],
         ajax: '{!! url("/admin/fqa-management/fqa-data") !!}',
         columns: [
-            { data: 'fqa_headding', name: 'fqa_headding', orderable: true , searchable: true},
-            { data: 'fqa_answer', name: 'fqa_answer', orderable: true , searchable: true},
+            { data: 'fqaHeadding', name: 'fqaHeadding', orderable: true , searchable: true},
+            { data: 'fqaAnswer', name: 'fqaAnswer', orderable: true , searchable: true},
+            { data: 'fqa_type', name: 'fqa_type', orderable: true , searchable: true},
             
             { data: 'action', name: 'action', orderable: false, searchable: false},
         ],

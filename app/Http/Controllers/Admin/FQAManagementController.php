@@ -33,6 +33,7 @@ class FQAManagementController extends Controller
     public function FQAData()
     {
         $userList = FQAModel::orderBy('id', 'desc')->get();
+        // dd($userList);
         return Datatables::of($userList)
             ->addColumn('action', function ($userList) {
                 return '<a href ="' . url('/admin/fqa-management/edit') . '/' . Crypt::encrypt($userList->id) . '"  class="btn btn-xs btn-primary edit"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</a>
@@ -59,13 +60,15 @@ class FQAManagementController extends Controller
      */
     public function store(Request $request)
     {
+        //dd($request->all());
         $rules = [
-            'fqa_headding' => 'required|min:4',
-            'fqa_answer' => 'required|min:2',
+            'fqaHeadding' => 'required',
+            'fqaAnswer' => 'required',
+            'fqa_type' => 'required',
         ];
         $messages = [
-            'fqa_headding.required' => 'FQA name is required.',
-            'fqa_answer.min' => 'First name should contain at least 4 characters.',
+            'fqaHeadding.required' => 'FQA name is required.',
+            'qaAnswer.min' => 'First name should contain at least 4 characters.',
         ];
         $validator = Validator::make($request->all(), $rules, $messages);
         if ($validator->fails()) {
@@ -73,24 +76,12 @@ class FQAManagementController extends Controller
         }
         try {
             $planData = FQAModel::create([
-                'fqa_headding' => $request->fqa_headding,
-                'fqa_answer' => $request->fqa_answer,
+                'fqaHeadding' => $request->fqaHeadding,
+                'fqaAnswer' => $request->fqaAnswer,
                 'fqa_type'=>$request->fqa_type,
             ]);
-            // if ($request->icon != "") {
-            //     $plan_save = Plan::where('id', $planData->id)->first();
-            //     if ($plan_save->icon != "") {
-            //         if (file_exists(public_path('/uploads/plan_icon/' . $plan_save->icon))) {
-            //             $del_previous_pic = unlink(public_path('/uploads/plan_icon/' . $plan_save->icon));
-            //         }
-            //     }
-            //     $file = $request->file('icon');
-            //     $filename = 'plan-' . time() . '.' . $file->getClientOriginalExtension();
-            //     $file->move('public/uploads/plan_icon', $filename);
-            //     $plan_save->icon = $filename;
-            //     $plan_save->save();
-            // }
-            return redirect('/admin/fqa-management/')->with(['status' => 'success', 'message' => 'Create New FQA Created successfully.']);
+            
+            return redirect('/admin/fqa-management')->with(['status' => 'success', 'message' => 'Create New FQA Created successfully.']);
         } catch (\exception $e) {
             return back()->with(['status' => 'danger', 'message' => $e->getMessage()]);
         }
@@ -140,12 +131,13 @@ class FQAManagementController extends Controller
     {
         //dd($request->all());
         $rules = [
-            'fqa_headding' => 'required|min:4',
-            'fqa_answer' => 'required|min:2',
+            'fqaHeadding' => 'required',
+            'fqaAnswer' => 'required',
+            'fqa_type' => 'required',
         ];
         $messages = [
-            'firstName.required' => 'Your first name is required.',
-            'firstName.min' => 'First name should contain at least 2 characters.',
+            'fqaHeadding.required' => 'Your first name is required.',
+            'fqaHeadding.min' => 'First name should contain at least 2 characters.',
         ];
         $validator = Validator::make($request->all(), $rules, $messages);
         if ($validator->fails()) {
@@ -154,23 +146,11 @@ class FQAManagementController extends Controller
         try {
             
             $fqaData = FQAModel::find(\Crypt::decrypt($id));
-            $fqaData->fqa_headding = trim($request->fqa_headding);
-            $fqaData->fqa_answer = trim($request->fqa_answer);
+            $fqaData->fqaHeadding= trim($request->fqaHeadding);
+            $fqaData->fqaAnswer = trim($request->fqaAnswer);
             $fqaData->fqa_type =$request->fqa_type;
             $fqaData->save();
-            // if ($request->icon != "") {
-            //     $plan_save = Plan::where('id', $planData->id)->first();
-            //     if ($plan_save->icon != "") {
-            //         if (file_exists(public_path('/uploads/plan_icon/' . $plan_save->icon))) {
-            //             $del_previous_pic = unlink(public_path('/uploads/plan_icon/' . $plan_save->icon));
-            //         }
-            //     }
-            //     $file = $request->file('icon');
-            //     $filename = 'plan-' . time() . '.' . $file->getClientOriginalExtension();
-            //     $file->move('public/uploads/plan_icon', $filename);
-            //     $plan_save->icon = $filename;
-            //     $plan_save->save();
-            // }
+           
             return redirect('/admin/fqa-management/')->with(['status' => 'success', 'message' => 'Update record successfully.']);
         } catch (\exception $e) {
             return back()->with(['status' => 'danger', 'message' => $e->getMessage()]);

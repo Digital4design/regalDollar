@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 use App\Models\InvestmentModel;
 use App\Models\Plan;
 use Validator;
+use DB;
 
 class DashboardController extends Controller
 {
@@ -32,12 +33,20 @@ class DashboardController extends Controller
         $investmentData = InvestmentModel::where('user_id',$user_id)->first();
         $plan_id = $investmentData['plan_id'];
         $planData = Plan::where('id',$plan_id)->first();
-        // dd($planData);
-        $result = array('pageName' => 'Dashboard',
+        $investData = DB::table('investment')
+              ->select('investment.*','plans.plan_name')
+               ->join('plans','plans.id','=','investment.plan_id')
+               ->where('investment.user_id', $user_id)
+               ->where('investment.paypal_transaction_id','!=', '')
+               ->get();
+        // dd($investData);
+        $result = array(
+            'pageName' => 'Dashboard',
             'activeMenu' => 'dashboard',
             'activePlan' => $planData,
             'investAmount' => $investmentData['amount'],
             'matureDate' => $investmentData['plan_end_date'],
+            'investData' => $investData,
         );
         return view('client.dashboard.dashboard', $result);
     }

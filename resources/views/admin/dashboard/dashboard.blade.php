@@ -12,11 +12,20 @@
 </div>
 @endsection
 @section('content')
+
 <div class="row">
    <div class="col-xl-9">
       <div class="card">
          <div class="card-body">
             <h4 class="mt-0 header-title mb-5">Monthly Earnings</h4>
+            
+            <?php 
+            $sum=0;
+            foreach($investData as $adate){
+               // dd($adate);
+               $sum += $adate->amount;
+            }
+            ?>
             <div class="row">
                <div class="col-lg-7">
                   <div>
@@ -32,7 +41,7 @@
                            <p class="text-muted mb-5">You will receive a dividend on January 11, 2020.</p>
                            <hr />
                            <p class="text-muted mb-3">Your total earnings to date are: 
-                           <h4>$434.50</h4>
+                           <h4>${{ $sum }}</h4>
                            </p>
                         </div>
                      </div>
@@ -79,18 +88,30 @@
                      </tr>
                   </thead>
                   <tbody>
+                     <?php $i=1; ?>
+                     @forelse($investData as $invest)
                      <tr>
-                        <th scope="row">#14276</th>
+                        <th scope="row">#{{ $i }}</th>
                         <td>
                            <div>
                               <i class="fa fa-arrow-alt-circle-left"></i> Monthly Dividend (December)
                            </div>
                         </td>
-                        <td>Dec 12, 2019</td>
-                        <td>$115.21</td>
+                        <td>{{ $invest->created_at }}</td>
+                        <td>${{ $invest->amount }}</td>
                         <td><span class="badge badge-success">Delivered</span></td>
                      </tr>
+                     <?php $i++; ?>
+                     @empty
                      <tr>
+                        <th></th>
+                        <td></td>
+                        <td>No data found </td>
+                        <td></td>
+                        <td></td>
+                     </tr>
+                     @endforelse
+                     <!-- <tr>
                         <th scope="row">#14256</th>
                         <td>
                            <div>
@@ -133,7 +154,7 @@
                         <td>Sept 11, 2019</td>
                         <td>$10,000.00</td>
                         <td><span class="badge badge-success">Delivered</span></td>
-                     </tr>
+                     </tr>-->
                   </tbody>
                </table>
             </div>
