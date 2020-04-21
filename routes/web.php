@@ -175,6 +175,11 @@ Route::group(['prefix' => 'client', 'middleware' => ['auth', 'client']], functio
         Route::get('/notification-data', 'Client\NotificationsManagementController@notificationData');
     });
 
+    Route::group(['prefix' => 'pages-faq' ], function () {
+        Route::get('/', 'Client\FQAManagementController@index');
+        Route::get('/notification-data', 'Client\NotificationsManagementController@notificationData');
+    });
+
     // Route::get('/', function () {
     //     return view('dashboard');
     // });
