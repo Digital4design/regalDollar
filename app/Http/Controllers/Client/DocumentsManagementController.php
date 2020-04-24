@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Client;
 
 use App\Http\Controllers\Controller;
 use App\Models\DocumentManagemetModel;
+use App\Models\InvestmentModel;
 use Crypt;
 use DataTables;
 use Illuminate\Http\Request;
@@ -19,7 +20,7 @@ class DocumentsManagementController extends Controller
     {
         $result = array(
             'pageName' => 'Documents Listing',
-            'activeMenu' => 'documents',
+            'activeMenu' => 'documents', 
         );
         return view('client.documentManagemet.documents-listing', $result);
 
@@ -27,7 +28,16 @@ class DocumentsManagementController extends Controller
 
     public function documentsData()
     {
-        $userList = DocumentManagemetModel::where('users_id', Auth::user()->id)->orderBy('id', 'desc')->get();
+        $investmentData = InvestmentModel::select('plan_id')->distinct()->where('user_id', Auth::user()->id)->get();
+        $plan =array();
+        foreach($investmentData as $invest){
+            array_push($plan,$invest['plan_id']);
+        }
+        // dd($plan);
+        //$List = implode(',', $plan);
+         
+        $userList = DocumentManagemetModel::whereIn('plan_id', $plan)->get();
+        // dd($userList);
         return Datatables::of($userList)
             ->addColumn('action', function ($userList) {
                 return '<a href ="' . url('/client/documents/view') . '/' . Crypt::encrypt($userList->id) . '"  class="btn btn-xs btn-primary view"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> View</a>';
