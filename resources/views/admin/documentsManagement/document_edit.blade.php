@@ -94,14 +94,8 @@
                               @endif
                            </div>
                         </div>
-                        
-
-                       
-
-                        
-                     </div>
-                           
-                     <button class="btn btn-primary" type="submit">Update Plan</button>
+                        </div>
+                        <button class="btn btn-primary" type="submit">Update Plan</button>
                   </form>
                </div>
             </div>

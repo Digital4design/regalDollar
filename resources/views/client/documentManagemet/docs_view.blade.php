@@ -8,66 +8,35 @@
 @endsection
 @section('content')
 <div class="row">
-   <div class="col-lg-12 view_user_data">
-      <div class="card">
-         <div class="card-body">
-         <?php // dd($documentData); ?>
-            <!-- end row -->
+<?php $doc = $documentData['documents_path']; ?>
+  <div class="col-lg-12">
+    <div class="card">
+      <div class="card-body">
+        <!-- end row -->
+        <div class="row">
+          <div class="col-xl-12">
+            <h4>Basic Information</h4>
             <div class="row">
-               <div class="col-xl-8">
-                  <h4>Documents Information</h4>
-                  @if(Session::has('status'))
-                  <div class="alert alert-{{ Session::get('status') }} clearfix">{{ Session::get('message') }}</div>
-                  @endif
-                  <div class="row">
-                     <div class="col-sm-6">
-                        <div class="input-group mb-3">
-                           <div class="input-group-prepend">
-                              <label class="input-group-text" for="inputGroupSelect01">Documents Title</label>
-                           </div>
-                           <input class="form-control" name="documents_title" disabled value="{{ $documentData['documents_title'] }}" />
-                           @if ($errors->has('documents_title'))
-                           <span style="display:initial;" class="invalid-feedback" role="alert">
-                           <strong>{{ $errors->first('documents_title') }}</strong>
-                           </span>
-                           @endif
-                        </div>
-                     </div>
-                     <div class="col-sm-6">
-                        <div class="input-group mb-3">
-                           <div class="input-group-prepend">
-                              <label class="input-group-text" for="inputGroupSelect01">Description</label>
-                           </div>
-                           <input class="form-control" name="message" value="{{ $documentData['message'] }}" disabled />
-                           @if ($errors->has('message'))
-                           <span style="display:initial;" class="invalid-feedback" role="alert">
-                           <strong>{{ $errors->first('message') }}</strong>
-                           </span>
-                           @endif
-                        </div>
-                     </div>
-                  </div>
-                  <div class="row">
-                     <div class="col-sm-4">
-                        <div class="input-group mb-3">
-                           <div class="input-group-prepend">
-                              <label class="input-group-text" for="inputGroupSelect01">Documents</label>
-                           </div>
-                           <embed src="{{ url('/public/uploads/documents_management/'.$documentData['documents_path']) }}" type="application/pdf" width="100%" height="100%" />
-                           <p>
-                               <a href="{{ url('/public/uploads/documents_management/'.$documentData['documents_path']) }}" target="_blank"> Open Files </a>
-                            </p>
-                            <!-- <iframe src="{{ url('/public/uploads/documents_management/'.$documentData['documents_path']) }}" height="100%" width="100%"></iframe> -->      
-                        </div>
-                     </div>
-                  </div>
-               </div>
+              <div class="col-sm-6">
+                <div class="input-group mb-3">
+                    {{ $documentData['documents_path'] }}
+                  <!-- <embed
+                  src="{{ url('/public/uploads/documents_managment') }} '/' {{$doc}}"
+                  style="width:600px; height:800px;"
+                  frameborder="0"> -->
+                  <!--  <embed src="{{ url('/public/uploads/documents_managment').'/'.$doc }}" type="application/pdf" width="100%" height="600px" /> -->
+                </div>
+              </div>
             </div>
-         </div>
+            <a href="{{ url('client/documents')}}" class="btn btn-primary" type="submit">Save Profile</a>
+          </div>
+         
+
+        </div>
       </div>
-   </div>
+    </div>
+  </div>
 </div>
-<!-- end row -->
 @endsection
 @section('script')
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
