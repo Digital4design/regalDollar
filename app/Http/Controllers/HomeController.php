@@ -10,6 +10,7 @@ use App\User;
 use Auth;
 use Illuminate\Http\Request;
 use Validator;
+use DB;
 
 class HomeController extends Controller
 {
@@ -19,7 +20,9 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        // $this->middleware('auth');
+        $date = date("Y-m-d H:i:s");
+        $day_before = date( 'Y-m-d H:i:s ', strtotime( $date . ' -1 day' ) );
+        InvestmentModel::whereNull('paypal_transaction_id')->where('created_at',$day_before)->delete();
     }
 
     /**
