@@ -69,6 +69,7 @@ class AccountController extends Controller
             ];
             $validator = Validator::make($request->all(), $rules, $messages);
             if ($validator->fails()) {
+                // dd($validator);
                 return back()->withErrors($validator)->withInput();
             }
             try {
@@ -102,7 +103,8 @@ class AccountController extends Controller
 
                 return redirect('/front/create-step2');
             } catch (\Exception $e) {
-                echo $e->getMessage();
+                return back()->with(array('status' => 'danger', 'message' => $e->getMessage()));
+               // echo $e->getMessage();
             }
         } else {
             $rules = [
@@ -156,7 +158,8 @@ class AccountController extends Controller
                 $request->session()->put('userData', $userData);
                 return redirect('/front/create-step2');
             } catch (\Exception $e) {
-                echo $e->getMessage();
+                return back()->with(array('status' => 'danger', 'message' => $e->getMessage()));
+                // echo $e->getMessage();
             }
         }
     }
@@ -195,6 +198,7 @@ class AccountController extends Controller
             // dd($userData);
             return view('front.users.create-step3', $userData);
         } catch (\Exception $e) {
+            return back()->with(array('status' => 'danger', 'message' => $e->getMessage()));
             echo $e->getMessage();
         }
     }
@@ -247,11 +251,13 @@ class AccountController extends Controller
             $data['stateData'] = State::where('country_id', '231')->get();
             return view('front.users.create-step4', $data);
         } catch (\Exception $e) {
-            echo $e->getMessage();
+            return back()->with(array('status' => 'danger', 'message' => $e->getMessage()));
+            // echo $e->getMessage();
         }
     }
     public function postAmountUpdate(Request $request)
     {
+        // dd($request->all());
         $rules = [
             'amount' => 'required',
         ];
@@ -263,7 +269,6 @@ class AccountController extends Controller
             return back()->withErrors($validator)->withInput();
         }
         try {
-
             InvestmentModel::where('id',$request->investmentId)->update(['amount' => $request->amount,]);
             
             $investmentData = InvestmentModel::where('id',$request->investmentId)->get();
@@ -280,6 +285,7 @@ class AccountController extends Controller
             // dd($data);
             return view('front.users.create-step5', $data);
         } catch (\Exception $e) {
+            return back()->with(array('status' => 'danger', 'message' => $e->getMessage()));
             echo $e->getMessage();
         }
     }
@@ -298,15 +304,12 @@ class AccountController extends Controller
             return back()->withErrors($validator)->withInput();
         }
         try {
-            
             if($request->signature){
                 $imagedata = base64_decode($request->signature);
                 $filename = md5(date("dmYhisA"));
                 $file_path = 'public/uploads/signature'.'/'.$filename.'.png';
                 file_put_contents($file_path,$imagedata);
             }
-             
-            
             $indicate = json_encode($request->indicateagreement);
             $userData = User::find($request->user_id);
             $investmentData = InvestmentModel::find($request->investmentId);
@@ -347,7 +350,6 @@ class AccountController extends Controller
         $data['userData']           = $userData;
         return view('front.users.payment', $data);
     }
-
     /**
      * Show the form for creating a new resource.
      * @return \Illuminate\Http\Response
@@ -356,17 +358,9 @@ class AccountController extends Controller
     {
         //
     }
-   /**
-     * Display the specified resource.
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-   public function destroy($id)
-    {
-        //
-    }
+  
+    
+   
+     
+   
 }

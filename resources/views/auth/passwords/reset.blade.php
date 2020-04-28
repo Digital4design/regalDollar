@@ -1,9 +1,9 @@
 @extends('layouts.master-blank')
 
 @section('content')
-        <div class="home-btn d-none d-sm-block">
-            <a href="index" class="text-dark"><i class="fas fa-home h2"></i></a>
-        </div>
+        <!-- <div class="home-btn d-none d-sm-block">
+            <a href="{{ url('/') }}" class="text-dark"><i class="fas fa-home h2"></i></a>
+        </div> -->
         <div class="wrapper-page">
             <div class="card overflow-hidden account-card mx-3">
                 <div class="bg-primary p-4 text-white text-center position-relative">

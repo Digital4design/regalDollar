@@ -23,6 +23,7 @@ class HomeController extends Controller
         $date = date("Y-m-d H:i:s");
         $day_before = date( 'Y-m-d H:i:s ', strtotime( $date . ' -1 day' ) );
         InvestmentModel::whereNull('paypal_transaction_id')->where('created_at',$day_before)->delete();
+        // $this->middleware('auth');
     }
 
     /**

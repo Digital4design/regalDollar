@@ -28,7 +28,7 @@
                   </div>
               </div>
             </div>
-            <a href="{{ url('client/documents')}}" class="btn btn-primary" type="submit">Save Profile</a>
+            <a href="{{ url('client/documents')}}" class="btn btn-primary" type="submit">Back To Documents Listing</a>
           </div>
          
 
