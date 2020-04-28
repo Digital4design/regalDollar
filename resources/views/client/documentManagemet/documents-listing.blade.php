@@ -84,8 +84,8 @@ $(function() {
         columns: [
             //{ data: 'plan_name', name: 'plan_name', orderable: true },
             // { data: 'name', name: 'name', orderable: true , searchable: true},
-            { data: 'documents_title', name: 'documents_title', orderable: true , searchable: true},
-            // { data: 'documents_path', name: 'documents_path', orderable: true , searchable: true},
+            // { data: 'documents_title', name: 'documents_title', orderable: true , searchable: true},
+            { data: 'documents_path', name: 'documents_path'},
             { data: 'message', name: 'message', orderable: true , searchable: true},            
             { data: 'action', name: 'action', orderable: false, searchable: false},
         ],

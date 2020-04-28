@@ -206,7 +206,7 @@
 		<div class="container">
 			<div class="heading heading-4">
 				<h2 style="color:#333">How it works</h2> 
-				<p>It only takes a few minutes to start saving for futur.</p>
+				<p>It only takes a few minutes to start saving for future.</p>
 			</div>
 			<div class="how-option">
 				<div class="row">

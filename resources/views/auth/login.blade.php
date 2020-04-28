@@ -2,7 +2,7 @@
 
 @section('content')
         <div class="home-btn d-none d-sm-block">
-            <a href="index" class="text-dark"><i class="fas fa-home h2"></i></a>
+            <a href="{{ url('/') }}" class="text-dark"><i class="fas fa-home h2"></i></a>
         </div>
 
         

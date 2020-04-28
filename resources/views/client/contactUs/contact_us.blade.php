@@ -26,13 +26,13 @@
         <div class="row">
           <div class="col-xl-3"></div>
           <div class="col-xl-6">
-            <form id="contact_frm" method="post" action="{{ url('/client/contact-us-management/save-data') }}" enctype="multipart/form-data">
+            <form id="contact_frm" method="post" action="{{ url('/client/contact-us-management/save-data') }}" id="registrationform" name="registration" enctype="multipart/form-data">
               {{ csrf_field() }}
               <div class="input-group mb-3">
                 <div class="input-group-prepend">
                   <label class="input-group-text" for="inputGroupSelect01">Your Name</label>
                 </div>
-                <input name="name" class="form-control" type="text" value="{{Auth::user()->first_name }} {{Auth::user()->last_name }}" readonly="">
+                <input name="name" class="form-control" type="text" value="{{Auth::user()->first_name }} {{Auth::user()->last_name }}" required="required" readonly="">
                 @if ($errors->has('name'))
                 <span style="display:initial;" class="invalid-feedback" role="alert">
                   <strong>{{ $errors->first('name') }}</strong>
@@ -43,7 +43,7 @@
                 <div class="input-group-prepend">
                   <label class="input-group-text" for="inputGroupSelect01">Subject Matter</label>
                 </div>
-                <select class="custom-select" id="inputGroupSelect01" name="contact_subject" required>
+                <select class="custom-select" id="inputGroupSelect01" name="contact_subject" required="required">
                   <option value="" selected="">Please Select...</option>
                   <option value="New Sales">New Sales</option>
                   <option value="Help with a Product or Service">Help with a Product or Service</option>
@@ -60,7 +60,8 @@
                 <div class="input-group-prepend">
                   <label class="input-group-text" for="inputGroupSelect01">Best Contact Option</label>
                 </div>
-                <select class="custom-select" id="inputGroupSelect01" name="contact_option">
+                <select class="custom-select" id="inputGroupSelect01" name="contact_option" required="required">
+                <option value="">Select Any one</option>
                   <option value="Email">Email</option>
                   <option value="Phone">Phone</option>
                 </select>
@@ -71,7 +72,7 @@
                 @endif
               </div>
               <div class="input-group mb-3">
-                <textarea class="form-control" style="height:10em;" name="message" placeholder="What can we help you with?"></textarea>
+                <textarea class="form-control" style="height:10em;" name="message" required="required" placeholder="What can we help you with?"></textarea>
               </div>
               <div style="text-align: right;">
                 <button type="submit" class="btn btn-primary">Send Message</button>
@@ -90,7 +91,43 @@
 @endsection
 @section('script')
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-<script>
-  
+
+@include('homescripts')
+
+<script type="text/javascript">
+$(document).ready(function(){
+   
+    // Selecting the form and defining validation method
+    $("#registrationform").validate({
+      
+        // Passing the object with custom rules
+        rules : {
+            // login - is the name of an input in the form
+            name : {
+               required : true
+            },
+            contact_subject : {
+               required : true
+            },
+            contact_option:{
+               required : true
+            },
+            message:{
+              required : true
+            }
+        },
+        // Setting error messages for the fields
+        messages: {
+          name: "Enter Your name",
+          contact_subject: "Please select any one",
+          contact_option: "Please select any one",
+          message:"Enter Your message"
+        },
+        // Setting submit handler for the form
+        submitHandler: function(form) {
+            form.submit();
+        }
+    });
+});
 </script>
 @endsection

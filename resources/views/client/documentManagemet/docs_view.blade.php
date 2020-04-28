@@ -19,16 +19,16 @@
             <div class="row">
               <div class="col-sm-6">
                 <div class="input-group mb-3">
-                    {{ $documentData['documents_path'] }}
-                  <!-- <embed
-                  src="{{ url('/public/uploads/documents_managment') }} '/' {{$doc}}"
+                {{$doc}}
+                    
+                <embed
+                  src="{{ url('/public/uploads/documents_management') }}/{{$documentData['documents_path']}}"
                   style="width:600px; height:800px;"
-                  frameborder="0"> -->
-                  <!--  <embed src="{{ url('/public/uploads/documents_managment').'/'.$doc }}" type="application/pdf" width="100%" height="600px" /> -->
-                </div>
+                  frameborder="0"> 
+                  </div>
               </div>
             </div>
-            <a href="{{ url('client/documents')}}" class="btn btn-primary" type="submit">Save Profile</a>
+            <a href="{{ url('client/documents')}}" class="btn btn-primary" type="submit">Back To Documents Listing</a>
           </div>
          
 
