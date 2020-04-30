@@ -42,14 +42,15 @@ class ContactUsController extends Controller
     {
         // dd($request->all());
         $rules = [
-            'name' => 'required|min:2',
-            'contact_subject' => 'required|min:2',
+            'name' => 'required',
+            'contact_subject' => 'required',
             'contact_option' => 'required',
             'message' => 'required',
         ];
         $messages = [
-            'name.required' => 'Your first name is required.',
-            'name.min' => 'First name should contain at least 2 characters.',
+            'contact_subject.required' => 'Contact Subject is required.',
+            'contact_option.required' => 'Contact option is required.',
+            'message.required'=> 'Please type your message.',
         ];
         $validator = Validator::make($request->all(), $rules, $messages);
         if ($validator->fails()) {
@@ -62,10 +63,9 @@ class ContactUsController extends Controller
                 'contact_option' => $request->contact_option,
                 'message' => $request->message,
             ]);
-            
-            return redirect('/client/withdraw-management')->with(['pstatus' => 'success', 'pmessage' => 'Your account added successfully!']);
+            return redirect('/client/withdraw-management')->with(['status' => 'success', 'message' => 'Your account added successfully!']);
         } catch (\Exception $e) {
-            return back()->with(['pstatus' => 'danger', 'pmessage' => $e->getMessage()]);
+            return back()->with(array('status' => 'danger', 'message' => $e->getMessage()));
         }
     }
     /**

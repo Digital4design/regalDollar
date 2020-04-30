@@ -20,11 +20,15 @@
             <h4 class="mt-0 header-title mb-5">Monthly Earnings</h4>
             
             <?php 
-            $sum=0;
-            foreach($investData as $adate){
-               // dd($adate);
-               $sum += $adate->amount;
-            }
+			// dd($investData);
+			// $sum=0;
+			// foreach($investData as $adate){
+				// $sum += $adate->amount;
+				// }
+				
+				
+				
+           
             ?>
             <div class="row">
                <div class="col-lg-7">
@@ -41,7 +45,7 @@
                            <p class="text-muted mb-5">You will receive a dividend on January 11, 2020.</p>
                            <hr />
                            <p class="text-muted mb-3">Your total earnings to date are: 
-                           <h4>${{ $sum }}</h4>
+                           <h4>$122.55</h4>
                            </p>
                         </div>
                      </div>

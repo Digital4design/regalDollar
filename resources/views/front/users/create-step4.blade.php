@@ -52,9 +52,9 @@
                      <option value="50,000">$50,000</option>
                      <option value="60,000">$60,000</option>
                      <option value="70,000">$70,000</option>
-                     
+                     <!--option value="other">Other</option -->
                   </select>
-                  
+                  <!--input type="text" name="amount" id="custamount" -->
                </div>
                <a href="{{ url('front/create-step3') }}"  class="btn btn-primary"> Back </a>
                <button type="submit" class="btn btn-primary"> Next </button>

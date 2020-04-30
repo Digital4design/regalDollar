@@ -5732,9 +5732,6 @@ margin: 0 !important;
 	color:#2e96d9;
 	background-color: transparent !important;
 }
-.content.form-steps .stepwizard-step:last-child .btn-primary::before {
-	content: none;
-}
 /********** Responsive ****************/ 
 
 @media only screen and ( max-width:1280px ){

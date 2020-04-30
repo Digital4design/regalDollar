@@ -78,6 +78,7 @@ class AccountController extends Controller
                 $userData->last_name = trim($request->last_name);
                 $userData->name = trim($request->name);
                 $userData->email = trim($request->email);
+                $userData->is_verify = "pending";
                 $userData->save();
                 $userData = User::find($request->user_id);
                 $userData = $request->session()->put('userData', $userData);
@@ -140,6 +141,7 @@ class AccountController extends Controller
                     'country_citizenship' => $request->country_citizenship,
                     'country_residence' => $request->country_residence,
                     'password' => Hash::make($request->password),
+                    'is_verify' => "pending",
                 ]);
                 $InvestmentData =InvestmentModel::create([
                     'user_id' => $userData->id,
@@ -156,6 +158,7 @@ class AccountController extends Controller
                 $userData['investmentId']=$InvestmentData['id'];
                 Auth::loginUsingId($userData->id);
                 $request->session()->put('userData', $userData);
+                return redirect('/email/verify');
                 return redirect('/front/create-step2');
             } catch (\Exception $e) {
                 return back()->with(array('status' => 'danger', 'message' => $e->getMessage()));
@@ -166,9 +169,13 @@ class AccountController extends Controller
     public function createStep2(Request $request)
     {
         $userData = $request->session()->get('userData');
-        // $userData = User::find($userData->id);
-        // $userData = $request->session()->put('userData', $userData);
-        // $userData = $request->session()->get('userData');
+        
+        $userData = User::find(Auth::user()->id);
+        $userData->is_verify = "done";
+        $userData->save();
+        $userData = $request->session()->get('userData');
+        $userData = $request->session()->put('userData', $userData);
+        $userData = $request->session()->get('userData');
         // dd($userData);
         return view('front.users.create-step2', compact('userData', $userData));
     }
@@ -270,7 +277,6 @@ class AccountController extends Controller
         }
         try {
             InvestmentModel::where('id',$request->investmentId)->update(['amount' => $request->amount,]);
-            
             $investmentData = InvestmentModel::where('id',$request->investmentId)->get();
             $userData = User::find($request->user_id);
             $userData['plan_id'] = $request->plan_id;

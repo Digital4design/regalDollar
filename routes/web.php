@@ -22,13 +22,13 @@ Route::get('markAsRead',function(){
 
 
 
- Auth::routes();
-// Auth::routes(['verify' => true]);
+ // Auth::routes();
+Auth::routes(['verify' => true]);
 
-Route::group(['prefix' => 'front'], function () {
-    Route::get('/create-details/{id}', 'Front\AccountController@index');
-    
+Route::group(['prefix' => 'front' ], function () {
+    Route::get('/create-details/{id}', 'Front\AccountController@index');    
     Route::post('/create-step1', 'Front\AccountController@postCreateStep1');
+    //Route::group(['middleware' => ['client','verified']], function () {
     Route::get('/create-step2', 'Front\AccountController@createStep2');
     Route::post('/create-step3', 'Front\AccountController@postCreateUpdate');
     Route::post('/create-step4', 'Front\AccountController@postInfoUpdate');
@@ -36,6 +36,7 @@ Route::group(['prefix' => 'front'], function () {
     Route::post('/create-step6', 'Front\AccountController@postDocsUpdate');
     Route::post('/create-step7', 'Front\AccountController@updateAgreements');
     Route::get('/payment-update/{id}', 'PaymentController@paymentProcess');
+   // });
 });
 /**** ================================Admin Routes Start =================================== */
 Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin','verified']], function () {
@@ -113,7 +114,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin','verified']]
 /****=================================== Admin Routes End ======================================*/
 /**** ================================Client Routes Start =================================== */
 
-Route::group(['prefix' => 'client', 'middleware' => ['auth', 'client']], function () {
+Route::group(['prefix' => 'client', 'middleware' => ['auth', 'client','verified']], function () {
     Route::get('/', 'Client\DashboardController@index');
     Route::post('/states', 'Client\DashboardController@states');
     Route::post('/cities', 'Client\DashboardController@cities');

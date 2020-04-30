@@ -25,11 +25,16 @@ class DashboardController extends Controller
     public function __construct()
     {
         $this->middleware(['auth']);
+        
     }
     public function index()
     {
         
         $user_id = Auth::user()->id;
+        
+        if(Auth::user()->is_verify =="pending"){
+            return redirect('/front/create-step2');
+        }
         $investmentData = InvestmentModel::where('user_id',$user_id)->first();
         $plan_id = $investmentData['plan_id'];
         $planData = Plan::where('id',$plan_id)->first();
@@ -50,7 +55,6 @@ class DashboardController extends Controller
         );
         return view('client.dashboard.dashboard', $result);
     }
-
     /**
      * Show the form for creating a new resource.
      *
@@ -63,8 +67,7 @@ class DashboardController extends Controller
 
     public function myAccount()
     {
-        //dd(Auth::user());
-        if (!empty(Auth::user()->state_id)) {
+      if (!empty(Auth::user()->state_id)) {
             $states = State::find(Auth::user()->state_id);
         } else {
             $states = '';

@@ -109,23 +109,12 @@
 
 <script type="text/javascript">
 
-// $('.require-one').each(function () {
-//     $(this).rules('add', {
-//         require_from_group: [1, this],
-//         messages: {
-//             require_from_group: "please check one"
-//         }
-//     });
-// });
-
-
-
 $(document).ready(function(){
    $("#registrationform").validate({
       rules : {
-         indicateagreement : {
-            required : true
-         },
+          indicateagreement : {
+             required : true
+          },
          reinvestment:{
             required : true
          }
@@ -139,6 +128,7 @@ $(document).ready(function(){
       }
    });
 });
+
 </script>
 <script>
 $(document).ready(function() {

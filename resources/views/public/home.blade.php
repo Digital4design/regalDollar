@@ -91,6 +91,7 @@
 							</div>
 							<div class="kode-text">
 								<h2>{{ $plan->time_investment}} Month Plan</h2>
+								<p class="des">{{ $plan->description}}</p>
 								<p class="title">
 									<?php $planDescription=json_decode($plan->descritpion); 
 									foreach ($planDescription as $key => $planDesc) { 
@@ -111,13 +112,11 @@
 									else
 									{ 
 									?>
-
 									<div class="alert alert-warning">This plan will be available in <b> {{ date('m/d/yy', strtotime($plan->plan_valid_from)) }} </b>
 									</div> <a class="btn-filled" href="#">Get Started</a>
-									
 									<?php
-									 } 
-									 ?>
+									}
+									?>
 							</div>
 						</div>
 					</div>
@@ -159,8 +158,7 @@
 			</div>
 			<div class="why-us-option">
 				<div class="row">
-				
-					<div class="col-md-4">
+				<div class="col-md-4">
 						<img src="{{ asset('public/assets/images/percent.png') }}">
 						<h3>Guaranteed Return</h3>	
 						<p>Lock in a fixed rate so you know exactly how much interest you'll earn</p>
@@ -206,7 +204,7 @@
 		<div class="container">
 			<div class="heading heading-4">
 				<h2 style="color:#333">How it works</h2> 
-				<p>It only takes a few minutes to start saving for future.</p>
+				<p>It only takes a few minutes to start saving for futur.</p>
 			</div>
 			<div class="how-option">
 				<div class="row">
