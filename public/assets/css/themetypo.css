@@ -1064,4 +1064,34 @@ input[type="checkbox" ]:checked{
 .form_outter_section .form-group input[type="radio"]:focus {
 	outline: none !important;
 }    
+.verify-email {
+    width: 100%;
+    float: left;
+    margin: 0;
+    padding: 0;
+    min-height: 500px;
+}
+.verify-email .col-md-8 {
+    width: 100%;
+    max-width: 100%;
+    text-align: center;
+    margin-top: 50px;
+}
+.verify-email .col-md-8 .card-header {
+    width: 50%;
+    margin: 20px auto;
+    display: block;
+    background: #0e223a;
+    font-size: 18px;
+    padding: 14px;
+    box-shadow: 0 2px 5px 0px #b3b3b3;
+    color: #fff;
+    font-weight: 600;
+}
+.verify-email .col-md-8 .card-body {
+    width: 60%;
+    margin: 0 auto;
+    display: block;
+    font-size: 18px;
+}
 /*step form*/

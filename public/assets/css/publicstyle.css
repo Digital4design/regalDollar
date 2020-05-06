@@ -5222,17 +5222,33 @@ div.keywords > div > div.row > div > label.active {
     background: #0e223a;
     color: #fff;
     float: none;
-    margin: 20px auto 30px;
+    font-size: 14px;
+    font-weight: 400;
+	cursor: pointer;
+	 position: absolute;
+    bottom: 55px;
+    left: 32%;
+    padding: 6px 0px;
+    margin: 20px auto;
+}
+.plans_section .block .detail_sec a.get_started {
+    width: 100px;
+    background: #0e223a;
+    color: #fff;
+    float: none;
     font-size: 14px;
     font-weight: 400;
 	cursor: pointer;
 	 position: absolute;
     bottom: 0;
     left: 32%;
-    padding: 6px 15px;
-    margin: 20px auto;
+    padding: 4px 0px;
+	margin: 20px auto;	
+    border: 1px solid transparent;
+	border-radius: 4px;
+	text-decoration: none;
 }
-.plans_section .block:hover a.btn {
+.plans_section .block a.btn:hover, .plans_section .block .detail_sec a.get_started:hover {
 	background: #bc9c5c;
 }
 .progress_bar.Supplemental_track .row:first-child span.show_result {
@@ -5732,6 +5748,57 @@ margin: 0 !important;
 	color:#2e96d9;
 	background-color: transparent !important;
 }
+
+.verify-email .desc {
+    width: 100%;
+    display: inline-block;
+    margin: 0 0 50px 0;
+    padding: 0;
+}
+.verify-email .re_send_mail {
+    width: 100%;
+    display: inline-block;
+}
+.verify-email .re_send_mail {
+    width: 100%;
+    display: inline-table;
+}
+.verify-email .re_send_mail .left_sec {
+    width: 40%;
+    text-align: left;
+    display: inline-block;
+    vertical-align: middle;
+}
+.verify-email .re_send_mail .right_sec {
+    width: 60%;
+    display: inline-block;
+    text-align: left;
+    vertical-align: middle;
+    font-size: 16px;
+    font-weight: 300;
+}
+.verify-email p {
+    font-size: 16px;
+    font-weight: 300;
+}
+.verify-email p span {
+    font-weight: 500;
+}
+.verify-email .re_send_mail .right_sec a {
+    width: auto;
+    display: table;
+    margin: 20px auto 0;
+    border: 1px solid #ccc;
+    padding: 5px 14px;
+    color: #fff;
+    background: #0e223a;
+    border-radius: 4px;
+    text-decoration: none;
+}
+.verify-email .re_send_mail .right_sec a:hover {
+	background: #bc9c5c;
+}
+
 /********** Responsive ****************/ 
 
 @media only screen and ( max-width:1280px ){

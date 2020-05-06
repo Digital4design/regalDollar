@@ -31,7 +31,7 @@
          <div class="form_outter_section">  
             <!--HEADER SECTION START-->
             <h3 class="subtitle">Agreement</h3>
-            <form action="{{ url('front/create-step6') }}"  id="registrationform" name="registration" method="post" enctype= "multipart/form-data">
+            <form action="{{ url('investment/update-sign') }}"  id="registrationform" name="registration" method="post" enctype= "multipart/form-data">
                {{ csrf_field() }}
                <input type="hidden" value="{{$userData->id}}" class="form-control" id="user_id" name="user_id"/>
                <input type="hidden" value="{{ $userData['plan_id'] }}" class="form-control" id="plan_id"  name="plan_id">
@@ -96,7 +96,7 @@
                </div>
                <input type="hidden" name="signature" id="signature">
                
-               <a href="{{ url('/front/create-step4') }}"  class="btn btn-primary">Back</a>
+               <a href="{{ url('/investment/create-step4') }}"  class="btn btn-primary">Back</a>
                <button type="submit" id="btnSaveSign" class="btn btn-primary"> Next </button>
             </form>
          </div>
@@ -127,7 +127,29 @@ $(document).ready(function(){
          form.submit();
       }
    });
+
+   $(".send_button").on("click", function(event) {
+      // alert("JHKHKJH");
+			event.preventDefault();
+			$.ajax({
+				'url': '{{ url("investment/update-amount") }}',
+				'method': 'post',
+				'dataType': 'json',
+				'data': $("#registrationform").serialize(),
+				success: function(data) {
+               alert(data);
+               if (data.status == 'success') {
+                   alert(data);
+                   location.href='{{ url("investment/create-step5") }}';
+						
+				}
+            }
+			});
+         return false;
+		});
 });
+
+
 
 </script>
 <script>

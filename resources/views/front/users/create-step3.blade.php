@@ -26,17 +26,18 @@
    </div>
 </div>
 <div>
+<?php // dd($userData);?>
    <section class="white-bg">
       <div class="container">
          <div class="form_outter_section">
             <h2 class="title">Thanks, {{ Auth::user()->name}}</h2>
             <h3 class="subtitle">We just need a few more details.</h3>
             <hr>
-            <form action="{{ url('front/create-step4') }}" id="registrationform" name="registration" method="post">
+            <form action="{{ url('investment/update-address') }}" id="registrationform" name="registration" method="post">
                {{ csrf_field() }}
-               <input type="hidden" value="{{ $userData->id }}" class="form-control" id="user_id" name="user_id" />
-               <input type="hidden" value="{{ $userData->plan_id }}" class="form-control" id="plan_id" name="plan_id" />
-               <input type="hidden" value="{{ $userData['investmentId'] }}" class="form-control" id="investmentId"  name="investmentId">
+               <input type="hidden" value="{{$userData['id']}}" class="form-control" id="user_id" name="user_id" />
+               <input type="hidden" value="{{$userData['plan_id']}}" class="form-control" id="plan_id" name="plan_id" />
+               <input type="hidden" value="{{$userData['id']}}" class="form-control" id="investmentId"  name="investmentId">
                <div class="form-group">
                   <label for="title">Address Line 1</label>
                   <input 
@@ -116,7 +117,7 @@
                      <span style="display:initial;" class="invalid-feedback" role="alert">
                      <strong>{{ $errors->first('zipcode') }}</strong>
                      </span>
-                     @endif
+                 @endif
                </div>
                <div class="form-group">
                   <label for="description">Phone Number</label>
@@ -179,8 +180,8 @@
                      </span>
                      @endif
                </div>
-               <a href="{{ url('/front/create-step2') }}"  class="btn btn-primary">Back</a>
-               <button type="submit" class="btn btn-primary"> Next </button>
+               <a href="{{ url('/investment/create-step2') }}"  class="btn btn-primary">Back</a>
+               <button type="submit" class="btn btn-primary send_button"> Next </button>
             </form>
          </div>
       </div>
@@ -249,6 +250,24 @@ $("#registrationform").validate({
             form.submit();
         }
     });
+
+    // $(".send_button").on("click", function(event) {
+	// 		event.preventDefault();
+	// 		$.ajax({
+	// 			'url': '{{ url("investment/update-address") }}',
+	// 			'method': 'post',
+	// 			'dataType': 'json',
+	// 			'data': $("#registrationform").serialize(),
+	// 			success: function(data) {
+    //            if (data.status == 'success') {
+    //                //alert(data);
+    //                location.href='{{ url("investment/create-step4") }}';
+						
+	// 			}
+    //         }
+	// 		});
+    //      return false;
+	// 	});
 
 
 

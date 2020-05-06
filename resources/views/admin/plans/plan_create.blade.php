@@ -56,10 +56,26 @@
                               @endif
                            </div>
                         </div>
-                     </div>
 
-                     <div class="row">
-                        <div class="col-sm-12">
+                        <div class="col-sm-6">
+                           <div class="input-group mb-3">
+                              <div class="input-group-prepend">
+                                 <label class="input-group-text" for="inputGroupSelect01">Plan Short Description</label>
+                              </div>
+                              <input
+                              class="form-control"
+                              name="description"
+                              value=""
+                              />
+                              @if ($errors->has('description'))
+                              <span style="display:initial;" class="invalid-feedback" role="alert">
+                              <strong>{{ $errors->first('description') }}</strong>
+                              </span>
+                              @endif
+                           </div>
+                        </div>
+
+                        <!-- <div class="col-sm-6">
                            <div class="input-group mb-3">
                               <div class="input-group-prepend">
                                  <label class="input-group-text" for="inputGroupSelect01">Plan Price</label>
@@ -76,9 +92,9 @@
                               </span>
                               @endif
                            </div>
-                        </div>
+                        </div> -->
 
-                        <div class="col-sm-12">
+                        <div class="col-sm-6">
                            <div class="input-group mb-3">
                               <div class="input-group-prepend">
                                  <label class="input-group-text" for="inputGroupSelect01">Plan Docs</label>
@@ -97,7 +113,7 @@
                            </div>
                         </div>
 
-                        <div class="col-sm-4">
+                        <div class="col-sm-6">
                            <div class="input-group mb-3">
                               <div class="input-group-prepend">
                                  <label class="input-group-text" for="inputGroupSelect01">Plan Duration</label>
@@ -117,7 +133,8 @@
                            </div>
                         </div>
 
-                        <div class="col-sm-4">
+                     
+                        <div class="col-sm-6">
                            <div class="input-group mb-3">
                               <div class="input-group-prepend">
                                  <label class="input-group-text" for="inputGroupSelect01">Plan Type</label>
@@ -125,8 +142,8 @@
                               <select id="country" class="form-control" name="plan_type">
                                  <option value="">Select Plan Type</option>
                                  <option value="1">Core Plan</option>
-                                 <option value="2">Investment plan</option>
-                                 <option value="3">Unassign Docs</option>                             
+                                 <!-- <option value="2">Investment plan</option>
+                                 <option value="3">Unassign Docs</option>-->
                               </select>
                               @if ($errors->has('plan_type'))
                               <span style="display:initial;" class="invalid-feedback" role="alert">
@@ -136,7 +153,7 @@
                            </div>
                         </div>
 
-                        <div class="col-sm-4">
+                        <div class="col-sm-6">
                            <div class="input-group mb-3">
                               <div class="input-group-prepend">
                                  <label class="input-group-text" for="inputGroupSelect01">Time Investment</label>
@@ -155,7 +172,26 @@
                            </div>
                         </div>
 
-                        <div class="col-sm-4">
+                        <div class="col-sm-6">
+                           <div class="input-group mb-3">
+                              <div class="input-group-prepend">
+                                 <label class="input-group-text" for="inputGroupSelect01">View Details URL</label>
+                              </div>
+                              <input
+                              class="form-control"
+                              type="text"
+                              name="view_details_url"
+                              placeholder=""
+                              value="" />
+                              @if ($errors->has('view_details_url'))
+                              <span style="display:initial;" class="invalid-feedback" role="alert">
+                              <strong>{{ $errors->first('view_details_url') }}</strong>
+                              </span>
+                              @endif
+                           </div>
+                        </div>
+                        
+                        <div class="col-sm-6">
                            <div class="input-group mb-3">
                               <div class="input-group-prepend">
                                  <label class="input-group-text" for="inputGroupSelect01">Icon</label>
@@ -173,7 +209,7 @@
                            </div>
                         </div>
 
-                        <div class="col-sm-4">
+                        <div class="col-sm-6">
                            <div class="input-group mb-3">
                               <div class="input-group-prepend">
                                  <label class="input-group-text" for="inputGroupSelect01">Plan Valid From</label>
@@ -217,16 +253,9 @@
                               <a class="btn btn-success add-more">+ Add More descritpion</a>
                            </div>
                         </div>
-                        
-                        
                      </div>
                      <button class="btn btn-primary" type="submit">Save Plan</button>
                   </form>
-
-
-
-
-
                </div>
             </div>
          </div>
@@ -239,58 +268,57 @@
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script>
    $( "#country" ).change(function() {
-               $('#states').html('');
-               var countyid =  this.value;
-               if(countyid !==''){
-                   $.ajax({
-   	               type:"POST",
-   	               dataType: 'json',
-   	               data:{country_id:countyid,_token:"{{csrf_token()}}"},
-   	               url:"{{url('admin/states')}}",
-   	               success: function(success){
-   				    console.log(success);
-   				    if(success.data.length > 0){
-   			           $.each( success.data, function( index, value ){
-                                optionText = value.name;
-                                optionValue = value.id;
-                            $('#states').append(`<option value="${optionValue}">${optionText}</option>`);
-                           });
-   			        }
-   			       }
-   	             });
-              }
-           });
-           $( "#states" ).change(function() {
-               $('#cities').html('');
-               var id =  this.value;
-               if(id !==''){
-                   $.ajax({
-   	               type:"POST",
-   	               dataType: 'json',
-   	               data:{id:id,_token:"{{csrf_token()}}"},
-   	               url:"{{url('admin/cities')}}",
-   	               success: function(success){
-   				    console.log(success);
-   				    if(success.data.length > 0){
-   			           $.each( success.data, function( index, value ){
-                                optionText = value.name;
-                                optionValue = value.id;
-                            $('#cities').append(`<option value="${optionValue}">${optionText}</option>`);
-                           });
-   			        }
-   			       }
-   	             });
-              }
-           });
-           $(document).ready(function() {
-              $(".add-more").click(function(){
-                 var html = $("#tab_logic").html();
-                 $(".more-feilds").append(html);
-            });
-            $("body").on("click",".remove",function(){
-               $(this).parents("#tab_logic").remove();
-            });
+      $('#states').html('');
+      var countyid =  this.value;
+      if(countyid !==''){
+         $.ajax({
+            type:"POST",
+            dataType: 'json',
+            data:{country_id:countyid,_token:"{{csrf_token()}}"},
+            url:"{{url('admin/states')}}",
+            success: function(success){
+               console.log(success);
+               if(success.data.length > 0){
+                  $.each( success.data, function( index, value ){
+                     optionText = value.name;
+                     optionValue = value.id;
+                     $('#states').append(`<option value="${optionValue}">${optionText}</option>`);
+                  });
+               }
+            }
          });
-
+      }
+   });
+   $( "#states" ).change(function() {
+      $('#cities').html('');
+      var id =  this.value;
+      if(id !==''){
+         $.ajax({
+            type:"POST",
+            dataType: 'json',
+            data:{id:id,_token:"{{csrf_token()}}"},
+            url:"{{url('admin/cities')}}",
+            success: function(success){
+               console.log(success);
+               if(success.data.length > 0){
+                  $.each( success.data, function( index, value ){
+                     optionText = value.name;
+                     optionValue = value.id;
+                     $('#cities').append(`<option value="${optionValue}">${optionText}</option>`);
+                  });
+               }
+            }
+         });
+      }
+   });
+   $(document).ready(function() {
+      $(".add-more").click(function(){
+         var html = $("#tab_logic").html();
+         $(".more-feilds").append(html);
+      });
+      $("body").on("click",".remove",function(){
+         $(this).parents("#tab_logic").remove();
+      });
+   });
 </script>
 @endsection

@@ -29,14 +29,14 @@ class DashboardController extends Controller
     }
     public function index()
     {
-        
         $user_id = Auth::user()->id;
-        
         if(Auth::user()->is_verify =="pending"){
+            return redirect('/investment/create-step2');
             return redirect('/front/create-step2');
         }
         $investmentData = InvestmentModel::where('user_id',$user_id)->first();
         $plan_id = $investmentData['plan_id'];
+
         $planData = Plan::where('id',$plan_id)->first();
         $investData = DB::table('investment')
               ->select('investment.*','plans.plan_name')
@@ -44,7 +44,15 @@ class DashboardController extends Controller
                ->where('investment.user_id', $user_id)
                ->where('investment.paypal_transaction_id','!=', '')
                ->get();
-        // dd($investData);
+        $totalgain=0;
+        if($investData[0]->amount){
+            $fee = 50;
+            $amount = $investData[0]->amount;
+            $time_investment = $planData['time_investment'];
+            $instr = $amount * $planData['interest_rate'] / $time_investment;
+            $gain = $amount+$instr;
+            $totalgain = $gain -$fee;
+        }
         $result = array(
             'pageName' => 'Dashboard',
             'activeMenu' => 'dashboard',
@@ -52,6 +60,7 @@ class DashboardController extends Controller
             'investAmount' => $investmentData['amount'],
             'matureDate' => $investmentData['plan_end_date'],
             'investData' => $investData,
+            'totalgain'=>$totalgain
         );
         return view('client.dashboard.dashboard', $result);
     }

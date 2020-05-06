@@ -55,9 +55,8 @@
                               @endif
                            </div>
                         </div>
-                     </div>
-                     <div class="row">
-                        <div class="col-sm-12">
+                     
+                        <!-- <div class="col-sm-12">
                            <div class="input-group mb-3">
                               <div class="input-group-prepend">
                                  <label class="input-group-text" for="inputGroupSelect01">Plan Price</label>
@@ -72,9 +71,9 @@
                               </span>
                               @endif
                            </div>
-                        </div>
+                        </div> -->
 
-                        <div class="col-sm-12">
+                        <div class="col-sm-6">
                            <div class="input-group mb-3">
                               <div class="input-group-prepend">
                                  <label class="input-group-text" for="inputGroupSelect01">Plan Docs</label>
@@ -93,26 +92,25 @@
                            </div>
                         </div>
                         <div class="col-sm-12">
-                        <ul>
-                        @forelse($planDocs as $docs)
-                        <li>
-                        {{ $docs->documents_path }}
-                           <!-- <img src="{!! url('public/uploads/documents_management/'.$docs->documents_path) !!}" alt="Italian Trulli" width="200" height="100"> -->
-                        </li>
-                        <br>
-                        @empty
-                           No docs found.
-                        @endforelse
-                        </ul>
+                           <ul>
+                              @forelse($planDocs as $docs)
+                              <li>
+                                 {{ $docs->documents_path }}
+                              </li>
+                              <br>
+                              @empty
+                              No docs found.
+                              @endforelse
+                           </ul>
                         </div>
-                        <div class="col-sm-4">
+                        <div class="col-sm-6">
                            <div class="input-group mb-3">
                               <div class="input-group-prepend">
                                  <label class="input-group-text" for="inputGroupSelect01">Plan Duration</label>
                               </div>
                               <select id="country" class="form-control" name="duration">
                               <?php
-                                 for($i=1;$i<6;$i++){?>
+                                 for($i=1;$i<6;$i++){ ?>
                                  <option value="<?php echo $i;?>" <?php if ($i === $planData->duration) {
                                     echo 'selected="selected"';
                                  }
@@ -128,7 +126,23 @@
                            </div>
                         </div>
 
-                        <div class="col-sm-4">
+                        <div class="col-sm-6">
+                           <div class="input-group mb-3">
+                              <div class="input-group-prepend">
+                                 <label class="input-group-text" for="inputGroupSelect01">Interest Rate</label>
+                              </div>
+                              <input 
+                                 class="form-control" 
+                                 name="interest_rate" 
+                                 value="{{ old('interest_rate',(isset($planData) && !empty($planData->interest_rate)) ? $planData->interest_rate : '' ) }}" />
+                              @if ($errors->has('interest_rate'))
+                              <span style="display:initial;" class="invalid-feedback" role="alert">
+                              <strong>{{ $errors->first('interest_rate') }}</strong>
+                              </span>
+                              @endif
+                           </div>
+                        </div>
+                        <div class="col-sm-6">
                            <div class="input-group mb-3">
                               <div class="input-group-prepend">
                                  <label class="input-group-text" for="inputGroupSelect01">Plan Type</label>
@@ -136,7 +150,7 @@
                               <select id="country" class="form-control" name="plan_type">
                               <option {{old('plan_type',$planData->plan_type)=="0"? 'selected':''}}  value="0">Select Plan Type</option>
                               <option {{old('plan_type',$planData->plan_type)=="1"? 'selected':''}}  value="1">Core Plan</option>
-                              <option {{old('plan_type',$planData->plan_type)=="2"? 'selected':''}} value="2">Investment plan</option>
+                              <!-- <option {{old('plan_type',$planData->plan_type)=="2"? 'selected':''}} value="2">Investment plan</option> -->
                               
                               </select>
                               @if ($errors->has('duration'))
@@ -146,7 +160,7 @@
                               @endif
                            </div>
                         </div>
-                        <div class="col-sm-4">
+                        <div class="col-sm-6">
                            <div class="input-group mb-3">
                               <div class="input-group-prepend">
                                  <label class="input-group-text" for="inputGroupSelect01">Time Investment</label>
@@ -163,7 +177,28 @@
                               @endif
                            </div>
                         </div>
-                        <div class="col-sm-4">
+
+                        <div class="col-sm-6">
+                           <div class="input-group mb-3">
+                              <div class="input-group-prepend">
+                                 <label class="input-group-text" for="inputGroupSelect01">View Details URL</label>
+                              </div>
+                              <input
+                              class="form-control"
+                              type="text"
+                              name="view_details_url"
+                              placeholder=""
+                              value="{{ old('view_details_url',(isset($planData) && !empty($planData->view_details_url)) ? $planData->view_details_url : '' ) }}" 
+                              />
+
+                              @if ($errors->has('view_details_url'))
+                              <span style="display:initial;" class="invalid-feedback" role="alert">
+                              <strong>{{ $errors->first('view_details_url') }}</strong>
+                              </span>
+                              @endif
+                           </div>
+                        </div>
+                        <div class="col-sm-6">
                            <div class="input-group mb-3">
                               <div class="input-group-prepend">
                                  <label class="input-group-text" for="inputGroupSelect01">Icon</label>
@@ -176,8 +211,7 @@
                               @endif
                            </div>
                         </div>
-
-                        <div class="col-sm-4">
+                        <div class="col-sm-6">
                            <div class="input-group mb-3">
                               <div class="input-group-prepend">
                                  <label class="input-group-text" for="inputGroupSelect01">Valid From</label>
@@ -195,8 +229,6 @@
                               @endif
                            </div>
                         </div>
-
-
                         <?php
                         $descritpion = json_decode($planData->descritpion);
                         foreach ($descritpion as $key => $des) {

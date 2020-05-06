@@ -21,7 +21,8 @@ class CreatePlansTable extends Migration
             $table->string('interest_rate')->nullable();
             $table->string('icon')->nullable();
             $table->string('banner')->nullable();
-            $table->integer('price')->unsigned();
+            // $table->integer('price')->unsigned();
+            $table->string('view_details_url')->nullable();
             $table->integer('duration')->unsigned();
             $table->string('time_investment')->nullable();
             $table->string('plan_valid_from')->nullable();

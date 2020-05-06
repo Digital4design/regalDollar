@@ -32,7 +32,7 @@
             <h2 class="title">We currently accept investment from US residents.</h2>
             <h3 class="subtitle">Please confirm the following:</h3>
             <?php // dd($userData['plan_id']); ?>
-            <form action="{{ url('front/create-step3') }}" id="registrationform" name="registration" method="post">
+            <form action="{{ url('investment/update-account') }}" id="registrationform" name="registration" method="post">
                {{ csrf_field() }}
                <input type="hidden" value="{{ $userData['id'] }}" class="form-control" id="user_id"  name="user_id">
                <input type="hidden" value="{{ $userData['plan_id'] }}" class="form-control" id="plan_id"  name="plan_id">
@@ -51,8 +51,8 @@
                      @endif
                      </div>
               
-               <a href="{{ url('front/create-step2') }}"  class="btn btn-primary">Back</a>
-               <button type="submit" class="btn btn-primary">Next</button>
+               <a href="{{ url('investment/create-step2') }}"  class="btn btn-primary">Back</a>
+               <button type="submit" id="send_button" class="btn btn-primary send_button">Next</button>
             </form>
          </div>
       </div>
@@ -63,14 +63,12 @@
 
 <script type="text/javascript">
 $(document).ready(function(){
-   
-    // Selecting the form and defining validation method
-    $("#registrationform").validate({
-      
-        // Passing the object with custom rules
-        rules : {
-            // login - is the name of an input in the form
-            accountType : {
+   // Selecting the form and defining validation method
+   $("#registrationform").validate({
+      // Passing the object with custom rules
+      rules : {
+         // login - is the name of an input in the form
+          accountType : {
                required : true
             }
         },
@@ -83,5 +81,52 @@ $(document).ready(function(){
             form.submit();
         }
     });
+
+   //  $( "#registrationform" ).submit(function( event ) {
+   //       alert( "Handler for .submit() called." );
+   //       event.preventDefault();
+   // });
+
+   $(".send_button").validate({
+      // Passing the object with custom rules
+      rules : {
+         // login - is the name of an input in the form
+          accountType : {
+               required : true
+            }
+        },
+        // Setting error messages for the fields
+        messages: {
+         accountType: "Please setect account type",
+        },
+        // Setting submit handler for the form
+        submitHandler: function(form) {
+            form.submit();
+        }
+    });
+  
+   //  $(".send_button").on("click", function(event) {
+	// 		event.preventDefault();
+   //       console.log(event);
+	// 		$.ajax({
+	// 			'url': '{{ url("investment/update-account") }}',
+	// 			'method': 'post',
+	// 			'dataType': 'json',
+	// 			'data': $("#registrationform").serialize(),
+            
+	// 			success: function(data) {
+               
+   //             if (data.status == 'success') {
+   //                 //alert(data);
+   //                 location.href='{{ url("investment/create-step3") }}';
+   //                window.location.href='{{ url("investment/create-step3") }}';
+						
+	// 			}
+   //          }
+	// 		});
+   //       return false;
+	// 	});
+     
+
 });
 </script>
