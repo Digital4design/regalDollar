@@ -49,12 +49,13 @@
                   <option value="Help with a Product or Service">Help with a Product or Service</option>
                   <option value="Problems with the Website/Dashboard">Problems with the Website/Dashboard</option>
                   <option value="Other">Other...</option>
-                  @if ($errors->has('contact_subject'))
+                  
+                </select>
+                @if ($errors->has('contact_subject'))
                   <span style="display:initial;" class="invalid-feedback" role="alert">
                     <strong>{{ $errors->first('contact_subject') }}</strong>
                   </span>
                   @endif
-                </select>
               </div>
               <div class="input-group mb-3">
                 <div class="input-group-prepend">
@@ -74,6 +75,11 @@
               <div class="input-group mb-3">
                 <textarea class="form-control" style="height:10em;" name="message" required="required" placeholder="What can we help you with?"></textarea>
               </div>
+              @if ($errors->has('message'))
+                <span style="display:initial;" class="invalid-feedback" role="alert">
+                  <strong>{{ $errors->first('message') }}</strong>
+                </span>
+                @endif
               <div style="text-align: right;">
                 <button type="submit" class="btn btn-primary">Send Message</button>
               </div>

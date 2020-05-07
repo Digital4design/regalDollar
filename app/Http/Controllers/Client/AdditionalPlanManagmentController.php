@@ -10,6 +10,8 @@ use App\User;
 use Auth;
 use Crypt;
 use Hash;
+use Redirect;
+use Validator;
 
 class AdditionalPlanManagmentController extends Controller
 {
@@ -25,6 +27,7 @@ class AdditionalPlanManagmentController extends Controller
         // dd($planData);
         $result = array('pageName' => 'Dashboard',
             'activeMenu' => 'create-account',
+            'selected'=>$id,
             'planData'=>$planData,
         );
         return view('client.newPlanManagment.selectNewPlan', $result);
@@ -65,6 +68,43 @@ class AdditionalPlanManagmentController extends Controller
             'investmentId'=>$investmentdata['id'],
             
         );
+        return view('client.newPlanManagment.amountSelection', $result);
+        return view('client.newPlanManagment.aggrement', $result);
+    }
+
+    public function updateAmount(Request $request){
+        // dd($request->all());
+        $rules = [
+            'amount' => 'required',
+        ];
+        $messages = [
+            'amount.required' => 'amount is required.',
+        ];
+        $validator = Validator::make($request->all(), $rules, $messages);
+        if ($validator->fails()) {
+            return back()->withErrors($validator)->withInput();
+        }
+        try {
+            InvestmentModel::where('id',$request->investmentId)->update(['amount' => $request->amount,]);
+            $investmentData = InvestmentModel::where('id',$request->investmentId)->first();
+            $investmentData = $request->session()->put('investmentData', $investmentData);
+            $investmentData['userData'] = $request->session()->get('investmentData');
+            return Redirect::to('client/purchase-new-plan/agreement');
+
+        } catch (\Exception $e) {
+            return back()->with(array('status' => 'danger', 'message' => $e->getMessage()));
+            echo $e->getMessage();
+        }
+    }
+    public function agreement(Request $request){
+        $investmentdata=  $request->session()->get('investmentData');
+       //dd($investmentdata['id']);
+        $result = array(
+            'pageName' => 'Dashboard',
+            'activeMenu' => 'create-account', 
+            'investmentId'=>$investmentdata['id'],
+            
+        );
         return view('client.newPlanManagment.aggrement', $result);
     }
 
@@ -98,33 +138,8 @@ class AdditionalPlanManagmentController extends Controller
         $investmentdata = InvestmentModel::find($request->investmentId);
         return redirect('/client');
     } 
-    /**
-     * Show the form for editing the specified resource.
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-    /**
-     * Update the specified resource in storage.
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
+   
+   
 
-    /**
-     * Remove the specified resource from storage.
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
+    
 }

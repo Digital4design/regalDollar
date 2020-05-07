@@ -34,7 +34,8 @@
          <?php // dd($userData);?>
          <h2 class="title">You're almost done !</h2>
          <h3 class="subtitle">Please review your information:</h3> 
-         <form action="{{ url('front/create-step7') }}" method="post">
+       
+         <form action="{{ url('investment/create-step7') }}" method="post">
             {{ csrf_field() }}
             <input type="hidden" value="{{$userData->id}}" class="form-control" id="user_id" name="user_id"/>
             <input type="hidden" value="{{ $userData['plan_id'] }}" class="form-control" id="plan_id"  name="plan_id">
@@ -57,12 +58,12 @@
                <span class="edit_field">
                   <span class="title" contenteditable="true">Investment plan</span>
                   <span class="result">{{ $planData['plan_name'] }}</span>
-                  <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                  <!-- <i class="fa fa-pencil-square-o" aria-hidden="true"></i> -->
                </span> 
                <span class="edit_field">
                   <span contenteditable="true" class="title">Initial Amount</span>
                   <span class="result">{{ $investmentData['amount'] }}</span>
-                  <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                  <!-- <i class="fa fa-pencil-square-o" aria-hidden="true"></i> -->
                </span>            
                <!-- <span class="edit_field">
                   <span contenteditable="true" class="title">Time plans end</span>

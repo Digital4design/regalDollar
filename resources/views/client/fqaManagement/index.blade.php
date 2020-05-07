@@ -33,7 +33,7 @@
                             <h5 class="mt-0 font-18 mb-4"><i class="ti-agenda text-primary mr-2"></i> General Questions</h5>
                             <div class="accordion" id="accordionExample">
                                 @foreach($fqageneralData as $generalData)
-                                <?php // dd($generalData['fqaHeadding']);?>
+                               
                                 <div class="card mb-0">
                                     <a data-toggle="collapse" href="#collapseOne" class="faq collapsed" aria-expanded="false" aria-controls="collapseOne">
                                         <div class="card-header text-dark" id="headingOne">
@@ -47,14 +47,14 @@
                                     </div>
                                 </div>
                                 @endforeach
-                                <!-- collapse one end--> 
+                                <!-- collapse one end -->
                                 
                               
-                                
+                               
                                
                                 
                             </div>
-                           <!-- end accordian -->
+                             <!--end accordian -->
                         </div>
                         <div class="col-lg-5 offset-lg-1">
                             <h5 class="mt-0 font-18 mb-4"><i class="ti-bookmark-alt text-primary mr-2"></i> Investments &amp; Plans</h5>
@@ -74,22 +74,11 @@
                                     </div>
                                 </div>
                                  @endforeach
-                                <!-- collapse one end 
-                                <div class="card mb-0">
-                                    <a data-toggle="collapse" href="#collapseSix" class="faq collapsed" aria-expanded="false" aria-controls="collapseSix">
-                                        <div class="card-header text-dark" id="headingSix">
-                                            <h6 class="m-0 faq-question">Question 2?</h6>
-                                        </div>
-                                    </a>
-                                    <div id="collapseSix" class="collapse" aria-labelledby="headingSix" data-parent="#accordionExample2">
-                                        <div class="card-body">
-                                            <p class="text-muted mb-0 faq-ans">Content goes here</p>
-                                        </div>
-                                    </div>
-                                </div>
+                                <!-- collapse one end -->
                                 
                                 
                                 
+                                <!-- collapse four end -->
                             </div>
                             <!-- end accordian -->
                         </div>

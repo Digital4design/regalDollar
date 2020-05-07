@@ -15,11 +15,14 @@ class CreatePlansTable extends Migration
     {
         Schema::create('plans', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('plan_name')->unique();
+            $table->string('plan_name')->nullable();
             $table->string('slogan')->nullable();
+            $table->string('description')->nullable();
+            $table->string('interest_rate')->nullable();
             $table->string('icon')->nullable();
             $table->string('banner')->nullable();
-            $table->integer('price')->unsigned();
+            // $table->integer('price')->unsigned();
+            $table->string('view_details_url')->nullable();
             $table->integer('duration')->unsigned();
             $table->string('time_investment')->nullable();
             $table->string('plan_valid_from')->nullable();

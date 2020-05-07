@@ -13,7 +13,7 @@
             <!-- end row -->
             <div class="form_outter_section"> 
             <!--HEADER SECTION START-->
-            <h3 class="subtitle">Agreement</h3>
+            <h3 class="subtitle">Payment Section</h3>
             <div id="paypal-button-container"></div> 
         </div>
         <!-- end row -->

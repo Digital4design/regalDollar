@@ -37,7 +37,7 @@
 								<tr>
 									<!-- <th>Sr.No</th> -->
 									<th>Plan Name</th>
-									<th>Price </th>
+									 <th>Interest rate </th> 
                                     <th>Time Investment</th>
                                     <th>Plan Type</th>
 									<th>Action</th>
@@ -46,7 +46,7 @@
 						<tfoot>
                             <tr>
                                 <th></th>
-                                <th></th>
+                                <!-- <th></th> -->
                                 <th></th>
                                 <th></th>
                                 <th class="remove_input"></th>
@@ -83,7 +83,7 @@ $(function() {
         columns: [
             //{ data: 'plan_name', name: 'plan_name', orderable: true },
             { data: 'plan_name', name: 'plan_name', orderable: true , searchable: true},
-            { data: 'price', name: 'price', orderable: true , searchable: true},
+            { data: 'interest_rate', name: 'interest_rate', orderable: true , searchable: true},
             { data: 'time_investment', name: 'time_investment', orderable: true , searchable: true},
             { data: 'plan_type',	name: 'plan_type', orderable: true, render: function ( data, type, row ){
 				if(row.plan_type ==  1  ){ 

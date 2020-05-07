@@ -4,6 +4,7 @@ namespace App;
 
 use App\Role;
 use Auth;
+use App\Models\InvestmentModel;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -40,6 +41,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'amount',
         'country_citizenship',
         'country_residence',
+        'is_verify',
     ];
 
     /**
@@ -73,6 +75,15 @@ class User extends Authenticatable implements MustVerifyEmail
         return $role->name == 'admin' ? true : false;
 
     }
+
+    public function isPayment()
+    {
+        $role = InvestmentModel::where('user_id', Auth::user()->id)
+            ->first();
+        return $role->name == 'admin' ? true : false;
+
+    }
+
     public function getRole()
     {
         return $this->hasOneThrough('App\Role', 'App\Models\UserRoleRelation', 'user_id', 'id', 'id', 'role_id');

@@ -4,16 +4,14 @@
 Route::get('/', 'HomeController@getPlanData');
 Route::post('/contact', 'HomeController@contactUs');
 
-// Route::get('/', function () {
-//     return view('public.home');
-// });
+Route::get('/plan-detail-page/{id}', 'HomeController@getPlanDetails');
 
-Route::get('/forget-password', function () {
-    return view('pages-recoverpw');
-});
-Route::get('/admin2', function () {
-    return view('admindashboard');
-});
+// Route::get('/forget-password', function () {
+//     return view('pages-recoverpw');
+// });
+// Route::get('/admin2', function () {
+//     return view('admindashboard');
+// });
 
 Route::get('markAsRead',function(){
     auth()->user()->unreadNotifications->markAsRead();
@@ -22,20 +20,35 @@ Route::get('markAsRead',function(){
 
 
 
- Auth::routes();
-// Auth::routes(['verify' => true]);
+ // Auth::routes();
+Auth::routes(['verify' => true]);
 
-Route::group(['prefix' => 'front'], function () {
-    Route::get('/create-details/{id}', 'Front\AccountController@index');
-    
+Route::group(['prefix' => 'front' ], function () {
+    Route::get('/create-details/{id}', 'Front\AccountController@index');    
     Route::post('/create-step1', 'Front\AccountController@postCreateStep1');
     Route::get('/create-step2', 'Front\AccountController@createStep2');
-    Route::post('/create-step3', 'Front\AccountController@postCreateUpdate');
-    Route::post('/create-step4', 'Front\AccountController@postInfoUpdate');
-    Route::post('/create-step5', 'Front\AccountController@postAmountUpdate');
-    Route::post('/create-step6', 'Front\AccountController@postDocsUpdate');
-    Route::post('/create-step7', 'Front\AccountController@updateAgreements');
+    // Route::post('/update-account', 'Front\AccountController@postCreateUpdate');
+    //  Route::post('/create-step3', 'Front\AccountController@postCreateUpdate');
+    //  Route::post('/create-step4', 'Front\AccountController@postInfoUpdate');
+    //  Route::post('/create-step5', 'Front\AccountController@postAmountUpdate');
+    //  Route::post('/create-step6', 'Front\AccountController@postDocsUpdate');
+    //  Route::post('/create-step7', 'Front\AccountController@updateAgreements');
+    //  Route::get('/payment-update/{id}', 'PaymentController@paymentProcess');
+});
+
+Route::group(['prefix' => 'investment','middleware' => ['client']], function () {
+    Route::get('/create-step2', 'Client\UserInvestmentController@createStep2');
+    Route::post('/update-account', 'Client\UserInvestmentController@postCreateUpdate');
+    Route::get('/create-step3', 'Client\UserInvestmentController@createStep3');
+    Route::post('/update-address', 'Client\UserInvestmentController@updateAddress');
+    Route::get('/create-step4', 'Client\UserInvestmentController@postInfoUpdate');
+    Route::post('/update-amount','Client\UserInvestmentController@updateAmount');
+    Route::get('/create-step5', 'Client\UserInvestmentController@postAmountUpdate');
+    Route::post('/update-sign','Client\UserInvestmentController@updateSignature');
+    Route::get('/create-step6', 'Client\UserInvestmentController@postDocsUpdate');
+    Route::post('/create-step7', 'Client\UserInvestmentController@updateAgreements');
     Route::get('/payment-update/{id}', 'PaymentController@paymentProcess');
+
 });
 /**** ================================Admin Routes Start =================================== */
 Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin','verified']], function () {
@@ -111,9 +124,11 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin','verified']]
 
 });
 /****=================================== Admin Routes End ======================================*/
+
+
 /**** ================================Client Routes Start =================================== */
 
-Route::group(['prefix' => 'client', 'middleware' => ['auth', 'client']], function () {
+Route::group(['prefix' => 'client', 'middleware' => ['auth', 'client','verified']], function () {
     Route::get('/', 'Client\DashboardController@index');
     Route::post('/states', 'Client\DashboardController@states');
     Route::post('/cities', 'Client\DashboardController@cities');
@@ -148,10 +163,7 @@ Route::group(['prefix' => 'client', 'middleware' => ['auth', 'client']], functio
         Route::get('/view/{id}', 'Client\WithdrawManagamentController@singleDocuments');
         Route::post('/withdrowRequest', 'Client\WithdrawManagamentController@withdrowRequest');
     });
-
-
     
-
     Route::group(['prefix' => 'bank-account-management', 'middleware' => ['auth', 'client']], function () {
         Route::get('/', 'Client\BankAccountManagamentController@index');
         Route::post('/save-data', 'Client\BankAccountManagamentController@store');
@@ -166,6 +178,8 @@ Route::group(['prefix' => 'client', 'middleware' => ['auth', 'client']], functio
     Route::group(['prefix' => 'purchase-new-plan', 'middleware' => ['auth', 'client']], function () {
         Route::get('/start-with/{id}', 'Client\AdditionalPlanManagmentController@index');
         Route::post('/save-data', 'Client\AdditionalPlanManagmentController@store');
+        Route::post('/update-amount', 'Client\AdditionalPlanManagmentController@updateAmount');
+        Route::get('/agreement', 'Client\AdditionalPlanManagmentController@agreement');
         Route::post('/update-aggrement-data', 'Client\AdditionalPlanManagmentController@updateAggrement');
         Route::get('/update-payment/{id}', 'Client\AdditionalPlanManagmentController@updatePayment');
         Route::get('/update-plan-payment/{id}', 'Client\AdditionalPlanManagmentController@updatePayment');
@@ -180,10 +194,7 @@ Route::group(['prefix' => 'client', 'middleware' => ['auth', 'client']], functio
         Route::get('/', 'Client\FQAManagementController@index');
         Route::get('/notification-data', 'Client\NotificationsManagementController@notificationData');
     });
-
-    // Route::get('/', function () {
-    //     return view('dashboard');
-    // });
+    
 });
 
 /****=================================== Client Routes End ======================================*/

@@ -31,7 +31,7 @@ class UpdateUsersTable extends Migration
             $table->string('country_residence')->after('country_citizenship')->nullable();
             $table->string('indicateagreement')->after('country_residence')->nullable();
             $table->string('reinvestment')->after('indicateagreement')->nullable();
-            
+            $table->string('is_verify')->after('reinvestment')->nullable()->comment = 'For custume verification';            
         });
     }
     /**

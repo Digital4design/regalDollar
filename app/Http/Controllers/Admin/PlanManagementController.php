@@ -52,6 +52,89 @@ class PlanManagementController extends Controller
 				<a data-id =' . Crypt::encrypt($userList->id) . ' class="btn btn-xs btn-danger delete" style="color:#fff"><i class="fa fa-trash" aria-hidden="true"></i> Delete</a>';
             })->make(true);
     }
+    
+   
+    /***
+     * Crate New Plan
+     **/
+
+    public function createViewPlan()
+    {
+        $result = array(
+            'pageName' => 'New Plan',
+            'activeMenu' => 'plan-management',
+        );
+        return view('admin.plans.plan_create', $result);
+    }
+    /*
+     * Crate New Plan
+     */
+    public function storePlan(Request $request)  
+    {
+        
+        $rules = [
+            'plan_name' => 'required|min:4',
+            'slogan' => 'required|min:2',
+            //'price' => 'required|numeric',
+            // 'price' => 'required|numeric',
+            'duration' => 'required|numeric',
+            'time_investment' => 'required|numeric',
+            'icon' => 'required',
+            'descritpion' => 'required',
+        ];
+        if (empty($_POST['descritpion'][0])) {
+            $rules['descritpion'] = 'required|min:4'; 
+        }
+        $messages = [
+            'plan_name.required' => 'Plan name is required.',
+            'plan_name.min' => 'First name should contain at least 4 characters.',
+        ];
+        $validator = Validator::make($request->all(), $rules, $messages);
+        if ($validator->fails()) {
+            return back()->withErrors($validator)->withInput();
+        }
+        try {
+            $descritpion = json_encode($request->descritpion);
+            $planData = Plan::create([
+                'plan_name' => $request->plan_name,
+                'slogan' => $request->slogan,
+                'interest_rate' => $request->interest_rate,
+                'view_details_url' => $request->view_details_url,
+                'duration' => $request->duration,
+                'plan_type' => $request->plan_type,
+                'time_investment' => $request->time_investment,
+                'plan_valid_from' => $request->plan_valid_from,
+                'descritpion' => $descritpion,
+            ]);
+            if ($request->icon != "") {
+                $plan_save = Plan::where('id', $planData->id)->first();
+                if ($plan_save->icon != "") {
+                    if (file_exists(public_path('/uploads/plan_icon/' . $plan_save->icon))) {
+                        $del_previous_pic = unlink(public_path('/uploads/plan_icon/' . $plan_save->icon));
+                    }
+                }
+                $file = $request->file('icon');
+                $filename = 'plan-' . time() . '.' . $file->getClientOriginalExtension();
+                $file->move('public/uploads/plan_icon', $filename);
+                $plan_save->icon = $filename;
+                $plan_save->save();
+            }
+            if ($request->plan_doc != "") {
+                foreach ($request->plan_doc as $photo) {
+                    $filename = 'docs-' . time() .'-'. rand(15,35) .'.' . $photo->getClientOriginalExtension();
+                    $updaloadFile = $photo->move('public/uploads/documents_management',$filename);
+                    DocumentManagemetModel::create([
+                        'plan_id' => $planData->id,
+                        'documents_path' => $filename
+                    ]);
+                }
+            }
+            return redirect('/admin/plan-management/')->with(['status' => 'success', 'message' => 'Create New Plan Created successfully.']);
+        } catch (\exception $e) {
+            return back()->with(['status' => 'danger', 'message' => $e->getMessage()]);
+        }
+    }
+
     /*
      *  @editViewCustomer edit Customer View
      */
@@ -84,86 +167,7 @@ class PlanManagementController extends Controller
             return back()->with(['status' => 'danger', 'message' => $e->getMessage()]);
         }
     }
-   
-    /***
-     * Crate New Plan
-     **/
 
-    public function createViewPlan()
-    {
-        $result = array(
-            'pageName' => 'New Plan',
-            'activeMenu' => 'plan-management',
-        );
-        return view('admin.plans.plan_create', $result);
-    }
-    /*
-     * Crate New Plan
-     */
-    public function storePlan(Request $request)  
-    {
-        
-        $rules = [
-            'plan_name' => 'required|min:4',
-            'slogan' => 'required|min:2',
-            'price' => 'required|numeric',
-            'duration' => 'required|numeric',
-            'time_investment' => 'required|numeric',
-            'icon' => 'required',
-            'descritpion' => 'required',
-        ];
-        if (empty($_POST['descritpion'][0])) {
-            $rules['descritpion'] = 'required|min:4';
-        }
-        $messages = [
-            'plan_name.required' => 'Plan name is required.',
-            'plan_name.min' => 'First name should contain at least 4 characters.',
-        ];
-        $validator = Validator::make($request->all(), $rules, $messages);
-        if ($validator->fails()) {
-            return back()->withErrors($validator)->withInput();
-        }
-        try {
-            $descritpion = json_encode($request->descritpion);
-            $planData = Plan::create([
-                'plan_name' => $request->plan_name,
-                'slogan' => $request->slogan,
-                'price' => $request->price,
-                'duration' => $request->duration,
-                'plan_type' => $request->plan_type,
-                'time_investment' => $request->time_investment,
-                'plan_valid_from' => $request->plan_valid_from,
-                'descritpion' => $descritpion,
-            ]);
-            if ($request->icon != "") {
-                $plan_save = Plan::where('id', $planData->id)->first();
-                if ($plan_save->icon != "") {
-                    if (file_exists(public_path('/uploads/plan_icon/' . $plan_save->icon))) {
-                        $del_previous_pic = unlink(public_path('/uploads/plan_icon/' . $plan_save->icon));
-                    }
-                }
-                $file = $request->file('icon');
-                $filename = 'plan-' . time() . '.' . $file->getClientOriginalExtension();
-                $file->move('public/uploads/plan_icon', $filename);
-                $plan_save->icon = $filename;
-                $plan_save->save();
-            }
-            if ($request->plan_doc != "") {
-                foreach ($request->plan_doc as $photo) {
-                    $filename = 'docs-' . time() .'-'. rand(15,35) .'.' . $photo->getClientOriginalExtension();
-                    // dd($filename);
-                    $updaloadFile = $photo->move('public/uploads/documents_management',$filename);
-                    DocumentManagemetModel::create([
-                        'plan_id' => $planData->id,
-                        'documents_path' => $filename
-                    ]);
-                }
-            }
-            return redirect('/admin/plan-management/')->with(['status' => 'success', 'message' => 'Create New Plan Created successfully.']);
-        } catch (\exception $e) {
-            return back()->with(['status' => 'danger', 'message' => $e->getMessage()]);
-        }
-    }
      /*
      *  @edit Plan View
      */
@@ -190,11 +194,11 @@ class PlanManagementController extends Controller
      */
     public function updatePlans(Request $request, $id)
     {
-       //  dd($request->all());        
+      // dd($request->all());        
         $rules = [
             'plan_name' => 'required|min:4',
             'slogan' => 'required|min:2',
-            'price' => 'required|numeric',
+            //'price' => 'required|numeric',
             'duration' => 'required|numeric',
             'time_investment' => 'required|numeric',
             'descritpion' => 'required',
@@ -208,13 +212,13 @@ class PlanManagementController extends Controller
             return back()->withErrors($validator)->withInput();
         }
         try {
-            // dd($request->all());
             $descritpion = json_encode($request->descritpion);
-
             $planData = Plan::find(\Crypt::decrypt($id));
             $planData->plan_name = trim($request->plan_name);
             $planData->slogan = trim($request->slogan);
-            $planData->price = trim($request->price);
+            //$planData->price = trim($request->price);
+            $planData->interest_rate = trim($request->interest_rate);
+            $planData->view_details_url = trim($request->view_details_url);
             $planData->duration = trim($request->duration);
             $planData->time_investment = trim($request->time_investment);
             $planData->plan_valid_from = trim($request->plan_valid_from);
@@ -235,6 +239,7 @@ class PlanManagementController extends Controller
                 $plan_save->icon = $filename;
                 $plan_save->save();
             }
+
             if ($request->plan_doc != "") {
                 $docData = DocumentManagemetModel::where('plan_id', $planData->id)->count();
                 if($docData > 0) {
@@ -248,6 +253,7 @@ class PlanManagementController extends Controller
                             ]);
                         }
                     }else{
+
                         DocumentManagemetModel::where('plan_id', $planData->id)->delete();
                         foreach ($request->plan_doc as $photo) {
                             $filename = 'docs-' . time() .'-'. rand(15,35) .'.' . $photo->getClientOriginalExtension();
@@ -264,15 +270,7 @@ class PlanManagementController extends Controller
                     return back()->with(['status' => 'danger', 'message' => $e->getMessage()]);
                 }
             }
-    /**
-     * Delete Plan
-     *
-     * @return void
-     */
-    public function deletePlan($id)
-    {
-        Plan::find(Crypt::decrypt($id))->delete();
-    }
+    
     /**
      * Genearate Randam Code
      */
@@ -311,6 +309,15 @@ class PlanManagementController extends Controller
         } catch (\Exception $e) {
             return response()->json(['status' => 200, 'message' => $e->getMessage()]);
         }
+    }
+    /**
+     * Delete Plan
+     *
+     * @return void
+     */
+    public function deletePlan($id)
+    {
+        Plan::find(Crypt::decrypt($id))->delete();
     }
 
 }

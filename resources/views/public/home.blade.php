@@ -28,7 +28,7 @@
 			
 			<div class="plans_section">
 				<?php 
-				foreach ($coreData as $key=>$plan) { 
+				foreach ($investmentData as $key=>$plan) { 
 					?>
 				<div class="block"> 
 					<div class="image_sec">
@@ -39,7 +39,7 @@
 					</div>
 					<div class="detail_sec">
 						<h2 class="title">{{ $plan->plan_name}}</h2>
-						<p>{{ $plan->slogan}}</p>
+						<p>{{ $plan->description}}</p>
 						
 						<div class="progress_bar Supplemental_track">
 							<div class="row">
@@ -61,7 +61,10 @@
 								</div>
 							</div>
 						</div>
-						<a class="btn" href="{{ url('/plan-detail-page') }}">View detail</a>
+						<br/><br/><br/>
+						<a  class="btn" href="<?php echo url('/plan-detail-page') . '/' . $plan->id  ?>">View detail</a>
+						<br/><br/>
+						<a class="get_started" href="<?php echo url('/front/create-details') . '/' . $plan->id  ?>">Get Started </a>
 					</div>
 				</div>
 				<?php } ?>
@@ -69,63 +72,7 @@
 		</div>
 	</div>
 
-	<!--SERVICES SECTION START-->
-	<section class="white-bg">
-		<div class="container">
-			<!--HEADER SECTION START-->
-			<div class="heading heading-4">
-				<p style="color:#333">Supplemental Income Plans</p>
-				<h2 style="color:#333">Investment Plans</h2>
-			</div>
-			<!--HEADER SECTION END-->
-			<div class="plans">
-				<div class="row">
-					<?php   
-					foreach ($investmentData as $key=>$plan) {  
-					?>
-					<div class="col-md-3">
-						<div class="kode-event-list-2">
-							<div class="kode-thumb"> <a href="#">
-                     <img id="pdo" alt="" src="{{ asset('public/uploads/plan_icon') }}/{{$plan->icon}}">
-                     </a>
-							</div>
-							<div class="kode-text">
-								<h2>{{ $plan->time_investment}} Month Plan</h2>
-								<p class="title">
-									<?php $planDescription=json_decode($plan->descritpion); 
-									foreach ($planDescription as $key => $planDesc) { 
-										?>
-									<p style="text-align: left;"><i class="fa fa-arrow-right"></i> {{ $planDesc }}</p>
-
-									<?php 
-									} 
-									?>
-
-									<?php if(date("Y-m-d") >= $plan['plan_valid_from']){ 
-										
-									?>
-									 <a class="btn-filled" href="<?php echo url('/front/create-details') . '/' . $plan->id  ?>">Get Started </a>
-									
-									<?php 
-									}
-									else
-									{ 
-									?>
-
-									<div class="alert alert-warning">This plan will be available in <b> {{ date('m/d/yy', strtotime($plan->plan_valid_from)) }} </b>
-									</div> <a class="btn-filled" href="#">Get Started</a>
-									
-									<?php
-									 } 
-									 ?>
-							</div>
-						</div>
-					</div>
-					<?php } ?>
-			</div>
-			</div>
-		</div>
-	</section>
+	
 	<section class="causes-section overlay">
 		<div class="container">
 			<!--HEADER SECTION START-->
@@ -159,8 +106,7 @@
 			</div>
 			<div class="why-us-option">
 				<div class="row">
-				
-					<div class="col-md-4">
+				<div class="col-md-4">
 						<img src="{{ asset('public/assets/images/percent.png') }}">
 						<h3>Guaranteed Return</h3>	
 						<p>Lock in a fixed rate so you know exactly how much interest you'll earn</p>
@@ -206,7 +152,7 @@
 		<div class="container">
 			<div class="heading heading-4">
 				<h2 style="color:#333">How it works</h2> 
-				<p>It only takes a few minutes to start saving for future.</p>
+				<p>It only takes a few minutes to start saving for futur.</p>
 			</div>
 			<div class="how-option">
 				<div class="row">

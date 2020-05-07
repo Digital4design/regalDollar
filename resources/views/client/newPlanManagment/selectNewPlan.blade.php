@@ -33,7 +33,7 @@
                             <select class="custom-select" id="inputGroupSelect01" name="plan_id">
                                 <option value="0" selected="">Choose an investment plan...</option>
                                 @foreach($planData as $plan)
-                                <option value="{{ $plan['id']}}" >{{ $plan['time_investment']}} Month Plan</option>
+                                <option value="{{ $plan['id'] }}" {{ ( $plan['id'] == $selected) ? 'selected' : '' }}>{{ $plan['time_investment']}} Month Plan</option>
                                 @endforeach
                                 <!-- <option value="2" selected="">24 Month Plan</option>
                                     <option value="3">48 Month Plan</option>
@@ -74,8 +74,7 @@ $(document).ready(function(){
             // login - is the name of an input in the form
             plan_id : {
                required : true
-            }
-            
+            }            
         },
         // Setting error messages for the fields
         messages: {

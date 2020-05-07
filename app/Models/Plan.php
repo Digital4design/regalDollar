@@ -18,14 +18,15 @@ class Plan extends Model
     protected $fillable = [
         'plan_name',
         'slogan',
-        'icon',
-        'price',
+        'icon',        
         'duration',
         'time_investment',
         'descritpion',
         'plan_valid_from',
         'plan_type',
         'banner',
+        'interest_rate',
+        'view_details_url',
     ];
     /**
      * Return current login user role here.

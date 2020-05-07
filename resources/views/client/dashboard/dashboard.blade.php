@@ -12,6 +12,7 @@
 </div>
 @endsection
 @section('content')
+<?php // dd($totalgain);?>
 <div class="row">
    <div class="col-xl-9">
       <div class="card">
@@ -28,11 +29,11 @@
                      <div class="col-md-12">
                         <div class="text-center">
                            <p class="text-muted mb-4">Projected Earnings: <span>January</span></p>
-                           <h4>$122.55</h4>
+                           <h4>${{ $totalgain }}</h4>
                            <p class="text-muted mb-5">You will receive a dividend on January 11, 2020.</p>
                            <hr />
                            <p class="text-muted mb-3">Your total earnings to date are: 
-                           <h4>$434.50</h4>
+                           <h4>${{ $totalgain }}</h4>
                            </p>
                         </div>
                      </div>

@@ -1,15 +1,9 @@
 @section('css')
-
 @endsection
-
 @include('homeheader')
-
 <div class="content">
-
 <!--SERVICES SECTION START-->
-
 <section class="thumb-with-text">
-
    <div class="inner_page_banner">
       <div class="container">
          <div class="banner_content">
