@@ -83,7 +83,7 @@ class PlansTableSeeder extends Seeder
             array(
                 'id' => 4, 
                 'plan_name' => 'Wealth plan', 
-                'slogan' => "wealth_plan ", 
+                'slogan' => "wealth_plan", 
                 'description' => "superb returns over 5 years",
                 "interest_rate"=>"50",  
                 'icon' => 'news-img4.png',

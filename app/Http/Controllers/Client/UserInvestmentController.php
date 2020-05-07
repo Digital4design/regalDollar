@@ -12,6 +12,7 @@ use App\User;
 use Illuminate\Http\Request;
 use Validator;
 use Redirect;
+use Auth;
 
 class UserInvestmentController extends Controller
 {
@@ -27,9 +28,6 @@ class UserInvestmentController extends Controller
     public function createStep2(Request $request)
     {
         $userData = $request->session()->get('userData');
-        // $userData = User::find(Auth::user()->id);
-        // $userData->is_verify = "done";
-        // $userData->save();
         $userData = $request->session()->get('userData');
         $userData = $request->session()->put('userData', $userData);
         $userData = $request->session()->get('userData');
@@ -218,6 +216,7 @@ class UserInvestmentController extends Controller
 
     public function updateAmount(Request $request)
     {
+        // dd($request->all());
         $rules = [
             'amount' => 'required',
         ];
@@ -306,8 +305,6 @@ class UserInvestmentController extends Controller
         // }
     }
     public function updateSignature(Request $request){
-        
-
         $rules = [
             'indicateagreement' => 'required',
             'reinvestment' => 'required',
@@ -327,6 +324,10 @@ class UserInvestmentController extends Controller
                 $file_path = 'public/uploads/signature' . '/' . $filename . '.png';
                 file_put_contents($file_path, $imagedata);
             }
+            
+            $userData = User::find(Auth::user()->id);
+            $userData->is_verify = "done";
+            $userData->save();
             $indicate = json_encode($request->indicateagreement);
             $userData = User::find($request->user_id);
             $investmentData = InvestmentModel::find($request->investmentId);
@@ -334,7 +335,7 @@ class UserInvestmentController extends Controller
             $investmentData->indicateagreement = $indicate;
             $investmentData->reinvestment = $request->reinvestment;
             if ($request->signature) {
-                $investmentData->signature = $filename . '.png';
+                $investmentData->signature = $filename .'.png';
             }
             $investmentData->save();
             $investmentData = InvestmentModel::find($request->investmentId);

@@ -56,7 +56,7 @@
                      <option value="50,000">$50,000</option>
                      <option value="60,000">$60,000</option>
                      <option value="70,000">$70,000</option>
-                     <!--option value="other">Other</option -->
+                     <option value="other">Other</option>
                   </select>
                   @if ($errors->has('amount'))
                   <span style="display:initial;" class="invalid-feedback" role="alert">
@@ -112,6 +112,7 @@ $(document).ready(function(){
             form.submit();
         }
     });
+    $()
 
    //  $(".send_button").on("click", function(event) {
         

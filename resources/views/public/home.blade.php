@@ -39,7 +39,7 @@
 					</div>
 					<div class="detail_sec">
 						<h2 class="title">{{ $plan->plan_name}}</h2>
-						<p>{{ $plan->slogan}}</p>
+						<p>{{ $plan->description}}</p>
 						
 						<div class="progress_bar Supplemental_track">
 							<div class="row">

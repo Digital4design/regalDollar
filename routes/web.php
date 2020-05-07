@@ -178,6 +178,8 @@ Route::group(['prefix' => 'client', 'middleware' => ['auth', 'client','verified'
     Route::group(['prefix' => 'purchase-new-plan', 'middleware' => ['auth', 'client']], function () {
         Route::get('/start-with/{id}', 'Client\AdditionalPlanManagmentController@index');
         Route::post('/save-data', 'Client\AdditionalPlanManagmentController@store');
+        Route::post('/update-amount', 'Client\AdditionalPlanManagmentController@updateAmount');
+        Route::get('/agreement', 'Client\AdditionalPlanManagmentController@agreement');
         Route::post('/update-aggrement-data', 'Client\AdditionalPlanManagmentController@updateAggrement');
         Route::get('/update-payment/{id}', 'Client\AdditionalPlanManagmentController@updatePayment');
         Route::get('/update-plan-payment/{id}', 'Client\AdditionalPlanManagmentController@updatePayment');

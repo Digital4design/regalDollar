@@ -42,7 +42,7 @@
                   <p>How much should your initial contibution be?</p>
                </div>
                <div class="form-group">
-                  <select class="form-control" name="amount" required="required" >
+                  <select class="form-control" name="amount" id="amount" onchange="val()" required="required" >
                      <option value="" >Select Amount</option>
                      <option value="100">$100</option>
                      <option value="10,000">$10,000</option>
@@ -52,9 +52,9 @@
                      <option value="50,000">$50,000</option>
                      <option value="60,000">$60,000</option>
                      <option value="70,000">$70,000</option>
-                     <!--option value="other">Other</option -->
+                     <option value="other">Other</option>
                   </select>
-                  <!--input type="text" name="amount" id="custamount" -->
+                  <input type="text"  name="amount" id="custamount">
                </div>
                <a href="{{ url('front/create-step3') }}"  class="btn btn-primary"> Back </a>
                <button type="submit" class="btn btn-primary"> Next </button>
@@ -89,5 +89,19 @@ $(document).ready(function(){
             form.submit();
         }
     });
+
+    document.getElementById('amount').addEventListener('change', function() {
+          console.log('You selected: ', this.value);
+   });
+
+   //   $("#amount").on("change", function(event) {
+   //    var selected = $('#dropDownId :selected').text();
+   //    alert(selected);
+   //    return false;
+	// 		event.preventDefault();
+   //       console.log(event);
+			
+   //       return false;
+	// 	});
 });
 </script>

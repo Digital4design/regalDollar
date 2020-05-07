@@ -61,11 +61,10 @@
         },
         // Finalize the transaction
         onApprove: function(data, actions) {
-          
-            return actions.order.capture().then(function(details) {
+           return actions.order.capture().then(function(details) {
                // alert(details);
                // Show a success message to the buyer
-                var url = '{{ url("front/payment-update") }}/' + details.id;
+                var url = '{{ url("investment/payment-update") }}/' + details.id;
                 window.location.href = url;
                 $(location).attr('href', url);
                 // alert('Transaction completed by ' + details.payer.name.given_name + '!');
