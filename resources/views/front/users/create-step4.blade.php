@@ -49,13 +49,16 @@
                   <select class="form-control" id="amount" name="amount" required="required" >
                      <option value="" >Select Amount</option>
                      <option value="100">$100</option>
-                     <option value="10,000">$10,000</option>
-                     <option value="20,000">$20,000</option>
-                     <option value="30,000">$30,000</option>
-                     <option value="40,000">$40,000</option>
-                     <option value="50,000">$50,000</option>
-                     <option value="60,000">$60,000</option>
-                     <option value="70,000">$70,000</option>
+                     <option value="10000">$10,000</option>
+                     <option value="20000">$20,000</option>
+                     <option value="30000">$30,000</option>
+                     <option value="40000">$40,000</option>
+                     <option value="50000">$50,000</option>
+                     <option value="60000">$60,000</option>
+                     <option value="70000">$70,000</option>
+                     <option value="80000">$80,000</option>
+                     <option value="90000">$90,000</option>
+                     <option value="100000">$1,00,000</option>
                      <option value="">Other</option>
                   </select>
                   <input type="hidden" name="finalamount" placeholder="Please enter amount" id="finalamount">

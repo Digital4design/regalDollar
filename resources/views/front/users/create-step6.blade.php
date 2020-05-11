@@ -70,7 +70,7 @@
                </span> 
                <span class="edit_field">
                   <span contenteditable="true" class="title">Initial Amount</span>
-                  <span class="result">{{ $investmentData['amount'] }}</span>
+                  <span class="result">${{ $investmentData['amount'] }}</span>
                   <!-- <i class="fa fa-pencil-square-o" aria-hidden="true"></i> -->
                </span>            
                <!-- <span class="edit_field">

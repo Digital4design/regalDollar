@@ -29,7 +29,6 @@ class UserInvestmentController extends Controller
     {
         $userData=$request->session()->get('userData');
         if(isset($userData->plan_id) && isset($userData->investmentId) && isset($userData->id)){
-            $userData = $request->session()->get('userData');
             $userData = $request->session()->put('userData', $userData);
             $userData = $request->session()->get('userData');
             // dd($userData);
@@ -65,15 +64,14 @@ class UserInvestmentController extends Controller
             $userData['stateData'] = State::where('country_id', '231')->get();
             $userData = $request->session()->put('userData', $userData);
             $userData['userData'] = $request->session()->get('userData');
-
             $userData['status'] = 'success';
             return Redirect::to('/investment/create-step3');
             // return response()->json($userData);
             // dd($userData);
             // return view('front.users.create-step3', $userData);
         } catch (\Exception $e) {
-            $userData['status'] = 'danger';
-            return response()->json($userData);
+            // $userData['status'] = 'danger';
+            // return response()->json($userData);
             return back()->with(array('status' => 'danger', 'message' => $e->getMessage()));
             // echo $e->getMessage();
         }
@@ -145,8 +143,8 @@ class UserInvestmentController extends Controller
             $userData['status'] = 'success';
             return Redirect::to('/investment/create-step4');
             // dd($userData);
-            return response()->json($userData);
-            return view('front.users.create-step4', $data);
+            // return response()->json($userData);
+            // return view('front.users.create-step4', $data);
         } catch (\Exception $e) {
             return back()->with(array('status' => 'danger', 'message' => $e->getMessage()));
             // echo $e->getMessage();
@@ -155,7 +153,6 @@ class UserInvestmentController extends Controller
 
     /**
      * Store a newly created resource in storage.
-     *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
@@ -204,7 +201,7 @@ class UserInvestmentController extends Controller
             
         } catch (\Exception $e) {
             return back()->with(array('status' => 'danger', 'message' => $e->getMessage()));
-            echo $e->getMessage();
+            // echo $e->getMessage();
         }
     }
     /**
@@ -284,7 +281,6 @@ class UserInvestmentController extends Controller
 
     /**
      * Show the form for editing the specified resource.
-     *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
@@ -313,7 +309,6 @@ class UserInvestmentController extends Controller
 
     /**
      * Update the specified resource in storage.
-     *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
@@ -333,7 +328,6 @@ class UserInvestmentController extends Controller
 
     /**
      * Remove the specified resource from storage.
-     *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
