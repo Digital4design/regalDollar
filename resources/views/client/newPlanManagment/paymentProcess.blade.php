@@ -8,6 +8,7 @@
 @endsection
 @section('content')
 <div class="row">
+<?php dd($investmentdata);?>
     <div class="card">
         <div class="card-body">
             <!-- end row -->

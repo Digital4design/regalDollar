@@ -115,7 +115,7 @@ class AdditionalPlanManagmentController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function updateAggrement(Request $request){
-    
+        
         $indicate = json_encode($request->indicateagreement);
         $userData = InvestmentModel::find($request->investmentId);
         $userData->indicateagreement = $indicate;
@@ -127,6 +127,7 @@ class AdditionalPlanManagmentController extends Controller
         $result = array(
             'pageName' => 'Dashboard',
             'activeMenu' => 'create-account',
+            'investmentdata'=>$investmentdata,
         );
         return view('client.newPlanManagment.paymentProcess', $result);
     }

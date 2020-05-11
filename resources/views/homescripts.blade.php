@@ -25,6 +25,8 @@
 <script src="{{ URL::asset('public/assets/js/numeric-1.2.6.min.js') }}"></script>
 <script src="{{ URL::asset('public/assets/js/signaturepad.js') }}"></script>
 <script src="{{ URL::asset('public/assets/js/html2canvas.js') }}"></script>
+<script src="{{ URL::asset('https://devdojo.com/go/examples/jquery-easy-editable-text-fields/js/easy-editable-text.js') }}"></script>
+
 <!-- jQuery easing plugin -->
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/3.1.62/jquery.inputmask.bundle.js"></script>

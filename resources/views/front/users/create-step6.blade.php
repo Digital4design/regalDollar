@@ -1,4 +1,5 @@
 @include('homeheader')
+
 <!--CONTENT START-->
 <?php // dd($investmentData); ?>
 <div class="content form-steps">
@@ -44,19 +45,31 @@
             <div class="form-group">
                <span class="edit_field" contenteditable="true" >
                <input type="text" name="first_name" id="first_name" value="{{ $userData['first_name'] }}">
-                  <i  class="fa fa-pencil-square-o" aria-hidden="true"></i>
+               <!-- <div class="edit"></div> -->
+               <i  class="fa fa-pencil-square-o" aria-hidden="true"></i>
                </span>
                <span class="edit_field" contenteditable="true">
                <input type="text" name="address" id="address" value="{{ $userData['address'] }}">
+               <i  class="fa fa-pencil-square-o" aria-hidden="true"></i>
+               </span>
+               <span class="edit_field" contenteditable="true">
                <input type="text" name="city" id="city" value="{{ $userData['city'] }}">
-               <input type="text" name="state" id="state" value="{{ $userData['state'] }}">
-               <!-- <input type="text" name="country_id" id="country_id" value="{{ $userData['country_id'] }}"> -->
+               <i  class="fa fa-pencil-square-o" aria-hidden="true"></i>
+               </span>
+               <span class="edit_field" contenteditable="true">
+               <input type="text" name="state" id="state" value="{{ $userData['state'] }}" >
+               <i  class="fa fa-pencil-square-o" aria-hidden="true"></i>
+               </span>
+               <!-- <span class="edit_field" contenteditable="true">
+               <input type="text" name="country_id" id="country_id" value="{{ $userData['country_id'] }}">
+               <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+               </span> -->
+               <span class="edit_field" contenteditable="true">
                <input type="text" name="zipcode" id="zipcode" value="{{ $userData['zipcode'] }}">
-               
                   <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                </span>
                <span class="edit_field" contenteditable="true">
-               <input type="text" name="phoneNumber" id="phoneNumber" value="{{ $userData['phoneNumber'] }}">
+               <input type="text" name="phoneNumber" id="phoneNumber" value="{{ $userData['phoneNumber'] }}" >
                   <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                </span>
             </div>
@@ -90,7 +103,7 @@
                <p class="sign_on">Signed on Feb 04,2020</p>
                <a class="income_file">Income eREITV, East Coast eREIT, and West Coast eREIT</a>
             </div>
-            <a href="#"  class="btn btn-primary">Back</a>
+            <a href="{{ url('/investment/create-step5') }}"  class="btn btn-primary">Back</a>
             <button type="submit" class="btn btn-primary"> Next </button>
          </form>
       </div>
@@ -101,7 +114,6 @@
 <!--BUY TEMPLATE SECTION END-->
 @include('homefooter')
 @include('homescripts')
-
 <script>
 $(document).ready(function() {
    // $("#first_name").keyup(function( event ) {
@@ -111,8 +123,6 @@ $(document).ready(function() {
 
    $("#first_name").keyup(function( event ) {
       var first_name = $('input:text[name=first_name]').val();
-      //alert(first_name);
-      // return false;
       event.preventDefault();
       $.ajax({
          'url': '{{ url("front/upadate-user-data") }}',
@@ -120,11 +130,9 @@ $(document).ready(function() {
          'dataType': 'json',
          'data':{first_name:first_name,_token:"{{csrf_token()}}",userid:"{{$userData->id}}"},
          success: function(data) {
-            //alert(data.status);
-            //return false;
             if (data.status == 'success') {
                console.log(data);
-               //location.href='{{ url("investment/create-step5") }}';
+               location.href='{{ url("investment/create-step6") }}';
             }
             }
 			});
@@ -145,7 +153,7 @@ $(document).ready(function() {
             success: function(data) {
                if (data.status == 'success') {
                   console.log(data);
-                  //location.href='{{ url("investment/create-step5") }}';
+                  location.href='{{ url("investment/create-step6") }}';
                   }
                }
 			});
@@ -154,8 +162,6 @@ $(document).ready(function() {
 
       $("#city").keyup(function( event ) {
          var city = $('input:text[name=city]').val();
-         //alert(city);
-         //return false;
          event.preventDefault();
          $.ajax({
             'url': '{{ url("front/upadate-user-data") }}',
@@ -165,7 +171,7 @@ $(document).ready(function() {
             success: function(data) {
                if (data.status == 'success') {
                   console.log(data);
-                  //location.href='{{ url("investment/create-step5") }}';
+               location.href='{{ url("investment/create-step6") }}';
                   }
                }
 			});
@@ -174,8 +180,6 @@ $(document).ready(function() {
 
       $("#state").keyup(function( event ) {
          var state = $('input:text[name=state]').val();
-         //alert(city);
-         //return false;
          event.preventDefault();
          $.ajax({
             'url': '{{ url("front/upadate-user-data") }}',
@@ -185,7 +189,7 @@ $(document).ready(function() {
             success: function(data) {
                if (data.status == 'success') {
                   console.log(data);
-                  //location.href='{{ url("investment/create-step5") }}';
+               location.href='{{ url("investment/create-step6") }}';
                   }
                }
 			});
@@ -194,8 +198,6 @@ $(document).ready(function() {
 
       $("#zipcode").keyup(function( event ) {
          var zipcode = $('input:text[name=zipcode]').val();
-         //alert(city);
-         //return false;
          event.preventDefault();
          $.ajax({
             'url': '{{ url("front/upadate-user-data") }}',
@@ -205,7 +207,7 @@ $(document).ready(function() {
             success: function(data) {
                if (data.status == 'success') {
                   console.log(data);
-                  //location.href='{{ url("investment/create-step5") }}';
+               location.href='{{ url("investment/create-step6") }}';
                   }
                }
 			});
@@ -214,8 +216,6 @@ $(document).ready(function() {
 
       $("#phoneNumber").keyup(function( event ) {
          var phoneNumber = $('input:text[name=phoneNumber]').val();
-         //alert(city);
-         //return false;
          event.preventDefault();
          $.ajax({
             'url': '{{ url("front/upadate-user-data") }}',
@@ -225,7 +225,7 @@ $(document).ready(function() {
             success: function(data) {
                if (data.status == 'success') {
                   console.log(data);
-                  //location.href='{{ url("investment/create-step5") }}';
+               location.href='{{ url("investment/create-step6") }}';
                   }
                }
 			});

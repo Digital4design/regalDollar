@@ -8,44 +8,41 @@
 @endsection
 @section('content')
 <div class="row">
-  <?php   
-          foreach ($planData as $key=>$plan) { 
-          ?>
+  <?php
+  foreach ($planData as $key=>$plan) { 
+    ?>
     <div class="col-xl-3 col-md-6">
         <div class="card pricing-box">
-          
-            <div class="card-body">
-                <div class="mb-4 pt-3 pb-3">
-                    <div class="pricing-icon float-left">
-                        <i class="ion ion-ios-build"></i>
-                    </div>
-                    <div class="text-right">
-                        <h5 class="mt-0">{{ $plan->time_investment}} Month Plan</h5>
-                        <p class="text-muted em9">3% return monthly</p>
-                    </div>
-                </div>
-                <div class="pricing-features mb-4">
-                <?php 
-                $planDescription=json_decode($plan->descritpion);
-                foreach ($planDescription as $key => $planDesc) {
-                    ?>
-                    <p><i class="mdi mdi-arrow-right text-primary mr-2"></i> {{ $planDesc }}</p>
-                    <?php } ?>
-                    <!-- <p><i class="mdi mdi-arrow-right text-primary mr-2"></i> You cannot cancel this plan</p>
-                    <p><i class="mdi mdi-arrow-right text-primary mr-2"></i> $50,000 become $68,000 in one year // $1,500 a month</p> -->
-                </div>
-                <div class="text-center pt-3 pb-3">
-                    <h2><sup><small>$</small></sup>{{ $plan->price}}<br><span class="font-16">One-Time Investment</span></h2>
-                </div>
-                <div class="mt-4">
-                    <a href="<?php echo url('/client/purchase-new-plan/start-with') . '/' . $plan->id  ?>" class="btn btn-primary btn-block waves-effect waves-light">Sign up Now</a>
-                </div>
+          <div class="card-body">
+            <div class="mb-4 pt-3 pb-3">
+              <div class="pricing-icon float-left">
+                <i class="ion ion-ios-build"></i>
+              </div>
+              <div class="text-right">
+                <h5 class="mt-0">{{ $plan->time_investment}} Month Plan</h5>
+                <p class="text-muted em9">3% return monthly</p>
+              </div>
             </div>
-            
-
+            <div class="pricing-features mb-4">
+              <?php 
+              $planDescription=json_decode($plan->descritpion);
+              foreach ($planDescription as $key => $planDesc) {
+                ?>
+                <p><i class="mdi mdi-arrow-right text-primary mr-2"></i> {{ $planDesc }}</p>
+              <?php } ?>
+              <!-- <p><i class="mdi mdi-arrow-right text-primary mr-2"></i> You cannot cancel this plan</p>
+                <p><i class="mdi mdi-arrow-right text-primary mr-2"></i> $50,000 become $68,000 in one year // $1,500 a month</p> -->
+              </div>
+              <div class="text-center pt-3 pb-3">
+                <!-- <h2><sup><small>$</small></sup>{{ $plan->price}}<br><span class="font-16">One-Time Investment</span></h2> -->
+              </div>
+              <div class="mt-4">
+                <a href="<?php echo url('/client/purchase-new-plan/start-with') . '/' . $plan->id  ?>" class="btn btn-primary btn-block waves-effect waves-light">Sign up Now</a>
+              </div>
+            </div>
+          </div>
         </div>
-    </div>
-    <?php } ?>
+      <?php } ?>
     <!-- end col 
     <div class="col-xl-3 col-md-6">
         <div class="card pricing-box">
@@ -99,8 +96,6 @@
             </div>
         </div>
     </div>
-    
-
     <div class="col-xl-3 col-md-6">
         <div class="card pricing-box">
             <div class="card-body">
@@ -130,11 +125,8 @@
     end col -->
 
 </div>
-<!-- end row -->
-                </div>
-            </div>
-        
-<!-- end row -->
+</div>
+</div>
 @endsection
 @section('script')
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>

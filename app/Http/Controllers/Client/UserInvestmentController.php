@@ -34,7 +34,7 @@ class UserInvestmentController extends Controller
             // dd($userData);
             return view('front.users.create-step2', compact('userData', $userData));
         }else{
-            return view('pages-500');
+            return view('pages-404');
         } 
     }
     /**
@@ -85,7 +85,7 @@ class UserInvestmentController extends Controller
             // dd($userData);
             return view('front.users.create-step3', $userData);
         }else{
-            return view('pages-500');
+            return view('pages-404');
         }        
     }
 
@@ -165,7 +165,7 @@ class UserInvestmentController extends Controller
             $data['stateData'] = State::where('country_id', '231')->get();
             return view('front.users.create-step4', $data);
         }else{
-            return view('pages-500');
+            return view('pages-404');
         }
     }
 
@@ -222,7 +222,7 @@ class UserInvestmentController extends Controller
             $data['investmentData'] = $investmentData;
             return view('front.users.create-step5', $data);
         }else{
-            return view('pages-500');
+            return view('pages-404');
         }       
     }
     public function updateSignature(Request $request){
