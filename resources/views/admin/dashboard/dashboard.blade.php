@@ -181,16 +181,13 @@ var chart = new CanvasJS.Chart("chartContainer", {
 		type: "line",
       	indexLabelFontSize: 16,
 		dataPoints: [
-			{ y: 450 },
-			{ y: 414},
-         { y: 460 },
-			{ y: 450 },
-			{ y: 500 },
-			{ y: 480 },
-			{ y: 480 },
+			{ y: 400 },
+         { y: 450 },
          { y: 500 },
-			{ y: 480 },
-			{ y: 510 }
+         { y: 550 },
+         { y: 600 },
+         { y: 650 },
+         { y: 700 }
 		]
 	}]
 });

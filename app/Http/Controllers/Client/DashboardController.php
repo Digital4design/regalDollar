@@ -49,7 +49,6 @@ class DashboardController extends Controller
         // dd($investData);
         $totalgain=0;
         foreach($investData as $invest){
-            
             $datetime1 = new DateTime(date("Y-m-d"));
             $datetime2 = new DateTime($invest->plan_start_date);
             $interval = $datetime1->diff($datetime2);
@@ -62,6 +61,7 @@ class DashboardController extends Controller
                 // $instr = $amount * $invest->interest_rate / $time_investment;
             $instr = $amount * $invest->interest_rate / $interval->m;
             $gain = $amount+$instr;
+            
             $totalgain += $gain -$fee;
             }else{
                 $totalgain +=$amount;
