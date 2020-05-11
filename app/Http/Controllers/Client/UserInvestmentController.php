@@ -86,7 +86,7 @@ class UserInvestmentController extends Controller
             // dd($userData);
             return view('front.users.create-step3', $userData);
         }else{
-            return view('pages-404');
+            return view('pages-500');
         }        
     }
 
@@ -167,7 +167,7 @@ class UserInvestmentController extends Controller
             $data['stateData'] = State::where('country_id', '231')->get();
             return view('front.users.create-step4', $data);
         }else{
-            return view('pages-404');
+            return view('pages-500');
         }
     }
 
@@ -224,7 +224,7 @@ class UserInvestmentController extends Controller
             $data['investmentData'] = $investmentData;
             return view('front.users.create-step5', $data);
         }else{
-            return view('pages-404');
+            return view('pages-500');
         }       
     }
     public function updateSignature(Request $request){
@@ -274,10 +274,10 @@ class UserInvestmentController extends Controller
             $data['userData'] = $userData;
             $data['documentData'] = $documentData;
             return Redirect::to('/investment/create-step6');
-            return view('front.users.create-step6', $data);
+            // return view('front.users.create-step6', $data);
         } catch (\Exception $e) {
             return back()->with(array('status' => 'danger', 'message' => $e->getMessage()));
-            echo $e->getMessage();
+            // echo $e->getMessage();
         }
     }
 
