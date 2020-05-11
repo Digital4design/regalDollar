@@ -49,15 +49,20 @@
                   <select class="form-control" id="amount" name="amount" required="required" >
                      <option value="" >Select Amount</option>
                      <option value="100">$100</option>
-                     <option value="10,000">$10,000</option>
-                     <option value="20,000">$20,000</option>
-                     <option value="30,000">$30,000</option>
-                     <option value="40,000">$40,000</option>
-                     <option value="50,000">$50,000</option>
-                     <option value="60,000">$60,000</option>
-                     <option value="70,000">$70,000</option>
-                     <option value="other">Other</option>
+                     <option value="10000">$10,000</option>
+                     <option value="20000">$20,000</option>
+                     <option value="30000">$30,000</option>
+                     <option value="40000">$40,000</option>
+                     <option value="50000">$50,000</option>
+                     <option value="60000">$60,000</option>
+                     <option value="70000">$70,000</option>
+                     <option value="80000">$80,000</option>
+                     <option value="90000">$90,000</option>
+                     <option value="100000">$1,00,000</option>
+                     <option value="">Other</option>
                   </select>
+                  <input type="hidden" name="finalamount" placeholder="Please enter amount" id="finalamount">
+                  <input type="number" style="display:none;" name="otheramount" placeholder="Please enter amount"  id="otheramount">
                   @if ($errors->has('amount'))
                   <span style="display:initial;" class="invalid-feedback" role="alert">
                   <strong>{{ $errors->first('amount') }}</strong>
@@ -78,29 +83,44 @@
 @include('homescripts')
 
 <script type="text/javascript">
+$(document).ready(function() {
+
+
+   $("#otheramount").keyup(function(){
+      var val =  $(this).val();
+      $('#finalamount').val(val);
+
+
+});
+	$("#amount").change(function() {
+      var selectedVal = $("#amount option:selected").text();
+     // var selectedVal = $("#amount option:selected").val();
+      //alert("Hi, your favorite programming language is " + selectedVal);
+      //return false;
+      if(selectedVal =='Other'){
+         $("#amount").hide();
+         $("#otheramount").show();
+         //alert("Hi, your favorite programming language is " + selectedVal);
+      }else{
+         var val = $("#amount").val();
+         $('#finalamount').val(val);
+         //$("#hiddenamount").show();
+         //alert("Hi, your favorite programming language is ");
+      }		
+
+	});
+});
 $(document).ready(function(){
+
    
-   // function checkValidation(){
-   //    var amount = $('#amount :selected').text();
-   //    if(amount=='Select Amount'){
-   //       $("#error_amount").show();
 
-   //       //alert("khsdfjksd");
-   //       return false;
-   //    }
-   //    //var amount = $('#amount').val();
-   //    console.log(amount);
-     
-
-   // }
    // Selecting the form and defining validation method
-    $("#registrationform").validate({
-      
-        // Passing the object with custom rules
-        rules : {
-            // login - is the name of an input in the form
-            amount : {
-               required : true
+   $("#registrationform").validate({
+      // Passing the object with custom rules
+      rules : {
+         // login - is the name of an input in the form
+         amount : {
+            required : true
             }
         },
         // Setting error messages for the fields
@@ -112,30 +132,12 @@ $(document).ready(function(){
             form.submit();
         }
     });
-    $()
-
-   //  $(".send_button").on("click", function(event) {
-        
-   //     event.preventDefault();
-   //     // checkValidation();
-   //     //$("#error_amount").hide();
-   //     $.ajax({
-   //        'url': '{{ url("investment/update-amount") }}',
-   //        'method': 'post',
-   //        'dataType': 'json',
-   //        'data': $("#registrationform").serialize(),
-   //        success: function(data) {
-   //           alert(data.status);
-   //           return false;
-   //           if (data.status == 'success') {
-   //              alert(data);
-   //              location.href='{{ url("investment/create-step5") }}';
-                
-						
-	// 			}
-   //          }
-	// 		});
-   //       return false;
-	// 	});
 });
+function onlyNumberKey(evt) { 
+    // Only ASCII charactar in that range allowed 
+    var ASCIICode = (evt.which) ? evt.which : evt.keyCode 
+    if (ASCIICode > 31 && (ASCIICode < 48 || ASCIICode > 57)) 
+    return false;
+    return true; 
+    } 
 </script>

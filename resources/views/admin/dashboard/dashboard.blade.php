@@ -18,22 +18,11 @@
       <div class="card">
          <div class="card-body">
             <h4 class="mt-0 header-title mb-5">Monthly Earnings</h4>
-            
-            <?php 
-			// dd($investData);
-			// $sum=0;
-			// foreach($investData as $adate){
-				// $sum += $adate->amount;
-				// }
-				
-				
-				
-           
-            ?>
             <div class="row">
                <div class="col-lg-7">
                   <div>
-                     <div id="chart-with-area" class="ct-chart earning ct-golden-section"></div>
+                  <div id="chartContainer" class="ct-chart earning ct-golden-section"></div>
+                     <!-- <div id="chart-with-area" class="ct-chart earning ct-golden-section"></div> -->
                   </div>
                </div>
                <div class="col-lg-5">
@@ -41,11 +30,11 @@
                      <div class="col-md-12">
                         <div class="text-center">
                            <p class="text-muted mb-4">Projected Earnings: <span>January</span></p>
-                           <h4>$122.55</h4>
+                           <h4>${{$totalgain}}</h4>
                            <p class="text-muted mb-5">You will receive a dividend on January 11, 2020.</p>
                            <hr />
                            <p class="text-muted mb-3">Your total earnings to date are: 
-                           <h4>$122.55</h4>
+                           <h4>${{$totalgain}}</h4>
                            </p>
                         </div>
                      </div>
@@ -175,4 +164,39 @@
 <!-- peity JS -->
 <script src="{{ URL::asset('plugins/peity-chart/jquery.peity.min.js') }}"></script>
 <script src="{{ URL::asset('assets/pages/dashboard.js') }}"></script>
+<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+<script>
+   window.onload = function () {
+
+var chart = new CanvasJS.Chart("chartContainer", {
+	animationEnabled: true,
+	theme: "light2",
+	title:{
+		text: "Investment Line Chart"
+	},
+	axisY:{
+		includeZero: false
+	},
+	data: [{        
+		type: "line",
+      	indexLabelFontSize: 16,
+		dataPoints: [
+			{ y: 450 },
+			{ y: 414},
+         { y: 460 },
+			{ y: 450 },
+			{ y: 500 },
+			{ y: 480 },
+			{ y: 480 },
+         { y: 500 },
+			{ y: 480 },
+			{ y: 510 }
+		]
+	}]
+});
+chart.render();
+
+}
+
+	</script>
 @endsection

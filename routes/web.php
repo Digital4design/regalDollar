@@ -17,16 +17,14 @@ Route::get('markAsRead',function(){
     auth()->user()->unreadNotifications->markAsRead();
     return redirect()->back();
 })->name('markRead');
-
-
-
- // Auth::routes();
+// Auth::routes();
 Auth::routes(['verify' => true]);
 
 Route::group(['prefix' => 'front' ], function () {
     Route::get('/create-details/{id}', 'Front\AccountController@index');    
     Route::post('/create-step1', 'Front\AccountController@postCreateStep1');
     Route::get('/create-step2', 'Front\AccountController@createStep2');
+    Route::post('/upadate-user-data', 'Front\AccountController@updateUserData');
     // Route::post('/update-account', 'Front\AccountController@postCreateUpdate');
     //  Route::post('/create-step3', 'Front\AccountController@postCreateUpdate');
     //  Route::post('/create-step4', 'Front\AccountController@postInfoUpdate');
@@ -41,11 +39,11 @@ Route::group(['prefix' => 'investment','middleware' => ['client']], function () 
     Route::post('/update-account', 'Client\UserInvestmentController@postCreateUpdate');
     Route::get('/create-step3', 'Client\UserInvestmentController@createStep3');
     Route::post('/update-address', 'Client\UserInvestmentController@updateAddress');
-    Route::get('/create-step4', 'Client\UserInvestmentController@postInfoUpdate');
+    Route::get('/create-step4', 'Client\UserInvestmentController@createStep4');
     Route::post('/update-amount','Client\UserInvestmentController@updateAmount');
-    Route::get('/create-step5', 'Client\UserInvestmentController@postAmountUpdate');
+    Route::get('/create-step5', 'Client\UserInvestmentController@createStep5');
     Route::post('/update-sign','Client\UserInvestmentController@updateSignature');
-    Route::get('/create-step6', 'Client\UserInvestmentController@postDocsUpdate');
+    Route::get('/create-step6', 'Client\UserInvestmentController@createStep6');
     Route::post('/create-step7', 'Client\UserInvestmentController@updateAgreements');
     Route::get('/payment-update/{id}', 'PaymentController@paymentProcess');
 

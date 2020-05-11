@@ -21,7 +21,8 @@
             <div class="row">
                <div class="col-lg-7">
                   <div>
-                     <div id="chart-with-area" class="ct-chart earning ct-golden-section"></div>
+                     <div id="chartContainer" class="ct-chart earning ct-golden-section"></div>
+                     <!-- <div id="chart-with-area" class="ct-chart earning ct-golden-section"></div> -->
                   </div>
                </div>
                <div class="col-lg-5">
@@ -157,6 +158,12 @@
       </div>
    </div>
 </div>
+<?php 
+// $investmentData =array(
+//    'investment'=>1000,
+//    'return'=>12000
+// );
+?>
 <!-- end row -->
 @endsection
 @section('script')
@@ -166,4 +173,37 @@
 <!-- peity JS -->
 <script src="{{ URL::asset('plugins/peity-chart/jquery.peity.min.js') }}"></script>
 <script src="{{ URL::asset('assets/pages/dashboard.js') }}"></script>
+<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+<script>
+   window.onload = function () {
+      var chart = new CanvasJS.Chart("chartContainer", {
+         animationEnabled: true,
+         theme: "light2",
+         title:{
+            text: "Earnings Line Chart"
+         },
+         axisY:{
+            includeZero: false
+         },
+         data: [{ 
+            type: "line",
+            indexLabelFontSize: 16,
+            dataPoints: [
+               { y: 450 },
+               { y: 414},
+               { y: 460 },
+               { y: 450 },
+               { y: 500 },
+               { y: 480 },
+               { y: 480 },
+               { y: 500 },
+               { y: 480 },
+               { y: 510 }
+            ]
+         }]
+});
+chart.render();
+
+}
+</script>
 @endsection

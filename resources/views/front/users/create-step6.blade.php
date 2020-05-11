@@ -1,4 +1,5 @@
 @include('homeheader')
+
 <!--CONTENT START-->
 <?php // dd($investmentData); ?>
 <div class="content form-steps">
@@ -42,13 +43,33 @@
             <input type="hidden" value="{{ $userData['investmentId'] }}" class="form-control" id="investmentId"  name="investmentId">
             <span class="section_title">Basic info</span>
             <div class="form-group">
-               <span class="edit_field" contenteditable="true" >{{ $userData['first_name'] }} 
-                  <i  class="fa fa-pencil-square-o" aria-hidden="true"></i>
+               <span class="edit_field" contenteditable="true" >
+               <input type="text" name="first_name" id="first_name" value="{{ $userData['first_name'] }}">
+               <!-- <div class="edit"></div> -->
+               <i  class="fa fa-pencil-square-o" aria-hidden="true"></i>
                </span>
-               <span class="edit_field" contenteditable="true">{{ $userData['address'] }} {{ $userData['city'] }} {{ $userData['state'] }} {{ $userData['country_id'] }} {{ $userData['zipcode'] }}
+               <span class="edit_field" contenteditable="true">
+               <input type="text" name="address" id="address" value="{{ $userData['address'] }}">
+               <i  class="fa fa-pencil-square-o" aria-hidden="true"></i>
+               </span>
+               <span class="edit_field" contenteditable="true">
+               <input type="text" name="city" id="city" value="{{ $userData['city'] }}">
+               <i  class="fa fa-pencil-square-o" aria-hidden="true"></i>
+               </span>
+               <span class="edit_field" contenteditable="true">
+               <input type="text" name="state" id="state" value="{{ $userData['state'] }}" >
+               <i  class="fa fa-pencil-square-o" aria-hidden="true"></i>
+               </span>
+               <!-- <span class="edit_field" contenteditable="true">
+               <input type="text" name="country_id" id="country_id" value="{{ $userData['country_id'] }}">
+               <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+               </span> -->
+               <span class="edit_field" contenteditable="true">
+               <input type="text" name="zipcode" id="zipcode" value="{{ $userData['zipcode'] }}">
                   <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                </span>
-               <span class="edit_field" contenteditable="true">{{ $userData['phoneNumber'] }}
+               <span class="edit_field" contenteditable="true">
+               <input type="text" name="phoneNumber" id="phoneNumber" value="{{ $userData['phoneNumber'] }}" >
                   <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                </span>
             </div>
@@ -62,7 +83,7 @@
                </span> 
                <span class="edit_field">
                   <span contenteditable="true" class="title">Initial Amount</span>
-                  <span class="result">{{ $investmentData['amount'] }}</span>
+                  <span class="result">${{ $investmentData['amount'] }}</span>
                   <!-- <i class="fa fa-pencil-square-o" aria-hidden="true"></i> -->
                </span>            
                <!-- <span class="edit_field">
@@ -82,13 +103,135 @@
                <p class="sign_on">Signed on Feb 04,2020</p>
                <a class="income_file">Income eREITV, East Coast eREIT, and West Coast eREIT</a>
             </div>
-            <a href="#"  class="btn btn-primary">Back</a>
+            <a href="{{ url('/investment/create-step5') }}"  class="btn btn-primary">Back</a>
             <button type="submit" class="btn btn-primary"> Next </button>
          </form>
       </div>
    </div>
 </section>
 </div>
+
 <!--BUY TEMPLATE SECTION END-->
 @include('homefooter')
 @include('homescripts')
+<script>
+$(document).ready(function() {
+   // $("#first_name").keyup(function( event ) {
+   //    var selectedVal = $('input:text[name=first_name]').val();
+   //    alert(selectedVal);
+   // });
+
+   $("#first_name").keyup(function( event ) {
+      var first_name = $('input:text[name=first_name]').val();
+      event.preventDefault();
+      $.ajax({
+         'url': '{{ url("front/upadate-user-data") }}',
+         'method': 'post',
+         'dataType': 'json',
+         'data':{first_name:first_name,_token:"{{csrf_token()}}",userid:"{{$userData->id}}"},
+         success: function(data) {
+            if (data.status == 'success') {
+               console.log(data);
+               location.href='{{ url("investment/create-step6") }}';
+            }
+            }
+			});
+         return false;
+		});
+      
+      
+      $("#address").keyup(function( event ) {
+         var address = $('input:text[name=address]').val();
+         //alert(address);
+         //return false;
+         event.preventDefault();
+         $.ajax({
+            'url': '{{ url("front/upadate-user-data") }}',
+            'method': 'post',
+            'dataType': 'json',
+            'data':{address:address,_token:"{{csrf_token()}}",userid:"{{$userData->id}}"},
+            success: function(data) {
+               if (data.status == 'success') {
+                  console.log(data);
+                  location.href='{{ url("investment/create-step6") }}';
+                  }
+               }
+			});
+         return false;
+		});
+
+      $("#city").keyup(function( event ) {
+         var city = $('input:text[name=city]').val();
+         event.preventDefault();
+         $.ajax({
+            'url': '{{ url("front/upadate-user-data") }}',
+            'method': 'post',
+            'dataType': 'json',
+            'data':{city:city,_token:"{{csrf_token()}}",userid:"{{$userData->id}}"},
+            success: function(data) {
+               if (data.status == 'success') {
+                  console.log(data);
+               location.href='{{ url("investment/create-step6") }}';
+                  }
+               }
+			});
+         return false;
+		});
+
+      $("#state").keyup(function( event ) {
+         var state = $('input:text[name=state]').val();
+         event.preventDefault();
+         $.ajax({
+            'url': '{{ url("front/upadate-user-data") }}',
+            'method': 'post',
+            'dataType': 'json',
+            'data':{state:state,_token:"{{csrf_token()}}",userid:"{{$userData->id}}"},
+            success: function(data) {
+               if (data.status == 'success') {
+                  console.log(data);
+               location.href='{{ url("investment/create-step6") }}';
+                  }
+               }
+			});
+         return false;
+		});
+
+      $("#zipcode").keyup(function( event ) {
+         var zipcode = $('input:text[name=zipcode]').val();
+         event.preventDefault();
+         $.ajax({
+            'url': '{{ url("front/upadate-user-data") }}',
+            'method': 'post',
+            'dataType': 'json',
+            'data':{zipcode:zipcode,_token:"{{csrf_token()}}",userid:"{{$userData->id}}"},
+            success: function(data) {
+               if (data.status == 'success') {
+                  console.log(data);
+               location.href='{{ url("investment/create-step6") }}';
+                  }
+               }
+			});
+         return false;
+		});
+
+      $("#phoneNumber").keyup(function( event ) {
+         var phoneNumber = $('input:text[name=phoneNumber]').val();
+         event.preventDefault();
+         $.ajax({
+            'url': '{{ url("front/upadate-user-data") }}',
+            'method': 'post',
+            'dataType': 'json',
+            'data':{phoneNumber:phoneNumber,_token:"{{csrf_token()}}",userid:"{{$userData->id}}"},
+            success: function(data) {
+               if (data.status == 'success') {
+                  console.log(data);
+               location.href='{{ url("investment/create-step6") }}';
+                  }
+               }
+			});
+         return false;
+		});
+
+});
+
+</script>

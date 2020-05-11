@@ -12,6 +12,8 @@ use Hash;
 use Illuminate\Http\Request;
 use Validator;
 use DB;
+use Carbon\Carbon;
+use DateTime;
 
 class DashboardController extends Controller
 {
@@ -32,15 +34,36 @@ class DashboardController extends Controller
     public function index()
     {
         $investData = DB::table('investment')
-              ->select('investment.*','plans.plan_name','users.name')
+                ->select('investment.*','plans.interest_rate','plans.plan_name','plans.time_investment')
+              //->select('investment.*','plans.plan_name','users.name')
                ->join('plans','plans.id','=','investment.plan_id')
                ->join('users','users.id','=','investment.user_id')
+               ->where('investment.amount','!=', '')
+               ->where('investment.paypal_transaction_id','!=', '')
                //->where(['investment.user_id' => $user_id])
                ->get();
-        // dd($investData);
+        //dd($investData);
+        $totalgain=0;
+        foreach($investData as $invest){
+            
+            $datetime1 = new DateTime(date("Y-m-d"));
+            $datetime2 = new DateTime($invest->plan_start_date);
+            $interval = $datetime1->diff($datetime2);
+            $fee = 50;
+            $amount = $invest->amount;
+            $time_investment = $invest->time_investment;
+           
+            // $instr = $amount * $invest->interest_rate / $time_investment;
+            $instr = $amount * $invest->interest_rate / $interval->m;
+            $gain = $amount+$instr;
+            $totalgain += $gain -$fee;
+            //dd($totalgain);
+        }
+        // dd($totalgain);
         $result = array('pageName' => 'Dashboard',
             'activeMenu' => 'dashboard',
             'investData' => $investData,
+            'totalgain'=>$totalgain
 
         );
         return view('admin.dashboard.dashboard', $result);

@@ -24,7 +24,7 @@ class AdditionalPlanManagmentController extends Controller
     {
         
         $planData = Plan::where('plan_type', '1')->orderBy('id', 'desc')->get();
-        // dd($planData);
+       
         $result = array('pageName' => 'Dashboard',
             'activeMenu' => 'create-account',
             'selected'=>$id,
@@ -73,19 +73,20 @@ class AdditionalPlanManagmentController extends Controller
     }
 
     public function updateAmount(Request $request){
-        // dd($request->all());
+        //dd($request->all());
         $rules = [
-            'amount' => 'required',
+            'finalamount' => 'required',
+            //'amount' => 'required',
         ];
         $messages = [
-            'amount.required' => 'amount is required.',
+            'finalamount.required' => 'amount is required.',
         ];
         $validator = Validator::make($request->all(), $rules, $messages);
         if ($validator->fails()) {
             return back()->withErrors($validator)->withInput();
         }
         try {
-            InvestmentModel::where('id',$request->investmentId)->update(['amount' => $request->amount,]);
+            InvestmentModel::where('id',$request->investmentId)->update(['amount' => $request->finalamount]);
             $investmentData = InvestmentModel::where('id',$request->investmentId)->first();
             $investmentData = $request->session()->put('investmentData', $investmentData);
             $investmentData['userData'] = $request->session()->get('investmentData');
@@ -98,7 +99,7 @@ class AdditionalPlanManagmentController extends Controller
     }
     public function agreement(Request $request){
         $investmentdata=  $request->session()->get('investmentData');
-       //dd($investmentdata['id']);
+  
         $result = array(
             'pageName' => 'Dashboard',
             'activeMenu' => 'create-account', 
@@ -114,7 +115,7 @@ class AdditionalPlanManagmentController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function updateAggrement(Request $request){
-        // dd($request->all());
+        
         $indicate = json_encode($request->indicateagreement);
         $userData = InvestmentModel::find($request->investmentId);
         $userData->indicateagreement = $indicate;
@@ -126,6 +127,7 @@ class AdditionalPlanManagmentController extends Controller
         $result = array(
             'pageName' => 'Dashboard',
             'activeMenu' => 'create-account',
+            'investmentdata'=>$investmentdata,
         );
         return view('client.newPlanManagment.paymentProcess', $result);
     }
