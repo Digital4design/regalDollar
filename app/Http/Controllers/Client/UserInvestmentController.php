@@ -28,6 +28,7 @@ class UserInvestmentController extends Controller
     public function createStep2(Request $request)
     {
         $userData = $request->session()->get('userData');
+       // dd($userData);
         $userData = $request->session()->get('userData');
         $userData = $request->session()->put('userData', $userData);
         $userData = $request->session()->get('userData');
@@ -77,8 +78,9 @@ class UserInvestmentController extends Controller
     }
     public function createStep3(Request $request)
     {
-        // dd($request->session()->get('userData'));
-        if($request->session()->get('userData')){
+        $userData=$request->session()->get('userData');
+        //dd($userData);
+        if(isset($userData->plan_id) && isset($userData->investmentId) && isset($userData->id)){
             $userData['userData'] = $request->session()->get('userData');
             $userData['stateData'] = State::where('country_id', '231')->get();
             // dd($userData);
@@ -156,67 +158,21 @@ class UserInvestmentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function postInfoUpdate(Request $request)
+    public function createStep4(Request $request)
     {
-        // dd($request->session()->get('userData'));
-        $userData = $request->session()->get('userData');
-        $data['userData'] = $userData;
-        $data['countryData'] = Country::get();
-        $data['stateData'] = State::where('country_id', '231')->get();
-        return view('front.users.create-step4', $data);
-        // $rules = [
-        //     'address' => 'required',
-        //     'address2' => 'required',
-        //     'city' => 'required',
-        //     'state' => 'required',
-        //     'zipcode' => 'required',
-        //     'phoneNumber' => 'required',
-        //     'birthday' => 'required',
-        //     'social_security_number' => 'required',
-        // ];
-        // $messages = [
-        //     'address.required' => 'address is required.',
-        //     'address2.required' => 'address2 is required.',
-        //     'city.required' => 'city is required.',
-        //     'state.required' => 'state is required.',
-        //     'zipcode.required' => 'zipcode is required.',
-        //     'phoneNumber.required' => 'phoneNumber is required.',
-        //     'birthday.required' => 'birthday is required.',
-        //     'social_security_number.required' => 'social_security_number is required.',
-        // ];
-        // $validator = Validator::make($request->all(), $rules, $messages);
-        // if ($validator->fails()) {
-        //     return back()->withErrors($validator)->withInput();
-        // }
-        // try {
-        //     $userData = User::find($request->user_id);
-        //     $userData->address = trim($request->address);
-        //     $userData->address2 = trim($request->address2);
-        //     $userData->city = trim($request->city);
-        //     $userData->state = trim($request->state);
-        //     $userData->zipcode = trim($request->zipcode);
-        //     $userData->phoneNumber = trim($request->phoneNumber);
-        //     $userData->birthday = trim($request->birthday);
-        //     $userData->social_security_number = trim($request->social_security_number);
-        //     $userData->save();
-        //     $userData = User::find($request->user_id);
-        //     $userData['plan_id'] = $request->plan_id;
-        //     $userData['investmentId'] = $request->investmentId;
-        //     $userData = $request->session()->put('userData', $userData);
-        //     $userData = $request->session()->get('userData');
-        //     $data['userData'] = $userData;
-        //     $data['countryData'] = Country::get();
-        //     $data['stateData'] = State::where('country_id', '231')->get();
-        //     return view('front.users.create-step4', $data);
-        // } catch (\Exception $e) {
-        //     return back()->with(array('status' => 'danger', 'message' => $e->getMessage()));
-        //     // echo $e->getMessage();
-        // }
+        $userData=$request->session()->get('userData');
+        if(isset($userData->plan_id) && isset($userData->investmentId) && isset($userData->id)){
+            $data['userData'] = $userData;
+            $data['countryData'] = Country::get();
+            $data['stateData'] = State::where('country_id', '231')->get();
+            return view('front.users.create-step4', $data);
+        }else{
+            return view('pages-404');
+        }
     }
 
     public function updateAmount(Request $request)
     {
-       // dd($request->all());
         $rules = [
             'finalamount' => 'required',
             //'amount' => 'required',
@@ -238,19 +194,13 @@ class UserInvestmentController extends Controller
             $userData = $request->session()->put('userData', $userData);
             $userData = $request->session()->get('userData');
             $documentData = DocumentManagemetModel::where('plan_id', $request->plan_id)->get();
-            // dd($documentData);
             $userData['userData'] = $userData;
             $userData['documentData'] = $documentData;
             $userData['investmentData'] = $investmentData;
             $userData['status'] = 'success';
             return Redirect::to('/investment/create-step5');
-            return response()->json($userData);
-            // return response()->json(['status' => 'success', 'data' => $userData]);
+            // return response()->json($userData);
             
-            //location.href='{{ url("investment/create-step4") }}';
-            // return redirect()->route('investment/create-step5');
-            //return view('front.users.create-step5');
-            // return view('front.users.create-step5', $userData);
         } catch (\Exception $e) {
             return back()->with(array('status' => 'danger', 'message' => $e->getMessage()));
             echo $e->getMessage();
@@ -262,48 +212,20 @@ class UserInvestmentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function postAmountUpdate(Request $request)
+    public function createStep5(Request $request)
     {
-        $userData = $request->session()->get('userData');
-        //dd($userData['investmentId']);
-        // $userData = $request->session()->put('userData', $userData);
-        $investmentData = InvestmentModel::where('id', $userData['investmentId'])->get();
-        $userData = $request->session()->get('userData');
-        $documentData = DocumentManagemetModel::where('plan_id', $userData['plan_id'])->get();
-        $data['userData'] = $userData;
-        $data['documentData'] = $documentData;
-        $data['investmentData'] = $investmentData;
-        return view('front.users.create-step5', $data);
-        // dd($request->session()->get('userData'));
-        // $rules = [
-        //     'amount' => 'required',
-        // ];
-        // $messages = [
-        //     'amount.required' => 'amount is required.',
-        // ];
-        // $validator = Validator::make($request->all(), $rules, $messages);
-        // if ($validator->fails()) {
-        //     return back()->withErrors($validator)->withInput();
-        // }
-        // try {
-        //     InvestmentModel::where('id', $request->investmentId)->update(['amount' => $request->amount]);
-        //     $investmentData = InvestmentModel::where('id', $request->investmentId)->get();
-        //     $userData = User::find($request->user_id);
-        //     $userData['plan_id'] = $request->plan_id;
-        //     $userData['investmentId'] = $request->investmentId;
-        //     $userData = $request->session()->put('userData', $userData);
-        //     $userData = $request->session()->get('userData');
-        //     $documentData = DocumentManagemetModel::where('plan_id', $request->plan_id)->get();
-        //     // dd($documentData);
-        //     $data['userData'] = $userData;
-        //     $data['documentData'] = $documentData;
-        //     $data['investmentData'] = $investmentData;
-        //     // dd($data);
-        //     return view('front.users.create-step5', $data);
-        // } catch (\Exception $e) {
-        //     return back()->with(array('status' => 'danger', 'message' => $e->getMessage()));
-        //     echo $e->getMessage();
-        // }
+        $userData=$request->session()->get('userData');
+        if(isset($userData->plan_id) && isset($userData->investmentId) && isset($userData->id)){
+            $investmentData = InvestmentModel::where('id', $userData['investmentId'])->get();
+            $userData = $request->session()->get('userData');
+            $documentData = DocumentManagemetModel::where('plan_id', $userData['plan_id'])->get();
+            $data['userData'] = $userData;
+            $data['documentData'] = $documentData;
+            $data['investmentData'] = $investmentData;
+            return view('front.users.create-step5', $data);
+        }else{
+            return view('pages-404');
+        }       
     }
     public function updateSignature(Request $request){
         $rules = [
@@ -365,29 +287,27 @@ class UserInvestmentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function postDocsUpdate(Request $request)
+    public function createStep6(Request $request)
     {
-        $userData = $request->session()->get('userData');
-        $plan_id = $userData->plan_id;
-        $investmentId = $userData->investmentId;
-        //dd($userData);
-        
-        // dd($investmentData);
-        $userData = User::find($userData->id);
-        //dd( $userData);
-       
-        $userData['plan_id'] = $plan_id;
-        $userData['investmentId'] = $investmentId;
-        $userData['planData'] = Plan::where('id', $plan_id)->first();
-        $userData = $request->session()->put('userData', $userData);
-        $userData = $request->session()->get('userData');
-        $documentData = DocumentManagemetModel::where('plan_id', $plan_id)->get();
-        $userData['investmentData']  = InvestmentModel::where('id',$investmentId)->first();
-        $userData['planData'] = Plan::where('id', $plan_id)->first();
-        $userData['userData'] = $userData;
-        $userData['documentData'] = $documentData;
-        // dd($userData);
-        return view('front.users.create-step6', $userData);
+        $userData=$request->session()->get('userData');
+        if(isset($userData->plan_id) && isset($userData->investmentId) && isset($userData->id)){
+            $plan_id = $userData->plan_id;
+            $investmentId = $userData->investmentId;
+            $userData = User::find($userData->id);
+            $userData['plan_id'] = $plan_id;
+            $userData['investmentId'] = $investmentId;
+            $userData['planData'] = Plan::where('id', $plan_id)->first();
+            $userData = $request->session()->put('userData', $userData);
+            $userData = $request->session()->get('userData');
+            $documentData = DocumentManagemetModel::where('plan_id', $plan_id)->get();
+            $userData['investmentData']  = InvestmentModel::where('id',$investmentId)->first();
+            $userData['planData'] = Plan::where('id', $plan_id)->first();
+            $userData['userData'] = $userData;
+            $userData['documentData'] = $documentData;
+            return view('front.users.create-step6', $userData);
+        }else{
+            return view('pages-404');
+        } 
     }
 
     /**
