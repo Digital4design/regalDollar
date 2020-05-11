@@ -27,15 +27,17 @@ class UserInvestmentController extends Controller
      */
     public function createStep2(Request $request)
     {
-        $userData = $request->session()->get('userData');
-       // dd($userData);
-        $userData = $request->session()->get('userData');
-        $userData = $request->session()->put('userData', $userData);
-        $userData = $request->session()->get('userData');
-        // dd($userData);
-        return view('front.users.create-step2', compact('userData', $userData));
+        $userData=$request->session()->get('userData');
+        if(isset($userData->plan_id) && isset($userData->investmentId) && isset($userData->id)){
+            $userData = $request->session()->get('userData');
+            $userData = $request->session()->put('userData', $userData);
+            $userData = $request->session()->get('userData');
+            // dd($userData);
+            return view('front.users.create-step2', compact('userData', $userData));
+        }else{
+            return view('pages-500');
+        } 
     }
-
     /**
      * Show the form for creating a new resource.
      *
@@ -79,7 +81,6 @@ class UserInvestmentController extends Controller
     public function createStep3(Request $request)
     {
         $userData=$request->session()->get('userData');
-        //dd($userData);
         if(isset($userData->plan_id) && isset($userData->investmentId) && isset($userData->id)){
             $userData['userData'] = $request->session()->get('userData');
             $userData['stateData'] = State::where('country_id', '231')->get();

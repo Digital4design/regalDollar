@@ -14,7 +14,7 @@
                                             <h1 class="text-dark">500</h1>
                                             <h4 class="mb-4">Internal Server Error</h4>
                                             <p class="mb-5">Maybe it's us. Send the <a style="color:rgba(2,0,66,0.85);" href="mailto:itsreallycathy@gmail.com">developer an email</a> if you found a dead link and we will look into it!</p>
-                                            <a class="btn btn-primary mb-5 waves-effect waves-light" href="index"><i class="mdi mdi-home"></i> Back to Dashboard</a>
+                                            <a class="btn btn-primary mb-5 waves-effect waves-light" href="{{ url('/') }}"><i class="mdi mdi-home"></i> Back to Dashboard</a>
                                         </div>
 
                                     </div>
