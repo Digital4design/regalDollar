@@ -216,12 +216,13 @@ class UserInvestmentController extends Controller
 
     public function updateAmount(Request $request)
     {
-        // dd($request->all());
+       // dd($request->all());
         $rules = [
-            'amount' => 'required',
+            'finalamount' => 'required',
+            //'amount' => 'required',
         ];
         $messages = [
-            'amount.required' => 'amount is required.',
+            'finalamount.required' => 'amount is required.',
         ];
         $validator = Validator::make($request->all(), $rules, $messages);
         if ($validator->fails()) {
@@ -229,7 +230,7 @@ class UserInvestmentController extends Controller
              return back()->withErrors($validator)->withInput();
         }
         try {
-            InvestmentModel::where('id', $request->investmentId)->update(['amount' => $request->amount]);
+            InvestmentModel::where('id', $request->investmentId)->update(['amount' => $request->finalamount]);
             $investmentData = InvestmentModel::where('id', $request->investmentId)->get();
             $userData = User::find($request->user_id);
             $userData['plan_id'] = $request->plan_id;

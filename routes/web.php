@@ -27,6 +27,7 @@ Route::group(['prefix' => 'front' ], function () {
     Route::get('/create-details/{id}', 'Front\AccountController@index');    
     Route::post('/create-step1', 'Front\AccountController@postCreateStep1');
     Route::get('/create-step2', 'Front\AccountController@createStep2');
+    Route::post('/upadate-user-data', 'Front\AccountController@updateUserData');
     // Route::post('/update-account', 'Front\AccountController@postCreateUpdate');
     //  Route::post('/create-step3', 'Front\AccountController@postCreateUpdate');
     //  Route::post('/create-step4', 'Front\AccountController@postInfoUpdate');

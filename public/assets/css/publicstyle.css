@@ -5768,6 +5768,8 @@ margin: 0 !important;
     text-align: left;
     display: inline-block;
     vertical-align: middle;
+	padding-right: 25px;
+    word-break: break-all;	
 }
 .verify-email .re_send_mail .right_sec {
     width: 60%;
@@ -5776,10 +5778,14 @@ margin: 0 !important;
     vertical-align: middle;
     font-size: 16px;
     font-weight: 300;
+	padding-left: 25px;
+	word-break: break-all;
 }
 .verify-email p {
     font-size: 16px;
     font-weight: 300;
+	
+	word-break: break-all;
 }
 .verify-email p span {
     font-weight: 500;

@@ -34,10 +34,10 @@
                      <option value="50,000">$50,000</option>
                      <option value="60,000">$60,000</option>
                      <option value="70,000">$70,000</option>
-                     <option value="other">Other</option>
+                     <option value="">Other</option>
                   </select>
-                  <p id="error_amount" style="display:none; color:red" class="error">Plese select amount</p>
-                  <!--input type="text" name="amount" id="custamount" -->
+                  <input type="hidden" name="finalamount" placeholder="Please enter amount" id="finalamount">
+                  <input type="number" style="display:none;" name="otheramount" placeholder="Please enter amount"  id="otheramount">
                </div>
                <button type="submit" class="btn btn-primary send_button"> Next </button>
             </form>
@@ -59,6 +59,29 @@
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 <script>
+$(document).ready(function() {
+  $("#otheramount").keyup(function(){
+      var val =  $(this).val();
+      $('#finalamount').val(val);
+  });
+	$("#amount").change(function() {
+      var selectedVal = $("#amount option:selected").text();
+      //var selectedVal = $("#amount option:selected").val();
+      //alert("Hi, your favorite programming language is " + selectedVal);
+      //return false;
+      if(selectedVal =='Other'){
+         $("#amount").hide();
+         $("#custamount").show();
+         //alert("Hi, your favorite programming language is " + selectedVal);
+      }else{
+        var val = $("#amount").val();
+         $('#finalamount').val(val);
+         //alert("Hi, your favorite programming language is ");
+      }
+		
+
+	});
+});
 $(document).ready(function() {
   function initialise(){
       var canvas = document.getElementById("sign-pad");

@@ -14,6 +14,8 @@ use App\Models\InvestmentModel;
 use App\Models\Plan;
 use Validator;
 use DB;
+use Carbon\Carbon;
+use DateTime;
 
 class DashboardController extends Controller
 {
@@ -32,27 +34,42 @@ class DashboardController extends Controller
         $user_id = Auth::user()->id;
         if(Auth::user()->is_verify =="pending"){
             return redirect('/investment/create-step2');
-            return redirect('/front/create-step2');
+            // return redirect('/front/create-step2');
         }
         $investmentData = InvestmentModel::where('user_id',$user_id)->first();
         $plan_id = $investmentData['plan_id'];
 
         $planData = Plan::where('id',$plan_id)->first();
         $investData = DB::table('investment')
-              ->select('investment.*','plans.plan_name')
-               ->join('plans','plans.id','=','investment.plan_id')
-               ->where('investment.user_id', $user_id)
-               ->where('investment.paypal_transaction_id','!=', '')
-               ->get();
+              ->select('investment.*','plans.interest_rate','plans.plan_name','plans.time_investment')
+              ->join('plans','plans.id','=','investment.plan_id')
+              ->where('investment.user_id', $user_id)
+              ->where('investment.paypal_transaction_id','!=', '')
+              ->get();
+        // dd($investData);
         $totalgain=0;
-        if($investData[0]->amount){
+        foreach($investData as $invest){
+            
+            $datetime1 = new DateTime(date("Y-m-d"));
+            $datetime2 = new DateTime($invest->plan_start_date);
+            $interval = $datetime1->diff($datetime2);
+            
             $fee = 50;
-            $amount = $investData[0]->amount;
-            $time_investment = $planData['time_investment'];
-            $instr = $amount * $planData['interest_rate'] / $time_investment;
+            $amount = $invest->amount;
+            $time_investment = $invest->time_investment;
+            // dd($interval->m);
+            if($interval->m >0){
+                // $instr = $amount * $invest->interest_rate / $time_investment;
+            $instr = $amount * $invest->interest_rate / $interval->m;
             $gain = $amount+$instr;
-            $totalgain = $gain -$fee;
+            $totalgain += $gain -$fee;
+            }else{
+                $totalgain +=$amount;
+            }
+            
+            //dd($totalgain);
         }
+        // dd($totalgain);
         $result = array(
             'pageName' => 'Dashboard',
             'activeMenu' => 'dashboard',

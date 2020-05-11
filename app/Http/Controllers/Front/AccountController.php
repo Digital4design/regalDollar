@@ -39,7 +39,8 @@ class AccountController extends Controller
             'activeMenu' => 'user-management',
         );
         $planData = Plan::find($id);
-        $date = $planData->plan_start_date;
+       // $date = $planData->plan_start_date;
+        $date = date('Y-m-d');
         $date = strtotime($date);
         $new_date = strtotime('+ ' . $planData->time_investment . ' month', $date);
         $valid_till = date('Y-m-d', $new_date);
@@ -85,7 +86,8 @@ class AccountController extends Controller
                 $userData = $request->session()->get('userData');
 
                 $planData = Plan::find($request->plan_id);
-                $date = $planData['plan_valid_from'];
+                //$date = $planData['plan_valid_from'];
+                $date = date('Y-m-d');
                 $date = strtotime($date);
                 $new_date = strtotime('+ ' . $planData["time_investment"] . ' month', $date);
                 $valid_till = date('Y-m-d', $new_date);
@@ -93,7 +95,7 @@ class AccountController extends Controller
                 $InvestmentData =InvestmentModel::create([
                     'user_id' => $userData->id,
                     'plan_id' => $request->plan_id,
-                    'plan_start_date'=>$planData['plan_valid_from'],
+                    'plan_start_date'=>date('Y-m-d'),
                     'plan_end_date'=>$valid_till,
                 ]);
 
@@ -130,6 +132,7 @@ class AccountController extends Controller
             try {
                 $planData = Plan::find($request->plan_id);
                 $date = $planData['plan_valid_from'];
+                $date= date('Y-m-d');
                 $date = strtotime($date);
                 $new_date = strtotime('+ ' . $planData["time_investment"] . ' month', $date);
                 $valid_till = date('Y-m-d', $new_date);
@@ -146,7 +149,7 @@ class AccountController extends Controller
                 $InvestmentData =InvestmentModel::create([
                     'user_id' => $userData->id,
                     'plan_id' => $request->plan_id,
-                    'plan_start_date'=>$planData['plan_valid_from'],
+                    'plan_start_date'=>date('Y-m-d'),
                     'plan_end_date'=>$valid_till,
                 ]);
                 $roleArray = array(
@@ -165,6 +168,32 @@ class AccountController extends Controller
                 // echo $e->getMessage();
             }
         }
+    }
+    public function updateUserData(Request $request){
+        //dd( $request->all());
+        $userData = User::find($request->userid);
+        if($request->first_name){
+            $userData->first_name = $request->first_name;
+        }
+        if($request->address){
+            $userData->address = $request->address;
+        }
+        if($request->city){
+            $userData->city = $request->city;
+        }   
+        if($request->state){
+            $userData->state = $request->state;
+        }
+        if($request->zipcode){
+            $userData->zipcode = $request->zipcode;
+        } 
+        if($request->phoneNumber){
+            $userData->phoneNumber = $request->phoneNumber;
+        }   
+        $userData->save();
+        $userData = User::find($request->userid);
+        echo json_encode(array('status' => 'success', 'data' => $userData));
+        die;
     }
     public function createStep2(Request $request)
     {
@@ -361,17 +390,6 @@ class AccountController extends Controller
         $data['userData']           = $userData;
         return view('front.users.payment', $data);
     }
-    /**
-     * Show the form for creating a new resource.
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-  
     
-   
-     
    
 }
