@@ -58,6 +58,9 @@ class UserInvestmentController extends Controller
             $userData = User::find($request->user_id);
             $userData->accountType = trim($request->accountType);
             $userData->save();
+            $userData = User::find(Auth::user()->id);
+            $userData->is_verify = "done";
+            $userData->save();
             $userData = User::find($request->user_id);
             $userData['plan_id'] = $request->plan_id;
             $userData['investmentId'] = $request->investmentId;
@@ -246,9 +249,7 @@ class UserInvestmentController extends Controller
                 file_put_contents($file_path, $imagedata);
             }
             
-            $userData = User::find(Auth::user()->id);
-            $userData->is_verify = "done";
-            $userData->save();
+            
             $indicate = json_encode($request->indicateagreement);
             $userData = User::find($request->user_id);
             $investmentData = InvestmentModel::find($request->investmentId);

@@ -166,7 +166,7 @@
 <script src="{{ URL::asset('assets/pages/dashboard.js') }}"></script>
 <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 <script>
-   window.onload = function () {
+   /*window.onload = function () {
 
 var chart = new CanvasJS.Chart("chartContainer", {
 	animationEnabled: true,
@@ -194,6 +194,6 @@ var chart = new CanvasJS.Chart("chartContainer", {
 chart.render();
 
 }
-
+*/
 	</script>
 @endsection

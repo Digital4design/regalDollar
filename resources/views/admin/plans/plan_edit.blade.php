@@ -56,22 +56,24 @@
                            </div>
                         </div>
                      
-                        <!-- <div class="col-sm-12">
+                        <div class="col-sm-6">
                            <div class="input-group mb-3">
                               <div class="input-group-prepend">
-                                 <label class="input-group-text" for="inputGroupSelect01">Plan Price</label>
+                                 <label class="input-group-text" for="inputGroupSelect01">Plan Fee</label>
                               </div>
-                              <input 
-                                 class="form-control" 
-                                 name="price" 
-                                 value="{{ old('price',(isset($planData) && !empty($planData->price)) ? $planData->price : '' ) }}" />
-                              @if ($errors->has('price'))
+                              <input
+                              type="number" 
+                              class="form-control"
+                              name="plan_fee"
+                              value="{{ old('plan_fee',(isset($planData) && !empty($planData->plan_fee)) ? $planData->plan_fee : '' ) }}"
+                              />
+                              @if ($errors->has('plan_fee'))
                               <span style="display:initial;" class="invalid-feedback" role="alert">
-                              <strong>{{ $errors->first('price') }}</strong>
+                              <strong>{{ $errors->first('plan_fee') }}</strong>
                               </span>
                               @endif
                            </div>
-                        </div> -->
+                        </div>
 
                         <div class="col-sm-6">
                            <div class="input-group mb-3">

@@ -75,7 +75,7 @@ class PlanManagementController extends Controller
         $rules = [
             'plan_name' => 'required|min:4',
             'slogan' => 'required|min:2',
-            //'price' => 'required|numeric',
+            'plan_fee' => 'required|numeric',
             // 'price' => 'required|numeric',
             'duration' => 'required|numeric',
             'time_investment' => 'required|numeric',
@@ -101,6 +101,7 @@ class PlanManagementController extends Controller
                 'interest_rate' => $request->interest_rate,
                 'view_details_url' => $request->view_details_url,
                 'duration' => $request->duration,
+                'plan_fee'=>$request->plan_fee,
                 'plan_type' => $request->plan_type,
                 'time_investment' => $request->time_investment,
                 'plan_valid_from' => $request->plan_valid_from,
@@ -194,11 +195,10 @@ class PlanManagementController extends Controller
      */
     public function updatePlans(Request $request, $id)
     {
-      // dd($request->all());        
         $rules = [
             'plan_name' => 'required|min:4',
             'slogan' => 'required|min:2',
-            //'price' => 'required|numeric',
+            'plan_fee' => 'required|numeric',
             'duration' => 'required|numeric',
             'time_investment' => 'required|numeric',
             'descritpion' => 'required',
@@ -216,7 +216,8 @@ class PlanManagementController extends Controller
             $planData = Plan::find(\Crypt::decrypt($id));
             $planData->plan_name = trim($request->plan_name);
             $planData->slogan = trim($request->slogan);
-            //$planData->price = trim($request->price);
+            $planData->plan_fee = $request->plan_fee;
+           
             $planData->interest_rate = trim($request->interest_rate);
             $planData->view_details_url = trim($request->view_details_url);
             $planData->duration = trim($request->duration);

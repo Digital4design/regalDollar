@@ -71,7 +71,6 @@ class DocumentsManagementController extends Controller
      */
     public function store(Request $request)
     {
-        //dd($request->all());
         $rules = [
             'users_id' => 'required',
             'documents_title' => 'required',
@@ -160,7 +159,6 @@ class DocumentsManagementController extends Controller
      */
     public function updateDocs(Request $request, $id)
     {
-        // dd($request->all());
         $rules = [
             'users_id' => 'required',
             'documents_title' => 'required',

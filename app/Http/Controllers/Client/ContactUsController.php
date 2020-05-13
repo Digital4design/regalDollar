@@ -40,7 +40,6 @@ class ContactUsController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->all());
         $rules = [
             'name' => 'required',
             'contact_subject' => 'required',

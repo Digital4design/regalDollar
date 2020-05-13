@@ -18,10 +18,12 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Validator;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 
-class AccountController extends Controller
+class AccountController extends Controller 
 {
     use RegistersUsers;
+
     /**
      * Display a listing of the resource.
      * @return \Illuminate\Http\Response
@@ -131,7 +133,7 @@ class AccountController extends Controller
             }
             try {
                 $planData = Plan::find($request->plan_id);
-                $date = $planData['plan_valid_from'];
+               // $date = $planData['plan_valid_from'];
                 $date= date('Y-m-d');
                 $date = strtotime($date);
                 $new_date = strtotime('+ ' . $planData["time_investment"] . ' month', $date);
@@ -146,6 +148,10 @@ class AccountController extends Controller
                     'password' => Hash::make($request->password),
                     'is_verify' => "pending",
                 ]);
+                if($userData instanceof MustVerifyEmail){
+                    $userData->sendEmailVerificationNotification();
+                }
+                
                 $InvestmentData =InvestmentModel::create([
                     'user_id' => $userData->id,
                     'plan_id' => $request->plan_id,
@@ -169,6 +175,7 @@ class AccountController extends Controller
             }
         }
     }
+    /*
     public function updateUserData(Request $request){
         //dd( $request->all());
         $userData = User::find($request->userid);
@@ -197,7 +204,6 @@ class AccountController extends Controller
     }
     public function createStep2(Request $request)
     {
-        //dd($request->all());
         $userData = $request->session()->get('userData');
         
         $userData = User::find(Auth::user()->id);
@@ -298,7 +304,6 @@ class AccountController extends Controller
     }
     public function postAmountUpdate(Request $request)
     {
-        // dd($request->all());
         $rules = [
             'amount' => 'required',
         ];
@@ -389,7 +394,7 @@ class AccountController extends Controller
         $userData                   = $request->session()->get('userData');
         $data['userData']           = $userData;
         return view('front.users.payment', $data);
-    }
+    }*/
     
    
 }

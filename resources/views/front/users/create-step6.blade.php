@@ -1,45 +1,5 @@
 @include('homeheader')
-<style type="text/css">
-/* input[type=text]
-{
-	margin-top:8px;
-	font-size:18px;
-	color:#545454;
-	-moz-border-radius: 2px;
-	-webkit-border-radius: 2px;
-	-border-radius: 2px;
-	display:none;
-	width:280px;
-	
-} */
-/* label
-{
-	float:left;
-	margin-top:8px;
-	font-size:18px;
-	color:#545454;
-	-moz-border-radius: 2px;
-	-webkit-border-radius: 2px;
-	-border-radius: 2px;
-}
 
-.edit
-{
-	float:left;
-	background:url(images/edit.png) no-repeat;
-	width:32px;
-	height:32px;
-	display:block;
-	cursor: pointer;
-	margin-left:10px;
-}
-
-.clear
-{
-	clear:both;
-	height:20px;
-} */
-</style>
 <!--CONTENT START-->
 <?php // dd($investmentData); ?>
 <div class="content form-steps">
@@ -82,50 +42,38 @@
             <input type="hidden" value="{{ $userData['plan_id'] }}" class="form-control" id="plan_id"  name="plan_id">
             <input type="hidden" value="{{ $userData['investmentId'] }}" class="form-control" id="investmentId"  name="investmentId">
             <span class="section_title"> {{ $userData['first_name'] }} Basic info</span>
-            <div class="form-group">
+            <div class="form-group update_field">
 
 
-            <!-- <label class="text_label">Click The Pencil Icon to Edit Me</label><div class="edit"></div>
-            <input type="text" value="Click The Pencil Icon to Edit Me" />
-            <div class="clear"></div>
-            <label class="text_label">This is another text label</label><div class="edit"></div>
-            <input type="text" value="This is another text label" />
-            <div class="clear"></div>
-            <label class="text_label">Another text label</label><div class="edit"></div>
-            <input type="text" value="Another text label" />
-            <div class="clear"></div>
-            <label class="text_label">This is the last text label</label><div class="edit"></div>
-            <input type="text" value="This is the last text label" />
-            <div class="clear"></div> -->
-            
             <span class="edit_field" >
-                  <input type="text" contenteditable="true" name="first_name" id="first_name" value="{{ $userData['first_name'] }}" >
-                  <i  class="fa fa-pencil-square-o first_name" aria-hidden="true"></i>
-               </span>
-               <span class="edit_field" contenteditable="true">
-               <input type="text" name="address" id="address" value="{{ $userData['address'] }}">
-               <i  class="fa fa-pencil-square-o" aria-hidden="true"></i>
-               </span>
-               <span class="edit_field" contenteditable="true">
-               <input type="text" name="city" id="city" value="{{ $userData['city'] }}" disabled>
-               <i  class="fa fa-pencil-square-o" aria-hidden="true"></i>
-               </span>
-               <span class="edit_field" contenteditable="true">
-               <input type="text" name="state" id="state" value="{{ $userData['state'] }}" disabled>
-               <i  class="fa fa-pencil-square-o" aria-hidden="true"></i>
-               </span>
-               <!-- <span class="edit_field" contenteditable="true">
-               <input type="text" name="country_id" id="country_id" value="{{ $userData['country_id'] }}">
+            <input  name="first_name" class="edit_here" contenteditable="true" id="first_name" value="{{ $userData['first_name'] }}" >
+            <i class="fa fa-pencil-square-o first_name" aria-hidden="true"></i>
+            </span>
+            <span class="edit_field" >
+            <input  name="address" class="edit_here"  contenteditable="true" id="address" value="{{ $userData['address'] }}">
+            <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+            </span>
+            <span class="edit_field" >
+            <input  name="city" class="edit_here" id="city" value="{{ $userData['city'] }}" >
+            <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+            </span>
+            <span class="edit_field" >
+            <input  name="state" class="edit_here" id="state" value="{{ $userData['state'] }}" >
+            <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+            </span>
+            <!-- <span class="edit_field" contenteditable="true">
+               <input  name="country_id" id="country_id" value="{{ $userData['country_id'] }}">
                <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                </span> -->
-               <span class="edit_field" contenteditable="true">
-               <input type="text" name="zipcode" id="zipcode" value="{{ $userData['zipcode'] }}" disabled>
-                  <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-               </span>
-               <span class="edit_field" contenteditable="true">
-               <input type="text" name="phoneNumber" id="phoneNumber" value="{{ $userData['phoneNumber'] }}" disabled>
-                  <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-               </span>
+               <span class="edit_field" >
+               <input  name="zipcode" class="edit_here" id="zipcode" value="{{ $userData['zipcode'] }}" >
+               <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+            </span>
+               <span class="edit_field" >
+               <input  name="phoneNumber" class="edit_here" id="phoneNumber" value="{{ $userData['phoneNumber'] }}" >
+               <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+            </span>
+               
             </div>
             <div class="break_section"></div>
             <span class="section_title">Investment Information</span>
@@ -174,20 +122,13 @@
 $(document).ready(function() {
 
   
-   // $("#first_name").keyup(function( event ) {
-   //    var selectedVal = $('input:text[name=first_name]').val();
-   //    alert(selectedVal);
-   // });
-
-   // $('.first_name').click(function(){
-   //    var first_name = $('input:text[name=first_name]').val();
-   //    //alert(first_name);
-   //   // return false;
-	// 	$(this).show();
-	// 	//$(this).prev().hide();
-	// 	$(this).next().show();
-	// 	$(this).next().select();
-	// });
+   $( ".fa-pencil-square-o" ).click(function() {
+      var prev=$(this).prev();
+      $('.edit_here').removeClass('active');
+      prev.addClass('active');
+      //prev.css("background-color", "yellow");
+      //alert( "Handler for .click() called." );
+   });
   
 
    $("#first_name").keyup(function( event ) {

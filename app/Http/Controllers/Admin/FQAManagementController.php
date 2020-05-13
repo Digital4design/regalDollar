@@ -60,7 +60,7 @@ class FQAManagementController extends Controller
      */
     public function store(Request $request)
     {
-        //dd($request->all());
+     
         $rules = [
             'fqaHeadding' => 'required',
             'fqaAnswer' => 'required',
@@ -129,7 +129,6 @@ class FQAManagementController extends Controller
      */
     public function updateFQA(Request $request, $id)
     {
-        //dd($request->all());
         $rules = [
             'fqaHeadding' => 'required',
             'fqaAnswer' => 'required',

@@ -21,7 +21,8 @@
             <div class="row">
                <div class="col-lg-7">
                   <div>
-                     <div id="chartContainer" class="ct-chart earning ct-golden-section"></div>
+                  <div id="current" class="ct-chart earning ct-golden-section"></div>
+                     <!-- <div id="chartContainer" class="ct-chart earning ct-golden-section"></div> -->
                      <!-- <div id="chart-with-area" class="ct-chart earning ct-golden-section"></div> -->
                   </div>
                </div>
@@ -174,8 +175,9 @@
 <script src="{{ URL::asset('plugins/peity-chart/jquery.peity.min.js') }}"></script>
 <script src="{{ URL::asset('assets/pages/dashboard.js') }}"></script>
 <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+<script src="https://www.chartjs.org/samples/latest/utils.js"></script>
 <script>
-   window.onload = function () {
+   /*window.onload = function () {
       var chart = new CanvasJS.Chart("chartContainer", {
          animationEnabled: true,
          theme: "light2",
@@ -201,6 +203,60 @@
 });
 chart.render();
 
-}
+}*/
+
+/*
+google.charts.load('chartContainer');
+  function drawVisualization() {
+    var dataTable = [
+      ["Country", "Population Density"],
+      ["Indonesia", 117],
+      ["China", 137],
+      ["Nigeria", 142],
+      ["Pakistan", 198],
+      ["India", 336],
+      ["Japan", 339],
+      ["Bangladesh", 1045]
+    ];
+    google.visualization.drawChart({
+      "containerId": "visualization_div",
+      "dataTable": dataTable,
+      "refreshInterval": 5,
+      "chartType": "Table",
+      "options": {
+        "alternatingRowStyle": true,
+        "showRowNumber" : true,
+      }
+    });
+  }
+  google.charts.setOnLoadCallback(drawVisualization);*/
+</script>
+
+<script type='text/javascript'>
+  /* google.charts.load('current');
+  function drawVisualization() {
+    var dataTable = [
+      ["Country", "Population Density"],
+      ["Indonesia", 117],
+      ["China", 137],
+      ["Nigeria", 142],
+      ["Pakistan", 198],
+      ["India", 336],
+      ["Japan", 339],
+      ["Bangladesh", 1045]
+    ];
+    google.visualization.drawChart({
+      "containerId": "visualization_div",
+      "dataTable": dataTable,
+      "refreshInterval": 5,
+      "chartType": "Table",
+      "options": {
+        "alternatingRowStyle": true,
+        "showRowNumber" : true,
+      }
+    });
+  }
+  google.charts.setOnLoadCallback(drawVisualization);
+  */
 </script>
 @endsection
