@@ -21,7 +21,8 @@
             <div class="row">
                <div class="col-lg-7">
                   <div>
-                  <div id="chartContainer" class="ct-chart earning ct-golden-section"></div>
+                     <div id="curve_chart" class="ct-chart earning ct-golden-section"></div>
+                     <!-- <div id="chartContainer" class="ct-chart earning ct-golden-section"></div> -->
                      <!-- <div id="chart-with-area" class="ct-chart earning ct-golden-section"></div> -->
                   </div>
                </div>
@@ -164,36 +165,30 @@
 <!-- peity JS -->
 <script src="{{ URL::asset('plugins/peity-chart/jquery.peity.min.js') }}"></script>
 <script src="{{ URL::asset('assets/pages/dashboard.js') }}"></script>
-<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
-<script>
-   /*window.onload = function () {
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
 
-var chart = new CanvasJS.Chart("chartContainer", {
-	animationEnabled: true,
-	theme: "light2",
-	title:{
-		text: "Investment Line Chart"
-	},
-	axisY:{
-		includeZero: false
-	},
-	data: [{        
-		type: "line",
-      	indexLabelFontSize: 16,
-		dataPoints: [
-			{ y: 400 },
-         { y: 450 },
-         { y: 500 },
-         { y: 550 },
-         { y: 600 },
-         { y: 650 },
-         { y: 700 }
-		]
-	}]
-});
-chart.render();
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Year', 'Sales', 'Expenses', 'Parry'],
+          ['2004',  1000,      400, 600],
+          ['2005',  1170,      460, 560],
+          ['2006',  660,       1120, 800],
+          ['2007',  1030,      540, 200],
+		  ['2020', 123, 234, 900],
+        ]);
 
-}
-*/
-	</script>
+        var options = {
+          title: 'Company Performance',
+          curveType: 'function',
+          legend: { position: 'bottom' }
+        };
+
+        var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+
+        chart.draw(data, options);
+      }
+    </script>
 @endsection

@@ -21,7 +21,7 @@
             <div class="row">
                <div class="col-lg-7">
                   <div>
-                  <div id="current" class="ct-chart earning ct-golden-section"></div>
+                     <div id="curve_chart" class="ct-chart earning ct-golden-section"></div>
                      <!-- <div id="chartContainer" class="ct-chart earning ct-golden-section"></div> -->
                      <!-- <div id="chart-with-area" class="ct-chart earning ct-golden-section"></div> -->
                   </div>
@@ -108,50 +108,7 @@
                         <td></td>
                      </tr>
                      @endforelse
-                     <!-- <tr>
-                        <th scope="row">#14256</th>
-                        <td>
-                           <div>
-                              Added Money to Investment <i class="fa fa-arrow-alt-circle-right"></i>
-                           </div>
-                        </td>
-                        <td>Nov 30, 2019</td>
-                        <td>$10,000</td>
-                        <td><span class="badge badge-warning">Pending</span></td>
-                     </tr>
-                     <tr>
-                        <th scope="row">#14214</th>
-                        <td>
-                           <div>
-                              <i class="fa fa-arrow-alt-circle-left"></i> Monthly Dividend (November)
-                           </div>
-                        </td>
-                        <td>Nov 12, 2019</td>
-                        <td>$115.21</td>
-                        <td><span class="badge badge-success">Delivered</span></td>
-                     </tr>
-                     <tr>
-                        <th scope="row">#14201</th>
-                        <td>
-                           <div>
-                              <i class="fa fa-arrow-alt-circle-left"></i> Monthly Dividend (October)
-                           </div>
-                        </td>
-                        <td>Oct 12, 2019</td>
-                        <td>$115.21</td>
-                        <td><span class="badge badge-success">Delivered</span></td>
-                     </tr>
-                     <tr>
-                        <th scope="row">#14152</th>
-                        <td>
-                           <div>
-                              Initiated 24 Month Investment Plan <i class="fa fa-arrow-alt-circle-right"></i>
-                           </div>
-                        </td>
-                        <td>Sept 11, 2019</td>
-                        <td>$10,000.00</td>
-                        <td><span class="badge badge-success">Delivered</span></td>
-                     </tr>--> 
+                     
                   </tbody>
                </table>
             </div>
@@ -176,87 +133,30 @@
 <script src="{{ URL::asset('assets/pages/dashboard.js') }}"></script>
 <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 <script src="https://www.chartjs.org/samples/latest/utils.js"></script>
-<script>
-   /*window.onload = function () {
-      var chart = new CanvasJS.Chart("chartContainer", {
-         animationEnabled: true,
-         theme: "light2",
-         title:{
-            text: "Earnings Line Chart"
-         },
-         axisY:{
-            includeZero: false
-         },
-         data: [{ 
-            type: "line",
-            indexLabelFontSize: 16,
-            dataPoints: [
-               { y: 400 },
-               { y: 450 },
-               { y: 500 },
-               { y: 550 },
-               { y: 600 },
-               { y: 650 },
-               { y: 700 }
-            ]
-         }]
-});
-chart.render();
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
 
-}*/
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Year', 'Sales', 'Expenses', 'Parry'],
+          ['2004',  1000,      400, 600],
+          ['2005',  1170,      460, 560],
+          ['2006',  660,       1120, 800],
+          ['2007',  1030,      540, 200],
+		  ['2020', 123, 234, 900],
+        ]);
 
-/*
-google.charts.load('chartContainer');
-  function drawVisualization() {
-    var dataTable = [
-      ["Country", "Population Density"],
-      ["Indonesia", 117],
-      ["China", 137],
-      ["Nigeria", 142],
-      ["Pakistan", 198],
-      ["India", 336],
-      ["Japan", 339],
-      ["Bangladesh", 1045]
-    ];
-    google.visualization.drawChart({
-      "containerId": "visualization_div",
-      "dataTable": dataTable,
-      "refreshInterval": 5,
-      "chartType": "Table",
-      "options": {
-        "alternatingRowStyle": true,
-        "showRowNumber" : true,
+        var options = {
+          title: 'Company Performance',
+          curveType: 'function',
+          legend: { position: 'bottom' }
+        };
+
+        var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+
+        chart.draw(data, options);
       }
-    });
-  }
-  google.charts.setOnLoadCallback(drawVisualization);*/
-</script>
-
-<script type='text/javascript'>
-  /* google.charts.load('current');
-  function drawVisualization() {
-    var dataTable = [
-      ["Country", "Population Density"],
-      ["Indonesia", 117],
-      ["China", 137],
-      ["Nigeria", 142],
-      ["Pakistan", 198],
-      ["India", 336],
-      ["Japan", 339],
-      ["Bangladesh", 1045]
-    ];
-    google.visualization.drawChart({
-      "containerId": "visualization_div",
-      "dataTable": dataTable,
-      "refreshInterval": 5,
-      "chartType": "Table",
-      "options": {
-        "alternatingRowStyle": true,
-        "showRowNumber" : true,
-      }
-    });
-  }
-  google.charts.setOnLoadCallback(drawVisualization);
-  */
-</script>
+    </script>
 @endsection

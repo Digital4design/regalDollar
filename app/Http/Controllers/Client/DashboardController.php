@@ -32,7 +32,6 @@ class DashboardController extends Controller
     public function index()
     {
         $user_id = Auth::user()->id;
-        
         if(Auth::user()->is_verify =="pending"){
             return redirect('/investment/create-step2');
             // return redirect('/front/create-step2');
@@ -53,7 +52,7 @@ class DashboardController extends Controller
               ->where('investment.paypal_transaction_id','!=', '')
               ->get();
         // dd($investData);
-        /*
+        
         $graphData=array();
         $totalgainData=0;
         foreach($investData as $invData){
@@ -68,11 +67,10 @@ class DashboardController extends Controller
             $time_investment = $invData->time_investment;
             // dd($interval->m);
             if($interval->m > 0){
-
                 $inst = $amount * $invData->interest_rate / $interval->m;
                 $gains = $amount+$inst;
                 $totalgainData += $gains - $fee;
-                for($i=1;$i<=$interval->m;$i++){
+                for($i=1; $i<=$interval->m; $i++){
                     $instrData = $amount * $invData->interest_rate / $i;
                     $gainData = $amount+$instrData;
                     // $totalgain += $gain - $fee;
@@ -81,7 +79,7 @@ class DashboardController extends Controller
                         'netgrouth'=>$gainData
                     ];
                 }
-                $instr = $amount * $invest->interest_rate / $time_investment;
+                $instr = $amount * $invData->interest_rate / $time_investment;
                 
             }else{
                 $graphData[]=[
@@ -89,7 +87,7 @@ class DashboardController extends Controller
                     'netgrouth'=>$amount
                 ];
             }
-        }*/
+        }
         // dd($graphData);
         $totalgain=0;
         foreach($investData as $invest){
