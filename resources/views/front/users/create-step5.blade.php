@@ -128,25 +128,25 @@ $(document).ready(function(){
       }
    });
 
-   $(".send_button").on("click", function(event) {
-      // alert("JHKHKJH");
-			event.preventDefault();
-			$.ajax({
-				'url': '{{ url("investment/update-amount") }}',
-				'method': 'post',
-				'dataType': 'json',
-				'data': $("#registrationform").serialize(),
-				success: function(data) {
-               alert(data);
-               if (data.status == 'success') {
-                   alert(data);
-                   location.href='{{ url("investment/create-step5") }}';
+   // $(".send_button").on("click", function(event) {
+   //    // alert("JHKHKJH");
+	// 		event.preventDefault();
+	// 		$.ajax({
+	// 			'url': '{{ url("investment/update-amount") }}',
+	// 			'method': 'post',
+	// 			'dataType': 'json',
+	// 			'data': $("#registrationform").serialize(),
+	// 			success: function(data) {
+   //             alert(data);
+   //             if (data.status == 'success') {
+   //                 //alert(data);
+   //                 location.href='{{ url("investment/create-step5") }}';
 						
-				}
-            }
-			});
-         return false;
-		});
+	// 			}
+   //          }
+	// 		});
+   //       return false;
+	// 	});
 });
 
 

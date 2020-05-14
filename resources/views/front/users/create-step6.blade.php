@@ -41,37 +41,39 @@
             <input type="hidden" value="{{$userData->id}}" class="form-control" id="user_id" name="user_id"/>
             <input type="hidden" value="{{ $userData['plan_id'] }}" class="form-control" id="plan_id"  name="plan_id">
             <input type="hidden" value="{{ $userData['investmentId'] }}" class="form-control" id="investmentId"  name="investmentId">
-            <span class="section_title">Basic info</span>
-            <div class="form-group">
-               <span class="edit_field" contenteditable="true" >
-               <input type="text" name="first_name" id="first_name" value="{{ $userData['first_name'] }}">
-               <!-- <div class="edit"></div> -->
-               <i  class="fa fa-pencil-square-o" aria-hidden="true"></i>
-               </span>
-               <span class="edit_field" contenteditable="true">
-               <input type="text" name="address" id="address" value="{{ $userData['address'] }}">
-               <i  class="fa fa-pencil-square-o" aria-hidden="true"></i>
-               </span>
-               <span class="edit_field" contenteditable="true">
-               <input type="text" name="city" id="city" value="{{ $userData['city'] }}">
-               <i  class="fa fa-pencil-square-o" aria-hidden="true"></i>
-               </span>
-               <span class="edit_field" contenteditable="true">
-               <input type="text" name="state" id="state" value="{{ $userData['state'] }}" >
-               <i  class="fa fa-pencil-square-o" aria-hidden="true"></i>
-               </span>
-               <!-- <span class="edit_field" contenteditable="true">
-               <input type="text" name="country_id" id="country_id" value="{{ $userData['country_id'] }}">
+            <span class="section_title"> {{ $userData['first_name'] }} Basic info</span>
+            <div class="form-group update_field">
+
+
+            <span class="edit_field" >
+            <input  name="first_name" class="edit_here" contenteditable="true" id="first_name" value="{{ $userData['first_name'] }}" >
+            <i class="fa fa-pencil-square-o first_name" aria-hidden="true"></i>
+            </span>
+            <span class="edit_field" >
+            <input  name="address" class="edit_here"  contenteditable="true" id="address" value="{{ $userData['address'] }}">
+            <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+            </span>
+            <span class="edit_field" >
+            <input  name="city" class="edit_here" id="city" value="{{ $userData['city'] }}" >
+            <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+            </span>
+            <span class="edit_field" >
+            <input  name="state" class="edit_here" id="state" value="{{ $userData['state'] }}" >
+            <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+            </span>
+            <!-- <span class="edit_field" contenteditable="true">
+               <input  name="country_id" id="country_id" value="{{ $userData['country_id'] }}">
                <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                </span> -->
-               <span class="edit_field" contenteditable="true">
-               <input type="text" name="zipcode" id="zipcode" value="{{ $userData['zipcode'] }}">
-                  <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-               </span>
-               <span class="edit_field" contenteditable="true">
-               <input type="text" name="phoneNumber" id="phoneNumber" value="{{ $userData['phoneNumber'] }}" >
-                  <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-               </span>
+               <span class="edit_field" >
+               <input  name="zipcode" class="edit_here" id="zipcode" value="{{ $userData['zipcode'] }}" >
+               <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+            </span>
+               <span class="edit_field" >
+               <input  name="phoneNumber" class="edit_here" id="phoneNumber" value="{{ $userData['phoneNumber'] }}" >
+               <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+            </span>
+               
             </div>
             <div class="break_section"></div>
             <span class="section_title">Investment Information</span>
@@ -115,11 +117,19 @@
 @include('homefooter')
 @include('homescripts')
 <script>
+
+
 $(document).ready(function() {
-   // $("#first_name").keyup(function( event ) {
-   //    var selectedVal = $('input:text[name=first_name]').val();
-   //    alert(selectedVal);
-   // });
+
+  
+   $( ".fa-pencil-square-o" ).click(function() {
+      var prev=$(this).prev();
+      $('.edit_here').removeClass('active');
+      prev.addClass('active');
+      //prev.css("background-color", "yellow");
+      //alert( "Handler for .click() called." );
+   });
+  
 
    $("#first_name").keyup(function( event ) {
       var first_name = $('input:text[name=first_name]').val();
@@ -132,7 +142,7 @@ $(document).ready(function() {
          success: function(data) {
             if (data.status == 'success') {
                console.log(data);
-               location.href='{{ url("investment/create-step6") }}';
+               //location.href='{{ url("investment/create-step6") }}';
             }
             }
 			});
@@ -153,7 +163,7 @@ $(document).ready(function() {
             success: function(data) {
                if (data.status == 'success') {
                   console.log(data);
-                  location.href='{{ url("investment/create-step6") }}';
+                  //location.href='{{ url("investment/create-step6") }}';
                   }
                }
 			});
@@ -171,7 +181,7 @@ $(document).ready(function() {
             success: function(data) {
                if (data.status == 'success') {
                   console.log(data);
-               location.href='{{ url("investment/create-step6") }}';
+              // location.href='{{ url("investment/create-step6") }}';
                   }
                }
 			});
@@ -189,7 +199,7 @@ $(document).ready(function() {
             success: function(data) {
                if (data.status == 'success') {
                   console.log(data);
-               location.href='{{ url("investment/create-step6") }}';
+               //location.href='{{ url("investment/create-step6") }}';
                   }
                }
 			});
@@ -207,7 +217,7 @@ $(document).ready(function() {
             success: function(data) {
                if (data.status == 'success') {
                   console.log(data);
-               location.href='{{ url("investment/create-step6") }}';
+              // location.href='{{ url("investment/create-step6") }}';
                   }
                }
 			});
@@ -225,7 +235,7 @@ $(document).ready(function() {
             success: function(data) {
                if (data.status == 'success') {
                   console.log(data);
-               location.href='{{ url("investment/create-step6") }}';
+               //location.href='{{ url("investment/create-step6") }}';
                   }
                }
 			});

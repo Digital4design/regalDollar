@@ -3,6 +3,9 @@
     <div class="row justify-content-center verify-email">
         <div class="col-md-8">
             <div class="card">
+            <div class="alert alert-success" role="alert">
+                         {{ __('A fresh verification link has been sent to your email address.') }}
+                </div>
                 <div class="card-header">{{ __('Verify Your Email Address') }}</div>
                 <div class="card-body">
                 
@@ -23,12 +26,10 @@
                     </div>
                     <div class="right_sec">
                          <p>If you haven't received the email within 10 minutes,try sending it again. Don't forget to check your spam folder ! - {{ Auth::user()->name }}</p>
-
-                            <?php // dd(Auth::user()->name); ?>
-                            @if (session('resent'))
-                                <div class="alert alert-success" role="alert">
-                                    {{ __('A fresh verification link has been sent to your email address.') }}
-                                </div>
+                         @if (session('resent'))
+                         <!-- <div class="alert alert-success" role="alert">
+                         {{ __('A fresh verification link has been sent to your email address.') }}
+                         </div> -->
                             @endif
                             {{ __('Before proceeding, please check your email for a verification link.') }}
                             {{ __('If you did not receive the email') }}, <a href="{{ route('verification.resend') }}">{{ __('click here to request another') }}</a>.

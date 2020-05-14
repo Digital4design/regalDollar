@@ -50,14 +50,15 @@ class AdditionalPlanManagmentController extends Controller
     public function store(Request $request)
     {
         $planData = Plan::find($request->plan_id);
-        $date = $planData->plan_start_date;
+        $date = date("Y-m-d");
+        //$date = $planData->plan_start_date;
         $date = strtotime($date);
         $new_date = strtotime('+ ' . $planData->time_investment . ' month', $date);
         $valid_till = date('Y-m-d', $new_date);
         $investmentdata = InvestmentModel::create([
             'user_id' => Auth::user()->id,
             'plan_id' => $request->plan_id,
-            'plan_start_date'=>$planData['plan_valid_from'],
+            'plan_start_date'=>date("Y-m-d"),
             'plan_end_date'=>$valid_till,
             'amount'=>$planData['price'],
         ]);
@@ -73,7 +74,7 @@ class AdditionalPlanManagmentController extends Controller
     }
 
     public function updateAmount(Request $request){
-        //dd($request->all());
+        
         $rules = [
             'finalamount' => 'required',
             //'amount' => 'required',

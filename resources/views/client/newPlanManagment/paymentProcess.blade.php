@@ -8,7 +8,7 @@
 @endsection
 @section('content')
 <div class="row">
-<?php dd($investmentdata);?>
+<?php // dd($investmentdata->amount);?>
     <div class="card">
         <div class="card-body">
             <!-- end row -->
@@ -39,7 +39,7 @@
             return actions.order.create({
                 purchase_units: [{
                     amount: {
-                        value: 10
+                        value: '{{$investmentdata->amount}}'
                     }
                 }]
             });

@@ -26,6 +26,7 @@ class Plan extends Model
         'plan_type',
         'banner',
         'interest_rate',
+        'plan_fee',
         'view_details_url',
     ];
     /**

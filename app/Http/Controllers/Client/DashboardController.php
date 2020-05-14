@@ -36,61 +36,94 @@ class DashboardController extends Controller
             return redirect('/investment/create-step2');
             // return redirect('/front/create-step2');
         }
-        $investmentData = InvestmentModel::where('user_id',$user_id)->first();
+        $investmentData = InvestmentModel::where('user_id',$user_id)
+        //->where('paypal_transaction_id','!=', '')
+        ->orderBy('id', 'DESC')
+        ->first();
+       
         $plan_id = $investmentData['plan_id'];
 
         $planData = Plan::where('id',$plan_id)->first();
+        
         $investData = DB::table('investment')
-              ->select('investment.*','plans.interest_rate','plans.plan_name','plans.time_investment')
+              ->select('investment.*','plans.interest_rate','plans.plan_name','plans.time_investment','plans.plan_fee')
               ->join('plans','plans.id','=','investment.plan_id')
               ->where('investment.user_id', $user_id)
               ->where('investment.paypal_transaction_id','!=', '')
               ->get();
         // dd($investData);
+        
+        $graphData=array();
+        $totalgainData=0;
+        foreach($investData as $invData){
+            // dd($invData);
+            $datetime1 = new DateTime(date("Y-m-d"));
+            $datetime2 = new DateTime($invData->plan_start_date);
+            $interval = $datetime1->diff($datetime2);
+            //dd($interval);
+            $fee = $invData->plan_fee;
+            // dd($fee);
+            $amount = $invData->amount;
+            $time_investment = $invData->time_investment;
+            // dd($interval->m);
+            if($interval->m > 0){
+                $inst = $amount * $invData->interest_rate / $interval->m;
+                $gains = $amount+$inst;
+                $totalgainData += $gains - $fee;
+                for($i=1; $i<=$interval->m; $i++){
+                    $instrData = $amount * $invData->interest_rate / $i;
+                    $gainData = $amount+$instrData;
+                    // $totalgain += $gain - $fee;
+                    $graphData[]=[
+                        'baseamount'=>$amount,
+                        'netgrouth'=>$gainData
+                    ];
+                }
+                $instr = $amount * $invData->interest_rate / $time_investment;
+                
+            }else{
+                $graphData[]=[
+                    'baseamount'=>$amount,
+                    'netgrouth'=>$amount
+                ];
+            }
+        }
+        // dd($graphData);
         $totalgain=0;
         foreach($investData as $invest){
-            
+            // dd($invest->plan_fee);
             $datetime1 = new DateTime(date("Y-m-d"));
             $datetime2 = new DateTime($invest->plan_start_date);
             $interval = $datetime1->diff($datetime2);
-            
-            $fee = 50;
+            //dd($interval);
+            $fee = $invest->plan_fee;
+            // dd($fee);
             $amount = $invest->amount;
             $time_investment = $invest->time_investment;
             // dd($interval->m);
-            if($interval->m >0){
+            if($interval->m > 0){
                 // $instr = $amount * $invest->interest_rate / $time_investment;
-            $instr = $amount * $invest->interest_rate / $interval->m;
-            $gain = $amount+$instr;
-            $totalgain += $gain -$fee;
+                $instr = $amount * $invest->interest_rate / $interval->m;
+                $gain = $amount+$instr;
+                $totalgain += $gain - $fee;
             }else{
                 $totalgain +=$amount;
             }
-            
             //dd($totalgain);
         }
         // dd($totalgain);
+        //dd($investData);
         $result = array(
-            'pageName' => 'Dashboard',
-            'activeMenu' => 'dashboard',
-            'activePlan' => $planData,
-            'investAmount' => $investmentData['amount'],
-            'matureDate' => $investmentData['plan_end_date'],
-            'investData' => $investData,
-            'totalgain'=>$totalgain
+            'pageName'      => 'Dashboard',
+            'activeMenu'    => 'dashboard',
+            'activePlan'    => $planData,
+            'investAmount'  => $investmentData['amount'],
+            'matureDate'    => $investmentData['plan_end_date'],
+            'investData'    => $investData,
+            'totalgain'     =>$totalgain
         );
         return view('client.dashboard.dashboard', $result);
     }
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
     public function myAccount()
     {
       if (!empty(Auth::user()->state_id)) {

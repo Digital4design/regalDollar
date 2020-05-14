@@ -42,11 +42,11 @@
             <label for="title">First Name</label>
             <input
             id="first_name"
-            type="text"
+            
             class="form-control"
             name="first_name"
             value="{{ old('first_name',(isset($userData) && !empty($userData->first_name)) ? $userData->first_name : '' ) }}"
-            required="required"
+            required
             />
             @if ($errors->has('first_name'))
             <span style="display:initial;" class="invalid-feedback" role="alert">
@@ -58,11 +58,10 @@
          <label for="description">Last Name</label>
          <input
          id="last_name"
-         type="text"
          class="form-control"
          name="last_name"
          value="{{ old('last_name',(isset($userData) && !empty($userData->last_name)) ? $userData->last_name : '' ) }}"
-         required="required"
+         required
          />
          @if ($errors->has('last_name'))
          <span style="display:initial;" class="invalid-feedback" role="alert">
@@ -74,11 +73,11 @@
     <label for="description">User Name</label>
     <input
     id="name"
-    type="text"
+    
     class="form-control"
     name="name"
     value="{{ old('name',(isset($userData) && !empty($userData->name)) ? $userData->name : '' ) }}"
-    required="required"
+    required
     />
     @if ($errors->has('name'))
     <span style="display:initial;" class="invalid-feedback" role="alert">

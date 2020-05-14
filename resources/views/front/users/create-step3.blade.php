@@ -41,7 +41,7 @@
                <div class="form-group">
                   <label for="title">Address Line 1</label>
                   <input 
-                  type="text" 
+                  
                   value="{{ old('address',(isset($userData) && !empty($userData->address)) ? $userData->address : '' ) }}" 
                   class="form-control"
                   id="address"
@@ -57,7 +57,7 @@
                <div class="form-group">
                   <label for="title">Address Line 2</label>
                   <input 
-                  type="text"
+                  
                   value="{{ old('address2',(isset($userData) && !empty($userData->address2)) ? $userData->address2 : '' ) }}"
                   class="form-control"
                   id="address2"
@@ -73,7 +73,7 @@
                <div class="form-group">
                   <label for="title">City</label>
                   <input 
-                  type="text"
+                 
                   value="{{ old('city',(isset($userData) && !empty($userData->city)) ? $userData->city : '' ) }}"
                   class="form-control"
                   id="city"
@@ -103,7 +103,7 @@
                <div class="form-group">
                   <label for="title">ZIP Code</label>
                   <input 
-                  type="text" 
+                 
                   value="{{ old('zipcode',(isset($userData) && !empty($userData->zipcode)) ? $userData->zipcode : '' ) }}" 
                   class="form-control zipcode required_field valid" 
                   maxlength="10" 
@@ -122,7 +122,7 @@
                <div class="form-group">
                   <label for="description">Phone Number</label>
                   <input 
-                     type="text"
+                     
                      required="required"
                      class="form-control phone required_field valid" 
                      maxlength="14" 
@@ -146,7 +146,7 @@
                <div class="form-group">
                   <label for="description">Social Security Number</label>
                   <input 
-                  type="text" 
+                 
                   value="{{ old('social_security_number',(isset($userData) && !empty($userData->social_security_number)) ? $userData->social_security_number : '' ) }}" 
                   class="form-control social_security_number"
                   id="social_security_number_id" 

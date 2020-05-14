@@ -84,14 +84,10 @@
 
 <script type="text/javascript">
 $(document).ready(function() {
-
-
    $("#otheramount").keyup(function(){
       var val =  $(this).val();
       $('#finalamount').val(val);
-
-
-});
+   });
 	$("#amount").change(function() {
       var selectedVal = $("#amount option:selected").text();
      // var selectedVal = $("#amount option:selected").val();
@@ -105,7 +101,7 @@ $(document).ready(function() {
          var val = $("#amount").val();
          $('#finalamount').val(val);
          //$("#hiddenamount").show();
-         //alert("Hi, your favorite programming language is ");
+         
       }		
 
 	});
