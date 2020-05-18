@@ -20,17 +20,37 @@
       <div class="stepwizard-step">
          <a href="#step6" type="button" class="btn btn-default btn-circle" disabled="disabled">6</a>
       </div>
-      <div class="stepwizard-step">
+      <!-- <div class="stepwizard-step">
          <a href="#step7" type="button" class="btn btn-default btn-circle" disabled="disabled">7</a>
-      </div>
+      </div> -->
    </div>
 </div>
 <div>
+<?php // dd($userData['amount']);?>
    <section class="white-bg">
       <div class="container">
          <div class="form_outter_section">  
             <!--HEADER SECTION START-->
             <h3 class="subtitle">Agreement</h3>
+            @if($userData['paypal_transaction_id']!='')
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+            
+            Payment done with transaction id {{ $userData['paypal_transaction_id'] }} 
+            {{ $userData['amount'] }}
+
+            <a href="#" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">×</span>
+            </a>
+            </div>
+            @else
+            @endif
+            @if($userData['paypal_transaction_id']!='')
+            <div class="alert alert-success" role="alert">
+                         {{ __('Payment done with transaction id ') }} {{ $userData['paypal_transaction_id'] }} amount ${{ $userData['amount'] }}
+            </div>
+            @else
+            @endif
+            
             <form action="{{ url('investment/update-sign') }}"  id="registrationform" name="registration" method="post" enctype= "multipart/form-data">
                {{ csrf_field() }}
                <input type="hidden" value="{{$userData->id}}" class="form-control" id="user_id" name="user_id"/>
@@ -96,7 +116,7 @@
                </div>
                <input type="hidden" name="signature" id="signature">
                
-               <a href="{{ url('/investment/create-step4') }}"  class="btn btn-primary">Back</a>
+               <a href="{{ url('/investment/create-step4') }}"  class="btn btn-primary" @if($userData['paypal_transaction_id']!='')  @else disabled="disabled" @endif>Back</a>
                <button type="submit" id="btnSaveSign" class="btn btn-primary"> Next </button>
             </form>
          </div>

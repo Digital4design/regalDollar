@@ -52,17 +52,18 @@ class DashboardController extends Controller
             
             $fee = $invest->plan_fee;
             $amount = $invest->amount;
-            if($interval->m > 0){
+            // if($interval->m > 0){
             
-            $time_investment = $invest->time_investment;
+            // $time_investment = $invest->time_investment;
            
-            // $instr = $amount * $invest->interest_rate / $time_investment;
-            $instr = $amount * $invest->interest_rate / $interval->m;
-            $gain = $amount+$instr;
-            $totalgain += $gain -$fee;
-            }else{
-                $totalgain += $amount;
-            }
+            // // $instr = $amount * $invest->interest_rate / $time_investment;
+            // $instr = $amount * $invest->interest_rate / $interval->m;
+            // $gain = $amount+$instr;
+            // $totalgain += $gain -$fee;
+            // }else{
+            //     $totalgain += $amount;
+            // }
+            $totalgain += $amount;
             //dd($totalgain);
         }
        // dd($totalgain);

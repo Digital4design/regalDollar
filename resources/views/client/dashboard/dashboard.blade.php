@@ -12,7 +12,7 @@
 </div>
 @endsection
 @section('content')
-<?php // dd($totalgain);?>
+<?php // dd($graphData);?>
 <div class="row">
    <div class="col-xl-9">
       <div class="card">
@@ -21,7 +21,7 @@
             <div class="row">
                <div class="col-lg-7">
                   <div>
-                     <div id="curve_chart" class="ct-chart earning ct-golden-section"></div>
+                     <div id="chart_div" class="ct-chart earning ct-golden-section"></div>
                      <!-- <div id="chartContainer" class="ct-chart earning ct-golden-section"></div> -->
                      <!-- <div id="chart-with-area" class="ct-chart earning ct-golden-section"></div> -->
                   </div>
@@ -135,26 +135,26 @@
 <script src="https://www.chartjs.org/samples/latest/utils.js"></script>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script type="text/javascript">
-      google.charts.load('current', {'packages':['corechart']});
+google.charts.load('current', {'packages':['corechart']});
       google.charts.setOnLoadCallback(drawChart);
 
       function drawChart() {
         var data = google.visualization.arrayToDataTable([
-          ['Year', 'Sales', 'Expenses', 'Parry'],
-          ['2004',  1000,      400, 600],
-          ['2005',  1170,      460, 560],
-          ['2006',  660,       1120, 800],
-          ['2007',  1030,      540, 200],
-		  ['2020', 123, 234, 900],
-        ]);
+         ['Month', 'Plan1', 'Plan2', 'Plan3'],
+         ['1',  1000,2000,5000],
+          ['2',  1170,2100,5160],
+          ['3',  1200,2120,5800],
+          ['4',  1330,2240,6000],
+         
+         ]);
 
         var options = {
-          title: 'Company Performance',
+          title: 'Investment Grouth',
           curveType: 'function',
           legend: { position: 'bottom' }
         };
 
-        var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+        var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
 
         chart.draw(data, options);
       }

@@ -45,7 +45,8 @@ Route::group(['prefix' => 'investment','middleware' => ['client']], function () 
     Route::post('/update-sign','Client\UserInvestmentController@updateSignature');
     Route::get('/create-step6', 'Client\UserInvestmentController@createStep6');
     Route::post('/create-step7', 'Client\UserInvestmentController@updateAgreements');
-    Route::get('/payment-update/{id}', 'PaymentController@paymentProcess');
+    Route::get('/payment-update/{id}/{amount}', 'Client\UserInvestmentController@paymentProcess');
+    //Route::get('/payment-update/{id}', 'PaymentController@paymentProcess');
 
 });
 /**** ================================Admin Routes Start =================================== */

@@ -1,5 +1,6 @@
 @include('homeheader')
 <!--CONTENT START-->
+<?php // dd($userData['stateData']);?>
 <div class="content form-steps">
    <div class="stepwizard-row setup-panel">
       <div class="stepwizard-step">
@@ -20,13 +21,27 @@
       <div class="stepwizard-step">
          <a href="#step6" type="button" class="btn btn-default btn-circle" disabled="disabled">6</a>
       </div>
-      <div class="stepwizard-step">
+      <!-- <div class="stepwizard-step">
          <a href="#step7" type="button" class="btn btn-default btn-circle" disabled="disabled">7</a>
-      </div>
+      </div> -->
    </div>
 </div>
 <div>
-<?php // dd($userData);?>
+@if(Session::get('status') == "success")
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+      {{ Session::get('message') }}
+      <a href="#" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">×</span>
+      </a>
+    </div>
+@elseif(Session::get('status') == "error")
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+      {{ Session::get('message') }}
+      <a href="#" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">×</span>
+      </a>
+    </div>
+    @endif
    <section class="white-bg">
       <div class="container">
          <div class="form_outter_section">
@@ -90,7 +105,8 @@
                   <label for="description">State</label>
                   <select class="form-control" name="state" required="required" >
                      <option value="" >Select State</option>
-                     @foreach ($stateData as $key => $state)
+                     
+                     @foreach ($userData['stateData'] as $key => $state)
                         <option  value="{{ $state['name'] }}" >{{ $state['name'] }}</option>
                      @endforeach
                   </select>

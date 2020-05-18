@@ -24,7 +24,7 @@
     <link href="{{ URL::asset('public/assets/css/widget.css') }}" rel="stylesheet">
     <link href="{{ URL::asset('public/assets/css/shortcode.css') }}" rel="stylesheet">
     <link href="{{ URL::asset('public/assets/css/owl.carousel.css') }}" rel="stylesheet">
-    <link href="{{ URL::asset('public/assets/css/js/dl-menu/component.css') }}" rel="stylesheet">
+    <!-- <link href="{{ URL::asset('public/assets/css/js/dl-menu/component.css') }}" rel="stylesheet"> -->
     <link href="{{ URL::asset('public/assets/css/responsive.css') }}" rel="stylesheet">    
 </head>
 <body class="<?php if (isset($pageclass) && !empty($pageclass)) {echo $pageclass;}?>">
