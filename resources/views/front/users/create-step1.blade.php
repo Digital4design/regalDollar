@@ -19,9 +19,9 @@
     <div class="stepwizard-step">
       <a href="#step6" type="button" class="btn btn-default btn-circle" disabled="disabled">6</a>
     </div>
-    <div class="stepwizard-step">
+    <!-- <div class="stepwizard-step">
       <a href="#step7" type="button" class="btn btn-default btn-circle" disabled="disabled">7</a>
-    </div>
+    </div> -->
   </div>
 </div>
 <div>
@@ -137,8 +137,9 @@ if(Auth::user()){
             
             <div class="form_group">
                <div class="term_field field">
-                  <input type="checkbox">
-                  <p>I have reviewed and agree to the <a href="#">Terms of Service</a> , <a href="#">Privacy Policy</a>.</p>
+                  <input type="checkbox" name="checkbox" required="required">
+                  <p>I have reviewed and agree to the <a href="#">Terms of Service</a> , 
+                  <a href="#">Privacy Policy</a>.</p>
                </div>
             </div>
             <div class="break_section"></div>
@@ -200,6 +201,9 @@ $(document).ready(function(){
             last_name : {
                required : true
             },
+            checkbox:{
+               required : true
+            },
             name:{
                required : true
             },
@@ -227,6 +231,7 @@ $(document).ready(function(){
            name: "Enter user name",
            country_citizenship:"Please select country citizenship",
            country_residence:"Please select country residence",
+           checkbox:"Please check it",
            //   password: {
               //        required: "Enter your password",
               //        minlength: "Minimum password length is 5",

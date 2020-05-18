@@ -22,9 +22,9 @@
       <div class="stepwizard-step">
          <a href="#step6" type="button" class="btn btn-primary btn-circle">6</a>
       </div>
-      <div class="stepwizard-step">
+      <!-- <div class="stepwizard-step">
          <a href="#step7" type="button" class="btn btn-default btn-circle" disabled="disabled">7</a>
-      </div>
+      </div> -->
    </div>
 </div>
 <div>
@@ -105,7 +105,8 @@
                <p class="sign_on">Signed on Feb 04,2020</p>
                <a class="income_file">Income eREITV, East Coast eREIT, and West Coast eREIT</a>
             </div>
-            <a href="{{ url('/investment/create-step5') }}"  class="btn btn-primary">Back</a>
+            <?php // dd($userData['investmentData']['paypal_transaction_id']);?>
+            <a href="{{ url('/investment/create-step5') }}"  class="btn btn-primary" @if($userData['investmentData']['paypal_transaction_id']!='')  @else disabled="disabled" @endif>Back</a>
             <button type="submit" class="btn btn-primary"> Next </button>
          </form>
       </div>

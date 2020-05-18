@@ -47,7 +47,7 @@
       </div>
       <!-- end card -->
    </div>
-   <div class="col-xl-3">
+   <!-- <div class="col-xl-3">
       <div class="card">
          <div class="card-body">
             <div class="py-4" style="text-align: center;">
@@ -62,7 +62,7 @@
             </div>
          </div>
       </div>
-   </div>
+   </div> -->
 </div>
 <!-- end row -->
 <div class="row">
@@ -172,16 +172,16 @@
 
       function drawChart() {
         var data = google.visualization.arrayToDataTable([
-          ['Year', 'Sales', 'Expenses', 'Parry'],
-          ['2004',  1000,      400, 600],
-          ['2005',  1170,      460, 560],
-          ['2006',  660,       1120, 800],
-          ['2007',  1030,      540, 200],
-		  ['2020', 123, 234, 900],
+         ['Investment', 'Grouth'],
+          [ 400,500],
+          [ 600,700],
+          [ 800,900],
+          [ 1000, 1100],
+          [ 1200, 1300],
         ]);
 
         var options = {
-          title: 'Company Performance',
+          title: 'Investment',
           curveType: 'function',
           legend: { position: 'bottom' }
         };

@@ -19,9 +19,9 @@
       <div class="stepwizard-step">
          <a href="#step6" type="button" class="btn btn-default btn-circle" disabled="disabled">6</a>
       </div>
-      <div class="stepwizard-step">
+      <!-- <div class="stepwizard-step">
          <a href="#step7" type="button" class="btn btn-default btn-circle" disabled="disabled">7</a>
-      </div>
+      </div> -->
    </div>
 </div>
 <div>

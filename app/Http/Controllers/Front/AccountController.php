@@ -30,7 +30,10 @@ class AccountController extends Controller
      */
     public function index($id, Request $request) 
     {
+        
         $userData = $request->session()->get('userData');
+        //dd($userData['userData']);
+        //dd(Auth::user());
         if ($userData) {
             $userData = User::find($userData->id);
         } else {
@@ -175,7 +178,6 @@ class AccountController extends Controller
             }
         }
     }
-    /*
     public function updateUserData(Request $request){
         //dd( $request->all());
         $userData = User::find($request->userid);
@@ -394,7 +396,7 @@ class AccountController extends Controller
         $userData                   = $request->session()->get('userData');
         $data['userData']           = $userData;
         return view('front.users.payment', $data);
-    }*/
+    }
     
    
 }

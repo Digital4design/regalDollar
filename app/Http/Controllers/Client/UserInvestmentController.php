@@ -27,8 +27,14 @@ class UserInvestmentController extends Controller
      */
     public function createStep2(Request $request)
     {
-        $userData=$request->session()->get('userData');
-        if(isset($userData->plan_id) && isset($userData->investmentId) && isset($userData->id)){
+        $sessionData=$request->session()->get('userData');
+        // dd($userData);
+        if(isset($sessionData->plan_id) && isset($sessionData->investmentId) && isset($sessionData->id)){
+            $userData = User::find($sessionData->id);
+            $userData['investmentId']=$sessionData->investmentId;
+            $userData['plan_id']=$sessionData->plan_id;
+            $userData['paypal_transaction_id']='';
+            $userData['amount']='';
             $userData = $request->session()->put('userData', $userData);
             $userData = $request->session()->get('userData');
             // dd($userData);
@@ -59,12 +65,16 @@ class UserInvestmentController extends Controller
             $userData->accountType = trim($request->accountType);
             $userData->save();
             $userData = User::find(Auth::user()->id);
+            $userData->steps_done='2';
             $userData->is_verify = "done";
             $userData->save();
             $userData = User::find($request->user_id);
             $userData['plan_id'] = $request->plan_id;
+            $userData['user_id'] = Auth::user()->id;
             $userData['investmentId'] = $request->investmentId;
             $userData['stateData'] = State::where('country_id', '231')->get();
+            $userData['paypal_transaction_id']='';
+            $userData['amount']='';
             $userData = $request->session()->put('userData', $userData);
             $userData['userData'] = $request->session()->get('userData');
             $userData['status'] = 'success';
@@ -81,10 +91,14 @@ class UserInvestmentController extends Controller
     }
     public function createStep3(Request $request)
     {
-        $userData=$request->session()->get('userData');
-        if(isset($userData->plan_id) && isset($userData->investmentId) && isset($userData->id)){
-            $userData['userData'] = $request->session()->get('userData');
+        $sessionData=$request->session()->get('userData');
+        if(isset($sessionData->plan_id) && isset($sessionData->investmentId) && isset($sessionData->id)){
+            $userData = User::find($sessionData->id);
+            $userData['investmentId']=$sessionData->investmentId;
+            $userData['plan_id']=$sessionData->plan_id;
             $userData['stateData'] = State::where('country_id', '231')->get();
+            $userData = $request->session()->put('userData', $userData);
+            $userData['userData'] = $request->session()->get('userData');
             // dd($userData);
             return view('front.users.create-step3', $userData);
         }else{
@@ -94,6 +108,7 @@ class UserInvestmentController extends Controller
 
     public function updateAddress(Request $request)
     {
+       // dd($request->all());
         $rules = [
             'address' => 'required',
             'address2' => 'required',
@@ -101,7 +116,7 @@ class UserInvestmentController extends Controller
             'state' => 'required',
             'zipcode' => 'required',
             'phoneNumber' => 'required',
-            'birthday' => 'required',
+            'birthday' => 'required|date',
             'social_security_number' => 'required',
         ];
         $messages = [
@@ -116,34 +131,35 @@ class UserInvestmentController extends Controller
         ];
         $validator = Validator::make($request->all(), $rules, $messages);
         if ($validator->fails()) {
-            return response()->json(['status' => 'error', 'validationError' => $validator->errors()]);
-            //return back()->withErrors($validator)->withInput();
+            //return response()->json(['status' => 'error', 'validationError' => $validator->errors()]);
+            return back()->withErrors($validator)->withInput();
         }
         try {
             $userData = User::find($request->user_id);
-            $userData->address = trim($request->address);
-            $userData->address2 = trim($request->address2);
-            $userData->city = trim($request->city);
-            $userData->state = trim($request->state);
-            $userData->zipcode = trim($request->zipcode);
-            $userData->phoneNumber = trim($request->phoneNumber);
-            $userData->birthday = trim($request->birthday);
-            $userData->social_security_number = trim($request->social_security_number);
+            $userData->address = $request->address;
+            $userData->address2 =$request->address2;
+            $userData->city = $request->city;
+            $userData->state = $request->state;
+            $userData->zipcode = $request->zipcode;
+            $userData->phoneNumber = $request->phoneNumber;
+            $userData->birthday = $request->birthday;
+            $userData->social_security_number = $request->social_security_number;
             $userData->save();
 
             $userData = User::find($request->user_id);
+            // dd($userData);
             $userData['plan_id'] = $request->plan_id;
             $userData['investmentId'] = $request->investmentId;
             $userData['userData'] = $userData;
+            $userData['paypal_transaction_id']='';
+            $userData['amount']='';
             $userData = $request->session()->get('userData');
             $userData = $request->session()->put('userData', $userData);
             $userData = $request->session()->get('userData');
             $userData['countryData'] = Country::get();
             $userData['stateData'] = State::where('country_id', '231')->get();
-            //$data['userData'] = $userData;
-            // $data['countryData'] = Country::get();
-            // $data['stateData'] = State::where('country_id', '231')->get();
             $userData['status'] = 'success';
+            // dd($userData);
             return Redirect::to('/investment/create-step4');
             // dd($userData);
             // return response()->json($userData);
@@ -161,9 +177,10 @@ class UserInvestmentController extends Controller
      */
     public function createStep4(Request $request)
     {
-        $userData=$request->session()->get('userData');
-        if(isset($userData->plan_id) && isset($userData->investmentId) && isset($userData->id)){
-            $data['userData'] = $userData;
+        $sessionData=$request->session()->get('userData');
+        // dd($sessionData);
+        if(isset($sessionData->plan_id) && isset($sessionData->investmentId) && isset($sessionData->id)){
+            $data['userData'] = User::find($sessionData->id);
             $data['countryData'] = Country::get();
             $data['stateData'] = State::where('country_id', '231')->get();
             return view('front.users.create-step4', $data);
@@ -207,6 +224,36 @@ class UserInvestmentController extends Controller
             // echo $e->getMessage();
         }
     }
+
+    public function paymentProcess($paymentId, $amount,Request $request)
+    {
+        //dd($paymentId);
+        $userData = User::find(Auth::user()->id);
+        $userData = $request->session()->get('userData');
+        // dd($userData); // working here
+        InvestmentModel::where('id',$userData['investmentId'])
+            //->where('plan_id',$userData['plan_id'])
+            ->update(
+                [
+                    'amount'=>$amount,
+                    'paypal_transaction_id' => $paymentId,
+                ]);
+        $invest = InvestmentModel::where('id',$userData['investmentId'])->first();
+        $userData = User::find(Auth::user()->id);
+        $userData = $request->session()->get('userData');
+        $userData['paypal_transaction_id']=$paymentId;
+        $userData['amount']=$amount;
+        $userData['investmentId']=$userData['investmentId'];
+        $userData = $request->session()->put('userData', $userData);
+        $userData = $request->session()->get('userData');
+        if($paymentId){
+            return Redirect::to('/investment/create-step5');
+        }else{
+            return Redirect::to('/investment/create-step4');
+        }
+        
+        return redirect('/client');
+    }
     /**
      * Display the specified resource.
      *
@@ -216,6 +263,7 @@ class UserInvestmentController extends Controller
     public function createStep5(Request $request)
     {
         $userData=$request->session()->get('userData');
+        //dd($userData);
         if(isset($userData->plan_id) && isset($userData->investmentId) && isset($userData->id)){
             $investmentData = InvestmentModel::where('id', $userData['investmentId'])->get();
             $userData = $request->session()->get('userData');
@@ -228,6 +276,7 @@ class UserInvestmentController extends Controller
             return view('pages-404');
         }       
     }
+
     public function updateSignature(Request $request){
         $rules = [
             'indicateagreement' => 'required',
@@ -248,12 +297,9 @@ class UserInvestmentController extends Controller
                 $file_path = 'public/uploads/signature' . '/' . $filename . '.png';
                 file_put_contents($file_path, $imagedata);
             }
-            
-            
             $indicate = json_encode($request->indicateagreement);
             $userData = User::find($request->user_id);
             $investmentData = InvestmentModel::find($request->investmentId);
-
             $investmentData->indicateagreement = $indicate;
             $investmentData->reinvestment = $request->reinvestment;
             if ($request->signature) {
@@ -261,19 +307,21 @@ class UserInvestmentController extends Controller
             }
             $investmentData->save();
             $investmentData = InvestmentModel::find($request->investmentId);
-            // dd($investmentData);
+            //dd($investmentData['paypal_transaction_id']);
             $userData = User::find($request->user_id);
             $data['investmentData'] = $investmentData;
             $userData['plan_id'] = $request->plan_id;
             $userData['investmentId'] = $request->investmentId;
+            $userData['paypal_transaction_id'] = $investmentData['paypal_transaction_id'];
+            $userData['amount'] = $investmentData['amount'];
             $userData = $request->session()->put('userData', $userData);
             $userData = $request->session()->get('userData');
+            // dd($userData);
             $documentData = DocumentManagemetModel::where('plan_id', $request->plan_id)->get();
             $data['planData'] = Plan::where('id', $userData['plan_id'])->first();
             $data['userData'] = $userData;
             $data['documentData'] = $documentData;
             return Redirect::to('/investment/create-step6');
-            // return view('front.users.create-step6', $data);
         } catch (\Exception $e) {
             return back()->with(array('status' => 'danger', 'message' => $e->getMessage()));
             // echo $e->getMessage();
@@ -294,12 +342,12 @@ class UserInvestmentController extends Controller
             $userData = User::find($userData->id);
             $userData['plan_id'] = $plan_id;
             $userData['investmentId'] = $investmentId;
-            $userData['planData'] = Plan::where('id', $plan_id)->first();
+            $userData['planData'] = Plan::where('id',$plan_id)->first();
             $userData = $request->session()->put('userData', $userData);
             $userData = $request->session()->get('userData');
             $documentData = DocumentManagemetModel::where('plan_id', $plan_id)->get();
             $userData['investmentData']  = InvestmentModel::where('id',$investmentId)->first();
-            $userData['planData'] = Plan::where('id', $plan_id)->first();
+            $userData['planData'] = Plan::where('id',$plan_id)->first();
             $userData['userData'] = $userData;
             $userData['documentData'] = $documentData;
             return view('front.users.create-step6', $userData);
@@ -324,6 +372,7 @@ class UserInvestmentController extends Controller
         $userData = $request->session()->put('userData', $userData);
         $userData = $request->session()->get('userData');
         $data['userData'] = $userData;
+        return redirect('/client');
         return view('front.users.payment', $data);
     }
 
@@ -336,4 +385,6 @@ class UserInvestmentController extends Controller
     {
         //
     }
+
+    
 }
