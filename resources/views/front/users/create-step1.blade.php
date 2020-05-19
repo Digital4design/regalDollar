@@ -42,7 +42,6 @@
             <label for="title">First Name</label>
             <input
             id="first_name"
-            
             class="form-control"
             name="first_name"
             value="{{ old('first_name',(isset($userData) && !empty($userData->first_name)) ? $userData->first_name : '' ) }}"
@@ -50,7 +49,7 @@
             />
             @if ($errors->has('first_name'))
             <span style="display:initial;" class="invalid-feedback" role="alert">
-            <strong>{{ $errors->first('first_name') }}</strong>
+            <strong class="error">{{ $errors->first('first_name') }}</strong>
          </span>
          @endif
       </div>
@@ -65,7 +64,7 @@
          />
          @if ($errors->has('last_name'))
          <span style="display:initial;" class="invalid-feedback" role="alert">
-         <strong>{{ $errors->first('last_name') }}</strong>
+         <strong class="error">{{ $errors->first('last_name') }}</strong>
       </span>
       @endif
    </div>
@@ -73,7 +72,6 @@
     <label for="description">User Name</label>
     <input
     id="name"
-    
     class="form-control"
     name="name"
     value="{{ old('name',(isset($userData) && !empty($userData->name)) ? $userData->name : '' ) }}"
@@ -81,7 +79,7 @@
     />
     @if ($errors->has('name'))
     <span style="display:initial;" class="invalid-feedback" role="alert">
-      <strong>{{ $errors->first('name') }}</strong>
+      <strong class="error">{{ $errors->first('name') }}</strong>
    </span>
    @endif
  </div>
@@ -96,7 +94,7 @@
    />
    @if ($errors->has('email'))
    <span style="display:initial;" class="invalid-feedback" role="alert">
-   <strong>{{ $errors->first('email') }}</strong>
+   <strong class="error">{{ $errors->first('email') }}</strong>
 </span>
 @endif
 </div>
@@ -106,19 +104,19 @@ if(Auth::user()){
 }else{
 ?>
 <div class="form-group">
-               <label for="userpassword">Password</label>
-               <input
-                  type="password"
-                  class="form-control"
-                  id="password"
-                  name="password"
-                  placeholder="Enter password"
-                  value="{{ old('password',(isset($userData) && !empty($userData->password)) ? $userData->password : '' ) }}"
-               />
-               @if ($errors->has('password'))
-               <span style="display:initial;" class="invalid-feedback" role="alert">
-               <strong>{{ $errors->first('password') }}</strong>
-               </span>
+<label for="userpassword">Password</label>
+<input
+ type="password"
+ class="form-control"
+ id="password"
+ name="password"
+  placeholder="Enter password"
+  value="{{ old('password',(isset($userData) && !empty($userData->password)) ? $userData->password : '' ) }}"
+  />
+  @if ($errors->has('password'))
+  <span style="display:initial;" class="invalid-feedback" role="alert">
+  <strong>{{ $errors->first('password') }}</strong>
+  </span>
                @endif
             </div>
             <div class="form-group">
@@ -156,7 +154,7 @@ if(Auth::user()){
                      </select>
                      @if ($errors->has('country_citizenship'))
                      <span style="display:initial;" class="invalid-feedback" role="alert">
-                     <strong>{{ $errors->first('country_citizenship') }}</strong>
+                     <strong class="error">{{ $errors->first('country_citizenship') }}</strong>
                      </span>
                      @endif
                </div>
@@ -171,7 +169,7 @@ if(Auth::user()){
                </select>
                @if ($errors->has('country_residence'))
                      <span style="display:initial;" class="invalid-feedback" role="alert">
-                     <strong>{{ $errors->first('country_residence') }}</strong>
+                     <strong class="error">{{ $errors->first('country_residence') }}</strong>
                      </span>
                      @endif
             </div>

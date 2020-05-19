@@ -1,4 +1,6 @@
 @include('homeheader')
+<title>jQuery UI Datepicker - Default functionality</title>
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <!--CONTENT START-->
 <?php // dd($userData['stateData']);?>
 <div class="content form-steps">
@@ -51,8 +53,8 @@
             <form action="{{ url('investment/update-address') }}" id="registrationform" name="registration" method="post">
                {{ csrf_field() }}
                <input type="hidden" value="{{$userData['id']}}" class="form-control" id="user_id" name="user_id" />
-               <input type="hidden" value="{{$userData['plan_id']}}" class="form-control" id="plan_id" name="plan_id" />
-               <input type="hidden" value="{{$userData['id']}}" class="form-control" id="investmentId"  name="investmentId">
+               <input type="hidden" value="{{$planData['id']}}" class="form-control" id="plan_id" name="plan_id" />
+               <input type="hidden" value="{{$investmentData['id']}}" class="form-control" id="investmentId"  name="investmentId">
                <div class="form-group">
                   <label for="title">Address Line 1</label>
                   <input 
@@ -72,7 +74,6 @@
                <div class="form-group">
                   <label for="title">Address Line 2</label>
                   <input 
-                  
                   value="{{ old('address2',(isset($userData) && !empty($userData->address2)) ? $userData->address2 : '' ) }}"
                   class="form-control"
                   id="address2"
@@ -106,8 +107,8 @@
                   <select class="form-control" name="state" required="required" >
                      <option value="" >Select State</option>
                      
-                     @foreach ($userData['stateData'] as $key => $state)
-                        <option  value="{{ $state['name'] }}" >{{ $state['name'] }}</option>
+                     @foreach ($stateData as $key => $state)
+                        <option  value="{{ $state['name'] }}" {{ ( $state['name'] == $userData['state'] ) ? 'selected' : '' }}>{{ $state['name'] }}</option>
                      @endforeach
                   </select>
                   @if ($errors->has('state'))
@@ -119,7 +120,6 @@
                <div class="form-group">
                   <label for="title">ZIP Code</label>
                   <input 
-                 
                   value="{{ old('zipcode',(isset($userData) && !empty($userData->zipcode)) ? $userData->zipcode : '' ) }}" 
                   class="form-control zipcode required_field valid" 
                   maxlength="10" 
@@ -138,8 +138,7 @@
                <div class="form-group">
                   <label for="description">Phone Number</label>
                   <input 
-                     
-                     required="required"
+                  
                      class="form-control phone required_field valid" 
                      maxlength="14" 
                      aria-required="true" 
@@ -148,6 +147,7 @@
                      id="phoneNumber"
                      name="phoneNumber"
                      placeholder="(123) 456-7890" 
+                     required="required"
                      onkeydown="javascript:backspacerDOWN(this,event);" onkeyup="javascript:backspacerUP(this,event);"
                   />
                   @if ($errors->has('phoneNumber'))
@@ -172,23 +172,27 @@
                   placeholder="Social Security Number"
                   required="required" 
                   />
-
-                  
                   @if ($errors->has('social_security_number'))
-                     <span style="display:initial;" class="invalid-feedback" role="alert">
+                  <span style="display:initial;" class="invalid-feedback" role="alert">
                      <strong>{{ $errors->first('social_security_number') }}</strong>
                      </span>
                      @endif
                </div>
                <div class="form-group">
                   <label for="description">Date of Birth</label><br/>
-                  <input 
+                  <!-- <input 
                   type="date" 
                   value="{{ old('birthday',(isset($userData) && !empty($userData->birthday)) ? $userData->birthday : '' ) }}"
                   class="form-control"
                   id="birthday"
                   name="birthday"
                   required="required" 
+                  /> -->
+                  <input
+                    id="datepicker" 
+                    name="birthday"
+                    value="{{ old('birthday',(isset($userData) && !empty($userData->birthday)) ? $userData->birthday : '' ) }}"
+                    required="required" 
                   />
                   @if ($errors->has('birthday'))
                      <span style="display:initial;" class="invalid-feedback" role="alert">
@@ -207,7 +211,8 @@
 <!--BUY TEMPLATE SECTION END-->
 @include('homefooter')
 @include('homescripts')
-
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script type="text/javascript">
    $(document).ready(function(){
        $('#social_security_number_id').keyup(function() {
@@ -217,6 +222,14 @@
          val = val.replace(/(\d)-(\d{4}).*/, '$1-$2');
          this.value = val;
       });
+
+
+      $( function() {
+          $( "#datepicker" ).datepicker({
+              dateFormat: 'yy-mm-dd',
+              maxDate: '0'
+        });
+    });
 
 });
 
@@ -267,23 +280,7 @@ $("#registrationform").validate({
         }
     });
 
-    // $(".send_button").on("click", function(event) {
-	// 		event.preventDefault();
-	// 		$.ajax({
-	// 			'url': '{{ url("investment/update-address") }}',
-	// 			'method': 'post',
-	// 			'dataType': 'json',
-	// 			'data': $("#registrationform").serialize(),
-	// 			success: function(data) {
-    //            if (data.status == 'success') {
-    //                //alert(data);
-    //                location.href='{{ url("investment/create-step4") }}';
-						
-	// 			}
-    //         }
-	// 		});
-    //      return false;
-	// 	});
+  
 
 
 
@@ -464,14 +461,6 @@ function ParseChar(sStr, sChar) {
 
     return sNewStr;
 }
-
-
-
-
-
-
-
-
 
 /*
 

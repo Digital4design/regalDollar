@@ -26,23 +26,37 @@
    </div>
 </div>
 <div>
+<?php // dd($investmentData['paypal_transaction_id']);?>
    <section class="white-bg">
       <div class="container">
          <div class="form_outter_section">
             <!--HEADER SECTION START-->
-            <?php // dd($userData);?>
+            @if($investmentData['paypal_transaction_id']!='')
+            @else
             <h2 class="title">We currently accept investment from US residents.</h2>
             <h3 class="subtitle">Please confirm the following:</h3>
-            <?php // dd($userData['paypal_transaction_id']);?>
-            
-            
+            @endif
               
               
               <form action='{{ url("investment/update-amount") }}'  id="registrationform" name="registration" method="post">
                {{ csrf_field() }} 
                <input type="hidden" value="{{$userData->id}}" class="form-control" id="user_id" name="user_id"/>
-               <input type="hidden" value="{{$userData->plan_id}}" class="form-control" id="plan_id" name="plan_id"/>
-               <input type="hidden" value="{{ $userData['investmentId'] }}" class="form-control" id="investmentId"  name="investmentId">
+               <input type="hidden" value="{{$planData->id}}" class="form-control" id="plan_id" name="plan_id"/>
+               <input type="hidden" value="{{ $investmentData['id'] }}" class="form-control" id="investmentId"  name="investmentId">
+
+               @if($investmentData['paypal_transaction_id']!='')
+                  <div class="white-bg" >
+                    <div class="">
+                      <div class="form_outter_section">
+                        <!--HEADER SECTION START-->
+                        <h3 class="subtitle">Payment Details:</h3>
+                        <div class="alert alert-success" role="alert">
+                         Payment done with transaction id  {{ $investmentData['paypal_transaction_id'] }} amount ${{ $investmentData['amount'] }}
+                         </div>
+                      </div>
+                    </div>
+                  </div>
+                  @else
                <span class="subtitle">How much would you like to invest?</span>
                <div>
                <input type="checkbox" id="custum_amount" name="" value="other">
@@ -78,38 +92,29 @@
                   @endif
                   <p id="error_amount" style="display:none; color:red" class="error">Plese select amount</p>
                   <!--input type="text" name="amount" id="custamount" -->
-                  @if($userData['paypal_transaction_id']!='')
-                  <div class="white-bg">
-                    <div class="">
-                      <div class="form_outter_section">
-                        <!--HEADER SECTION START-->
-                        <h3 class="subtitle">Payment Details:</h3>
-                        <div class="alert alert-success" role="alert">
-                         Payment done with transaction id  {{ $userData['paypal_transaction_id'] }} amount ${{ $userData['amount'] }}
-                         </div>
-                      </div>
-                    </div>
-                  </div>
-                  @else
                   
-                  <div class="white-bg">
+                  
+                  <div class="white-bg" id="payment_sec" style="display:none;">
                     <div class="">
                       <div class="form_outter_section">
                         <!--HEADER SECTION START-->
                         <h3 class="subtitle">Payment Process:</h3>
-                        
                         <div id="paypal-button-container"></div>
                       </div>
                     </div>
                   </div>
                   @endif
-                </div>
-                @if($userData['paypal_transaction_id']!='')
-                <a href="{{ url('/investment/create-step3') }}"  class="btn btn-primary" > Back </a>
-               <a href="{{ url('/investment/create-step5') }}" class="btn btn-primary send_button" > Next </a>
+				  
+				  @if($investmentData['paypal_transaction_id'] !='')
+				<div class="pay_button">
+                <a href="{{ url('/investment/create-step3') }}"  class="btn btn-primary " > Back </a>
+			    <a href="{{ url('/investment/create-step5') }}" class="btn btn-primary next" > Next </a>
+				</div>
                 @else
+                </div>
+                
                 <a href="{{ url('/investment/create-step3') }}"  class="btn btn-primary" > Back </a>
-               <button type="submit" class="btn btn-primary send_button" @if($userData['paypal_transaction_id']!='')  @else disabled="disabled" @endif> Next </button>
+               <button type="submit" class="btn btn-primary send_button" @if($investmentData['paypal_transaction_id']!='')  @else disabled="disabled" @endif> Next </button>
                @endif
             </form>
             
@@ -130,17 +135,16 @@ $(document).ready(function() {
       if(!ischecked){
          $("#amount").show();
          $("#otheramount").hide();
-         //alert('uncheckd ' + $(this).val());
       }else{
          $("#amount").hide();
          $("#otheramount").show();
-         //alert('checkd ' + $(this).val());
       }
    });
    
    $("#otheramount").keyup(function(){
       var val =  $(this).val();
       $('#finalamount').val(val);
+      $("#payment_sec").show();
    });
 	$("#amount").change(function() {
       var selectedVal = $("#amount option:selected").text();
@@ -155,6 +159,7 @@ $(document).ready(function() {
          var val = $("#amount").val();
 
          $('#finalamount').val(val);
+         $("#payment_sec").show();
          //$("#hiddenamount").show();
          
       }		

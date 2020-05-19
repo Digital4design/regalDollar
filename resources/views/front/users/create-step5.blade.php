@@ -26,31 +26,12 @@
    </div>
 </div>
 <div>
-<?php // dd($userData['amount']);?>
+<?php // dd($investmentData);?>
    <section class="white-bg">
       <div class="container">
          <div class="form_outter_section">  
             <!--HEADER SECTION START-->
             <h3 class="subtitle">Agreement</h3>
-            @if($userData['paypal_transaction_id']!='')
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
-            
-            Payment done with transaction id {{ $userData['paypal_transaction_id'] }} 
-            {{ $userData['amount'] }}
-
-            <a href="#" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">×</span>
-            </a>
-            </div>
-            @else
-            @endif
-            @if($userData['paypal_transaction_id']!='')
-            <div class="alert alert-success" role="alert">
-                         {{ __('Payment done with transaction id ') }} {{ $userData['paypal_transaction_id'] }} amount ${{ $userData['amount'] }}
-            </div>
-            @else
-            @endif
-            
             <form action="{{ url('investment/update-sign') }}"  id="registrationform" name="registration" method="post" enctype= "multipart/form-data">
                {{ csrf_field() }}
                <input type="hidden" value="{{$userData->id}}" class="form-control" id="user_id" name="user_id"/>
@@ -72,7 +53,7 @@
                 <p>Please indicate agreement with the following:</p>
                 <div class="break_section1"></div>
                 <div class="form-group">
-                  <input type="checkbox" name="indicateagreement[]" class="require-one" value="1" required="required"  checked="checked">
+                  <input type="checkbox" name="indicateagreement[]" class="require-one" value="1" required="required">
                   <span class="checkmark"></span>
                   <label class="container">I have recieved each Offering Circular and Subscription Agreement,per my selected investment plan,and understand the risks associated with such offerings</label>
                </div>
@@ -96,6 +77,8 @@
                   <span class="checkmark"></span>
                   <label class="container">I cerify that the information provided is true and correct and understand it will be used in the W-9. I have reviewed and acknowledge the W-9.</label>
                </div>
+
+               <span id="spnError" generated="true" class="error" style="display: none; color:red;">Please select at-least one Fruit.</span>
                <div class="break_section1"></div> 
                <span class="section_title">Divided Reinvestment</span>
                <div class="form-group">
@@ -108,15 +91,15 @@
                </div>
                <div class="break_section1"></div> 
                <div id="signArea" class="form-group">
-                  <h2 class="tag-ingo">Put signature below,</h2>
-                     <div class="sig sigWrapper" style="height:auto;">
-                     <div class="typed"></div>
-                        <canvas class="sign-pad" id="sign-pad" width="300" height="100"></canvas>
-                     </div>
+               <h2 class="tag-ingo">Put signature below,</h2>
+               <div class="sig sigWrapper" style="height:auto;">
+               <div class="typed"></div>
+               <canvas class="sign-pad" id="sign-pad" width="300" height="100" required="required"></canvas>
                </div>
-               <input type="hidden" name="signature" id="signature">
-               
-               <a href="{{ url('/investment/create-step4') }}"  class="btn btn-primary" @if($userData['paypal_transaction_id']!='')  @else disabled="disabled" @endif>Back</a>
+               </div>
+               <input type="hidden" name="signature" id="signature" required="required">
+               <span id="signError" generated="true" class="error" style="display:none; color:red;">Please Sign here.</span>
+               <a href="{{ url('/investment/create-step4') }}"  class="btn btn-primary" @if($investmentData['paypal_transaction_id']!='')  @else disabled="disabled" @endif>Back</a>
                <button type="submit" id="btnSaveSign" class="btn btn-primary"> Next </button>
             </form>
          </div>
@@ -128,45 +111,30 @@
 @include('homescripts')
 
 <script type="text/javascript">
-
 $(document).ready(function(){
    $("#registrationform").validate({
       rules : {
           indicateagreement : {
+              required : true
+           },
+          signature:{
              required : true
           },
-         reinvestment:{
+          reinvestment:{
             required : true
          }
       },
       messages: {
          indicateagreement: "Please check indicateagreement",
          reinvestment: "Please check reinvestment",
+         signature: "Please signature here",
       },
       submitHandler: function(form) {
          form.submit();
       }
    });
 
-   // $(".send_button").on("click", function(event) {
-   //    // alert("JHKHKJH");
-	// 		event.preventDefault();
-	// 		$.ajax({
-	// 			'url': '{{ url("investment/update-amount") }}',
-	// 			'method': 'post',
-	// 			'dataType': 'json',
-	// 			'data': $("#registrationform").serialize(),
-	// 			success: function(data) {
-   //             alert(data);
-   //             if (data.status == 'success') {
-   //                 //alert(data);
-   //                 location.href='{{ url("investment/create-step5") }}';
-						
-	// 			}
-   //          }
-	// 		});
-   //       return false;
-	// 	});
+   
 });
 
 
@@ -177,40 +145,18 @@ $(document).ready(function() {
    $('#signArea').signaturePad({drawOnly:true, drawBezierCurves:true, lineTop:90});
 });
 
-$("#sign-pad").mouseout(function(){
+$("#sign-pad").mouseout(function(e){
    html2canvas([document.getElementById('sign-pad')], {
       onrendered: function (canvas) {
          var canvas_img_data = canvas.toDataURL('image/png');
          var img_data = canvas_img_data.replace(/^data:image\/(png|jpg);base64,/, "");
-         $("#signature").val(img_data);
+         var sing =  $("#signature").val(img_data);
+         if(!sing){
+            $("#signError").show();
+         }
          
+         $e.preventDefault();
       }
    });
 });
-
-
-
-
-// $("#btnSaveSign").click(function(e){
-//    html2canvas([document.getElementById('sign-pad')], {
-//       onrendered: function (canvas) {
-//          var canvas_img_data = canvas.toDataURL('image/png');
-//          var img_data = canvas_img_data.replace(/^data:image\/(png|jpg);base64,/, "");
-
-//          $("#sing").val(img_data);
-//          //ajax call to save image inside folder
-//          $.ajax({
-//             url      : "{{ url('front/create-step6') }}",
-//             // data: { img_data:img_data },
-//             data: $("#registrationform").serialize(),
-//             type: 'post',
-//             dataType: 'json',
-//             success: function (response) {
-//                window.location.href = "{{ url('front/create-step7') }}";
-//                // window.location.reload();
-//             }
-//          });
-//       }
-//    });
-// });
-		  </script> 
+</script>
