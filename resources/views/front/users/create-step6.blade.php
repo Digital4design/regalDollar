@@ -33,44 +33,64 @@
       <div class="container">
       <div class="form_outter_section">         
          <!--HEADER SECTION START-->
-         <?php // dd($userData);?>
          <h2 class="title">You're almost done !</h2>
          <h3 class="subtitle">Please review your information:</h3> 
-       
          <form action="{{ url('investment/create-step7') }}" method="post">
-            {{ csrf_field() }}
-            <input type="hidden" value="{{$userData->id}}" class="form-control" id="user_id" name="user_id"/>
-            <input type="hidden" value="{{ $userData['plan_id'] }}" class="form-control" id="plan_id"  name="plan_id">
-            <input type="hidden" value="{{ $userData['investmentId'] }}" class="form-control" id="investmentId"  name="investmentId">
-            <span class="section_title"> {{ $userData['first_name'] }} Basic info</span>
-            <div class="form-group update_field">
-            
-            <span class="edit_field" >
-            <input  name="first_name" class="edit_here" contenteditable="true" id="first_name" value="{{ $userData['first_name'] }}" >
+          {{ csrf_field() }}
+          <input type="hidden" value="{{$userData->id}}" class="form-control" id="user_id" name="user_id"/>
+          <input type="hidden" value="{{ $userData['plan_id'] }}" class="form-control" id="plan_id"  name="plan_id">
+          <input type="hidden" value="{{ $userData['investmentId'] }}" class="form-control" id="investmentId"  name="investmentId">
+          <span class="section_title editable"> {{ $userData['first_name'] }} Basic info</span>
+          <div class='edit_requst'>
             <i class="fa fa-pencil-square-o first_name" aria-hidden="true"></i>
+          </div>
+          <div class="form-group update_field">
+            <span class="edit_field" >
+              <input 
+              name="first_name" 
+              class="edit_here" 
+              contenteditable="true" 
+              id="first_name"
+              value="{{ $userData['first_name'] }}"
+              disabled
+              />
+              <!-- <i class="fa fa-pencil-square-o" aria-hidden="true"></i> -->
             </span>
             <span class="edit_field" >
-            <input  name="address" class="edit_here"  contenteditable="true" id="address" value="{{ $userData['address'] }}">
-            <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+              <input
+              name="address"
+              class="edit_here" 
+              contenteditable="true" 
+              id="address" 
+              value="{{ $userData['address'] }}"
+              disabled
+              />
+              <!-- <i class="fa fa-pencil-square-o" aria-hidden="true"></i> -->
             </span>
             <span class="edit_field" >
-            <input  name="city" class="edit_here" id="city" value="{{ $userData['city'] }}" >
-            <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+              <input
+              name="city" 
+              class="edit_here" 
+              id="city"
+              value="{{ $userData['city'] }}" 
+              disabled
+              />
+              <!-- <i class="fa fa-pencil-square-o" aria-hidden="true"></i> -->
             </span>
             <span class="edit_field" >
-            <!-- <input 
-               name="state" 
-               class="edit_here" 
-               id="state" 
-               value="{{ $userData['state'] }}" 
-            > -->
-            <select class="form-control edit_here" name="state"  id="state" required="required" >
-            <option value="" >Select State</option>
-            @foreach ($stateData as $key => $state)
-               <option  value="{{ $state['name'] }}" {{ ( $userData['state'] == $state['name']) ? 'selected' : '' }}>{{ $state['name'] }}</option>
-            @endforeach
-            </select>
-            <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+              <!-- <input
+              name="state" 
+              class="edit_here" 
+              id="state" 
+              value="{{ $userData['state'] }}" 
+              > -->
+              <select class="form-control edit_here" name="state"  id="state" disabled >
+                <option value="" >Select State</option>
+                @foreach ($stateData as $key => $state)
+                <option  value="{{ $state['name'] }}" {{ ( $userData['state'] == $state['name']) ? 'selected' : '' }}>{{ $state['name'] }}</option>
+                @endforeach
+              </select>
+              <!-- <i class="fa fa-pencil-square-o" aria-hidden="true"></i> -->
             </span>
             <!-- <span class="edit_field" contenteditable="true">
                <input  name="country_id" id="country_id" value="{{ $userData['country_id'] }}">
@@ -83,9 +103,11 @@
                id="zipcode" 
                maxlength="10"
                aria-required="true" 
+               disabled
                value="{{ $userData['zipcode'] }}" 
+               
                >
-               <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+               <!-- <i class="fa fa-pencil-square-o" aria-hidden="true"></i> -->
             </span>
                <span class="edit_field" >
                <input  
@@ -93,9 +115,10 @@
                class="edit_here" 
                id="phoneNumber" 
                value="{{ $userData['phoneNumber'] }}" 
+               disabled
                onkeydown="javascript:backspacerDOWN(this,event);" onkeyup="javascript:backspacerUP(this,event);"
                >
-               <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+               <!-- <i class="fa fa-pencil-square-o"  aria-hidden="true"></i> -->
             </span>
                
             </div>
@@ -112,16 +135,20 @@
                   <span class="result">${{ $investmentData['amount'] }}</span>
                   <!-- <i class="fa fa-pencil-square-o" aria-hidden="true"></i> -->
                </span>            
-               <!-- <span class="edit_field">
+               <!--
+                <span class="edit_field">
                   <span contenteditable="true" class="title">Time plans end</span>
                   <span class="result">22-Mar-2020</span>
                   <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-               </span>             -->
-               <!-- <span class="edit_field">
+               </span>
+               -->
+               <!--
+                <span class="edit_field">
                   <span contenteditable="true" class="title">Payment method</span>
                   <span class="result">Bank of america 5544</span>
                   <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-               </span>             -->
+               </span> 
+               -->
             </div>
             <div class="break_section"></div>
             <span class="section_title">Agreements</span> 
@@ -148,15 +175,22 @@
 <script>
 
 
+
+
 $(document).ready(function() {
 
-  
-   $( ".fa-pencil-square-o" ).click(function() {
-      var prev=$(this).prev();
-      $('.edit_here').removeClass('active');
-      prev.addClass('active');
-      //prev.css("background-color", "yellow");
-      //alert( "Handler for .click() called." );
+
+    // $(".fa-pencil-square-o").click(function(){            
+    //         $(".edit_here").removeAttr("disabled");
+    //     });
+    
+    $( ".fa-pencil-square-o" ).click(function() {
+        var prev=$(this).prev();
+        $('.edit_here').removeClass('active');
+        prev.addClass('active');
+        $(".edit_here").removeAttr("disabled");
+        //prev.css("background-color", "yellow");
+        //alert( "Handler for .click() called." );
    });
   
 
@@ -177,9 +211,8 @@ $(document).ready(function() {
 			});
          return false;
 		});
-      
-      
-      $("#address").keyup(function( event ) {
+        
+        $("#address").keyup(function( event ) {
          var address = $('input:text[name=address]').val();
          //alert(address);
          //return false;
@@ -306,79 +339,7 @@ $(document).ready(function() {
 
 });
 
-// Selecting the form and defining validation method
-$("#registrationform").validate({
-     rules : {
-        address : {
-            required : true
-        },
-        address2 : {
-            required : true
-        },
-        city : {
-            required : true
-        },
-        state : {
-            required : true
-        },
-        zipcode : {
-            required : true
-        },
-        phoneNumber : {
-            required : true
-        },
-        social_security_number : {
-            required : true
-        },
-        state : {
-            required : true
-        },
-        birthday:{
-            required : true
-        }
 
-        },
-        messages: {
-            address: "Please enter address",
-            address2:"Please enter address2",
-            city:"Please enter city",
-            state:"Please select state",
-            zipcode:"Please enter zipcode",
-            phoneNumber:"Please enter phone Number",
-            social_security_number:"Please enter social security number",
-            birthday:"Please enter birthday",
-        },
-        submitHandler: function(form) {
-            form.submit();
-        }
-    });
-
-    // $(".send_button").on("click", function(event) {
-	// 		event.preventDefault();
-	// 		$.ajax({
-	// 			'url': '{{ url("investment/update-address") }}',
-	// 			'method': 'post',
-	// 			'dataType': 'json',
-	// 			'data': $("#registrationform").serialize(),
-	// 			success: function(data) {
-    //            if (data.status == 'success') {
-    //                //alert(data);
-    //                location.href='{{ url("investment/create-step4") }}';
-						
-	// 			}
-    //         }
-	// 		});
-    //      return false;
-	// 	});
-
-
-
-
-// main.js
-<!-- This script is based on the javascript code of Roman Feldblum (web.developer@programmer.net) -->
-<!-- Original script : http://javascript.internet.com/forms/format-phone-number.html -->
-<!-- Original script is revised by Eralper Yilmaz (http://www.eralper.com) -->
-<!-- Revised script : http://www.kodyaz.com -->
 
 var zChar = new Array(' ', '(', ')', '-', '.');
 var maxphonelength = 13;
@@ -526,56 +487,22 @@ function ValidatePhone(object) {
     }
 
 }
-
 function ParseChar(sStr, sChar) {
     if (sChar.length == null) {
         zChar = new Array(sChar);
     } else zChar = sChar;
-
     for (i = 0; i < zChar.length; i++) {
         sNewStr = "";
-
         var iStart = 0;
         var iEnd = sStr.indexOf(sChar[i]);
-
         while (iEnd != -1) {
             sNewStr += sStr.substring(iStart, iEnd);
             iStart = iEnd + 1;
             iEnd = sStr.indexOf(sChar[i], iStart);
         }
         sNewStr += sStr.substring(sStr.lastIndexOf(sChar[i]) + 1, sStr.length);
-
         sStr = sNewStr;
     }
-
     return sNewStr;
 }
-
-
-
-
-
-
-
-
-
-/*
-
-let telEl = document.querySelector('#phoneNumber')
-
-telEl.addEventListener('keyup', (e) => {
-  let val = e.target.value;
-  e.target.value = val
-    .replace(/\D/g, '')
-    .replace(/(\d{1,4})(\d{1,3})?(\d{1,3})?/g, function(txt, f, s, t) {
-      if (t) {
-        return `(${f}) ${s}-${t}`
-      } else if (s) {
-        return `(${f}) ${s}`
-      } else if (f) {
-        return `(${f})`
-      }
-    });
-})
-*/
 </script>

@@ -32,7 +32,11 @@
                         <div class="text-center">
                            <p class="text-muted mb-4">Projected Earnings: <span>January</span></p>
                            <h4>${{ $totalgain }}</h4>
-                           <p class="text-muted mb-5">You will receive a dividend on January 11, 2020.</p>
+                           @php
+                           $date=date_create(date('Y-m-d'));
+                           $curentData=  date_format($date,"M d,Y")
+                           @endphp
+                           <p class="text-muted mb-5">You will receive a dividend on {{ $curentData }}.</p>
                            <hr />
                            <p class="text-muted mb-3">Your total earnings to date are: 
                            <h4>${{ $totalgain }}</h4>

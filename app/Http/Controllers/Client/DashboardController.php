@@ -42,7 +42,7 @@ class DashboardController extends Controller
         ->first();
        
         $plan_id = $investmentData['plan_id'];
-        $planData = Plan::where('id',$plan_id)->first();
+        $planData = Plan::where('paypal_transaction_id','!=', '')->where('id',$plan_id)->first();
         $investData = DB::table('investment')
               ->select('investment.*','plans.interest_rate','plans.plan_name','plans.time_investment','plans.plan_fee')
               ->join('plans','plans.id','=','investment.plan_id')

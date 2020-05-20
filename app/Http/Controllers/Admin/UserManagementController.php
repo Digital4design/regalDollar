@@ -86,6 +86,8 @@ class UserManagementController extends Controller
                 $data['roles'] = Role::get();
                 // dd($data);
                 return view('admin.users.user_view', $data);
+            }else{
+                return Redirect::to('/admin/users-management');
             }
         } catch (\Exception $e) {
             echo $e->getMessage();
@@ -119,6 +121,8 @@ class UserManagementController extends Controller
                 $data['roles'] = Role::get();
                // dd($data);
                 return view('admin.users.user_edit', $data);
+            }else{
+                return Redirect::to('/admin/users-management');
             }
         } catch (\Exception $e) {
             echo $e->getMessage();

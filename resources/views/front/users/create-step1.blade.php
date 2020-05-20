@@ -100,85 +100,82 @@
 </div>
 <?php
 if(Auth::user()){
-   
 }else{
 ?>
-<div class="form-group">
-<label for="userpassword">Password</label>
-<input
- type="password"
- class="form-control"
- id="password"
- name="password"
-  placeholder="Enter password"
-  value="{{ old('password',(isset($userData) && !empty($userData->password)) ? $userData->password : '' ) }}"
-  />
-  @if ($errors->has('password'))
-  <span style="display:initial;" class="invalid-feedback" role="alert">
-  <strong>{{ $errors->first('password') }}</strong>
-  </span>
-               @endif
-            </div>
-            <div class="form-group">
-               <label for="userpassword">Confirm Password</label>
-               <input
-                  type="password"
-                  class="form-control"
-                  name="password_confirmation"
-                  id="userpassword2"
-                  placeholder="Enter password"
-                  value="{{ old('password',(isset($userData) && !empty($userData->password)) ? $userData->password : '' ) }}"
-               />
-            </div>
-
-            <?php } ?>
-            
-            <div class="form_group">
-               <div class="term_field field">
-                  <input type="checkbox" name="checkbox" required="required">
-                  <p>I have reviewed and agree to the <a href="#">Terms of Service</a> , 
-                  <a href="#">Privacy Policy</a>.</p>
-               </div>
-            </div>
-            <div class="break_section"></div>
-            <h2 class="title">We currently only accept investment from US residents.</h2>
-            <h3 class="subtitle">Please confirm the following:</h3>
-            <div class="form_group">
-               <div class="citizenship_field field">
-                  <span class="label">Country of citizenship</span>
-                     <select class="Country_citizenship" name="country_citizenship" required="required" >
-                     <option value="" >Please setect country citizenship</option>
-                     @foreach($countryData as $country)
-                        <option value="{{ $country['name']}}" >{{ $country['name']}}</option>
-                     @endforeach
-                     </select>
-                     @if ($errors->has('country_citizenship'))
-                     <span style="display:initial;" class="invalid-feedback" role="alert">
-                     <strong class="error">{{ $errors->first('country_citizenship') }}</strong>
-                     </span>
-                     @endif
-               </div>
-            </div>
-            <div class="Residence_field field">
-               <span class="label">Country of Residence</span>
-               <select class="Country_Residence" name="country_residence" required="required" >
-               <option value="" >Please setect country residence</option>
-                   @foreach($countryData as $country)
-                     <option value="{{ $country['name']}}" >{{ $country['name']}}</option>
-                   @endforeach
-               </select>
-               @if ($errors->has('country_residence'))
-                     <span style="display:initial;" class="invalid-feedback" role="alert">
-                     <strong class="error">{{ $errors->first('country_residence') }}</strong>
-                     </span>
-                     @endif
-            </div>
-            <a href="#"  class="btn btn-primary">Back</a>
-            <button type="submit" class="btn btn-primary">Next</button>
-         </form>
-         </div>
-      </div>
-   </section>
+  <div class="form-group">
+    <label for="userpassword">Password</label>
+    <input
+    type="password"
+    class="form-control"
+    id="password"
+    name="password"
+    placeholder="Enter password"
+    value="{{ old('password',(isset($userData) && !empty($userData->password)) ? $userData->password : '' ) }}"
+    />
+    @if ($errors->has('password'))
+    <span style="display:initial;" class="invalid-feedback" role="alert">
+      <strong class="error">{{ $errors->first('password') }}</strong>
+    </span>
+    @endif
+  </div>
+  <div class="form-group">
+    <label for="userpassword">Confirm Password</label>
+    <input
+    type="password"
+    class="form-control"
+    name="password_confirmation"
+    id="userpassword2"
+    placeholder="Enter password"
+    value="{{ old('password',(isset($userData) && !empty($userData->password)) ? $userData->password : '' ) }}"
+    />
+  </div>
+<?php } ?>
+<div class="form_group">
+  <div class="term_field field">
+    <input type="checkbox" name="checkbox" required="required">
+    <p>I have reviewed and agree to the <a href="#">Terms of Service</a> ,
+      <a href="#">Privacy Policy</a>.</p>
+    </div>
+  </div>
+  <div class="break_section"></div>
+  <h2 class="title">We currently only accept investment from US residents.</h2>
+  <h3 class="subtitle">Please confirm the following:</h3>
+  <div class="form_group">
+    <div class="citizenship_field field">
+      <span class="label">Country of citizenship</span>
+      <select class="Country_citizenship" name="country_citizenship" required="required" >
+        <option value="" >Please setect country citizenship</option>
+        @foreach($countryData as $country)
+        <option value="{{ $country['name']}}" >{{ $country['name']}}</option>
+        @endforeach
+      </select>
+      @if ($errors->has('country_citizenship'))
+      <span style="display:initial;" class="invalid-feedback" role="alert">
+        <strong class="error">{{ $errors->first('country_citizenship') }}</strong>
+      </span>
+      @endif
+    </div>
+  </div>
+  <div class="Residence_field field">
+    <span class="label">Country of Residence</span>
+    <select class="Country_Residence" name="country_residence" required="required">
+      <option value="" >Please setect country residence</option>
+        @foreach($countryData as $country)
+        <option value="{{ $country['name']}}" >{{ $country['name']}}</option>
+        @endforeach
+      </select>
+      @if ($errors->has('country_residence'))
+      <span style="display:initial;" class="invalid-feedback" role="alert">
+        <strong class="error">{{ $errors->first('country_residence') }}</strong>
+      </span>
+      @endif
+    </div>
+    <a href="#"  class="btn btn-primary">Back</a>
+    <button type="submit" class="btn btn-primary">Next</button>
+  </form>
+</div>
+</div>
+</section>
 </div>
 <!--BUY TEMPLATE SECTION END-->
 @include('homefooter')
@@ -194,6 +191,12 @@ $(document).ready(function(){
         rules : {
             // login - is the name of an input in the form
             first_name : {
+               required : true
+            },
+            password : {
+               required : true
+            },
+            password_confirmation : {
                required : true
             },
             last_name : {

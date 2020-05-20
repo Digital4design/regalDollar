@@ -46,7 +46,7 @@ class UserInvestmentController extends Controller
      */
     public function postCreateUpdate(Request $request)
     {
-        //dd($request->investmentId);
+       // dd($request->all());
         $rules = [
             'accountType' => 'required',
         ];
@@ -68,12 +68,17 @@ class UserInvestmentController extends Controller
             //dd($sessionData['investmentId']);
             
             //dd( $userData['userData']);
-            // $userData = User::find($request->user_id);
-            $userData['plan_id'] = $sessionData['plan_id'];
+            $userData = User::find($request->user_id);
+            $userData['plan_id'] = $request->plan_id;
             $userData['user_id'] = Auth::user()->id;
             $userData['investmentId'] = $sessionData['investmentId'];
             
-            
+            $sessionData['plan_id'] = $request->plan_id;
+            $sessionData['user_id'] = Auth::user()->id;
+            $sessionData['investmentId'] = $sessionData['investmentId'];
+
+            $sessionData = $request->session()->put('sessionData', $sessionData);
+
             $userData = $request->session()->put('userData', $userData);
             $userData['userData'] = $request->session()->get('userData');
             $userData['status'] = 'success';
@@ -91,8 +96,8 @@ class UserInvestmentController extends Controller
     public function createStep3(Request $request)
     {
         $sessionData=$request->session()->get('userData');
-        $userData['investmentData'] = InvestmentModel::where('id', $sessionData->investmentId)->first();
-        //dd($userData['investmentData']);
+        //dd($sessionData);
+
         if(isset($sessionData->plan_id) && isset($sessionData->investmentId) && isset($sessionData->id)){
             if(is_null(Auth::user()->accountType)){
                 return Redirect::to('/investment/create-step2');
@@ -101,7 +106,7 @@ class UserInvestmentController extends Controller
             $userData['userData'] = User::where('id', $sessionData->id)->first();
             $userData['stateData'] = State::where('country_id', '231')->get();
             $userData['planData'] = Plan::where('id', $sessionData->plan_id)->first();
-            //dd($userData);
+            // dd($userData);
             return view('front.users.create-step3', $userData);
         }else{
             return view('pages-404');
@@ -110,7 +115,7 @@ class UserInvestmentController extends Controller
 
     public function updateAddress(Request $request)
     {
-        // dd($request->all());
+       // dd($request->all());
         $rules = [
             'address' => 'required',
             'address2' => 'required',
@@ -182,6 +187,7 @@ class UserInvestmentController extends Controller
     {
         $sessionData=$request->session()->get('userData');
         
+        
        
         if(isset($sessionData->plan_id) && isset($sessionData['investmentId']) && isset($sessionData->id)){
             if(is_null(Auth::user()->address) 
@@ -202,6 +208,7 @@ class UserInvestmentController extends Controller
            // $data['userData'] = $sessionData;
             $data['countryData'] = Country::get();
             $data['stateData'] = State::where('country_id', '231')->get();
+            // dd($data);
             
             return view('front.users.create-step4', $data);
         }else{

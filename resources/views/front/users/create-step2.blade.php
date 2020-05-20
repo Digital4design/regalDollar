@@ -46,7 +46,7 @@
                   </select>
                   @if ($errors->has('accountType'))
                      <span style="display:initial;" class="invalid-feedback" role="alert">
-                     <strong>{{ $errors->first('accountType') }}</strong>
+                     <strong class="error">{{ $errors->first('accountType') }}</strong>
                      </span>
                      @endif
                      </div>
@@ -82,12 +82,9 @@ $(document).ready(function(){
         }
     });
 
-   //  $( "#registrationform" ).submit(function( event ) {
-   //       alert( "Handler for .submit() called." );
-   //       event.preventDefault();
-   // });
+ 
 
-   $(".send_button").validate({
+  /* $(".send_button").validate({
       // Passing the object with custom rules
       rules : {
          // login - is the name of an input in the form
@@ -103,30 +100,9 @@ $(document).ready(function(){
         submitHandler: function(form) {
             form.submit();
         }
-    });
+    });*/
   
-   //  $(".send_button").on("click", function(event) {
-	// 		event.preventDefault();
-   //       console.log(event);
-	// 		$.ajax({
-	// 			'url': '{{ url("investment/update-account") }}',
-	// 			'method': 'post',
-	// 			'dataType': 'json',
-	// 			'data': $("#registrationform").serialize(),
-            
-	// 			success: function(data) {
-               
-   //             if (data.status == 'success') {
-   //                 //alert(data);
-   //                 location.href='{{ url("investment/create-step3") }}';
-   //                window.location.href='{{ url("investment/create-step3") }}';
-						
-	// 			}
-   //          }
-	// 		});
-   //       return false;
-	// 	});
-     
+   
 
 });
 </script>

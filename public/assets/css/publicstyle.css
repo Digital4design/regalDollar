@@ -5859,6 +5859,14 @@ margin: 0 !important;
     padding-right: 30px;
 }
 
+.form_outter_section span.section_title.editable {
+    width: calc(100% - 15px);
+}
+.edit_requst {
+    width: auto;
+    float: left;
+}
+
 /********** Responsive ****************/ 
 
 @media only screen and ( max-width:1280px ){

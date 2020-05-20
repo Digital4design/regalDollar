@@ -120,6 +120,8 @@ class AccountController extends Controller
                 'last_name' => 'required|min:2',
                 'name' => 'required|unique:users|max:255',
                 'email' => 'required|unique:users|max:255',
+                'password'         => 'required',
+                'password_confirmation' => 'required|same:password'
             ];
             $messages = [
                 'first_name.required' => 'Your first name is required.',
