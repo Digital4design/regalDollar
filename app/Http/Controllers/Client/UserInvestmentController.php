@@ -310,7 +310,7 @@ class UserInvestmentController extends Controller
                 return Redirect::to('/investment/create-step4');
             }
             $userData = $request->session()->get('userData');
-            $documentData = DocumentManagemetModel::where('plan_id', $userData['plan_id'])->get();
+            $documentData = DocumentManagemetModel::where('plan_id', $userData['plan_id'])->get(); 
             $data['userData'] = $userData;
             $data['documentData'] = $documentData;
             $data['investmentData'] = $investmentData;

@@ -23,6 +23,11 @@
                <div class="form-group">
                   <p>How much should your initial contibution be?</p>
                </div>
+
+               <div>
+                <input type="checkbox" id="custum_amount" name="" value="other">
+                <label for="custum_amount">Custom Amount</label><br>
+              </div>
                <div class="form-group">
                   <select class="form-control" id="amount" name="amount" required="required">
                      <option value="">Select Amount</option>
@@ -34,7 +39,7 @@
                      <option value="50,000">$50,000</option>
                      <option value="60,000">$60,000</option>
                      <option value="70,000">$70,000</option>
-                     <option value="">Other</option>
+                     <!-- <option value="">Other</option> -->
                   </select>
                   <input type="hidden" name="finalamount" placeholder="Please enter amount" id="finalamount">
                   <input type="number" style="display:none;" name="otheramount" placeholder="Please enter amount"  id="otheramount">
@@ -60,6 +65,20 @@
 
 <script>
 $(document).ready(function() {
+
+
+   $("input:checkbox").change(function() {
+      var ischecked= $(this).is(':checked');
+      if(!ischecked){
+         $("#amount").show();
+         $("#otheramount").hide();
+      }else{
+         $("#amount").hide();
+         $("#otheramount").show();
+      }
+   });
+
+
   $("#otheramount").keyup(function(){
       var val =  $(this).val();
       $('#finalamount').val(val);
@@ -84,7 +103,7 @@ $(document).ready(function() {
     function doMouseDown(event){
       canvas_x =event.pageX;
       canvas_y =event.pageY;
-      alert("X="+canvas_x + "Y="+canvas_y);
+      alert("X="+canvas_x + "Y="+canvas_y); 
     }
    });
 // $(document).ready(function() {
@@ -117,4 +136,8 @@ $(document).ready(function() {
   //   });
   // });
       </script> 
+
+
+
+      
 @endsection

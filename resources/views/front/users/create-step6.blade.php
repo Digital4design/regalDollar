@@ -120,8 +120,7 @@
                >
                <!-- <i class="fa fa-pencil-square-o"  aria-hidden="true"></i> -->
             </span>
-               
-            </div>
+          </div>
             <div class="break_section"></div>
             <span class="section_title">Investment Information</span>
             <div class="form-group">
@@ -173,17 +172,7 @@
 @include('homefooter')
 @include('homescripts')
 <script>
-
-
-
-
-$(document).ready(function() {
-
-
-    // $(".fa-pencil-square-o").click(function(){            
-    //         $(".edit_here").removeAttr("disabled");
-    //     });
-    
+  $(document).ready(function() {
     $( ".fa-pencil-square-o" ).click(function() {
         var prev=$(this).prev();
         $('.edit_here').removeClass('active');
@@ -192,9 +181,7 @@ $(document).ready(function() {
         //prev.css("background-color", "yellow");
         //alert( "Handler for .click() called." );
    });
-  
-
-   $("#first_name").keyup(function( event ) {
+    $("#first_name").keyup(function( event ) {
       var first_name = $('input:text[name=first_name]').val();
       event.preventDefault();
       $.ajax({
@@ -203,118 +190,110 @@ $(document).ready(function() {
          'dataType': 'json',
          'data':{first_name:first_name,_token:"{{csrf_token()}}",userid:"{{$userData->id}}"},
          success: function(data) {
-            if (data.status == 'success') {
+            if (data.status == 'success') { 
                console.log(data);
                //location.href='{{ url("investment/create-step6") }}';
             }
             }
 			});
-         return false;
-		});
-        
-        $("#address").keyup(function( event ) {
-         var address = $('input:text[name=address]').val();
-         //alert(address);
-         //return false;
-         event.preventDefault();
-         $.ajax({
-            'url': '{{ url("front/upadate-user-data") }}',
-            'method': 'post',
-            'dataType': 'json',
-            'data':{address:address,_token:"{{csrf_token()}}",userid:"{{$userData->id}}"},
-            success: function(data) {
-               if (data.status == 'success') {
-                  console.log(data);
-                  //location.href='{{ url("investment/create-step6") }}';
-                  }
-               }
-			});
-         return false;
-		});
-
-      $("#city").keyup(function( event ) {
-         var city = $('input:text[name=city]').val();
-         event.preventDefault();
-         $.ajax({
-            'url': '{{ url("front/upadate-user-data") }}',
-            'method': 'post',
-            'dataType': 'json',
-            'data':{city:city,_token:"{{csrf_token()}}",userid:"{{$userData->id}}"},
-            success: function(data) {
-               if (data.status == 'success') {
-                  console.log(data);
-              // location.href='{{ url("investment/create-step6") }}';
-                  }
-               }
-			});
-         return false;
-		});
-      
-      $("#state").change(function(event){
-        var state = $(this).val();
-        event.preventDefault();
-        $.ajax({
-            'url': '{{ url("front/upadate-user-data") }}',
-            'method': 'post',
-            'dataType': 'json',
-            'data':{state:state,_token:"{{csrf_token()}}",userid:"{{$userData->id}}"},
-            success: function(data) {
-               if (data.status == 'success') {
-                  console.log(data);
-               //location.href='{{ url("investment/create-step6") }}';
-                  }
-               }
-			});
-         return false;
+      return false;
     });
-
-      // $("#state").keyup(function( event ) {
-      //    //var state = $('input:text[name=state]').val();
-      //    var state = $('input:text[name=state]').val();
-      //    event.preventDefault();
-      //    $.ajax({
-      //       'url': '{{ url("front/upadate-user-data") }}',
-      //       'method': 'post',
-      //       'dataType': 'json',
-      //       'data':{state:state,_token:"{{csrf_token()}}",userid:"{{$userData->id}}"},
-      //       success: function(data) {
-      //          if (data.status == 'success') {
-      //             console.log(data);
-      //          //location.href='{{ url("investment/create-step6") }}';
-      //             }
-      //          }
-		// 	});
-      //    return false;
-		// });
-
-      $("#zipcode").keyup(function( event ) {
-         var zipcode = $('input:text[name=zipcode]').val();
-         event.preventDefault();
-         $.ajax({
-            'url': '{{ url("front/upadate-user-data") }}',
-            'method': 'post',
-            'dataType': 'json',
-            'data':{zipcode:zipcode,_token:"{{csrf_token()}}",userid:"{{$userData->id}}"},
-            success: function(data) {
-               if (data.status == 'success') {
-                  console.log(data);
-              // location.href='{{ url("investment/create-step6") }}';
-                  }
-               }
-			});
-         return false;
+    $("#address").keyup(function( event ) {
+      var address = $('input:text[name=address]').val();
+      event.preventDefault();
+      $.ajax({
+        'url': '{{ url("front/upadate-user-data") }}',
+        'method': 'post',
+        'dataType': 'json',
+        'data':{address:address,_token:"{{csrf_token()}}",userid:"{{$userData->id}}"},
+        success: function(data) {
+          if (data.status == 'success') {
+            console.log(data);
+            //location.href='{{ url("investment/create-step6") }}';
+          }
+        }
+      });
+      return false;
 		});
-
-      $("#phoneNumber").keyup(function( event ) {
-         var phoneNumber = $('input:text[name=phoneNumber]').val();
-         event.preventDefault();
-         $.ajax({
-            'url': '{{ url("front/upadate-user-data") }}',
-            'method': 'post',
-            'dataType': 'json',
-            'data':{phoneNumber:phoneNumber,_token:"{{csrf_token()}}",userid:"{{$userData->id}}"},
-            success: function(data) {
-               if (data.status == 'success') {
+    $("#city").keyup(function( event ) {
+      var city = $('input:text[name=city]').val();
+      event.preventDefault();
+      $.ajax({
+        'url': '{{ url("front/upadate-user-data") }}',
+        'method': 'post',
+        'dataType': 'json',
+        'data':{city:city,_token:"{{csrf_token()}}",userid:"{{$userData->id}}"},
+        success: function(data) {
+          if (data.status == 'success') {
+            console.log(data);
+            // location.href='{{ url("investment/create-step6") }}';
+          }
+        }
+      });
+      return false;
+    });
+    $("#state").change(function(event){
+      var state = $(this).val();
+      event.preventDefault();
+      $.ajax({
+        'url': '{{ url("front/upadate-user-data") }}',
+        'method': 'post',
+        'dataType': 'json',
+        'data':{state:state,_token:"{{csrf_token()}}",userid:"{{$userData->id}}"},
+        success: function(data) {
+          if (data.status == 'success') {
+            console.log(data);
+            //location.href='{{ url("investment/create-step6") }}';
+          }
+        }
+      });
+      return false;
+    });
+    // $("#state").keyup(function( event ) {
+    //    //var state = $('input:text[name=state]').val();
+    //    var state = $('input:text[name=state]').val();
+    //    event.preventDefault();
+    //    $.ajax({
+    //       'url': '{{ url("front/upadate-user-data") }}',
+    //       'method': 'post',
+    //       'dataType': 'json',
+    //       'data':{state:state,_token:"{{csrf_token()}}",userid:"{{$userData->id}}"},
+    //       success: function(data) {
+    //          if (data.status == 'success') {
+    //             console.log(data);
+    //          //location.href='{{ url("investment/create-step6") }}';
+    //             }
+    //          }
+    // 	});
+    //    return false;
+    // });
+    $("#zipcode").keyup(function( event ) {
+      var zipcode = $('input:text[name=zipcode]').val();
+      event.preventDefault();
+      $.ajax({
+        'url': '{{ url("front/upadate-user-data") }}',
+        'method': 'post',
+        'dataType': 'json',
+        'data':{zipcode:zipcode,_token:"{{csrf_token()}}",userid:"{{$userData->id}}"},
+        success: function(data) {
+          if (data.status == 'success') {
+            console.log(data);
+            // location.href='{{ url("investment/create-step6") }}';
+          }
+        }
+      });
+      return false;
+		});
+    $("#phoneNumber").keyup(function( event ) {
+      var phoneNumber = $('input:text[name=phoneNumber]').val();
+      event.preventDefault();
+      $.ajax({
+        'url': '{{ url("front/upadate-user-data") }}',
+        'method': 'post',
+        'dataType': 'json',
+        'data':{phoneNumber:phoneNumber,_token:"{{csrf_token()}}",userid:"{{$userData->id}}"},
+        success: function(data) {
+          if (data.status == 'success') {
                   console.log(data);
                //location.href='{{ url("investment/create-step6") }}';
                   }

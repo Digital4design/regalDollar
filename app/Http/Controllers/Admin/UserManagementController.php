@@ -70,7 +70,6 @@ class UserManagementController extends Controller
                 } else {
                     $data['country'] = '';
                 }
-
                 if (!empty($user->state_id)) {
                     $data['states'] = State::find($user->state_id);
                 } else {
@@ -87,7 +86,7 @@ class UserManagementController extends Controller
                 // dd($data);
                 return view('admin.users.user_view', $data);
             }else{
-                return Redirect::to('/admin/users-management');
+                return Redirect::to('/admin/users-management'); 
             }
         } catch (\Exception $e) {
             echo $e->getMessage();
@@ -116,7 +115,9 @@ class UserManagementController extends Controller
                 } else {
                     $data['city'] = '';
                 }
-                $data['country'] = Country::select('id', 'name')->get();
+                //$data['country'] = Country::select('id', 'name')->get();
+                $data['country'] = Country::get();
+                $data['stateData'] = State::where('country_id', '231')->get();
                 $data['user'] = $user;
                 $data['roles'] = Role::get();
                // dd($data);
@@ -142,12 +143,16 @@ class UserManagementController extends Controller
      */
     public function updateUsers(Request $request, $id)
     {
+
+        //dd($request->all());
         $rules = [
             'first_name' => 'required|min:2',
             'last_name' => 'required|min:2',
-            'info_country' => 'required|numeric',
-            'info_state' => 'required|numeric',
-            'info_city' => 'required|numeric',
+            'address'=>'required',
+            'address2'=>'required',
+            'country_residence' => 'required',
+            'state' => 'required',
+            'city' => 'required',
             'info_zip' => 'required|numeric',
         ];
         $messages = [
@@ -162,11 +167,12 @@ class UserManagementController extends Controller
             $user = User::find(\Crypt::decrypt($id));
             $user->first_name = trim($request->first_name);
             $user->last_name = trim($request->last_name);
-            $user->address = trim($request->info_addr1);
-            $user->address2 = trim($request->info_addr2);
-            $user->country_id = trim($request->info_country);
-            $user->state_id = trim($request->info_state);
-            $user->city_id = trim($request->info_city);
+            $user->address = trim($request->address);
+            $user->address2 = trim($request->address2);
+            $user->country_residence = trim($request->country_residence);
+            $user->country_residence = trim($request->country_residence);
+            $user->state = trim($request->state);
+            $user->city = trim($request->city);
             $user->zipcode = trim($request->info_zip);
             $user->save();
             return redirect('/admin/users-management/')->with(['status' => 'success', 'message' => 'Update record successfully.']);
