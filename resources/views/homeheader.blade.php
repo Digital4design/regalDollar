@@ -29,6 +29,7 @@
 </head>
 <body class="<?php if (isset($pageclass) && !empty($pageclass)) {echo $pageclass;}?>">
 <!--WRAPPER START-->
+
 <div class="wrapper">
     <!--HEADER START-->
     <header>
@@ -109,16 +110,22 @@
                      </ul>
                      <div class="show_login_signup dropdown admin-list">
                      @if (Auth::check())
-                           <?php 
+                           @php 
                            $Role = Auth::user()->roles->first();
                            $roleName = '/'.$Role->name;
-                           ?>
+                           @endphp
                               <a class="dropdown-toggle" data-toggle="dropdown" href="#">{{ Auth::user()->name }}
                               <ul class="dropdown-menu">
-                                 <li><a href="{{ url($roleName) }}">Dashboard</a></li>
-                                 <li><a href="{{ url($roleName)}}/account">Profile</a></li>
+                                 @if (is_null(Auth::user()->email_verified_at))
                                  <li><a href="#" onclick="event.preventDefault();document.getElementById('logout-form').submit();">Logout</a>
                                   <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                 @else
+                                 <li><a href="{{ url($roleName) }}">Dashboard</a></li>
+                                 <li><a href="{{ url($roleName)}}/account">Profile</a></li>
+                                
+                                 <li><a href="#" onclick="event.preventDefault();document.getElementById('logout-form').submit();">Logout</a>
+                                  <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                  @endif
                         @csrf
                         </form>
                         </li>

@@ -12,7 +12,11 @@
 </div>
 @endsection
 @section('content')
-<?php // dd($graphData);?>
+@php
+$date=date_create(date('Y-m-d'));
+$curentData=  date_format($date,"M d,Y");
+@endphp
+
 <div class="row">
    <div class="col-xl-9">
       <div class="card">
@@ -26,13 +30,14 @@
                      <!-- <div id="chart-with-area" class="ct-chart earning ct-golden-section"></div> -->
                   </div>
                </div>
+               
                <div class="col-lg-5">
                   <div class="row">
                      <div class="col-md-12">
                         <div class="text-center">
-                           <p class="text-muted mb-4">Projected Earnings: <span>January</span></p>
+                           <p class="text-muted mb-4">Projected Earnings: <span>{{ date('M')}}</span></p>
                            <h4>${{ $totalgain }}</h4>
-                           <p class="text-muted mb-5">You will receive a dividend on January 11, 2020.</p>
+                           <p class="text-muted mb-5">You will receive a dividend on {{ $curentData }}.</p>
                            <hr />
                            <p class="text-muted mb-3">Your total earnings to date are: 
                            <h4>${{ $totalgain }}</h4>
@@ -47,16 +52,23 @@
       </div>
       <!-- end card -->
    </div>
+   @php
+   $date=date_create($matureDate);
+   $mData=  date_format($date,"M d,Y");
+   @endphp
    <div class="col-xl-3">
       <div class="card">
-      <?php  // dd($activePlan); ?>
-         <div class="card-body">
+      <div class="card-body">
             <div class="py-4" style="text-align: center;">
+               @if($activeInvest['paypal_transaction_id'] !='')
                <i class="ion ion-ios-checkmark-circle-outline display-4 text-success"></i>
+               @else
+               <i class="ion ion-ios-checkmark-circle-outline display-4"></i>
+               @endif
                <h5 class="text-primary mt-4">{{ $activePlan['time_investment'] }} Month Plan</h5>
                <p class="text-muted">You are currently enrolled in the {{ $activePlan['time_investment'] }} month investment plan with a <span>${{ $investAmount }}</span> fund.</p>
                <hr />
-               <p class="text-muted mb-5">Your investment account will mature on <u>{{ $matureDate }}</u>.</p>
+               <p class="text-muted mb-5">Your investment account will mature on <u>{{ $mData }}</u>.</p>
                <div class="mt-4">
                   <a href="" class="btn btn-secondary btn-sm">Contact Us</a> <a href="" class="btn btn-primary btn-sm">Invest More</a>
                </div>

@@ -12,9 +12,13 @@
 </div>
 @endsection
 @section('content')
-
+@php
+   $date=date_create(date('Y-m-d'));
+   $mData=  date_format($date,"M d,Y");
+   
+   @endphp
 <div class="row">
-   <div class="col-xl-9">
+   <div class="col-xl-12">
       <div class="card">
          <div class="card-body">
             <h4 class="mt-0 header-title mb-5">Monthly Earnings</h4>
@@ -30,9 +34,9 @@
                   <div class="row">
                      <div class="col-md-12">
                         <div class="text-center">
-                           <p class="text-muted mb-4">Projected Earnings: <span>January</span></p>
+                           <p class="text-muted mb-4">Projected Earnings: <span>{{ date('M')}}</span></p>
                            <h4>${{$totalgain}}</h4>
-                           <p class="text-muted mb-5">You will receive a dividend on January 11, 2020.</p>
+                           <p class="text-muted mb-5">You will receive a dividend on {{ $mData }}.</p>
                            <hr />
                            <p class="text-muted mb-3">Your total earnings to date are: 
                            <h4>${{$totalgain}}</h4>
@@ -102,7 +106,7 @@
                         <td></td>
                         <td>No data found </td>
                         <td></td>
-                        <td></td>
+                        <td></td> 
                      </tr>
                      @endforelse
                      <!-- <tr>

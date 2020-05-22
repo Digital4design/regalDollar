@@ -1082,6 +1082,35 @@ span.nav-separator {
 	font-size: 40px;
 	color: #fff;
 }
+
+.term_field.field label.error, strong.error {
+    display: block !important;
+    color: #ff0000 !important;
+}
+input#custum_amount {
+    width: 20px;
+    height: 20px;
+    float: left;
+    margin: 2px 5px 0 0;
+}
+
+.pay_button {
+    width: 100%;
+    float: left;
+}
+
+.pay_button a.btn.btn-primary.next {
+    float: right;
+    margin-right: 0;
+}
+
+.form_outter_section .alert.alert-success {
+    float: left;
+}
+
+select#state {
+    -webkit-appearance: none;
+}
 /*===========================================VIDEO SECTION===========================================*/
 .video-section {
 	background-image: url(/images/video-bg.jpg);
@@ -5828,6 +5857,14 @@ margin: 0 !important;
     border: 1px solid #ccc;
     padding-left: 7px;
     padding-right: 30px;
+}
+
+.form_outter_section span.section_title.editable {
+    width: calc(100% - 15px);
+}
+.edit_requst {
+    width: auto;
+    float: left;
 }
 
 /********** Responsive ****************/ 

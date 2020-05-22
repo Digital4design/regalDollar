@@ -62,8 +62,8 @@ class AccountController extends Controller
             $rules = [
                 'first_name' => 'required|min:2',
                 'last_name' => 'required|min:2',
-                'name' => 'required',
-                'email' => 'required',
+                'name' => 'required|unique:users,name,'.$request->user_id,
+                'email' => 'required|unique:users,email,'.$request->user_id,
             ];
             $messages = [
                 'first_name.required' => 'Your first name is required.',
@@ -118,8 +118,10 @@ class AccountController extends Controller
             $rules = [
                 'first_name' => 'required|min:2',
                 'last_name' => 'required|min:2',
-                'name' => 'required',
-                'email' => 'required',
+                'name' => 'required|unique:users|max:255',
+                'email' => 'required|unique:users|max:255',
+                'password'         => 'required',
+                'password_confirmation' => 'required|same:password'
             ];
             $messages = [
                 'first_name.required' => 'Your first name is required.',
@@ -202,7 +204,7 @@ class AccountController extends Controller
         $userData->save();
         $userData = User::find($request->userid);
         echo json_encode(array('status' => 'success', 'data' => $userData));
-        die;
+       
     }
     public function createStep2(Request $request)
     {

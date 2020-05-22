@@ -34,12 +34,13 @@ class WithdrowManagementController extends Controller
     public function withdrawData()
     {
         $userList = DB::table('investment')
+            ->select('investment.*', 'users.first_name','plans.plan_name')
             ->join('users', 'investment.user_id', '=', 'users.id')
             ->join('plans', 'investment.plan_id', '=', 'plans.id')
-            // ->where('investment.is_request','1')
-            ->select('investment.*', 'users.first_name','plans.plan_name')
+            ->where('investment.is_request','1')
+            ->where('investment.paypal_transaction_id','!=','')
             ->get();
-       //  dd($userList);
+       // dd($userList);
         return Datatables::of($userList)
             ->addColumn('action', function ($userList) {
                 return '<a href ="' . url('/admin/withdraw-request-managment/edit') . '/' . Crypt::encrypt($userList->id) . '"  class="btn btn-xs btn-primary edit"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</a>';

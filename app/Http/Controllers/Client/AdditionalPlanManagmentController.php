@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Plan;
 use App\Models\InvestmentModel;
+use App\Models\DocumentManagemetModel;
 use App\User;
 use Auth;
 use Crypt;
@@ -22,9 +23,7 @@ class AdditionalPlanManagmentController extends Controller
      */
     public function index($id, Request $request)
     {
-        
         $planData = Plan::where('plan_type', '1')->orderBy('id', 'desc')->get();
-       
         $result = array('pageName' => 'Dashboard',
             'activeMenu' => 'create-account',
             'selected'=>$id,
@@ -32,23 +31,13 @@ class AdditionalPlanManagmentController extends Controller
         );
         return view('client.newPlanManagment.selectNewPlan', $result);
     }
-
-    /**
-     * Show the form for creating a new resource.
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
     /**
      * Store a newly created resource in storage.
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
+    { 
         $planData = Plan::find($request->plan_id);
         $date = date("Y-m-d");
         //$date = $planData->plan_start_date;
@@ -70,7 +59,7 @@ class AdditionalPlanManagmentController extends Controller
             
         );
         return view('client.newPlanManagment.amountSelection', $result);
-        return view('client.newPlanManagment.aggrement', $result);
+        //return view('client.newPlanManagment.aggrement', $result);
     }
 
     public function updateAmount(Request $request){
@@ -99,12 +88,16 @@ class AdditionalPlanManagmentController extends Controller
         }
     }
     public function agreement(Request $request){
-        $investmentdata=  $request->session()->get('investmentData');
+        $investmentdata =  $request->session()->get('investmentData');
+
+        $documentData = DocumentManagemetModel::where('plan_id', $investmentdata['plan_id'])->get();
+        // dd($documentData);
   
         $result = array(
             'pageName' => 'Dashboard',
             'activeMenu' => 'create-account', 
             'investmentId'=>$investmentdata['id'],
+            'documentData'=>$documentData
             
         );
         return view('client.newPlanManagment.aggrement', $result);
@@ -117,10 +110,19 @@ class AdditionalPlanManagmentController extends Controller
      */
     public function updateAggrement(Request $request){
         
+        if ($request->signature) {
+            $imagedata = base64_decode($request->signature);
+            $filename = md5(date("dmYhisA"));
+            $file_path = 'public/uploads/signature' . '/' . $filename . '.png';
+            file_put_contents($file_path, $imagedata);
+        }
         $indicate = json_encode($request->indicateagreement);
         $userData = InvestmentModel::find($request->investmentId);
         $userData->indicateagreement = $indicate;
         $userData->reinvestment = $request->reinvestment;
+        if ($request->signature) {
+            $userData->signature = $filename .'.png';
+        }
         $userData->save();
         $investmentdata = InvestmentModel::find($request->investmentId);
         $investmentdata = $request->session()->put('investmentdata', $investmentdata);
@@ -141,8 +143,5 @@ class AdditionalPlanManagmentController extends Controller
         $investmentdata = InvestmentModel::find($request->investmentId);
         return redirect('/client');
     } 
-   
-   
-
     
 }

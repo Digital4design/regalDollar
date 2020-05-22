@@ -40,6 +40,7 @@ class DashboardController extends Controller
         //->where('paypal_transaction_id','!=', '')
         ->orderBy('id', 'DESC')
         ->first();
+        
        
         $plan_id = $investmentData['plan_id'];
         $planData = Plan::where('id',$plan_id)->first();
@@ -127,6 +128,7 @@ class DashboardController extends Controller
             'matureDate'    => $investmentData['plan_end_date'],
             'investData'    => $investData,
             'totalgain'     => $totalgain,
+            'activeInvest'  => $investmentData,
             'graphData'     => $graphData
         );
         return view('client.dashboard.dashboard', $result);
