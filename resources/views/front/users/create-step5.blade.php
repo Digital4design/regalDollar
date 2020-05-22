@@ -118,13 +118,13 @@ $(document).ready(function() {
 });
 
 $("#sign-pad").mouseout(function(e){
-
-   html2canvas([document.getElementById('sign-pad')], {
+ 
+  html2canvas([document.getElementById('sign-pad')], {
       onrendered: function (canvas) {
          var canvas_img_data = canvas.toDataURL('image/png');
          var img_data = canvas_img_data.replace(/^data:image\/(png|jpg);base64,/, "");
          var sing =  $("#signature").val(img_data);
-         $canvas.preventDefault();
+         
          // 
          if(!sing){
           $("#signError").show();

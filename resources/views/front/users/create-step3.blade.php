@@ -136,13 +136,13 @@
                   <input 
                     required="required"
                     class="form-control phone required_field valid"
-                    maxlength="11" 
+                    maxlength="12" 
                     aria-required="true"
                     aria-invalid="false"
                     value="{{ old('phoneNumber',(isset($userData) && !empty($userData->phoneNumber)) ? $userData->phoneNumber : '' ) }}" 
                     id="phoneNumber"
                     name="phoneNumber"
-                    placeholder="(123) 456-7890" 
+                    placeholder="(232)132-132" 
                     onkeydown="javascript:backspacerDOWN(this,event);" onkeyup="javascript:backspacerUP(this,event);"
                     />
                     @if ($errors->has('phoneNumber'))
@@ -161,7 +161,7 @@
                     class="form-control social_security_number"
                     id="social_security_number_id" 
                     name="social_security_number"
-                    maxlength="14"
+                    maxlength="11"
                     aria-required="true" 
                     placeholder="Social Security Number"
                     required="required"

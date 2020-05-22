@@ -52,7 +52,7 @@
 
                         <div class="form-group m-t-10 mb-0 row">
                             <div class="col-12 m-t-20">
-                                <a href="{{ url('forget-password') }}"><i class="mdi mdi-lock"></i> Forgot your password?</a>
+                                <a href="{{ route('password.request') }}"><i class="mdi mdi-lock"></i> Forgot your password?</a>
                             </div>
                         </div>
                     </form>
