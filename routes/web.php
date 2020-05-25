@@ -153,7 +153,7 @@ Route::group(['prefix' => 'client', 'middleware' => ['auth', 'client','verified'
         Route::get('/', 'Client\WithdrawManagamentController@index');
         Route::get('/documents-data', 'Client\WithdrawManagamentController@documentsData');
         Route::get('/view/{id}', 'Client\WithdrawManagamentController@singleDocuments');
-        Route::post('/withdrowRequest', 'Client\WithdrawManagamentController@withdrowRequest');
+        Route::post('/withdrowRequest', 'Client\WithdrawManagamentController@withdrowRequest'); 
     });
 
     Route::group(['prefix' => 'withdraw-request-managment', 'middleware' => ['auth', 'client']], function () {
@@ -201,7 +201,7 @@ Route::group(['prefix' => 'client', 'middleware' => ['auth', 'client','verified'
 Route::get('/signup-login', function () {
     return view('pages-login');
 });
-Route::get('/reg', function () {
+Route::get('/reg', function () { 
     return view('pages-register');
 });
 Route::get('/select-plan/{id}', 'RegalDollarsController@plan')->where('id', '[0-9]+');

@@ -15,8 +15,7 @@
 @php
    $date=date_create(date('Y-m-d'));
    $mData=  date_format($date,"M d,Y");
-   
-   @endphp
+@endphp
 <div class="row">
    <div class="col-xl-12">
       <div class="card">

@@ -2,17 +2,19 @@
 
 namespace App\Http\Controllers\Client;
 
-use App\Http\Controllers\Controller;
-use App\Models\Country;
+use App\Notifications\Users\InvestmentConformationMail;
 use App\Models\DocumentManagemetModel;
+use App\Http\Controllers\Controller;
 use App\Models\InvestmentModel;
-use App\Models\Plan;
-use App\Models\State;
-use App\User;
 use Illuminate\Http\Request;
+use App\Models\Country;
+use App\Models\State;
+use App\Models\Plan;
 use Validator;
 use Redirect;
+use App\User;
 use Auth;
+
 
 class UserInvestmentController extends Controller
 {
@@ -186,9 +188,6 @@ class UserInvestmentController extends Controller
     public function createStep4(Request $request)
     {
         $sessionData=$request->session()->get('userData');
-        
-        
-       
         if(isset($sessionData->plan_id) && isset($sessionData['investmentId']) && isset($sessionData->id)){
             if(is_null(Auth::user()->address) 
             || is_null(Auth::user()->address2) 
@@ -258,9 +257,7 @@ class UserInvestmentController extends Controller
         $userData = User::find(Auth::user()->id);
         $userData = $request->session()->get('userData');
         // dd($userData); // working here
-
-        
-       InvestmentModel::where('id',$userData['investmentId'])
+        InvestmentModel::where('id',$userData['investmentId'])
             //->where('plan_id',$userData['plan_id'])
             ->update(
                 [
@@ -297,13 +294,9 @@ class UserInvestmentController extends Controller
      */
     public function createStep5(Request $request)
     {
-        //return $this->checkUsersStep();
         $userData=$request->session()->get('userData');
-        //dd($userData);
         if(isset($userData->plan_id) && isset($userData->investmentId) && isset($userData->id)){
             $investmentData = InvestmentModel::where('id', $userData['investmentId'])->first();
-            //dd($investmentData);
-
             if(is_null($investmentData['paypal_transaction_id']) 
             || is_null($investmentData['amount'])
             ){
@@ -321,8 +314,8 @@ class UserInvestmentController extends Controller
         }       
     }
 
-    public function updateSignature(Request $request){
-        
+    public function updateSignature(Request $request)
+    {
         $rules = [
             'indicateagreement' => 'required',
             'reinvestment' => 'required',
@@ -347,9 +340,8 @@ class UserInvestmentController extends Controller
             }
             $indicate = json_encode($request->indicateagreement);
             $userData = User::find($request->user_id);
-            $investmentData = InvestmentModel::find($request->investmentId);
-
-           //  dd($investmentData);
+            $investmentData = InvestmentModel::find($request->investmentId); 
+            //  dd($investmentData);
             $investmentData->indicateagreement = $indicate;
             $investmentData->reinvestment = $request->reinvestment;
             if ($request->signature) {
@@ -360,7 +352,6 @@ class UserInvestmentController extends Controller
             $userData->steps_done = "5";
             $userData->save();
             $investmentData = InvestmentModel::find($request->investmentId);
-            //dd($investmentData['paypal_transaction_id']);
             $userData = User::find($request->user_id);
             $data['investmentData'] = $investmentData;
             $userData['plan_id'] = $request->plan_id;
@@ -369,7 +360,6 @@ class UserInvestmentController extends Controller
             $userData['amount'] = $investmentData['amount'];
             $userData = $request->session()->put('userData', $userData);
             $userData = $request->session()->get('userData');
-            // dd($userData);
             $documentData = DocumentManagemetModel::where('plan_id', $request->plan_id)->get();
             $data['planData'] = Plan::where('id', $userData['plan_id'])->first();
             $data['userData'] = $userData;
@@ -391,7 +381,6 @@ class UserInvestmentController extends Controller
     {
         $userData=$request->session()->get('userData');
         if(isset($userData->plan_id) && isset($userData->investmentId) && isset($userData->id)){
-
             $investmentData  = InvestmentModel::where('id',$userData->investmentId)->first();
             // if(is_null($investmentData['paypal_transaction_id']) 
             // || is_null($investmentData['amount'])
@@ -437,15 +426,32 @@ class UserInvestmentController extends Controller
         $userData->steps_done = "6";
         $userData->save();
         $userData = User::find($request->user_id);
+        
         $investData = InvestmentModel::where('id', $request->investmentId)->first();
+        
         $userData['investmentId'] = $request->investmentId;
         $userData['plan_id'] = $request->plan_id;
         $userData['amount'] = $investData['amount'];
+        $userdata['investData']=$investData;
         $userData = $request->session()->put('userData', $userData);
         $userData = $request->session()->get('userData');
         $data['userData'] = $userData;
+
+        $userData = User::find($request->user_id);
+        $investData = InvestmentModel::where('id', $request->investmentId)->first();
+        // dd(Auth::user());
+        $notificationData = [
+            "user" => $userData['name'],
+            "message" => Auth::user()->first_name." You have invest  $".$investData['amount']." with trancation id ".$investData['paypal_transaction_id']." will complete on ".$investData['plan_end_date'], 
+            "investmentId" => $investData['id']
+        ];
+         //dd($notificationData);
+
+        //$userData->notify(new WithdrawReaction($notificationData));
+        $userData->notify(new InvestmentConformationMail($notificationData));
+
         return redirect('/client');
-        return view('front.users.payment', $data);
+        // return view('front.users.payment', $data);
     }
 
     /**
