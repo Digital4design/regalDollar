@@ -142,7 +142,7 @@
                     value="{{ old('phoneNumber',(isset($userData) && !empty($userData->phoneNumber)) ? $userData->phoneNumber : '' ) }}" 
                     id="phoneNumber"
                     name="phoneNumber"
-                    placeholder="(232)132-132" 
+                    placeholder="(123) 456-7890" 
                     onkeydown="javascript:backspacerDOWN(this,event);" onkeyup="javascript:backspacerUP(this,event);"
                     />
                     @if ($errors->has('phoneNumber'))

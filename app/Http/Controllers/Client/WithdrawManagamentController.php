@@ -43,7 +43,7 @@ class WithdrawManagamentController extends Controller
     public function withdrowRequest(Request $request)
     {
         $investmentData = InvestmentModel::find($request->investId);
-        $investmentData->linked_account = $request->linkAccount;
+        $investmentData->linked_account = $request->linkAccount; 
         $investmentData->is_request = '1';
         $investmentData->save();
         $users = User::whereHas('roles', function ($q) {

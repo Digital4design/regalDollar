@@ -25,7 +25,7 @@ $curentData=  date_format($date,"M d,Y");
             <div class="row">
                <div class="col-lg-7">
                   <div>
-                     <div id="chart_div" class="ct-chart earning ct-golden-section"></div>
+                     <div id="chart_div1" class="ct-chart earning ct-golden-section"></div>
                      <!-- <div id="chartContainer" class="ct-chart earning ct-golden-section"></div> -->
                      <!-- <div id="chart-with-area" class="ct-chart earning ct-golden-section"></div> -->
                   </div>

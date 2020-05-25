@@ -1,24 +1,23 @@
 <?php
 
-namespace App\Notifications\Admin;
+namespace App\Notifications\Users;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 
-class WithdrawReaction extends Notification
+class InvestmentConformationMail extends Notification
 {
     use Queueable;
 
     /**
-     * Create a new notification instance. 
+     * Create a new notification instance.
      *
      * @return void
      */
     public function __construct($notificationdata)
     {
-        // dd($notificationdata);
         $this->details = $notificationdata;
     }
 
@@ -41,15 +40,16 @@ class WithdrawReaction extends Notification
      */
     public function toMail($notifiable)
     {
-        // dd($notifiable);
+
         return (new MailMessage)
-            ->subject('Admin Reaction on Request')
-            ->markdown('mailTemplete.adminWithdrawReaction',
+            ->subject('Investment Comformation')
+            ->markdown('mailTemplete.conformation',
                 [
-                    'adminUser' => $notifiable->name,
+                    'currentUser' => $notifiable->name,
                     'username' => $this->details['user'],
                     'message' => $this->details['message'],
                 ]);
+
         // return (new MailMessage)
         //             ->line('The introduction to the notification.')
         //             ->action('Notification Action', url('/'))

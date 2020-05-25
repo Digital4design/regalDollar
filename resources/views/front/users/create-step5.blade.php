@@ -1,4 +1,9 @@
 @include('homeheader')
+@section('css')
+<style>
+
+  </style>
+@endsection
 <!--CONTENT START-->
 <div class="content form-steps">
    <div class="stepwizard-row setup-panel">
@@ -87,7 +92,26 @@
             <input type="radio" id="female" name="reinvestment"  value="2" required="required">
             <label class="container" for="female">I would like my dividends distributed to my bank account.</label>
           </div>
-          <div id="signArea" class="form-group signError">
+           <div class="break_section1"></div> 
+               <div id="signArea1" class="form-group">
+                  <h2 class="tag-ingo">Put signature below,</h2>
+          <div class="typed"></div>
+          <!--div class="sig sigWrapper" id="signArea"  style="height:auto;">
+            <canvas class="sign-pad" id="sign-pad" width="300" height="100" ></canvas>
+            </div--->
+            <div id="signature-pad" class=" sig sigWrapper m-signature-pad">
+                <div class="m-signature-pad--body">
+                <canvas class="sign-pad" width="300" height="100" required="required"></canvas>
+            </div>
+            <div class="m-signature-pad--right-side-section">
+              <button type="button" class="button clear" data-action="clear">Clear Sign</button>
+              <button type="button" class="button save" data-action="savesign">Confirm Sign</button>
+            </div>
+          </div>
+          </div> 
+          <input type="hidden" name="signature" id="signature" required="required">
+          <!-- 
+            <div id="signArea" class="form-group signError">
             <h2 class="tag-ingo">Put signature below,</h2>
             <div class="sig sigWrapper" style="height:auto;">
               <div class="typed"></div>
@@ -95,7 +119,8 @@
             </div>
           </div>
           <div class="break_section1"></div>
-          <input type="hidden" name="signature" id="signature" required="required">
+          <input type="hidden" name="signature" id="signature" required="required"> 
+          -->
           <span id="signError" generated="true" class="error" style="display:none; color:red;">Please Sign here.</span>
           <a href="{{ url('/investment/create-step4') }}"  class="btn btn-primary" @if($investmentData['paypal_transaction_id']!='')  @else disabled="disabled" @endif>Back</a>
           <button type="submit" id="btnSaveSign" class="btn btn-primary"> Next </button>
@@ -107,42 +132,80 @@
 <!--BUY TEMPLATE SECTION END-->
 @include('homefooter')
 @include('homescripts')
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/signature_pad/1.3.4/signature_pad.min.js"></script>
+
+<script type="text/javascript">
+    var wrapper = document.getElementById("signature-pad"),
+		canvas = wrapper.querySelector("canvas"),
+		clearButton = wrapper.querySelector("[data-action=clear]"),
+		saveButton = wrapper.querySelector("[data-action=savesign]"),
+		b = document.getElementById("replace");
+
+	function resizeCanvas(canvas){
+		var ratio =  window.devicePixelRatio || 1;
+		console.log(ratio);
+		canvas.width = 300; //canvas.offsetWidth * ratio;
+		canvas.height = 150; canvas.offsetHeight * ratio;
+		canvas.getContext("2d").scale(ratio, ratio);
+	}
+
+	resizeCanvas(canvas);
+  signaturePad = new SignaturePad(canvas);
+  clearButton.addEventListener("click", function (event) {
+		signaturePad.clear();
+	});
+  if(saveButton != null ){
+    saveButton.addEventListener("click", function (event) {
+      if (signaturePad.isEmpty()) {
+        alert("Please provide signature first.");
+			} else {
+        /* alert(signaturePad.toDataURL("image/png")); */
+        var canvas_img_data = signaturePad.toDataURL('image/png');
+				var img_data = canvas_img_data.replace(/^data:image\/(png|jpg);base64,/, "");
+				console.log(img_data);
+        $('#signature').val(img_data);
+        }
+		});
+  }
+  </script>
 
 <script>
-$(document).ready(function() {
-   $('#signArea').signaturePad({
-    drawOnly:true, 
-    drawBezierCurves:true, 
-    lineTop:90
-  });
-});
+// $(document).ready(function() {
+//    $('#signArea').signaturePad({
+//     drawOnly:true, 
+//     drawBezierCurves:true, 
+//     lineTop:90
+//   });
+// });
 
-$("#sign-pad").mouseout(function(e){
- 
-  html2canvas([document.getElementById('sign-pad')], {
-      onrendered: function (canvas) {
-         var canvas_img_data = canvas.toDataURL('image/png');
-         var img_data = canvas_img_data.replace(/^data:image\/(png|jpg);base64,/, "");
-         var sing =  $("#signature").val(img_data);
+// $("#sign-pad").mouseout(function(e){
+
+//    html2canvas([document.getElementById('sign-pad')], {
+//       onrendered: function (canvas) {
+//          var canvas_img_data = canvas.toDataURL('image/png');
+//          var img_data = canvas_img_data.replace(/^data:image\/(png|jpg);base64,/, "");
+//          var sing =  $("#signature").val(img_data);
+//          //$canvas.preventDefault();
+// 		 $(window).scroll().disable();
+//          // 
+//          if(!sing){
+//           $("#signError").show();
+//         }
          
-         // 
-         if(!sing){
-          $("#signError").show();
-        }
          
-         
-      }
-   });
-});
+//       }
+//    });
+// });
 </script>
 <script type="text/javascript">
 $(document).ready(function(){
    $("#registrationform").validate({
       rules : {
-          indicateagreement : {
-              required : true
-           },
-           sign_pad:{
+        indicateagreement : {
+            required : true
+            },
+            signature:{
              required : true
           },
           reinvestment:{
@@ -152,7 +215,7 @@ $(document).ready(function(){
       messages: {
          indicateagreement: "Please check indicateagreement",
          reinvestment: "Please check reinvestment",
-         sign_pad: "Please signature here",
+         signature: "Please signature here",
       },
       submitHandler: function(form) {
          form.submit();
