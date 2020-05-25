@@ -2,17 +2,20 @@
 
 namespace App\Http\Controllers\Client;
 
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use App\Models\Plan;
-use App\Models\InvestmentModel;
+use App\Notifications\Users\InvestmentConformationMail;
 use App\Models\DocumentManagemetModel;
+use App\Http\Controllers\Controller;
+use App\Models\InvestmentModel;
+use Illuminate\Http\Request;
+use App\Models\Plan;
 use App\User;
+use Redirect;
+use Validator;
 use Auth;
 use Crypt;
 use Hash;
-use Redirect;
-use Validator;
+
+
 
 class AdditionalPlanManagmentController extends Controller
 {
@@ -137,10 +140,28 @@ class AdditionalPlanManagmentController extends Controller
     public function updatePayment($id,Request $request)
     {
         $investmentdata = $request->session()->get('investmentdata');
+       
         $userData = InvestmentModel::find($investmentdata['id']);
         $userData->paypal_transaction_id = $id;
         $userData->save();
-        $investmentdata = InvestmentModel::find($request->investmentId);
+        $investmentdata = InvestmentModel::find($investmentdata['id']); 
+
+
+        $userData = User::find(Auth::user()->id);
+        // dd($userData);
+        $investData = InvestmentModel::find($investmentdata['id']);
+        
+        // dd(Auth::user()->first_name);
+        $notificationData = [
+            "user" => $userData['name'],
+            "message" => Auth::user()->first_name." You have invest  $".$investData['amount']." with trancation id ".$investData['paypal_transaction_id']." will complete on ".$investData['plan_end_date'], 
+            "investmentId" => $investData['id']
+        ];
+         //dd($notificationData);
+
+        //$userData->notify(new WithdrawReaction($notificationData));
+        $userData->notify(new InvestmentConformationMail($notificationData));
+
         return redirect('/client');
     } 
     

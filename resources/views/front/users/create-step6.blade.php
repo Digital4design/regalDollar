@@ -48,7 +48,7 @@
             <span class="edit_field" >
               <input 
               name="first_name" 
-              class="edit_here" 
+              class="form-control edit_here" 
               contenteditable="true" 
               id="first_name"
               value="{{ $userData['first_name'] }}"
@@ -59,7 +59,7 @@
             <span class="edit_field" >
               <input
               name="address"
-              class="edit_here" 
+              class="form-control edit_here" 
               contenteditable="true" 
               id="address" 
               value="{{ $userData['address'] }}"
@@ -70,7 +70,7 @@
             <span class="edit_field" >
               <input
               name="city" 
-              class="edit_here" 
+              class="form-control edit_here" 
               id="city"
               value="{{ $userData['city'] }}" 
               disabled
@@ -99,7 +99,7 @@
                <span class="edit_field" >
                <input  
                name="zipcode" 
-               class="edit_here" 
+               class="form-control edit_here" 
                id="zipcode" 
                maxlength="10"
                aria-required="true" 
@@ -112,7 +112,7 @@
                <span class="edit_field" >
                <input  
                name="phoneNumber" 
-               class="edit_here" 
+               class="form-control edit_here" 
                id="phoneNumber" 
                value="{{ $userData['phoneNumber'] }}" 
                disabled
@@ -176,11 +176,23 @@
     $( ".fa-pencil-square-o" ).click(function() {
         var prev=$(this).prev();
         $('.edit_here').removeClass('active');
+        
         prev.addClass('active');
         $(".edit_here").removeAttr("disabled");
         //prev.css("background-color", "yellow");
         //alert( "Handler for .click() called." );
    });
+
+
+  //  $( ".white-bg" ).click(function() {
+  //       $(".edit_here").attr("disabled","disabled");
+  //       //$(".edit_here").removeAttr("disabled");
+  //       //prev.css("background-color", "yellow");
+  //       //alert( "Handler for .click() called." );
+  //  });
+
+
+
     $("#first_name").keyup(function( event ) {
       var first_name = $('input:text[name=first_name]').val();
       event.preventDefault();
