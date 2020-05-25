@@ -41,7 +41,6 @@ class DashboardController extends Controller
         ->orderBy('id', 'DESC')
         ->first();
         
-       
         $plan_id = $investmentData['plan_id'];
         $planData = Plan::where('id',$plan_id)->first();
         $investData = DB::table('investment')
@@ -53,16 +52,16 @@ class DashboardController extends Controller
         //dd($investData);
         
         $graphData=array();
-        /*
         $totalgainData=0;
         foreach($investData as $invData){
-            // dd($invData);
+           // dd($invData);
             $datetime1 = new DateTime(date("Y-m-d"));
             $datetime2 = new DateTime($invData->plan_start_date);
             $interval = $datetime1->diff($datetime2);
             $fee = $invData->plan_fee;
             $amount = $invData->amount;
             $time_investment = $invData->time_investment;
+
             if($interval->m > 0){
                 $inst = $amount * $invData->interest_rate / $interval->m;
                 $gains = $amount+$inst;
@@ -70,22 +69,26 @@ class DashboardController extends Controller
                 for($i=1; $i<=$interval->m; $i++){
                     $instrData = $amount * $invData->interest_rate / $i;
                     $gainData = $amount+$instrData;
+                    //dd($gainData);
                     // $totalgain += $gain - $fee;
-                    $graphData[]=[
-                        'baseamount'=>$amount,
-                        'netgrouth'=>$gainData
-                    ];
+                    
                 }
-                
-                
+                $graphData[]=[                    
+                    'investId'=>$invData->id,
+                    'plan_name'=>$invData->plan_name,
+                    'baseamount'=>$amount,
+                    'netgrouth'=>$gainData
+                ];
             }else{
                 $graphData[]=[
+                    'investId'=>$invData->id,
+                    'plan_name'=>$invData->plan_name,
                     'baseamount'=>$amount,
                     'netgrouth'=>$amount
                 ];
             }
         }
-        */
+        
         // dd($graphData);
         $totalgain=0;
         foreach($investData as $invest){
@@ -104,22 +107,14 @@ class DashboardController extends Controller
                 $instr = $amount * $invest->interest_rate / $interval->m;
                 $gain = $amount+$instr;
                 $totalgain += $gain - $fee;
-
-                $graphData[]=[
-                    'baseamount'=>$amount,
-                    'netgrouth'=>$gain
-                ];
+                
             }else{
                 $totalgain +=$amount;
-                $graphData[]=[
-                    'baseamount'=>$amount,
-                    'netgrouth'=>$amount
-                ];
+                
             }
-            //dd($totalgain);
+            
         }
-        // dd($totalgain);
-        //dd($investData);
+        
         $result = array(
             'pageName'      => 'Dashboard',
             'activeMenu'    => 'dashboard',

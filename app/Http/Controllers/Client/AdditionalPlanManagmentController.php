@@ -2,20 +2,16 @@
 
 namespace App\Http\Controllers\Client;
 
-use App\Notifications\Users\InvestmentConformationMail;
-use App\Models\DocumentManagemetModel;
 use App\Http\Controllers\Controller;
+use App\Models\DocumentManagemetModel;
 use App\Models\InvestmentModel;
-use Illuminate\Http\Request;
 use App\Models\Plan;
+use App\Notifications\Users\InvestmentConformationMail;
 use App\User;
+use Auth;
+use Illuminate\Http\Request;
 use Redirect;
 use Validator;
-use Auth;
-use Crypt;
-use Hash;
-
-
 
 class AdditionalPlanManagmentController extends Controller
 {
@@ -29,8 +25,8 @@ class AdditionalPlanManagmentController extends Controller
         $planData = Plan::where('plan_type', '1')->orderBy('id', 'desc')->get();
         $result = array('pageName' => 'Dashboard',
             'activeMenu' => 'create-account',
-            'selected'=>$id,
-            'planData'=>$planData,
+            'selected' => $id,
+            'planData' => $planData,
         );
         return view('client.newPlanManagment.selectNewPlan', $result);
     }
@@ -40,7 +36,7 @@ class AdditionalPlanManagmentController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    { 
+    {
         $planData = Plan::find($request->plan_id);
         $date = date("Y-m-d");
         //$date = $planData->plan_start_date;
@@ -50,23 +46,24 @@ class AdditionalPlanManagmentController extends Controller
         $investmentdata = InvestmentModel::create([
             'user_id' => Auth::user()->id,
             'plan_id' => $request->plan_id,
-            'plan_start_date'=>date("Y-m-d"),
-            'plan_end_date'=>$valid_till,
-            'amount'=>$planData['price'],
+            'plan_start_date' => date("Y-m-d"),
+            'plan_end_date' => $valid_till,
+            'amount' => $planData['price'],
         ]);
         $userData = $request->session()->put('investmentdata', $investmentdata);
         $result = array(
             'pageName' => 'Dashboard',
-            'activeMenu' => 'create-account', 
-            'investmentId'=>$investmentdata['id'],
-            
+            'activeMenu' => 'create-account',
+            'investmentId' => $investmentdata['id'],
+
         );
         return view('client.newPlanManagment.amountSelection', $result);
         //return view('client.newPlanManagment.aggrement', $result);
     }
 
-    public function updateAmount(Request $request){
-        
+    public function updateAmount(Request $request)
+    {
+
         $rules = [
             'finalamount' => 'required',
             //'amount' => 'required',
@@ -79,8 +76,8 @@ class AdditionalPlanManagmentController extends Controller
             return back()->withErrors($validator)->withInput();
         }
         try {
-            InvestmentModel::where('id',$request->investmentId)->update(['amount' => $request->finalamount]);
-            $investmentData = InvestmentModel::where('id',$request->investmentId)->first();
+            InvestmentModel::where('id', $request->investmentId)->update(['amount' => $request->finalamount]);
+            $investmentData = InvestmentModel::where('id', $request->investmentId)->first();
             $investmentData = $request->session()->put('investmentData', $investmentData);
             $investmentData['userData'] = $request->session()->get('investmentData');
             return Redirect::to('client/purchase-new-plan/agreement');
@@ -90,18 +87,19 @@ class AdditionalPlanManagmentController extends Controller
             echo $e->getMessage();
         }
     }
-    public function agreement(Request $request){
-        $investmentdata =  $request->session()->get('investmentData');
+    public function agreement(Request $request)
+    {
+        $investmentdata = $request->session()->get('investmentData');
 
         $documentData = DocumentManagemetModel::where('plan_id', $investmentdata['plan_id'])->get();
         // dd($documentData);
-  
+
         $result = array(
             'pageName' => 'Dashboard',
-            'activeMenu' => 'create-account', 
-            'investmentId'=>$investmentdata['id'],
-            'documentData'=>$documentData
-            
+            'activeMenu' => 'create-account',
+            'investmentId' => $investmentdata['id'],
+            'documentData' => $documentData,
+
         );
         return view('client.newPlanManagment.aggrement', $result);
     }
@@ -111,8 +109,9 @@ class AdditionalPlanManagmentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function updateAggrement(Request $request){
-        
+    public function updateAggrement(Request $request)
+    {
+
         if ($request->signature) {
             $imagedata = base64_decode($request->signature);
             $filename = md5(date("dmYhisA"));
@@ -124,7 +123,7 @@ class AdditionalPlanManagmentController extends Controller
         $userData->indicateagreement = $indicate;
         $userData->reinvestment = $request->reinvestment;
         if ($request->signature) {
-            $userData->signature = $filename .'.png';
+            $userData->signature = $filename . '.png';
         }
         $userData->save();
         $investmentdata = InvestmentModel::find($request->investmentId);
@@ -133,36 +132,39 @@ class AdditionalPlanManagmentController extends Controller
         $result = array(
             'pageName' => 'Dashboard',
             'activeMenu' => 'create-account',
-            'investmentdata'=>$investmentdata,
+            'investmentdata' => $investmentdata,
         );
         return view('client.newPlanManagment.paymentProcess', $result);
     }
-    public function updatePayment($id,Request $request)
+    public function updatePayment($id, Request $request)
     {
         $investmentdata = $request->session()->get('investmentdata');
-       
-        $userData = InvestmentModel::find($investmentdata['id']);
-        $userData->paypal_transaction_id = $id;
-        $userData->save();
-        $investmentdata = InvestmentModel::find($investmentdata['id']); 
+
+        $userInvestData = InvestmentModel::find($investmentdata['id']);
+        $userInvestData->paypal_transaction_id = $id;
+        $userInvestData->save();
+        $investmentdata = InvestmentModel::find($investmentdata['id']);
 
 
         $userData = User::find(Auth::user()->id);
-        // dd($userData);
         $investData = InvestmentModel::find($investmentdata['id']);
-        
+        $planData = Plan::where('id', $investmentdata['plan_id'])->first();
+
+        $date = date_create($investData['plan_end_date']);
+        $completeDate = date_format($date, "M d,Y");
+
         // dd(Auth::user()->first_name);
         $notificationData = [
             "user" => $userData['name'],
-            "message" => Auth::user()->first_name." You have invest  $".$investData['amount']." with trancation id ".$investData['paypal_transaction_id']." will complete on ".$investData['plan_end_date'], 
-            "investmentId" => $investData['id']
+            "message" => Auth::user()->first_name . " You have invest with plan " . $planData['plan_name'] . " amount  $" . $investData['amount'] . " with trancation id " . $investData['paypal_transaction_id'] . " will complete on " . $completeDate,
+            "investmentId" => $investData['id'],
         ];
-         //dd($notificationData);
+        //dd($notificationData);
 
         //$userData->notify(new WithdrawReaction($notificationData));
         $userData->notify(new InvestmentConformationMail($notificationData));
 
         return redirect('/client');
-    } 
-    
+    }
+
 }

@@ -25,12 +25,12 @@ $curentData=  date_format($date,"M d,Y");
             <div class="row">
                <div class="col-lg-7">
                   <div>
-                     <div id="chart_div1" class="ct-chart earning ct-golden-section"></div>
+                     <div id="chart_div" class="ct-chart earning ct-golden-section"></div>
                      <!-- <div id="chartContainer" class="ct-chart earning ct-golden-section"></div> -->
                      <!-- <div id="chart-with-area" class="ct-chart earning ct-golden-section"></div> -->
                   </div>
                </div>
-               
+              
                <div class="col-lg-5">
                   <div class="row">
                      <div class="col-md-12">
@@ -129,10 +129,11 @@ $curentData=  date_format($date,"M d,Y");
    </div>
 </div>
 <?php 
-// $investmentData =array(
-//    'investment'=>1000,
-//    'return'=>12000
-// );
+// dd($graphData);
+// foreach($graphData as $graph){
+//    dd($graph);
+//  }
+//  dd($graphData);
 ?>
 <!-- end row -->
 @endsection
@@ -157,7 +158,6 @@ google.charts.load('current', {'packages':['corechart']});
           ['2',  1170,2100,5160],
           ['3',  1200,2120,5800],
           ['4',  1330,2240,6000],
-         
          ]);
 
         var options = {
