@@ -122,7 +122,8 @@ class PlanManagementController extends Controller
             }
             if ($request->plan_doc != "") {
                 foreach ($request->plan_doc as $photo) {
-                    $filename = 'docs-' . time() .'-'. rand(15,35) .'.' . $photo->getClientOriginalExtension();
+                    $filename = $photo->getClientOriginalName() . $photo->getClientOriginalExtension();
+                    // $filename = 'docs-' . time() .'-'. rand(15,35) .'.' . $photo->getClientOriginalExtension();
                     $updaloadFile = $photo->move('public/uploads/documents_management',$filename);
                     DocumentManagemetModel::create([
                         'plan_id' => $planData->id,
@@ -243,10 +244,13 @@ class PlanManagementController extends Controller
 
             if ($request->plan_doc != "") {
                 $docData = DocumentManagemetModel::where('plan_id', $planData->id)->count();
+               // dd($docData);
                 if($docData > 0) {
-                    DocumentManagemetModel::where('plan_id', $planData->id)->delete();
+                    // DocumentManagemetModel::where('plan_id', $planData->id)->delete();
                     foreach ($request->plan_doc as $photo) {
-                        $filename = 'docs-' . time() .'-'. rand(15,35) .'.' . $photo->getClientOriginalExtension();
+                        
+                        // $filename = 'docs-' . time() .'-'. rand(15,35) .'.' . $photo->getClientOriginalExtension();
+                        $filename = $photo->getClientOriginalName() . $photo->getClientOriginalExtension();
                         $updaloadFile = $photo->move('public/uploads/documents_management',$filename);
                         DocumentManagemetModel::create([
                             'plan_id' => $planData->id,
@@ -255,9 +259,10 @@ class PlanManagementController extends Controller
                         }
                     }else{
 
-                        DocumentManagemetModel::where('plan_id', $planData->id)->delete();
+                       // DocumentManagemetModel::where('plan_id', $planData->id)->delete();
                         foreach ($request->plan_doc as $photo) {
-                            $filename = 'docs-' . time() .'-'. rand(15,35) .'.' . $photo->getClientOriginalExtension();
+                            $filename = $photo->getClientOriginalName() . $photo->getClientOriginalExtension();
+                            // $filename = 'docs-' . time() .'-'. rand(15,35) .'.' . $photo->getClientOriginalExtension();
                             $updaloadFile = $photo->move('public/uploads/documents_management',$filename);
                             DocumentManagemetModel::create([
                                 'plan_id' => $planData->id,

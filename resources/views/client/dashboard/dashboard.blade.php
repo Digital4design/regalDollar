@@ -23,15 +23,15 @@ $curentData=  date_format($date,"M d,Y");
          <div class="card-body">
             <h4 class="mt-0 header-title mb-5">Monthly Earnings</h4>
             <div class="row">
-               <div class="col-lg-7">
+               <div class="col-lg-8">
                   <div>
-                     <div id="chart_div1" class="ct-chart earning ct-golden-section"></div>
+                     <div id="chart_div" class="ct-chart earning ct-golden-section"></div>
                      <!-- <div id="chartContainer" class="ct-chart earning ct-golden-section"></div> -->
                      <!-- <div id="chart-with-area" class="ct-chart earning ct-golden-section"></div> -->
                   </div>
                </div>
                
-               <div class="col-lg-5">
+               <div class="col-lg-4">
                   <div class="row">
                      <div class="col-md-12">
                         <div class="text-center">
@@ -149,25 +149,23 @@ $curentData=  date_format($date,"M d,Y");
 <script type="text/javascript">
 google.charts.load('current', {'packages':['corechart']});
       google.charts.setOnLoadCallback(drawChart);
-
+      var chartData = <?php echo $chartData; ?>;
+      console.log(chartData);
       function drawChart() {
-        var data = google.visualization.arrayToDataTable([
-         ['Month', 'Plan1', 'Plan2', 'Plan3'],
-         ['1',  1000,2000,5000],
-          ['2',  1170,2100,5160],
-          ['3',  1200,2120,5800],
-          ['4',  1330,2240,6000],
-         
-         ]);
-
+        var data = google.visualization.arrayToDataTable(chartData);
+        //   var data = google.visualization.arrayToDataTable([
+        //    ['Month', 'Plan1', 'Plan2', 'Plan3'],
+        //    ['1',  1000,2000,5000],
+        //     ['2',  1170,2100,5160],
+        //     ['3',  1200,2120,5800],
+        //     ['4',  1330,2240,6000],
+        //    ]);
         var options = {
           title: 'Investment Grouth',
           curveType: 'function',
           legend: { position: 'bottom' }
         };
-
         var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
-
         chart.draw(data, options);
       }
     </script>

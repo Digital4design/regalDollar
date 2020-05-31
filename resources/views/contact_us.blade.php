@@ -68,15 +68,15 @@
                {{ csrf_field() }}
                   <div class="form-group @error('name')">
                      <label for="">Name</label>
-                     <input type="text" name="name">
+                     <input name="name">
                   </div>
                   <div class="form-group @error('email')">
                      <label for="">Email</label>
-                     <input type="text" name="email">
+                     <input name="email">
                   </div>
                   <div class="form-group @error('phone')">
                      <label for="">Phone</label>
-                     <input type="text" name="phone">
+                     <input name="phone">
                   </div>
                   <div class="form-group @error('message')">
                      <label for="">Message</label>

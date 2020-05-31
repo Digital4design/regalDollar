@@ -42,11 +42,13 @@
 									<th>Email</th>
                                     <th>Phone</th>
                                     <th>Message</th>
-									<th>Action</th>
+									<th>Contact Subject</th>
+                                    <th>Action</th>
 								</tr>
 							</thead>
 						<tfoot>
                             <tr>
+                                <th></th>
                                 <th></th>
                                 <th></th>
                                 <th></th>
@@ -85,8 +87,10 @@ $(function() {
             { data: 'name', name: 'name', orderable: true , searchable: true},
             { data: 'email', name: 'email', orderable: true , searchable: true},
             { data: 'phone', name: 'phone', orderable: true , searchable: true},
-            { data: 'message', name: 'message', orderable: true , searchable: true},            
+            { data: 'message', name: 'message', orderable: true , searchable: true}, 
+            { data: 'contact_subject', name: 'contact_subject', orderable: false, searchable: false},           
             { data: 'action', name: 'action', orderable: false, searchable: false},
+            
         ],
         dom: 'Blfrptip',
         buttons: [

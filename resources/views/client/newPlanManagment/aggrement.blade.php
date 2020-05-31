@@ -79,6 +79,58 @@
   }
 }
 
+.m-signature-pad.sigWrapper_inner {
+    width: 100%;
+    display: table;
+    margin: 0;
+    padding: 0;
+    height: auto;
+}
+.m-signature-pad.sigWrapper_inner .m-signature-pad--body {
+    position: relative;
+    width: 300px;
+    height: 150px;
+    display: block;
+    margin-bottom: 10px;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+	border: 1px solid #eee;
+}
+.m-signature-pad.sigWrapper_inner canvas.sign-pad {
+    width: 100%;
+    height: 150px;
+    position: static;
+}
+.m-signature-pad.sigWrapper_inner .m-signature-pad--right-side-section {
+    width: auto;
+    display: block;
+    text-align: left;
+}
+.m-signature-pad.sigWrapper_inner .m-signature-pad--right-side-section button.button {
+    width: auto;
+    float: left;
+    margin: 0 10px 0 0;
+    padding: 5px 20px;
+    background: #fff;
+    border: 1px solid #ccc;
+}
+.m-signature-pad.sigWrapper_inner .m-signature-pad--right-side-section button.button:hover {
+    background: #0e223a;
+    color: #fff;
+}
+.m-signature-pad.sigWrapper_inner .m-signature-pad--right-side-section button.button:active, .m-signature-pad.sigWrapper_inner .m-signature-pad--right-side-section button.button:focus {
+    outline: none;
+    color: #fff;
+	background: #0e223a;
+}
+
+
+
+
+
+
 @media screen and (min-device-width: 768px) and (max-device-width: 1024px) {
   .m-signature-pad {
     margin: 10%;
@@ -180,7 +232,7 @@
           <!--div class="sig sigWrapper" id="signArea"  style="height:auto;">
 						<canvas class="sign-pad" id="sign-pad" width="300" height="100" ></canvas>
             </div--->
-            <div id="signature-pad" class=" sig sigWrapper m-signature-pad">
+            <div id="signature-pad" class=" sig sigWrapper m-signature-pad sigWrapper_inner">
                 <div class="m-signature-pad--body">
                 <canvas class="sign-pad" width="300" height="100"></canvas>
             </div>

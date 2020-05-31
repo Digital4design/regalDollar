@@ -20,6 +20,18 @@
               <h5>Send us a message</h5>
               <p class="text-muted">Let us know if you have any questions at all. We try to respond within 1-2 business days.</p>
             </div>
+
+            @if(Session::get('status') == "success")
+			<div class="alert alert-success alert-dismissible">
+			  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+			  <i class="icon fa fa-check"></i>  {{ Session::get('message') }}
+			</div>
+			@elseif(Session::get('status') == "danger")
+			<div class="alert alert-danger alert-dismissible">
+			  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+			  <i class="icon fa fa-ban"></i>  {{ Session::get('message') }}
+			</div>
+			@endif
           </div>
         </div>
         <!-- end row -->

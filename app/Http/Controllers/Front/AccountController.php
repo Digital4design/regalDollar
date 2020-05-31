@@ -60,10 +60,10 @@ class AccountController extends Controller
     {
         if ($request->user_id != '') {
             $rules = [
-                'first_name' => 'required|min:2',
-                'last_name' => 'required|min:2',
-                'name' => 'required|unique:users,name,'.$request->user_id,
-                'email' => 'required|unique:users,email,'.$request->user_id,
+                //'first_name' => 'required|min:2',
+                //'last_name' => 'required|min:2',
+                //'name' => 'required|unique:users,name,'.$request->user_id,
+               // 'email' => 'required|unique:users,email,'.$request->user_id,
             ];
             $messages = [
                 'first_name.required' => 'Your first name is required.',
@@ -80,10 +80,10 @@ class AccountController extends Controller
             }
             try {
                 $userData = User::find($request->user_id);
-                $userData->first_name = trim($request->first_name);
-                $userData->last_name = trim($request->last_name);
-                $userData->name = trim($request->name);
-                $userData->email = trim($request->email);
+                //$userData->first_name = trim($request->first_name);
+                //$userData->last_name = trim($request->last_name);
+                //$userData->name = trim($request->name);
+                //$userData->email = trim($request->email);
                 $userData->is_verify = "pending";
                 $userData->save();
                 $userData = User::find($request->user_id);

@@ -42,13 +42,13 @@
           <input type="hidden" value="{{ $userData['investmentId'] }}" class="form-control" id="investmentId"  name="investmentId">
           <span class="section_title editable"> {{ $userData['first_name'] }} Basic info</span>
           <div class='edit_requst'>
-            <i class="fa fa-pencil-square-o first_name" aria-hidden="true"></i>
+            <i class="fa fa-pencil-square-o open"   aria-hidden="true"></i>
           </div>
           <div class="form-group update_field">
             <span class="edit_field" >
               <input 
               name="first_name" 
-              class="edit_here" 
+              class="form-control edit_here" 
               contenteditable="true" 
               id="first_name"
               value="{{ $userData['first_name'] }}"
@@ -59,7 +59,7 @@
             <span class="edit_field" >
               <input
               name="address"
-              class="edit_here" 
+              class="form-control edit_here" 
               contenteditable="true" 
               id="address" 
               value="{{ $userData['address'] }}"
@@ -70,7 +70,7 @@
             <span class="edit_field" >
               <input
               name="city" 
-              class="edit_here" 
+              class="form-control edit_here" 
               id="city"
               value="{{ $userData['city'] }}" 
               disabled
@@ -99,7 +99,7 @@
                <span class="edit_field" >
                <input  
                name="zipcode" 
-               class="edit_here" 
+               class="form-control edit_here" 
                id="zipcode" 
                maxlength="10"
                aria-required="true" 
@@ -112,7 +112,7 @@
                <span class="edit_field" >
                <input  
                name="phoneNumber" 
-               class="edit_here" 
+               class="form-control edit_here" 
                id="phoneNumber" 
                value="{{ $userData['phoneNumber'] }}" 
                disabled
@@ -173,14 +173,42 @@
 @include('homescripts')
 <script>
   $(document).ready(function() {
-    $( ".fa-pencil-square-o" ).click(function() {
+    /*$( ".fa-pencil-square-o" ).click(function() {
         var prev=$(this).prev();
         $('.edit_here').removeClass('active');
+        
         prev.addClass('active');
         $(".edit_here").removeAttr("disabled");
         //prev.css("background-color", "yellow");
         //alert( "Handler for .click() called." );
-   });
+   });*/
+   
+   $( ".fa-pencil-square-o" ).click(function() {
+      if($( ".fa-pencil-square-o" ).hasClass( "open" )){
+        var prev=$(this).prev();
+        $('.edit_here').removeClass('active');
+        prev.addClass('active');
+        $(".edit_here").removeAttr("disabled");
+        $('.fa-pencil-square-o').removeClass('open');
+        $(".fa-pencil-square-o").addClass('closedDis');
+      }else{
+        $(".edit_here").attr("disabled",true);
+        $('.fa-pencil-square-o').removeClass('closedDis');
+        $(".fa-pencil-square-o").addClass('open');
+      }
+      return false;
+    });
+
+
+  //  $( ".white-bg" ).click(function() {
+  //       $(".edit_here").attr("disabled","disabled");
+  //       //$(".edit_here").removeAttr("disabled");
+  //       //prev.css("background-color", "yellow");
+  //       //alert( "Handler for .click() called." );
+  //  });
+
+
+
     $("#first_name").keyup(function( event ) {
       var first_name = $('input:text[name=first_name]').val();
       event.preventDefault();
