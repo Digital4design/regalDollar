@@ -20,16 +20,15 @@
    <div class="col-xl-12">
       <div class="card">
          <div class="card-body">
-            <h4 class="mt-0 header-title mb-5">Monthly Earnings</h4>
+            <h4 class="mt-0 header-title mb-5">Monthly Sales</h4>
             <div class="row">
-               <div class="col-lg-7">
-                  <div>
-                     <div id="curve_chart" class="ct-chart earning ct-golden-section"></div>
-                     <!-- <div id="chartContainer" class="ct-chart earning ct-golden-section"></div> -->
-                     <!-- <div id="chart-with-area" class="ct-chart earning ct-golden-section"></div> -->
-                  </div>
+               <div class="col-lg-8">
+                  
+						<div id="curve_chart" class="ct-chart earning ct-golden-section"></div>
+						<!-- <div id="chartContainer" class="ct-chart earning ct-golden-section"></div> -->
+						<!-- <div id="chart-with-area" class="ct-chart earning ct-golden-section"></div> -->
                </div>
-               <div class="col-lg-5">
+               <div class="col-lg-4">
                   <div class="row">
                      <div class="col-md-12">
                         <div class="text-center">
@@ -72,7 +71,7 @@
    <div class="col-xl-12">
       <div class="card">
          <div class="card-body">
-            <h4 class="mt-0 header-title mb-4">Transaction History Snapshot (Nov '19 - Jan '20)</h4>
+            <h4 class="mt-0 header-title mb-4">Transaction History Snapshot</h4>
             <div class="table-responsive">
                <table class="table table-hover">
                   <thead>
@@ -173,25 +172,26 @@
       google.charts.load('current', {'packages':['corechart']});
       google.charts.setOnLoadCallback(drawChart);
 
-      function drawChart() {
-        var data = google.visualization.arrayToDataTable([
-         ['Investment', 'Grouth'],
-          [ 400,500],
-          [ 600,700],
-          [ 800,900],
-          [ 1000, 1100],
-          [ 1200, 1300],
-        ]);
+	   var chartData = <?php echo $chartData; ?>;
+      console.log(chartData);
+	  function drawChart() {
+            // Define the chart to be drawn.
+			var data = google.visualization.arrayToDataTable(chartData);
+            /*var data = google.visualization.arrayToDataTable([
+               ['Month', 'Supplemented income', 'Balanced plan','Growth plan', 'Wealth plan'],
+               ['Jan',  10,      5, 10, 2  ],
+               ['Feb',  05,      8, 15, 5  ],
+               ['March',  15,    15, 20, 10 ],
+               ['April',  8,     20, 22, 5 ],
+               ['May',  20,      40, 30, 25 ]
+            ]);*/
 
-        var options = {
-          title: 'Investment',
-          curveType: 'function',
-          legend: { position: 'bottom' }
-        };
+            var options = {title: 'Plan Monthly Sale'};  
 
-        var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
-
-        chart.draw(data, options);
-      }
+            // Instantiate and draw the chart.
+            var chart = new google.visualization.ColumnChart(document.getElementById('curve_chart'));
+            chart.draw(data, options);
+         }
+         google.charts.setOnLoadCallback(drawChart);
     </script>
 @endsection

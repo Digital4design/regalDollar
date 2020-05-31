@@ -78,6 +78,12 @@
               <!-- <i class="fa fa-pencil-square-o" aria-hidden="true"></i> -->
             </span>
             <span class="edit_field" >
+              <!-- <input
+              name="state" 
+              class="edit_here" 
+              id="state" 
+              value="{{ $userData['state'] }}" 
+              > -->
               <select class="form-control edit_here" name="state"  id="state" disabled >
                 <option value="" >Select State</option>
                 @foreach ($stateData as $key => $state)
@@ -98,8 +104,9 @@
                maxlength="10"
                aria-required="true" 
                disabled
-               value="{{ $userData['zipcode'] }}"               
-               />
+               value="{{ $userData['zipcode'] }}" 
+               
+               >
                <!-- <i class="fa fa-pencil-square-o" aria-hidden="true"></i> -->
             </span>
                <span class="edit_field" >
@@ -110,7 +117,7 @@
                value="{{ $userData['phoneNumber'] }}" 
                disabled
                onkeydown="javascript:backspacerDOWN(this,event);" onkeyup="javascript:backspacerUP(this,event);"
-               />
+               >
                <!-- <i class="fa fa-pencil-square-o"  aria-hidden="true"></i> -->
             </span>
           </div>
@@ -165,10 +172,18 @@
 @include('homefooter')
 @include('homescripts')
 <script>
-
-$(document).ready(function() {
-    
-    $( ".fa-pencil-square-o" ).click(function() {
+  $(document).ready(function() {
+    /*$( ".fa-pencil-square-o" ).click(function() {
+        var prev=$(this).prev();
+        $('.edit_here').removeClass('active');
+        
+        prev.addClass('active');
+        $(".edit_here").removeAttr("disabled");
+        //prev.css("background-color", "yellow");
+        //alert( "Handler for .click() called." );
+   });*/
+   
+   $( ".fa-pencil-square-o" ).click(function() {
       if($( ".fa-pencil-square-o" ).hasClass( "open" )){
         var prev=$(this).prev();
         $('.edit_here').removeClass('active');
@@ -182,42 +197,15 @@ $(document).ready(function() {
         $(".fa-pencil-square-o").addClass('open');
       }
       return false;
-      // var prev=$(this).prev();
-      // $('.edit_here').removeClass('active');
-      // prev.addClass('active');
-      // // $(".fa-pencil-square-o").addClass('closed');
-      // $(".edit_here").removeAttr("disabled");
     });
 
 
-
-  //  $(".open" ).click(function() {
-  //     var prev=$(this).prev();
-  //       $('.edit_here').removeClass('active');
-  //       prev.addClass('active');
-  //       $(".edit_here").removeAttr("disabled");
-  //       $('.fa-pencil-square-o').removeClass('open');
-  //       $(".fa-pencil-square-o").addClass('closedDis');
-  //   });
-
-    // $(document).on("click", ".closedDis" , function() {
-    //   $('.edit_here').removeClass('active');
-    //   $(".edit_here").attr("disabled",true);
-    //   $('.fa-pencil-square-o').removeClass('closedDis');
-    //   $(".fa-pencil-square-o").addClass('open');
-    // });
-   
-
-    // $(".closedDis").click(function(){
-    //   console.log("lksdfjl");
-    //   alert("jkshdfjk");
-    //   $(".edit_here").attr("disabled",true);
-    //   $('.fa-pencil-square-o').removeClass('closed');
-    //   $(".fa-pencil-square-o").addClass('open');
-    // });
-
-   
-
+  //  $( ".white-bg" ).click(function() {
+  //       $(".edit_here").attr("disabled","disabled");
+  //       //$(".edit_here").removeAttr("disabled");
+  //       //prev.css("background-color", "yellow");
+  //       //alert( "Handler for .click() called." );
+  //  });
 
 
 

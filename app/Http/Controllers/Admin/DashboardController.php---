@@ -3,23 +3,17 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use App\Models\InvestmentModel;
+use App\Models\City;
 use App\Models\Country;
 use App\Models\State;
-use App\Models\City;
-use App\Models\Plan;
 use App\User;
-
-use Carbon\Carbon;
-use Validator;
-use DateTime;
 use Auth;
 use Hash;
+use Illuminate\Http\Request;
+use Validator;
 use DB;
-
-
-
+use Carbon\Carbon;
+use DateTime;
 
 class DashboardController extends Controller
 {
@@ -73,172 +67,14 @@ class DashboardController extends Controller
             //dd($totalgain);
         }
        // dd($totalgain);
-	   
-		$chartData = $this->getDashboardGraphData();
-	   
-	   
-        $result = array(
-						'pageName' 		=> 'Dashboard',
-						'activeMenu'	=> 'dashboard',
-						'investData'	=> $investData,
-						'totalgain'		=> $totalgain,
-						'chartData'     => $chartData,
+        $result = array('pageName' => 'Dashboard',
+            'activeMenu' => 'dashboard',
+            'investData' => $investData,
+            'totalgain'=>$totalgain
 
-					);
+        );
         return view('admin.dashboard.dashboard', $result);
     }
-	
-	/*
-	|------------
-	| Description : this is help to generate graph data array
-	| @prams	  : 
-	| @return     : full complete array
-	*/
-	
-	
-	public function getDashboardGraphData(){
-		
-		
-		// set month and plan name in array
-				$chartData[]= $onlyPlans =  $this->getALLPlanName();
-				
-			// get user first investment 
-			$getUserFirstInvestment = InvestmentModel::where('investment.paypal_transaction_id','!=', '')
-										->orderBy('investment.plan_start_date', 'Asc')
-										->first();
-				
-		
-			if($getUserFirstInvestment){
-				
-				$allMonths = $this->get_months($getUserFirstInvestment->plan_start_date, date("Y-m-d"));
-				
-				// get total months
-			
-					if(count($allMonths) > 0){
-						foreach($allMonths as $month){
-							$chartData[] = $this->calculatePlansMonthlySale($month);
-						}
-
-					}else{
-						$chartData[] = array(date("F"), 0);
-					}
-			
-			}else{
-				$chartData[] = array( array(date("F"), 0,0,0,0) );
-			
-			}
-		
-		//dd($chartData);
-		return  json_encode($chartData);
-		
-	}
-	
-	/*
-	|------------
-	| Description : help to set chart array based on month and all plans 
-	| @prams	  : @monthYear 2020-march
-	| @return     : monthly array
-	*/
-	
-		public function calculatePlansMonthlySale($monthYear){
-			
-			$monthlyAllPlanData = array(date('F', strtotime($monthYear)));
-			
-			$getAllAdminPlans  = Plan::orderBy('plan_name', 'Asc')->get();
-			
-			if($getAllAdminPlans){
-				
-				foreach($getAllAdminPlans as $key => $pValue){
-					$monthlyAllPlanData[] =	$this->calculatePlanSaleData($pValue, $monthYear);
-				}
-			}else{
-				$monthlyAllPlanData[] = null;	
-			}
-			
-			return $monthlyAllPlanData;
-		}
-	
-	/*
-	|------------
-	| Description : this will return the sale calculations
-	| @prams	  : $plan array, @monthYear 2020-march
-	| @return     : count
-	*/
-	
-		public function calculatePlanSaleData($plan,  $monthYear){
-			
-			$fromMonth = array(date('m', strtotime($monthYear)));
-			
-			
-			$getSale = InvestmentModel::where('plan_id',$plan->id )
-										->whereNotNull('paypal_transaction_id')
-										->whereMonth('plan_start_date', $fromMonth)
-										->count();
-			
-			return (int)$getSale;
-			
-		}
-	
-
-	/*
-	|------------
-	| Description : this will return all plan name
-	| @prams	  : $investData array
-	| @return     : array
-	*/
-	
-	public function getALLPlanName(){
-        $buff=array('Month');
-		
-		$getAllPlans = Plan::orderBy('plan_name', 'Asc')
-							->get();
-		
-        if(!empty($getAllPlans )){
-            foreach($getAllPlans as $p){
-                $buff[] = $p->plan_name;
-            }
-            return $buff;
-        }
-    }
-	
-	/*
-	|------------
-	| Description : this will array of month from start date to end date
-	| @prams	  : @date1 (start date ) / date2 (end date)
-	| @return     : array
-	*/
-	
-	function get_months($date1, $date2) {
-		
-		
-	   $time1  = strtotime($date1);
-	   $time2  = strtotime($date2);
-	   $my     = date('mY', $time2);
-	   
-		if(date('Y-m',$time1) == date('Y-m',$time2)){
-		   return array(date('Y-m', $time1));
-		}
-	   
-	   $months = array(date('Y-m', $time1));
-
-
-	   while($time1 < $time2) {
-		  $time1 = strtotime(date('Y-m-d', $time1).' +1 month');
-		  if(date('mY', $time1) != $my && ($time1 < $time2))
-			 $months[] = date('Y-m', $time1);
-	   }
-		
-		if($date1< $date2){
-			$months[] = date('Y-m', $time2);
-		}
-		
-	   return $months;
-	}
-	
-	
-	
-	
-	
     /**
      * myAccount function
      *

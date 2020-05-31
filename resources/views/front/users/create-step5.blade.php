@@ -121,7 +121,7 @@
           <div class="break_section1"></div>
           <input type="hidden" name="signature" id="signature" required="required"> 
           -->
-          <span id="signError" generated="true" class="error" style="display:none; color:red;">Please Sign here.</span>
+          <span id="signError" generated="true" class="error" style="display:none; color:red;">Please provide signature first..</span>
           <a href="{{ url('/investment/create-step4') }}"  class="btn btn-primary" @if($investmentData['paypal_transaction_id']!='')  @else disabled="disabled" @endif>Back</a>
           <button type="submit" id="btnSaveSign" class="btn btn-primary"> Next </button>
         </form>
@@ -158,7 +158,9 @@
   if(saveButton != null ){
     saveButton.addEventListener("click", function (event) {
       if (signaturePad.isEmpty()) {
-        alert("Please provide signature first.");
+		  $("#signError").show();
+		  return false;
+		  // alert("Please provide signature first.");
 			} else {
         /* alert(signaturePad.toDataURL("image/png")); */
         var canvas_img_data = signaturePad.toDataURL('image/png');

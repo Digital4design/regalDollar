@@ -29,8 +29,8 @@
     <div class="container">
       <div class="form_outter_section">
         <!--HEADER SECTION START-->
-        <h2 class="title">Let's get started.</h2>
-        <h3 class="subtitle">To incest, please create an account.</h3>
+        <h2 class="title">Let's get started @if (Auth::guest()) @else  {{ $userData->name}}  @endif.</h2>
+        <h3 class="subtitle">@if (Auth::guest()) To incest,  please create an account.  @else Welcome {{ $userData->name}} for another invest   @endif</h3>
         <form action="{{ url('front/create-step1') }}" id="registrationform" name="registration" method="post">
           {{ csrf_field() }}
           <input id="plan_id" type="hidden" class="form-control" name="plan_id" value="{{ $planData->id }}"/>
@@ -45,7 +45,7 @@
             class="form-control"
             name="first_name"
             value="{{ old('first_name',(isset($userData) && !empty($userData->first_name)) ? $userData->first_name : '' ) }}"
-            required
+            @if (Auth::guest()) required @else disabled @endif
             />
             @if ($errors->has('first_name'))
             <span style="display:initial;" class="invalid-feedback" role="alert">
@@ -60,7 +60,7 @@
          class="form-control"
          name="last_name"
          value="{{ old('last_name',(isset($userData) && !empty($userData->last_name)) ? $userData->last_name : '' ) }}"
-         required
+         @if (Auth::guest()) required @else disabled @endif
          />
          @if ($errors->has('last_name'))
          <span style="display:initial;" class="invalid-feedback" role="alert">
@@ -75,7 +75,7 @@
     class="form-control"
     name="name"
     value="{{ old('name',(isset($userData) && !empty($userData->name)) ? $userData->name : '' ) }}"
-    required
+    @if (Auth::guest()) required @else disabled @endif
     />
     @if ($errors->has('name'))
     <span style="display:initial;" class="invalid-feedback" role="alert">
@@ -91,6 +91,7 @@
    class="form-control"
    name="email"
    value="{{ old('email',(isset($userData) && !empty($userData->email)) ? $userData->email : '' ) }}"
+   @if (Auth::guest()) required @else disabled @endif
    />
    @if ($errors->has('email'))
    <span style="display:initial;" class="invalid-feedback" role="alert">
@@ -111,6 +112,7 @@ if(Auth::user()){
     name="password"
     placeholder="Enter password"
     value="{{ old('password',(isset($userData) && !empty($userData->password)) ? $userData->password : '' ) }}"
+    @if (Auth::guest()) @else disabled @endif
     />
     @if ($errors->has('password'))
     <span style="display:initial;" class="invalid-feedback" role="alert">
@@ -127,12 +129,13 @@ if(Auth::user()){
     id="userpassword2"
     placeholder="Enter password"
     value="{{ old('password',(isset($userData) && !empty($userData->password)) ? $userData->password : '' ) }}"
+    
     />
   </div>
 <?php } ?>
 <div class="form_group">
   <div class="term_field field">
-    <input type="checkbox" name="checkbox" required="required">
+    <input type="checkbox" name="checkbox" @if (Auth::guest()) required @else disabled @endif>
     <p>I have reviewed and agree to the <a href="#">Terms of Service</a> ,
       <a href="#">Privacy Policy</a>.</p>
     </div>
@@ -143,10 +146,10 @@ if(Auth::user()){
   <div class="form_group">
     <div class="citizenship_field field">
       <span class="label">Country of citizenship</span>
-      <select class="Country_citizenship" name="country_citizenship" required="required" >
+      <select class="Country_citizenship" name="country_citizenship" @if (Auth::guest()) @else disabled @endif required="required" >
         <option value="" >Please setect country citizenship</option>
         @foreach($countryData as $country)
-        <option value="{{ $country['name']}}" >{{ $country['name']}}</option>
+          <option value="{{ $country['name']}}" > {{ $country['name']}} </option>
         @endforeach
       </select>
       @if ($errors->has('country_citizenship'))
@@ -158,10 +161,10 @@ if(Auth::user()){
   </div>
   <div class="Residence_field field">
     <span class="label">Country of Residence</span>
-    <select class="Country_Residence" name="country_residence" required="required">
-      <option value="" >Please setect country residence</option>
+    <select class="Country_Residence" name="country_residence" @if (Auth::guest()) @else disabled @endif required="required">
+      <option value="">Please setect country residence</option>
         @foreach($countryData as $country)
-        <option value="{{ $country['name']}}" >{{ $country['name']}}</option>
+        <option value="{{ $country['name']}}"  >{{ $country['name']}}</option>
         @endforeach
       </select>
       @if ($errors->has('country_residence'))
@@ -183,15 +186,13 @@ if(Auth::user()){
 
 <script type="text/javascript">
 $(document).ready(function(){
-   
-    // Selecting the form and defining validation method
-    $("#registrationform").validate({
-      
-        // Passing the object with custom rules
-        rules : {
-            // login - is the name of an input in the form
-            first_name : {
-               required : true
+  // Selecting the form and defining validation method
+  $("#registrationform").validate({
+    // Passing the object with custom rules
+    rules : {
+      // login - is the name of an input in the form
+      first_name : {
+        required : true
             },
             password : {
                required : true

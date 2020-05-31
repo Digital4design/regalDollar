@@ -136,7 +136,7 @@
                   <input 
                     required="required"
                     class="form-control phone required_field valid"
-                    maxlength="12" 
+                    maxlength="13" 
                     aria-required="true"
                     aria-invalid="false"
                     value="{{ old('phoneNumber',(isset($userData) && !empty($userData->phoneNumber)) ? $userData->phoneNumber : '' ) }}" 
@@ -397,6 +397,7 @@ function ParseChar(sStr, sChar) {
     }
     return sNewStr;
 }
+
 /*
 let telEl = document.querySelector('#phoneNumber')
 telEl.addEventListener('keyup', (e) => {

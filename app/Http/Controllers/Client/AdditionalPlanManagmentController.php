@@ -156,7 +156,7 @@ class AdditionalPlanManagmentController extends Controller
         // dd(Auth::user()->first_name);
         $notificationData = [
             "user" => $userData['name'],
-            "message" => Auth::user()->first_name . " You have invest with plan " . $planData['plan_name'] . " amount  $" . $investData['amount'] . " with trancation id " . $investData['paypal_transaction_id'] . " will complete on " . $completeDate,
+            "message" => Auth::user()->first_name . " You have invest with  " . $planData['plan_name'] . " amount  $" . $investData['amount'] . " with trancation id " . $investData['paypal_transaction_id'] . " will complete on " . $completeDate,
             "investmentId" => $investData['id'],
         ];
         //dd($notificationData);

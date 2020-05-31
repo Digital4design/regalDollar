@@ -5843,7 +5843,7 @@ margin: 0 !important;
     padding: 0;
 }
 .form_outter_section span.edit_field .edit_here {
-    border: none;
+    /*border: none;*/
     padding-left: 0;
     padding-right: 0;
 }
