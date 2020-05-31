@@ -140,16 +140,17 @@ if(Auth::user()){
       <a href="#">Privacy Policy</a>.</p>
     </div>
   </div>
+ 
   <div class="break_section"></div>
   <h2 class="title">We currently only accept investment from US residents.</h2>
   <h3 class="subtitle">Please confirm the following:</h3>
   <div class="form_group">
     <div class="citizenship_field field">
       <span class="label">Country of citizenship</span>
-      <select class="Country_citizenship" name="country_citizenship" @if (Auth::guest()) @else disabled @endif required="required" >
+      <select class="Country_citizenship" name="country_citizenship" @if (Auth::guest()) required="required" @else disabled @endif  >
         <option value="" >Please setect country citizenship</option>
         @foreach($countryData as $country)
-          <option value="{{ $country['name']}}" > {{ $country['name']}} </option>
+          <option value="{{ $country['name']}}" @if(Auth::user()) {{ ( $country['name'] == $userData->country_citizenship ) ? 'selected' : '' }}  @else  @endif > {{ $country['name']}} </option>
         @endforeach
       </select>
       @if ($errors->has('country_citizenship'))
@@ -161,10 +162,10 @@ if(Auth::user()){
   </div>
   <div class="Residence_field field">
     <span class="label">Country of Residence</span>
-    <select class="Country_Residence" name="country_residence" @if (Auth::guest()) @else disabled @endif required="required">
+    <select class="Country_Residence" name="country_residence" @if (Auth::guest())  required="required" @else disabled @endif>
       <option value="">Please setect country residence</option>
         @foreach($countryData as $country)
-        <option value="{{ $country['name']}}"  >{{ $country['name']}}</option>
+        <option value="{{ $country['name']}}" @if(Auth::user()) {{ ( $country['name'] == $userData->country_residence ) ? 'selected' : '' }}  @else  @endif>{{ $country['name']}}</option>
         @endforeach
       </select>
       @if ($errors->has('country_residence'))
