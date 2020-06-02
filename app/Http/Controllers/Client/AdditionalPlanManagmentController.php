@@ -46,6 +46,7 @@ class AdditionalPlanManagmentController extends Controller
         $investmentdata = InvestmentModel::create([
             'user_id' => Auth::user()->id,
             'plan_id' => $request->plan_id,
+            'admin_notes'=>'',
             'plan_start_date' => date("Y-m-d"),
             'plan_end_date' => $valid_till,
             'amount' => $planData['price'],
