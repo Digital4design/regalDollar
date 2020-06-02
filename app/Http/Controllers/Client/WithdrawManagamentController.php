@@ -26,9 +26,15 @@ class WithdrawManagamentController extends Controller
      */
     public function index()
     {
+        $currentdate = date('Y-m-d');
         $bankData = BankAccountModel::where('user_id', Auth::user()->id)->orderBy('id', 'desc')->get();
-        $InvestmentData = InvestmentModel::where('user_id', Auth::user()->id)->orderBy('id', 'desc')->get();
-        // $InvestmentData = InvestmentModel::where('user_id', Auth::user()->id)->where('plan_end_date',date('Y-m-d'))->orderBy('id', 'desc')->get();
+        // $InvestmentData = InvestmentModel::where('user_id', Auth::user()->id)->orderBy('id', 'desc')->get();
+        $InvestmentData = InvestmentModel::where('user_id', Auth::user()->id)
+                                        ->where('plan_end_date','<' ,$currentdate )
+                                        ->where('is_request','0')
+                                        ->orderBy('id', 'desc')
+                                        ->first();
+       // dd($InvestmentData);
         $result = array('pageName' => 'Withdraw',
             'activeMenu' => 'withdraw-management',
             'bankData'=>$bankData,

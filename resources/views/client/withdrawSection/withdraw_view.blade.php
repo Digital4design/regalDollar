@@ -22,11 +22,15 @@
             </div>
           </div>
         </div>
+        @php
+   $date=date_create(date('Y-m-d'));
+   $mData=  date_format($date,"M d,Y");
+   @endphp
         <!-- end row -->
         <div class="row">
-          <form method="post" action="{{ url('client/withdraw-management/withdrowRequest') }}">
+          <form method="post" class="withdrow_set" action="{{ url('client/withdraw-management/withdrowRequest') }}">
           {{ csrf_field() }}
-         
+         <?php // dd($investmentData['amount']);?>
           <div class="col-xl-6">
             <div class="card">
               <div class="card-body">
@@ -34,17 +38,17 @@
                 <div class="row">
                   <div class="col-sm-12">
                     <p></p><h1 style="text-align: center;">
-                      @if(count($investmentData) > 0)
-                       ${{ $investmentData[0]['amount']}}
+                      @if($investmentData)
+                       ${{ $investmentData['amount']}}
                        @else
                           No Data
                        @endif
                        </h1><p></p>
                     <p class="card-subtitle">
-                      *Dividends cumulative through <span>Nov 2019</span>.
+                      *Dividends cumulative through <span>{{ $mData }}</span>.
                     </p>
-                    @if(count($investmentData) > 0)
-                    <input type="hidden" name="investId" value="{{ $investmentData[0]['id']}}">
+                    @if($investmentData)
+                    <input type="hidden" name="investId" value="{{ $investmentData['id']}}">
                     @else
                        @endif
                     <p>
@@ -54,7 +58,7 @@
                         <option value="{{ $invest['id'] }}">Checking account ending in {{ $invest['account_number'] }}</option>
                         @endforeach
                       </select>
-                      <button type="submit" class="btn btn-primary">Transfer to Linked Account</button>
+                      <button type="submit" class="btn btn-primary" @if($investmentData) @else disabled @endif>Transfer to Linked Account</button>
                       <a href="{{ url('/client/bank-account-management') }}" class="btn btn-secondary">Add Bank Account...</a>
                     </p>
                   </div>
@@ -71,8 +75,24 @@
                 <div class="row">
                   <div class="col-sm-12">
                     <p></p>
-                    <div class="alert alert-info">You are not able to withdraw your initial investment at this time. Your investment of <span style="font-weight:bold;">$10,000.00</span> will mature and be available to withdraw on <span style="font-weight:bold;">November 22, 2022</span>.
+                   
+                   
+                    <div class="alert alert-info">
+                    @if($investmentData)
+                    You are not able to withdraw your initial investment at this time. Your investment of 
+                    <span style="font-weight:bold;">${{ $investmentData['amount']}}</span> 
+                    will mature and be available to withdraw on 
+                    <span style="font-weight:bold;">
+                    @php
+                    $date=date_create($investmentData['plan_end_date']);
+                    $mData=  date_format($date,"M d, Y");
+                    @endphp
+                    {{ $mData}}</span>.
+                    @else
+                    <span style="font-weight:bold;"> No Data </span> 
+                    @endif
                     </div>
+                    
                     <p></p>
                   </div>
                 </div>
