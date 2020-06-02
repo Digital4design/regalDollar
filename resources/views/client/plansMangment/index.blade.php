@@ -38,7 +38,7 @@
                 <!-- <h2><sup><small>$</small></sup>{{ $plan->price}}<br><span class="font-16">One-Time Investment</span></h2> -->
               </div>
               <div class="mt-4">
-                <a href="<?php echo url('/client/purchase-new-plan/start-with') . '/' . $plan->id  ?>" class="btn btn-primary btn-block waves-effect waves-light">Sign up Now</a>
+                <!-- <a href="<?php // echo url('/client/purchase-new-plan/start-with') . '/' . $plan->id  ?>" class="btn btn-primary btn-block waves-effect waves-light">Sign up Now</a> -->
               </div>
             </div>
           </div>

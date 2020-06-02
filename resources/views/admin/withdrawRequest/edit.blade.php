@@ -60,7 +60,7 @@
                                  <label class="input-group-text" for="inputGroupSelect01">request status</label>
                               </div>
                               <select id="country" class="form-control" name="is_request">
-                                 <option>Select request status</option>
+                                 <option value="">Select request status</option>
                                  <option value="2">Approve</option>
                                  <option value="3">Unapprove</option>
                                 
@@ -72,8 +72,22 @@
                               @endif
                            </div>
                         </div>
+
+                        <div class="col-sm-6">
+                           <div class="input-group mb-3">
+                              <div class="input-group-prepend">
+                                 <label class="input-group-text" for="inputGroupSelect01">Notes</label>
+                              </div>
+                              <textarea id="w3review" style="float: left; width: calc(100% - 94px); max-height: 36px;" name="admin_notes" rows="4" cols="50"></textarea>
+                              @if ($errors->has('admin_notes'))
+                              <span style="display:initial;" class="invalid-feedback" role="alert">
+                              <strong>{{ $errors->first('admin_notes') }}</strong>
+                              </span>
+                              @endif
+                           </div>
+                        </div>
                      </div>
-                     <button class="btn btn-primary" type="submit">Update Profile</button>
+                     <button class="btn btn-primary" type="submit">Update</button>
                   </form>
                </div>
             </div>

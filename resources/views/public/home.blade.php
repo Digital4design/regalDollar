@@ -125,19 +125,19 @@
 					</div>
 					
 					<div class="col-md-4">
-						<img src="{{ asset('public/assets/images/balance.png') }}">
+						<img src="{{ asset('public/assets/images/adjust.png') }}">
 						<h3>Full control</h3>	
 						<p>Freedom to cancel at any time</p>
 					</div>
 					
 					<div class="col-md-4">
-						<img src="{{ asset('public/assets/images/balance.png') }}">
+						<img src="{{ asset('public/assets/images/start.png') }}">
 						<h3>Low minimum to start</h3>	
 						<p>Only $5,000 to start</p>
 					</div>
 					
 					<div class="col-md-4">
-						<img src="{{ asset('public/assets/images/balance.png') }}">
+						<img src="{{ asset('public/assets/images/cash.png') }}">
 						<h3>Cash flow</h3>	
 						<p>Withdraw your earning monthly</p> 
 					</div>

@@ -21,7 +21,7 @@ class NotificationsManagementController extends Controller
      */
     public function index()
     {
-        $notificationList = auth()->user()->readnotifications;
+        $notificationList = auth()->user()->notifications;
         $result = array(
             'pageName' => 'Notification Listing',
             'activeMenu' => 'notifications-managment',

@@ -2,16 +2,13 @@
 
 namespace App\Http\Controllers\Client;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use DB;
-use DataTables;
-use App\User;
-use Crypt;
+use App\Models\Plan;
+use Illuminate\Http\Request;
 use Auth;
-use App\Role;
+use DB;
 
-class NotificationsManagementController extends Controller
+class RecieveMoneyManagementController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -20,23 +17,18 @@ class NotificationsManagementController extends Controller
      */
     public function index()
     {
-        $notificationList = auth()->user()->notifications;
-        $result = array(
-            'pageName' => 'Notification Listing',
-            'activeMenu' => 'notifications-managment', 
-            'notificationList'=>$notificationList,
+        $investData = DB::table('investment')
+              ->select('investment.*','plans.interest_rate','plans.plan_name','plans.time_investment','plans.plan_fee')
+              ->join('plans','plans.id','=','investment.plan_id')
+              ->where('investment.user_id', Auth::user()->id)
+              ->where('investment.paypal_transaction_id','!=', '')
+              ->where('investment.is_request', '2')
+              ->get();
+        $result = array('pageName' => 'Dashboard',
+            'activeMenu' => 'investment_plans',
+            'investData' => $investData,
         );
-        $data['roles'] = Role::get();
-        return view('client.noticationsView.index', $result);
-    }
-
-    public function notificationData(){
-        $userList = auth()->user()->readnotifications;
-        //dd($userList);
-        return Datatables::of($userList)
-            ->addColumn('action', function ($userList) {
-                return '<a href ="' . url('/admin/withdraw-request-managment/edit') . '/' . Crypt::encrypt($userList->id) . '"  class="btn btn-xs btn-primary edit"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</a>';
-            })->make(true);
+        return view('client.recieveMoney.index', $result);
     }
 
     /**

@@ -95,13 +95,14 @@
            <div class="break_section1"></div> 
                <div id="signArea1" class="form-group">
                   <h2 class="tag-ingo">Put signature below,</h2>
+                  <span id="signreq"  generated="true" style="color:red;" class="error">Please provide signature..</span>
           <div class="typed"></div>
           <!--div class="sig sigWrapper" id="signArea"  style="height:auto;">
             <canvas class="sign-pad" id="sign-pad" width="300" height="100" ></canvas>
             </div--->
             <div id="signature-pad" class=" sig sigWrapper m-signature-pad">
                 <div class="m-signature-pad--body">
-                <canvas class="sign-pad" width="300" height="100" required="required"></canvas>
+                <canvas class="sign-pad" width="300" height="100" data-rule-signature="true" required="required"></canvas>
             </div>
             <div class="m-signature-pad--right-side-section">
               <button type="button" class="button clear" data-action="clear">Clear Sign</button>
@@ -109,7 +110,8 @@
             </div>
           </div>
           </div> 
-          <input type="hidden" name="signature" id="signature" required="required">
+          <input  type="hidden" name="signature" id="signature" required="required">
+          
           <!-- 
             <div id="signArea" class="form-group signError">
             <h2 class="tag-ingo">Put signature below,</h2>
@@ -121,7 +123,7 @@
           <div class="break_section1"></div>
           <input type="hidden" name="signature" id="signature" required="required"> 
           -->
-          <span id="signError" generated="true" class="error" style="display:none; color:red;">Please provide signature first..</span>
+          <span id="signError"  generated="true" class="error" style="display:none; color:red;">Please provide signature first..</span>
           <a href="{{ url('/investment/create-step4') }}"  class="btn btn-primary" @if($investmentData['paypal_transaction_id']!='')  @else disabled="disabled" @endif>Back</a>
           <button type="submit" id="btnSaveSign" class="btn btn-primary"> Next </button>
         </form>
@@ -159,6 +161,7 @@
     saveButton.addEventListener("click", function (event) {
       if (signaturePad.isEmpty()) {
 		  $("#signError").show();
+      $("#signreq").hide();
 		  return false;
 		  // alert("Please provide signature first.");
 			} else {
@@ -167,9 +170,18 @@
 				var img_data = canvas_img_data.replace(/^data:image\/(png|jpg);base64,/, "");
 				console.log(img_data);
         $('#signature').val(img_data);
+        $("#signreq").hide();
         }
 		});
   }
+
+
+  jQuery.validator.addMethod("signature", function(value, element, options) {
+    if( signaturePad.isEmpty()){
+            return false;            
+        }
+    return true;
+}, "Your signature is required");
   </script>
 
 <script>
