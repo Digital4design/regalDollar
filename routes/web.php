@@ -143,6 +143,20 @@ Route::group(['prefix' => 'client', 'middleware' => ['auth', 'client','verified'
         Route::get('/view/{id}', 'Client\DocumentsManagementController@singleDocuments');
     });
 
+
+    Route::group(['prefix' => 'investment_plans', 'middleware' => ['auth', 'client']], function () {
+        Route::get('/', 'Client\PlansManagementController@index');
+        Route::get('/documents-data', 'Client\PlansManagementController@documentsData');
+        Route::get('/view/{id}', 'Client\PlansManagementController@singleDocuments');
+    });
+
+    
+    Route::group(['prefix' => 'receive_money', 'middleware' => ['auth', 'client']], function () {
+        Route::get('/', 'Client\RecieveMoneyManagementController@index');
+        Route::get('/documents-data', 'Client\RecieveMoneyManagementController@documentsData');
+        Route::get('/view/{id}', 'Client\RecieveMoneyManagementController@singleDocuments');
+    }); 
+
     Route::group(['prefix' => 'create-account', 'middleware' => ['auth', 'client']], function () {
         Route::get('/', 'Client\UserManagementController@index');
         Route::get('/documents-data', 'Client\UserManagementController@documentsData');

@@ -51,10 +51,7 @@ class DashboardController extends Controller
               ->get();
 
        
-		$chartData[]=  $this->getUsersPlanName($investData);
-		
-		
-		
+        $chartData[]=  $this->getUsersPlanName($investData);
         // dd($chartData);
         foreach($investData as $key=>$invest){
             //dd($invest);
@@ -67,13 +64,12 @@ class DashboardController extends Controller
             $time_investment = $invest->time_investment; 
             if($interval->m > 0){
                 for($i=1; $i<=$interval->m; $i++){
-                    $instrData = $amount * $invest->interest_rate * $i / 100;
-					
+                    $instrData = $amount * $invest->interest_rate * $i / 100;					
                     $gainData = $amount+$instrData -$fee ;
                      //dd($gainData);
                     $chartData[]=array($i,(int)$gainData);
                 }
-//dd($chartData);
+                //dd($chartData);
                 // $instrData = $amount * $invest->interest_rate / $interval->m;
                 // $gainData = $amount+$instrData;
                 // dd($gainData);
@@ -83,8 +79,8 @@ class DashboardController extends Controller
             }
             //dd($chartData);
         }
-      // dd($chartData);
-       // $chartData= json_encode($chartData);
+        // dd($chartData);
+        // $chartData= json_encode($chartData);
         // dd($chartData);
         
         $graphData=array();
@@ -102,14 +98,11 @@ class DashboardController extends Controller
                 $inst = $amount * $invData->interest_rate * $interval->m / 100;
                 $gains = $amount+$inst;
                 $totalgainData += $gains - $fee;
-                
-                
                 // for($i=1; $i<=$interval->m; $i++){
                 //     $instrData = $amount * $invData->interest_rate / $i;
                 //     $gainData = $amount+$instrData;
                 //     //dd($gainData);
-                //     // $totalgain += $gain - $fee;
-                    
+                //     // $totalgain += $gain - $fee;                    
                 // }
                 $graphData[]=[                    
                     'investId'=>$invData->id,
@@ -127,7 +120,6 @@ class DashboardController extends Controller
             }
         }
         // $graphData =json_encode($graphData);
-        
         //dd($graphData);
         $totalgain=0;
         foreach($investData as $invest){
@@ -152,9 +144,7 @@ class DashboardController extends Controller
             }
             
         }
-		
-		
-		$chartData = $this->genrateLineChartData();
+        $chartData = $this->genrateLineChartData();
        
         $result = array(
             'pageName'      => 'Dashboard',

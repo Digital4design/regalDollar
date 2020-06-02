@@ -13,6 +13,7 @@ use DataTables;
 use App\User;
 use Crypt;
 use Auth;
+use Validator;
 
 class WithdrowManagementController extends Controller
 {
@@ -22,7 +23,6 @@ class WithdrowManagementController extends Controller
      */
     public function index()
     {
-       
         $result = array(
             'pageName' => 'Request Listing',
             'activeMenu' => 'withdraw-request-managment',
@@ -65,7 +65,7 @@ class WithdrowManagementController extends Controller
             'activeMenu' => 'user-management',
             'investmentData'=> $investmentData 
         );
-        return view('admin.withdrawRequest.edit', $result);
+        return view('admin.withdrawRequest.edit', $result); 
     }
 
     /**
@@ -77,6 +77,21 @@ class WithdrowManagementController extends Controller
      */
     public function update(Request $request, $id)
     {
+
+       // dd($request->all());
+        $rules = [
+            'is_request' => 'required',
+            'admin_notes' => 'required|min:2',
+        ];
+        $messages = [
+            'is_request.required' => 'Status is required.',
+            'admin_notes.required' => 'Notes is required.',
+        ];
+        $validator = Validator::make($request->all(), $rules, $messages);
+        if ($validator->fails()) {
+            return back()->withErrors($validator)->withInput();
+        }
+
         try {
             if($request->is_request=='2'){
                 $statusChange= 'Approve';
@@ -85,12 +100,13 @@ class WithdrowManagementController extends Controller
             }
             $investmentData = InvestmentModel::find(\Crypt::decrypt($id));
             $investmentData->is_request = $request->is_request;
+            $investmentData->admin_notes = $request->admin_notes;
             $investmentData->save();
             $investmentData = InvestmentModel::find(\Crypt::decrypt($id));
             $userData = User::find($investmentData['user_id']);
             $notificationData = [
                 "user" => $userData['name'],
-                "message" => Auth::user()->first_name." ".$statusChange." your request for withdraw", 
+                "message" => Auth::user()->first_name." ".$statusChange." your request for withdraw ".$request->admin_notes, 
                 "investmentId" => "\Crypt::decrypt($id)"
             ];
             // dd($notificationData);

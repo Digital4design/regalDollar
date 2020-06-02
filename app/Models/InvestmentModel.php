@@ -27,6 +27,7 @@ class InvestmentModel extends Model
         'is_request',
         'linked_account',
         'signature',
+        'admin_notes',
         ];
     /**
      * Return current login user role here.

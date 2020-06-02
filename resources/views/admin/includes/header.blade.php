@@ -84,7 +84,7 @@
                 <div class="dropdown-menu dropdown-menu-right profile-dropdown "> 
                     <!-- item-->
                     <a class="dropdown-item" href="{{ url('/admin/account') }}"><i class="mdi mdi-account-circle m-r-5"></i> My Profile</a>
-                    <a class="dropdown-item" href="{{ url('/admin') }}"><i class="mdi mdi-bank m-r-5"></i> Investment Plans</a>
+                    <a class="dropdown-item" href="{{ url('/admin/plan-management') }}"><i class="mdi mdi-bank m-r-5"></i> Investment Plans</a>
                     <a class="dropdown-item" href="{{ url('/admin') }}"><i class="mdi mdi-cash-multiple m-r-5"></i> Receive Money</a>
                     <div class="dropdown-divider"></div>
                     <!-- <a class="dropdown-item text-danger" href="/logout"><i class="mdi mdi-power text-danger"></i> Logout</a> -->
