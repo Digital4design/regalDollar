@@ -23,7 +23,7 @@ class NotificationsManagementController extends Controller
         $notificationList = auth()->user()->notifications;
         $result = array(
             'pageName' => 'Notification Listing',
-            'activeMenu' => 'notifications-managment', 
+            'activeMenu' => 'notifications-managment',
             'notificationList'=>$notificationList,
         );
         $data['roles'] = Role::get();

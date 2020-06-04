@@ -82,7 +82,7 @@ $curentData=  date_format($date,"M d,Y");
    <div class="col-xl-12">
       <div class="card">
          <div class="card-body">
-            <h4 class="mt-0 header-title mb-4">Transaction History Snapshot({{date('M, Y')}})</h4>
+            <h4 class="mt-0 header-title mb-4">Transaction History Snapshot ({{date('M, Y')}})</h4>
             <div class="table-responsive">
                <table class="table table-hover">
                   <thead>

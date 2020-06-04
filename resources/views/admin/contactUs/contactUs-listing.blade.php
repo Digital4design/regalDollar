@@ -43,7 +43,7 @@
                                     <th>Phone</th>
                                     <th>Message</th>
 									<th>Contact Subject</th>
-                                    <th>Action</th>
+									<th>Action</th>
 								</tr>
 							</thead>
 						<tfoot>
@@ -51,7 +51,7 @@
                                 <th></th>
                                 <th></th>
                                 <th></th>
-                                <th></th>
+								<th></th>
                                 <th class="remove_input"></th>
                             </tr>
                         </tfoot>
@@ -76,8 +76,7 @@
 //$('#myTable').DataTable();
  
 $(function() {
-
-    $('#myTable').DataTable({
+	$('#myTable').DataTable({
         processing : true,
         serverSide: true,
         lengthMenu: [10,25,50,100],
@@ -87,10 +86,9 @@ $(function() {
             { data: 'name', name: 'name', orderable: true , searchable: true},
             { data: 'email', name: 'email', orderable: true , searchable: true},
             { data: 'phone', name: 'phone', orderable: true , searchable: true},
-            { data: 'message', name: 'message', orderable: true , searchable: true}, 
-            { data: 'contact_subject', name: 'contact_subject', orderable: false, searchable: false},           
+            { data: 'message', name: 'message', orderable: true , searchable: true},
+			{ data: 'contact_subject', name: 'contact_subject', orderable: false, searchable: false},			
             { data: 'action', name: 'action', orderable: false, searchable: false},
-            
         ],
         dom: 'Blfrptip',
         buttons: [

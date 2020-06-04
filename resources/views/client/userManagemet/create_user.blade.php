@@ -10,7 +10,6 @@
 <div class="row">
   <?php
   foreach ($planData as $key=>$plan) { 
-     // dd($plan->interest_rate);
     ?>
     <div class="col-xl-3 col-md-6">
         <div class="card pricing-box">

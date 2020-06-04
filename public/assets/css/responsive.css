@@ -111,7 +111,7 @@
 		font-size:24px;
 	}
 	.inner-banner{
-		padding:180px 0 20px;
+		padding:70px 0 20px;
 	}
 	.kode-cause-list.kode-list-view .kode-cause-content{
 		float:left;
@@ -299,8 +299,9 @@
 	.inner-banner{
 		padding:180px 0 20px;
 	}
-	.inner-banner h2{
-		font-size:30px;
+	.inner-banner h2 {
+		font-size: 20px;
+		line-height: 30px;
 	}
 	.kode-cause-list.kode-list-view .kode-cause-content{
 		float:left;
@@ -351,10 +352,16 @@
 	}
 	.kode-cause-list.kode-list-view .kode-fund-raised{
 		width:100%;
-	}
-	
+	}	
 	.kode-testimonials-7 .kode-text p{
 		font-size: 18px !important;
+	}	
+	.nav-content .dropdown-menu.responsive_mobile_nav {
+		display: block !important;
+	}
+	.breadcrumb > li {
+		font-size: 16px;
+		margin-top: 10px;
 	}
 }
 
