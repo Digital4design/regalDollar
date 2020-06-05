@@ -102,7 +102,7 @@
             </div--->
             <div id="signature-pad" class=" sig sigWrapper m-signature-pad">
                 <div class="m-signature-pad--body">
-                <canvas class="sign-pad" width="300" height="100" data-rule-signature="true" required="required"></canvas>
+                <canvas class="sign-pad" width="300"  height="100" data-rule-signature="true" required="required"></canvas>
             </div>
             <div class="m-signature-pad--right-side-section">
               <button type="button" class="button clear" data-action="clear">Clear Sign</button>
@@ -155,6 +155,7 @@
 	resizeCanvas(canvas);
   signaturePad = new SignaturePad(canvas);
   clearButton.addEventListener("click", function (event) {
+    $("#signreq").show();
 		signaturePad.clear();
 	});
   if(saveButton != null ){
@@ -168,7 +169,7 @@
         /* alert(signaturePad.toDataURL("image/png")); */
         var canvas_img_data = signaturePad.toDataURL('image/png');
 				var img_data = canvas_img_data.replace(/^data:image\/(png|jpg);base64,/, "");
-				console.log(img_data);
+				// console.log(img_data);
         $('#signature').val(img_data);
         $("#signreq").hide();
         }
@@ -178,6 +179,7 @@
 
   jQuery.validator.addMethod("signature", function(value, element, options) {
     if( signaturePad.isEmpty()){
+      $("#signreq").show();
             return false;            
         }
     return true;
@@ -216,7 +218,7 @@
 $(document).ready(function(){
    $("#registrationform").validate({
       rules : {
-        indicateagreement : {
+        'indicateagreement[]' : {
             required : true
             },
             signature:{
@@ -227,9 +229,9 @@ $(document).ready(function(){
          }
       },
       messages: {
-         indicateagreement: "Please check indicateagreement",
+        'indicateagreement[]': "Please check all checkbox",
          reinvestment: "Please check reinvestment",
-         signature: "Please signature here",
+         signature: "Please signature here gdfgd",
       },
       submitHandler: function(form) {
          form.submit();

@@ -3,10 +3,10 @@
 @endsection
 @section('breadcrumb')
 <div class="col-sm-6">
-   <h4 class="page-title">{{ $pageName }}</h4>
+   <h4 class="page-title">{{ $pageName }}</h4> 
 </div>
 @endsection
-@section('content')
+@section('content') 
 <div class="row">
   <div class="col-lg-12">
     <div class="card">
@@ -35,7 +35,7 @@
         </div>
         <!-- end row -->
         <div class="row">
-          <div class="col-xl-3"></div>
+          <div class="col-xl-3"></div> 
           <div class="col-xl-6">
             <form id="contact_frm" method="post" action="{{ url('/client/contact-us-management/save-data') }}" id="registrationform" name="registration" enctype="multipart/form-data">
               {{ csrf_field() }}
@@ -43,7 +43,13 @@
                 <div class="input-group-prepend">
                   <label class="input-group-text" for="inputGroupSelect01">Your Name</label>
                 </div>
-                <input name="name" class="form-control" type="text" value="{{Auth::user()->first_name }} {{Auth::user()->last_name }}" required="required" readonly="">
+                <input 
+                name="name" 
+                class="form-control" 
+                type="text" 
+                value="{{Auth::user()->first_name }} {{Auth::user()->last_name }}" 
+                required="required" 
+                readonly="">
                 @if ($errors->has('name'))
                 <span style="display:initial;" class="invalid-feedback" role="alert">
                   <strong>{{ $errors->first('name') }}</strong>

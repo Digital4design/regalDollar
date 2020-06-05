@@ -3599,6 +3599,37 @@ table.focus-on tbody tr.focused td {
     border-bottom: 0;
 }
 
+#chart_div {
+    width: 100%;
+    float: left;
+}
+
+#chart_div div[dir="ltr"] {
+    width: 100% !important;
+    height: 100% !important;
+}
+
+.card.show_plan p.text-muted.mb-5 {
+    margin-bottom: 36px !important;
+}
+
+.card.pricing-box {
+    height: 100%;
+}   
+
+.card.pricing-box .card-body {
+    position: relative;
+}
+
+.card.pricing-box .card-body .sign-up-now_btn {
+    position: absolute;
+    width: 150px;
+    bottom: 25px;
+    margin: 0 auto !important;
+    left: 0;
+    right: 0;
+}
+
 @media only screen and (min-width: 1025px) {
     #cd-timeline {
         margin-bottom: 3em;
@@ -3607,6 +3638,16 @@ table.focus-on tbody tr.focused td {
 
     .cd-timeline-content {
         width: 56%;
+    }
+}
+
+@media (max-width: 991px) {
+    .col-lg-4.project_earning {
+        margin-top: 30px;
+    }
+
+    .btn-sm {
+        font-size: 12px;
     }
 }
 
@@ -4131,6 +4172,10 @@ Invoice
 
     .topbar-left {
         display: none;
+    }
+
+    .topbar .topbar-left {
+        display: block;
     }
 }
 
