@@ -16,6 +16,7 @@ use Illuminate\Http\Request;
 use Mail;
 use Redirect;
 use Validator;
+use App\Models\InvestmentModel;
 
 class PlanManagementController extends Controller
 {
@@ -44,12 +45,24 @@ class PlanManagementController extends Controller
     }
     public function PlanData()
     {
-        $userList = Plan::orderBy('id', 'desc')->get();
-        // dd($userList);
+        $userList = Plan::orderBy('id', 'desc')->get(); 
+        
+        $investData = InvestmentModel::groupBy('plan_id')->get();
+        $plans = array();
+        foreach($investData as $invest){
+            $plans[]=$invest->plan_id;
+        }
+    
         return Datatables::of($userList)
-            ->addColumn('action', function ($userList) {
-                return '<a href ="' . url('/admin/plan-management/edit') . '/' . Crypt::encrypt($userList->id) . '"  class="btn btn-xs btn-primary edit"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</a>
-				<a data-id =' . Crypt::encrypt($userList->id) . ' class="btn btn-xs btn-danger delete" style="color:#fff"><i class="fa fa-trash" aria-hidden="true"></i> Delete</a>';
+            ->addColumn('action', function ($userList) use($plans) {
+                if (in_array($userList->id, $plans)){
+                    return '<a href ="javascript:void(0)" data-toggle="modal" data-target="#myModal" class="btn btn-xs btn-primary edit"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</a>
+                    <a data-id =' . Crypt::encrypt($userList->id) . ' class="btn btn-xs btn-danger" data-toggle="modal" data-target="#myModal" style="color:#fff"><i class="fa fa-trash" aria-hidden="true"></i> Delete</a>';
+                }else{
+                    return '<a href ="' . url('/admin/plan-management/edit') . '/' . Crypt::encrypt($userList->id) . '"  data-role="disabled" class="btn btn-xs btn-primary edit"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</a>
+				    <a data-id =' . Crypt::encrypt($userList->id) . ' class="btn btn-xs btn-danger delete" style="color:#fff"><i class="fa fa-trash" aria-hidden="true"></i> Delete</a>';
+                }
+                
             })->make(true);
     }
     

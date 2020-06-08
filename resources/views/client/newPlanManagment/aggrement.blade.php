@@ -241,15 +241,13 @@
 							<button type="button" class="button save" data-action="savesign">Confirm Sign</button>
 						</div>
 					</div>
-          @if ($errors->has('signature'))
+					@if ($errors->has('signature'))
                   <span style="display:initial;" class="invalid-feedback" role="alert">
                   <strong class="error">{{ $errors->first('signature') }}</strong>
                   </span>
            @endif
           </div> 
-          
           <input type="hidden" name="signature" id="signature">
-          
           <a href="#" class="btn btn-primary">Back</a>
           <button type="submit" class="btn btn-primary"> Next </button>
             </form>

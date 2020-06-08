@@ -81,18 +81,10 @@
             <span class="checkmark"></span>
             <label class="container">I cerify that the information provided is true and correct and understand it will be used in the W-9. I have reviewed and acknowledge the W-9.</label>
           </div>
-          @if ($errors->has('indicateagreement'))
-                  <span style="display:initial;" class="invalid-feedback" role="alert">
-                  <strong class="error">{{ $errors->first('indicateagreement') }}</strong>
-                  </span>
-           @endif
+          <span id="spnError" generated="true" class="error" style="display: none; color:red;">Please select at-least one Fruit.</span>
           <div class="break_section1"></div> 
           <span class="section_title">Divided Reinvestment</span>
-          @if ($errors->has('reinvestment'))
-                  <span style="display:initial;" class="invalid-feedback" role="alert">
-                  <strong class="error">{{ $errors->first('reinvestment') }}</strong>
-                  </span>
-           @endif
+		  
           <div class="form-group">
             <input type="radio" id="male" name="reinvestment"  value="1" required="required">
             <label class="container" for="male">I would like my dividends reinvested accouring to the investment plan I have selected</label>
@@ -119,7 +111,7 @@
             </div>
           </div>
           </div> 
-          @if ($errors->has('signature'))
+		   @if ($errors->has('signature'))
                   <span style="display:initial;" class="invalid-feedback" role="alert">
                   <strong class="error">{{ $errors->first('signature') }}</strong>
                   </span>

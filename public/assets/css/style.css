@@ -3691,6 +3691,27 @@ table.focus-on tbody tr.focused td {
     margin-bottom: 3px;
 }
 
+.plan_model .modal-header {
+    position: relative;
+}
+.plan_model .modal-header h4.modal-title {
+    float: left;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    text-align: left;    
+}
+.plan_model .modal-header button.close {
+    width: auto;
+    float: right;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    right: 16px;
+    top: 11px;
+    z-index: 10;
+}
+
 @media (max-width: 1199px) {
     .col-md-6.price_box { 
         margin-bottom: 30px;

@@ -112,51 +112,50 @@ class AdditionalPlanManagmentController extends Controller
      */
     public function updateAggrement(Request $request)
     {
-        // dd($request->all());
-        $rules = [
+		// dd($request->all());
+		$rules = [
             'indicateagreement' => 'required',
             'reinvestment' => 'required',
             'signature' => 'required',
         ];
-        $messages = [
+		$messages = [
             'indicateagreement.required' => 'indicateagreement is required.',
             'reinvestment.required' => 'reinvestment is required.',
             'signature.required' => 'signature is required.',
         ];
-        $validator = Validator::make($request->all(), $rules, $messages);
-        // dd($validator);
+		$validator = Validator::make($request->all(), $rules, $messages);
+		// dd($validator);
         if ($validator->fails()) {
             return back()->withErrors($validator)->withInput();
         }
-        try {
-
-        if ($request->signature) {
-            $imagedata = base64_decode($request->signature);
-            $filename = md5(date("dmYhisA"));
-            $file_path = 'public/uploads/signature' . '/' . $filename . '.png';
-            file_put_contents($file_path, $imagedata);
-        }
-        $indicate = json_encode($request->indicateagreement);
-        $userData = InvestmentModel::find($request->investmentId);
-        $userData->indicateagreement = $indicate;
-        $userData->reinvestment = $request->reinvestment;
-        if ($request->signature) {
-            $userData->signature = $filename . '.png';
-        }
-        $userData->save();
-        $investmentdata = InvestmentModel::find($request->investmentId);
-        $investmentdata = $request->session()->put('investmentdata', $investmentdata);
-        $investmentdata = $request->session()->get('investmentdata');
-        $result = array(
-            'pageName' => 'Dashboard',
-            'activeMenu' => 'create-account',
-            'investmentdata' => $investmentdata,
-        );
-        return view('client.newPlanManagment.paymentProcess', $result);
-    } catch (\Exception $e) {
-        return back()->with(array('status' => 'danger', 'message' => $e->getMessage()));
-        // echo $e->getMessage();
-    }
+		try {
+			if ($request->signature) {
+				$imagedata = base64_decode($request->signature);
+				$filename = md5(date("dmYhisA"));
+				$file_path = 'public/uploads/signature' . '/' . $filename . '.png';
+				file_put_contents($file_path, $imagedata);
+				}
+				$indicate = json_encode($request->indicateagreement);
+				$userData = InvestmentModel::find($request->investmentId);
+				$userData->indicateagreement = $indicate;
+				$userData->reinvestment = $request->reinvestment;
+				if ($request->signature) {
+					$userData->signature = $filename . '.png';
+		        }
+				$userData->save();
+				$investmentdata = InvestmentModel::find($request->investmentId);
+				$investmentdata = $request->session()->put('investmentdata', $investmentdata);
+				$investmentdata = $request->session()->get('investmentdata');
+				$result = array(
+					'pageName' => 'Dashboard',
+					'activeMenu' => 'create-account',
+					'investmentdata' => $investmentdata,
+				);
+				return view('client.newPlanManagment.paymentProcess', $result);
+			} catch (\Exception $e) {
+				return back()->with(array('status' => 'danger', 'message' => $e->getMessage()));
+				// echo $e->getMessage();
+	         }
     }
     public function updatePayment($id, Request $request)
     {

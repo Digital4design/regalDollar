@@ -9,8 +9,8 @@
                             <li>
                                 <a href="{{ url('/client') }}" class="waves-effect">
                                     <i class="ti-home"></i>
-                                    <!-- <span class="badge badge-primary badge-pill float-right">2</span>  -->
-                                    <span> Home </span>
+									<!--span class="badge badge-primary badge-pill float-right">2</span--> 
+									<span> Home </span>
                                 </a>
                             </li>
                             <li>
