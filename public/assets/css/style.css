@@ -3599,6 +3599,104 @@ table.focus-on tbody tr.focused td {
     border-bottom: 0;
 }
 
+#chart_div {
+    width: 100%;
+    float: left;
+}
+
+#chart_div div[dir="ltr"] {
+    width: 100% !important;
+    height: 100% !important;
+}
+
+.card.show_plan p.text-muted.mb-5 {
+    margin-bottom: 36px !important;
+}
+
+.card.pricing-box {
+    height: 100%;
+}   
+
+.card.pricing-box .card-body {
+    position: relative;
+}
+
+.card.pricing-box .card-body .sign-up-now_btn {
+    position: absolute;
+    width: 150px;
+    bottom: 25px;
+    margin: 0 auto !important;
+    left: 0;
+    right: 0;
+}
+
+.withdrow_set .card-body .col-sm-12 select.form-control {
+    margin-left: 0 !important;
+}
+
+.table-responsive label select {
+    background: transparent;
+    height: auto;
+    margin: 0;
+    padding: 5px 5px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.table-responsive #myTable_filter input[type="search"] {
+    background: transparent;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin: 0 0 0 5px;
+    padding: 5px;
+}
+
+.table-responsive .dataTables_paginate {
+    margin-top: -2px;
+    padding-top: 0;
+}
+
+.table-responsive .dataTables_paginate span a.paginate_button {
+    height: auto;
+    padding: 0 5px;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.table-responsive .dataTables_paginate span a.paginate_button.current, .table-responsive .dataTables_paginate span a.paginate_button.current:active, .table-responsive .dataTables_paginate span a.paginate_button.current:focus {
+    background: #626ed4;
+    color: #fff !important;
+}
+
+.notification-list h6.dropdown-item-text {
+    padding: 10px 20px;
+}
+
+.markassRead {
+    padding-left: 20px;
+}
+
+.notification-list .notify-item.unread {
+    background: rgba(78, 88, 243,1);
+    color: #fff;
+}
+
+.notification-list .notify-item.unread span {
+    color: #fff !important;
+}
+
+.notification-list .notify-item {
+    margin-bottom: 3px;
+}
+
+@media (max-width: 1199px) {
+    .col-md-6.price_box { 
+        margin-bottom: 30px;
+    }
+}
+
 @media only screen and (min-width: 1025px) {
     #cd-timeline {
         margin-bottom: 3em;
@@ -3607,6 +3705,20 @@ table.focus-on tbody tr.focused td {
 
     .cd-timeline-content {
         width: 56%;
+    }
+}
+
+@media (max-width: 991px) {
+    .col-lg-4.project_earning {
+        margin-top: 30px;
+    }
+
+    .btn-sm {
+        font-size: 12px;
+    }
+
+    .withdrow_set .card-body .col-sm-12 h1 {
+        font-size: 20px;
     }
 }
 
@@ -4115,6 +4227,18 @@ Invoice
     }
 }
 
+@media (max-width: 459px) {
+    .withdrow_set .card-body .col-sm-12 .btn {
+        clear: both;
+        display: block;
+        width: 100%;
+        margin: 0 0 8px 0;
+    }
+    .h4, h4 {
+        font-size: 20px;
+    }
+}
+
 @media (max-width: 419px) {
     .topbar-left {
         width: 70px !important;
@@ -4131,6 +4255,10 @@ Invoice
 
     .topbar-left {
         display: none;
+    }
+
+    .topbar .topbar-left {
+        display: block;
     }
 }
 

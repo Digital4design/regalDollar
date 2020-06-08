@@ -257,7 +257,7 @@
             elem.next().show();
         },
         loadClose: function (elem, opts) { //replace the default close state with custom function
-             elem.next().hide();
+            elem.next().hide();
         }
     };
 })(jQuery);

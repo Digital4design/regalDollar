@@ -1095,3 +1095,53 @@ input[type="checkbox" ]:checked{
     font-size: 18px;
 }
 /*step form*/
+
+
+@media (max-width: 768px) {
+    .form_outter_section {
+        width: 100%;
+        float: left;
+        margin: 50px 0;
+        padding: 0;
+	}
+	.content.form-steps .stepwizard-step {
+		display: inline-block;
+		margin: 20px 15px 20px 0px;
+		position: relative;
+	}
+	.content.form-steps .stepwizard-step:last-child {
+		margin-right: 0;
+	}
+	.content.form-steps .stepwizard-step .btn {
+		padding: 5px 10px;
+		font-size: 12px;
+	}
+	.content.form-steps .stepwizard-step .btn-primary::before {
+		position: absolute;
+		width: 20px;
+		right: 27px; 
+	}
+}
+
+@media (max-width: 640px) {
+	.form_outter_section h3.subtitle {
+		font-size: 18px;
+		line-height: 20px;
+	}
+	.form_outter_section h2.title {
+		line-height: 20px;
+	}
+	.form_outter_section form .form-group label.container, .form_outter_section form .form_group label.container {
+		width: calc(100% - 30px) !important;
+	}
+}
+
+@media (max-width: 480px) {
+	.form_outter_section #paypal-button-container {
+		width: 100%;
+	}
+	.m-signature-pad .m-signature-pad--body {
+		width: 270px !important;
+		height: 136px !important;
+	}
+}

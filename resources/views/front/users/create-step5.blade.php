@@ -81,9 +81,18 @@
             <span class="checkmark"></span>
             <label class="container">I cerify that the information provided is true and correct and understand it will be used in the W-9. I have reviewed and acknowledge the W-9.</label>
           </div>
-          <span id="spnError" generated="true" class="error" style="display: none; color:red;">Please select at-least one Fruit.</span>
+          @if ($errors->has('indicateagreement'))
+                  <span style="display:initial;" class="invalid-feedback" role="alert">
+                  <strong class="error">{{ $errors->first('indicateagreement') }}</strong>
+                  </span>
+           @endif
           <div class="break_section1"></div> 
           <span class="section_title">Divided Reinvestment</span>
+          @if ($errors->has('reinvestment'))
+                  <span style="display:initial;" class="invalid-feedback" role="alert">
+                  <strong class="error">{{ $errors->first('reinvestment') }}</strong>
+                  </span>
+           @endif
           <div class="form-group">
             <input type="radio" id="male" name="reinvestment"  value="1" required="required">
             <label class="container" for="male">I would like my dividends reinvested accouring to the investment plan I have selected</label>
@@ -102,7 +111,7 @@
             </div--->
             <div id="signature-pad" class=" sig sigWrapper m-signature-pad">
                 <div class="m-signature-pad--body">
-                <canvas class="sign-pad" width="300" height="100" data-rule-signature="true" required="required"></canvas>
+                <canvas class="sign-pad" width="300"  height="100" data-rule-signature="true" required="required"></canvas>
             </div>
             <div class="m-signature-pad--right-side-section">
               <button type="button" class="button clear" data-action="clear">Clear Sign</button>
@@ -110,6 +119,11 @@
             </div>
           </div>
           </div> 
+          @if ($errors->has('signature'))
+                  <span style="display:initial;" class="invalid-feedback" role="alert">
+                  <strong class="error">{{ $errors->first('signature') }}</strong>
+                  </span>
+           @endif
           <input  type="hidden" name="signature" id="signature" required="required">
           
           <!-- 
@@ -155,6 +169,7 @@
 	resizeCanvas(canvas);
   signaturePad = new SignaturePad(canvas);
   clearButton.addEventListener("click", function (event) {
+    $("#signreq").show();
 		signaturePad.clear();
 	});
   if(saveButton != null ){
@@ -168,7 +183,7 @@
         /* alert(signaturePad.toDataURL("image/png")); */
         var canvas_img_data = signaturePad.toDataURL('image/png');
 				var img_data = canvas_img_data.replace(/^data:image\/(png|jpg);base64,/, "");
-				console.log(img_data);
+				// console.log(img_data);
         $('#signature').val(img_data);
         $("#signreq").hide();
         }
@@ -178,6 +193,7 @@
 
   jQuery.validator.addMethod("signature", function(value, element, options) {
     if( signaturePad.isEmpty()){
+      $("#signreq").show();
             return false;            
         }
     return true;
@@ -216,7 +232,7 @@
 $(document).ready(function(){
    $("#registrationform").validate({
       rules : {
-        indicateagreement : {
+        'indicateagreement[]' : {
             required : true
             },
             signature:{
@@ -227,9 +243,9 @@ $(document).ready(function(){
          }
       },
       messages: {
-         indicateagreement: "Please check indicateagreement",
+        'indicateagreement[]': "Please check all checkbox",
          reinvestment: "Please check reinvestment",
-         signature: "Please signature here",
+         signature: "Please signature here gdfgd",
       },
       submitHandler: function(form) {
          form.submit();

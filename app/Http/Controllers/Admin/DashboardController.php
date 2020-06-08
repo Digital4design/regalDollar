@@ -74,7 +74,9 @@ class DashboardController extends Controller
         }
        // dd($totalgain);
 	   
-        $chartData = $this->getDashboardGraphData();
+		$chartData = $this->getDashboardGraphData();
+	   
+	   
         $result = array(
 						'pageName' 		=> 'Dashboard',
 						'activeMenu'	=> 'dashboard',

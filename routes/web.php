@@ -157,7 +157,7 @@ Route::group(['prefix' => 'client', 'middleware' => ['auth', 'client','verified'
         Route::get('/view/{id}', 'Client\RecieveMoneyManagementController@singleDocuments');
     }); 
 
-    Route::group(['prefix' => 'create-account', 'middleware' => ['auth', 'client']], function () {
+    Route::group(['prefix' => 'create-account', 'middleware' => ['auth', 'client']], function () { 
         Route::get('/', 'Client\UserManagementController@index');
         Route::get('/documents-data', 'Client\UserManagementController@documentsData');
         Route::get('/view/{id}', 'Client\UserManagementController@singleDocuments');

@@ -23,9 +23,9 @@
           </div>
         </div>
         @php
-   $date=date_create(date('Y-m-d'));
-   $mData=  date_format($date,"M d,Y");
-   @endphp
+			$date=date_create(date('Y-m-d'));
+			$mData=  date_format($date,"M d,Y");
+		@endphp
         <!-- end row -->
         <div class="row">
           <form method="post" class="withdrow_set" action="{{ url('client/withdraw-management/withdrowRequest') }}">
@@ -78,14 +78,14 @@
                    
                    
                     <div class="alert alert-info">
-                    @if($investmentData)
+                    @if($upcumingInvestData)
                     You are not able to withdraw your initial investment at this time. Your investment of 
-                    <span style="font-weight:bold;">${{ $investmentData['amount']}}</span> 
+                    <span style="font-weight:bold;">${{ $upcumingInvestData['amount']}}</span> 
                     will mature and be available to withdraw on 
                     <span style="font-weight:bold;">
                     @php
-                    $date=date_create($investmentData['plan_end_date']);
-                    $mData=  date_format($date,"M d, Y");
+						$date=date_create($upcumingInvestData['plan_end_date']);
+						$mData=  date_format($date,"M d, Y");
                     @endphp
                     {{ $mData}}</span>.
                     @else

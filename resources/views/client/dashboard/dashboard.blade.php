@@ -31,7 +31,7 @@ $curentData=  date_format($date,"M d,Y");
                   </div>
                </div>
                
-               <div class="col-lg-4">
+               <div class="col-lg-4 project_earning">
                   <div class="row">
                      <div class="col-md-12">
                         <div class="text-center">
@@ -57,7 +57,7 @@ $curentData=  date_format($date,"M d,Y");
    $mData=  date_format($date,"M d,Y");
    @endphp
    <div class="col-xl-3">
-      <div class="card">
+      <div class="card show_plan">
       <div class="card-body">
             <div class="py-4" style="text-align: center;">
                @if($activeInvest['paypal_transaction_id'] !='')
@@ -82,7 +82,7 @@ $curentData=  date_format($date,"M d,Y");
    <div class="col-xl-12">
       <div class="card">
          <div class="card-body">
-            <h4 class="mt-0 header-title mb-4">Transaction History Snapshot({{date('M, Y')}})</h4>
+            <h4 class="mt-0 header-title mb-4">Transaction History Snapshot ({{date('M, Y')}})</h4>
             <div class="table-responsive">
                <table class="table table-hover">
                   <thead>

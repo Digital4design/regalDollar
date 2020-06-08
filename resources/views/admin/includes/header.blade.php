@@ -53,7 +53,7 @@
                 <a href="{{ route('markRead') }}">Mark all as Read</a>
                 </div>
                      @foreach( auth()->user()->unreadnotifications as $notification)
-                    <a href="javascript:void(0);" class="dropdown-item notify-item">
+                    <a href="javascript:void(0);" class="dropdown-item notify-item unread">
                         <div class="notify-icon bg-warning"><i class="mdi mdi-message-text-outline"></i></div>
                         <p class="notify-details unread">{{ $notification->data['data'] }}<span class="text-muted">{{ $notification->data['data'] }}</span></p>
                     </a>
@@ -61,7 +61,7 @@
                     @foreach( auth()->user()->readnotifications as $notification)
                     <a href="javascript:void(0);" class="dropdown-item notify-item">
                         <div class="notify-icon bg-warning"><i class="mdi mdi-message-text-outline"></i></div>
-                        <p class="notify-details unread">{{ $notification->data['data'] }}<span class="text-muted">{{ $notification->data['data'] }}</span></p>
+                        <p class="notify-details read">{{ $notification->data['data'] }}<span class="text-muted">{{ $notification->data['data'] }}</span></p>
                     </a>
                     @endforeach
                     <!-- item-->

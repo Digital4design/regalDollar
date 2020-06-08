@@ -10,7 +10,9 @@
 
                             <li>
                                 <a href="{{ url('/admin') }}" class="waves-effect">
-                                    <i class="ti-home"></i><span class="badge badge-primary badge-pill float-right">2</span> <span> Home </span>
+                                    <i class="ti-home"></i>
+                                    <!-- <span class="badge badge-primary badge-pill float-right">2</span>  -->
+                                    <span> Home </span>
                                 </a>
                             </li>
                             <li>

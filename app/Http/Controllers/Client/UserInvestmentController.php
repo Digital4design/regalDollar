@@ -314,6 +314,7 @@ class UserInvestmentController extends Controller
 
     public function updateSignature(Request $request)
     {
+        // dd($request->all());
         $rules = [
             'indicateagreement' => 'required',
             'reinvestment' => 'required',

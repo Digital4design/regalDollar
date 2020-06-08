@@ -10,7 +10,6 @@
 <div class="row">
   <?php
   foreach ($planData as $key=>$plan) { 
-     // dd($plan->interest_rate);
     ?>
     <div class="col-xl-3 col-md-6">
         <div class="card pricing-box">
@@ -21,13 +20,13 @@
               </div>
               <div class="text-right">
                 <h5 class="mt-0">{{ $plan->time_investment}} Month Plan</h5>
-                <p class="text-muted em9">{{ $plan->interest_rate }}% return monthly</p>
+                <p class="text-muted em9">{{ $plan->interest_rate}}% return monthly</p>
               </div>
             </div>
             <div class="pricing-features mb-4">
               <?php 
               $planDescription=json_decode($plan->descritpion);
-              foreach ($planDescription as $key => $planDesc) {
+              foreach ($planDescription as $key => $planDesc) { 
                 ?>
                 <p><i class="mdi mdi-arrow-right text-primary mr-2"></i> {{ $planDesc }}</p>
               <?php } ?>
