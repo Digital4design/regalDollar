@@ -3,10 +3,10 @@
 @endsection
 @section('breadcrumb')
 <div class="col-sm-6">
-   <h4 class="page-title">{{ $pageName }}</h4> 
+   <h4 class="page-title">{{ $pageName }}</h4>
 </div>
 @endsection
-@section('content') 
+@section('content')
 <div class="row">
   <div class="col-lg-12">
     <div class="card">
@@ -37,15 +37,13 @@
                 <h4 class="mt-0 mb-5" style="border-bottom:1px solid #ddd;">Withdraw Dividends</h4>
                 <div class="row">
                   <div class="col-sm-12">
-                    <p></p>
-                    <h1 style="text-align: center;">
+                    <p></p><h1 style="text-align: center;">
                       @if($investmentData)
                        ${{ $investmentData['amount']}}
                        @else
                           No Data
                        @endif
-                       </h1>
-                       <p></p>
+                       </h1><p></p>
                     <p class="card-subtitle">
                       *Dividends cumulative through <span>{{ $mData }}</span>.
                     </p>
@@ -86,7 +84,7 @@
                     will mature and be available to withdraw on 
                     <span style="font-weight:bold;">
                     @php
-						               $date=date_create($upcumingInvestData['plan_end_date']);
+						$date=date_create($upcumingInvestData['plan_end_date']);
 						$mData=  date_format($date,"M d, Y");
                     @endphp
                     {{ $mData}}</span>.

@@ -11,7 +11,7 @@
   <?php
   foreach ($planData as $key=>$plan) { 
     ?>
-    <div class="col-xl-3 col-md-6">
+    <div class="col-xl-3 col-md-6 price_box">
         <div class="card pricing-box">
           <div class="card-body">
             <div class="mb-4 pt-3 pb-3">

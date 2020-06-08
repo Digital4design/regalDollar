@@ -3630,6 +3630,73 @@ table.focus-on tbody tr.focused td {
     right: 0;
 }
 
+.withdrow_set .card-body .col-sm-12 select.form-control {
+    margin-left: 0 !important;
+}
+
+.table-responsive label select {
+    background: transparent;
+    height: auto;
+    margin: 0;
+    padding: 5px 5px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.table-responsive #myTable_filter input[type="search"] {
+    background: transparent;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin: 0 0 0 5px;
+    padding: 5px;
+}
+
+.table-responsive .dataTables_paginate {
+    margin-top: -2px;
+    padding-top: 0;
+}
+
+.table-responsive .dataTables_paginate span a.paginate_button {
+    height: auto;
+    padding: 0 5px;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.table-responsive .dataTables_paginate span a.paginate_button.current, .table-responsive .dataTables_paginate span a.paginate_button.current:active, .table-responsive .dataTables_paginate span a.paginate_button.current:focus {
+    background: #626ed4;
+    color: #fff !important;
+}
+
+.notification-list h6.dropdown-item-text {
+    padding: 10px 20px;
+}
+
+.markassRead {
+    padding-left: 20px;
+}
+
+.notification-list .notify-item.unread {
+    background: rgba(78, 88, 243,1);
+    color: #fff;
+}
+
+.notification-list .notify-item.unread span {
+    color: #fff !important;
+}
+
+.notification-list .notify-item {
+    margin-bottom: 3px;
+}
+
+@media (max-width: 1199px) {
+    .col-md-6.price_box { 
+        margin-bottom: 30px;
+    }
+}
+
 @media only screen and (min-width: 1025px) {
     #cd-timeline {
         margin-bottom: 3em;
@@ -3648,6 +3715,10 @@ table.focus-on tbody tr.focused td {
 
     .btn-sm {
         font-size: 12px;
+    }
+
+    .withdrow_set .card-body .col-sm-12 h1 {
+        font-size: 20px;
     }
 }
 
@@ -4153,6 +4224,18 @@ Invoice
     .account-page-full.wrapper-page {
         width: 100%;
         position: relative;
+    }
+}
+
+@media (max-width: 459px) {
+    .withdrow_set .card-body .col-sm-12 .btn {
+        clear: both;
+        display: block;
+        width: 100%;
+        margin: 0 0 8px 0;
+    }
+    .h4, h4 {
+        font-size: 20px;
     }
 }
 

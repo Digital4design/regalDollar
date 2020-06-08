@@ -46,7 +46,7 @@ class ContactUsController extends Controller
         $rules = [
             'name' => 'required',
             'contact_subject' => 'required',
-            'contact_option' => 'required', 
+            'contact_option' => 'required',
             'message' => 'required',
         ];
         $messages = [

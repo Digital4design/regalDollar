@@ -26,7 +26,7 @@
             <div class="pricing-features mb-4">
               <?php 
               $planDescription=json_decode($plan->descritpion);
-              foreach ($planDescription as $key => $planDesc) {
+              foreach ($planDescription as $key => $planDesc) { 
                 ?>
                 <p><i class="mdi mdi-arrow-right text-primary mr-2"></i> {{ $planDesc }}</p>
               <?php } ?>

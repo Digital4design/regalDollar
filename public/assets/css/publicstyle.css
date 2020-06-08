@@ -5900,6 +5900,15 @@ margin: 0 0 !important;
     display: none;
 }
 
+.content section.plan_detail_page {
+	padding-top: 0px;
+}
+
+.content section.plan_detail_page h1.heading-text-color {
+    color: #fff;
+    margin-bottom: 0;
+}
+
 /********** Responsive ****************/ 
 
 @media ( max-width:1280px ){
@@ -5933,6 +5942,15 @@ margin: 0 0 !important;
 	.kode-event-list-2 .kode-text {
 		min-height: 402px;
 	}
+	.content section.plan_detail_page .img_right img {
+		width: 100%;
+	}
+	.content section.plan_detail_page .inner_page_banner .banner_content {
+		margin-top: 100px;
+	}
+	.bg-dark-blue .marketing-section img {
+		width: 100%;
+	}
 }
 
 @media ( max-width:1024px ) {	
@@ -5945,6 +5963,22 @@ margin: 0 0 !important;
 	}
 	.core_plans_section .heading-4 h2, section.why-us-section .heading.heading-4 h2, section.how-section .heading.heading-4 h2 {
 		font-size: 30px;
+	}
+	.plan-portfolio-overview {
+		width: 100%;
+		padding-right: 0;
+		float: left;
+		text-align: left;
+	}
+	.img_right {
+		float: left;
+		width: 100%;
+	}
+	.plan_detail_page .goal-selection__list-item {
+		background-position: center left;
+		background-size: 30px;
+		padding-left: 40px;
+		max-width: 430px;
 	}
 }
 
@@ -6250,6 +6284,28 @@ margin: 0 0 !important;
 	.join_us_section .join_contnet {
 		margin: -80px 0 0 0;
 	}
+	.content section.plan_detail_page .inner_page_banner .banner_content {
+		margin-top: 35px;
+	}
+	.content section.plan_detail_page .bred-crumb .in-page-nav li {
+		padding: 10px;
+	}
+	.content section.plan_detail_page #overview {
+		margin: 50px 0;
+	}
+	.content section.plan_detail_page .beta-md, .goal-selection__list-item, #Strategy .marketing-section h2.text-align-center {
+		font-size: 20px;
+		line-height: 25px;
+	}
+	.content section.plan_detail_page .marketing-section2 .block-sec .col-sec {
+		width: 100%;
+	}
+	.content section.plan_detail_page .marketing-section2 .block-sec {
+		margin: 0 0 20px 0;
+	}
+	.content section.plan_detail_page .bg-dark-blue {
+		padding: 20px 0;
+	}
 } 
 
 @media ( max-width:640px ) {    
@@ -6359,6 +6415,20 @@ margin: 0 0 !important;
 	
 }   
 
+@media ( max-width:600px ) {
+	.content section.plan_detail_page .btn-filled {
+		display: inline-block;
+		font-size: 14px;
+		text-transform: uppercase;
+		padding: 10px 14px;
+		color: #fff;
+		font-family: 'Slabo 27px', serif;
+		border-radius: 2px;
+		margin-top: 5px;
+	}
+}
+
+
 @media ( max-width:480px ) {	
 	.inner-banner h2 {
 		font-size: 20px;
@@ -6422,5 +6492,31 @@ margin: 0 0 !important;
 	}
 	.story h2 {
 		font-size: 20px;
+	}
+	.content section.plan_detail_page .banner_content2 .btn_top {
+		float: none;
+		width: auto;
+		border-left: none;
+		padding: 0;
+		margin: 0 auto; 
+		display: table;
+	}
+	.content section.plan_detail_page .inner_page_banner {
+		height: 440px;
+	}
+	.content section.plan_detail_page .stacked-step__body {
+		padding-right: 0;
+		position: relative;
+		padding-left: 0;
+	}
+	.content section.plan_detail_page .stacked-step__count {
+		top: 10px;
+		left: -35px;
+		width: 30px;
+		height: 30px;
+		font-size: 14px;
+	}
+	.content section.plan_detail_page .marketing-section2 .block-sec .col-sec img {
+		padding: 0px;
 	}
 }

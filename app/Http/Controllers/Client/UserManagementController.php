@@ -27,6 +27,6 @@ class UserManagementController extends Controller
             'activeMenu' => 'create-account',
             'planData'=>$planData,
         );
-        return view('client.userManagemet.create_user', $result);
+        return view('client.userManagemet.create_user', $result); 
     }
 }

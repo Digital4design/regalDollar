@@ -112,6 +112,23 @@ class AdditionalPlanManagmentController extends Controller
      */
     public function updateAggrement(Request $request)
     {
+        // dd($request->all());
+        $rules = [
+            'indicateagreement' => 'required',
+            'reinvestment' => 'required',
+            'signature' => 'required',
+        ];
+        $messages = [
+            'indicateagreement.required' => 'indicateagreement is required.',
+            'reinvestment.required' => 'reinvestment is required.',
+            'signature.required' => 'signature is required.',
+        ];
+        $validator = Validator::make($request->all(), $rules, $messages);
+        // dd($validator);
+        if ($validator->fails()) {
+            return back()->withErrors($validator)->withInput();
+        }
+        try {
 
         if ($request->signature) {
             $imagedata = base64_decode($request->signature);
@@ -136,6 +153,10 @@ class AdditionalPlanManagmentController extends Controller
             'investmentdata' => $investmentdata,
         );
         return view('client.newPlanManagment.paymentProcess', $result);
+    } catch (\Exception $e) {
+        return back()->with(array('status' => 'danger', 'message' => $e->getMessage()));
+        // echo $e->getMessage();
+    }
     }
     public function updatePayment($id, Request $request)
     {

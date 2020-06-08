@@ -2,7 +2,7 @@
 <?php  // dd($planData['plan_name']);?>
 <div class="content">
 	<!--SERVICES SECTION START-->
-	<section class="thumb-with-text">
+	<section class="thumb-with-text plan_detail_page">
 		<div class="inner_page_banner">
 			<div class="container">
 				<div class="banner_content">
