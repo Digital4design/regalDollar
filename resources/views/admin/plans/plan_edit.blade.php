@@ -16,7 +16,7 @@
             <div class="row">
                <div class="col-xl-8">
                   <h4>Plan Information</h4>
-                  @if(Session::has('status'))
+                  @if(Session::has('status')) 
                   <div class="alert alert-{{ Session::get('status') }} clearfix">{{ Session::get('message') }}</div>
                   @endif 	
                   <form id="frm_info_basic" method="post" action="{{ url('admin/plan-management/update/'.Crypt::encrypt($planData->id)) }}" enctype="multipart/form-data">
@@ -64,9 +64,15 @@
                               <input
                               type="number" 
                               class="form-control"
-                              name="plan_fee"
+                              name="plan_fee"                              
+                              {{ ( $is_disable == "1") ? 'disabled' : '' }}
                               value="{{ old('plan_fee',(isset($planData) && !empty($planData->plan_fee)) ? $planData->plan_fee : '' ) }}"
                               />
+                              @if($is_disable == "1")
+                                  <span style="display:initial;" class="invalid-feedback" role="alert">
+                                  Plan Fee can not be update, As plan already purchased.
+                                  </span>
+                              @endif
                               @if ($errors->has('plan_fee'))
                               <span style="display:initial;" class="invalid-feedback" role="alert">
                               <strong>{{ $errors->first('plan_fee') }}</strong>
@@ -110,16 +116,22 @@
                               <div class="input-group-prepend">
                                  <label class="input-group-text" for="inputGroupSelect01">Plan Duration</label>
                               </div>
-                              <select id="country" class="form-control" name="duration">
+                              <select id="country" class="form-control" name="duration" {{ ( $is_disable == "1") ? 'disabled' : '' }}>
                               <?php
                                  for($i=1;$i<6;$i++){ ?>
                                  <option value="<?php echo $i;?>" <?php if ($i === $planData->duration) {
                                     echo 'selected="selected"';
+                                    
                                  }
-                                 ?>><?php echo $i;?> Year</option>
+                                 ?> ><?php echo $i;?> Year</option>
                                 <?php }
                               ?>
                               </select>
+                              @if($is_disable == "1")
+                                  <span style="display:initial;" class="invalid-feedback" role="alert">
+                                  Plan Duration can not be update, As plan already purchased.
+                                  </span>
+                               @endif
                               @if ($errors->has('duration'))
                               <span style="display:initial;" class="invalid-feedback" role="alert">
                               <strong>{{ $errors->first('duration') }}</strong>
@@ -136,7 +148,14 @@
                               <input 
                                  class="form-control" 
                                  name="interest_rate" 
-                                 value="{{ old('interest_rate',(isset($planData) && !empty($planData->interest_rate)) ? $planData->interest_rate : '' ) }}" />
+                                 {{ ( $is_disable == "1") ? 'disabled' : '' }}
+                                 value="{{ old('interest_rate',(isset($planData) && !empty($planData->interest_rate)) ? $planData->interest_rate : '' ) }}" 
+                                 />
+                                 @if($is_disable == "1")
+                                  <span style="display:initial;" class="invalid-feedback" role="alert">
+                                  Plan Interest Rate can not be update, As plan already purchased.
+                                  </span>
+                                  @endif
                               @if ($errors->has('interest_rate'))
                               <span style="display:initial;" class="invalid-feedback" role="alert">
                               <strong>{{ $errors->first('interest_rate') }}</strong>
@@ -149,7 +168,7 @@
                               <div class="input-group-prepend">
                                  <label class="input-group-text" for="inputGroupSelect01">Plan Type</label>
                               </div>
-                              <select id="country" class="form-control" name="plan_type">
+                              <select id="country" class="form-control" name="plan_type" >
                               <option {{old('plan_type',$planData->plan_type)=="0"? 'selected':''}}  value="0">Select Plan Type</option>
                               <option {{old('plan_type',$planData->plan_type)=="1"? 'selected':''}}  value="1">Core Plan</option>
                               <!-- <option {{old('plan_type',$planData->plan_type)=="2"? 'selected':''}} value="2">Investment plan</option> -->
@@ -171,7 +190,15 @@
                                  class="form-control" 
                                  type="text" 
                                  name="time_investment"
-                                 value="{{ old('time_investment',(isset($planData) && !empty($planData->time_investment)) ? $planData->time_investment : '' ) }}" />
+                                 {{ ( $is_disable == "1") ? 'disabled' : '' }}
+                                 value="{{ old('time_investment',(isset($planData) && !empty($planData->time_investment)) ? $planData->time_investment : '' ) }}"
+                                  />
+                                  @if($is_disable == "1")
+                                  <span style="display:initial;" class="invalid-feedback" role="alert">
+                                  Plan Time Investment can not be update, As plan already purchased.
+                                  </span>
+                                  @endif
+
                               @if ($errors->has('time_investment'))
                               <span style="display:initial;" class="invalid-feedback" role="alert">
                               <strong>{{ $errors->first('time_investment') }}</strong>
@@ -189,7 +216,6 @@
                               class="form-control"
                               type="text"
                               name="view_details_url"
-                              placeholder=""
                               value="{{ old('view_details_url',(isset($planData) && !empty($planData->view_details_url)) ? $planData->view_details_url : '' ) }}" 
                               />
 

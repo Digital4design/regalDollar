@@ -56,7 +56,7 @@ class PlanManagementController extends Controller
         return Datatables::of($userList)
             ->addColumn('action', function ($userList) use($plans) {
                 if (in_array($userList->id, $plans)){
-                    return '<a href ="javascript:void(0)" data-toggle="modal" data-target="#myModal" class="btn btn-xs btn-primary edit"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</a>
+                    return '<a href ="' . url('/admin/plan-management/edit') . '/' . Crypt::encrypt($userList->id) . '"  class="btn btn-xs btn-primary edit"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</a>
                     <a data-id =' . Crypt::encrypt($userList->id) . ' class="btn btn-xs btn-danger" data-toggle="modal" data-target="#myModal" style="color:#fff"><i class="fa fa-trash" aria-hidden="true"></i> Delete</a>';
                 }else{
                     return '<a href ="' . url('/admin/plan-management/edit') . '/' . Crypt::encrypt($userList->id) . '"  data-role="disabled" class="btn btn-xs btn-primary edit"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</a>
@@ -192,11 +192,23 @@ class PlanManagementController extends Controller
         try {
             $plan = Plan::find(Crypt::decrypt($id));
             $planDocs = DocumentManagemetModel::where('plan_id',Crypt::decrypt($id))->get();
+            $investData = InvestmentModel::groupBy('plan_id')->get();
+            $plans = array();
+            foreach($investData as $invest){
+                $plans[]=$invest->plan_id;
+            }
+            if (in_array(Crypt::decrypt($id), $plans)){
+                $is_disable="1";
+            }else{
+                $is_disable="2";
+            }
+            // dd($is_disable);
             $data = array(
                 'pageName' => 'Edit Plan',
                 'activeMenu' => 'plan-management',
                 'planData' => $plan,
                 'planDocs' => $planDocs,
+                'is_disable'=>$is_disable,
             );
             
             $data['roles'] = Role::get();
@@ -210,14 +222,36 @@ class PlanManagementController extends Controller
      */
     public function updatePlans(Request $request, $id)
     {
-        $rules = [
-            'plan_name' => 'required|min:4',
-            'slogan' => 'required|min:2',
-            'plan_fee' => 'required|numeric',
-            'duration' => 'required|numeric',
-            'time_investment' => 'required|numeric',
-            'descritpion' => 'required',
-        ];
+
+        $investData = InvestmentModel::groupBy('plan_id')->get();
+        $plans = array();
+        foreach($investData as $invest){
+            $plans[]=$invest->plan_id;
+        }
+        if (in_array(Crypt::decrypt($id), $plans)){
+            $is_disable="1";
+        }else{
+            $is_disable="2";
+        }
+
+
+        if($is_disable=="2"){
+            $rules = [
+                'plan_name' => 'required',
+                'slogan' => 'required',
+                'plan_fee' => 'required',
+                 'duration' => 'required',
+                'time_investment' => 'required',
+                'descritpion' => 'required',
+            ];
+        }else{
+            $rules = [
+                'plan_name' => 'required',
+                'slogan' => 'required',
+                'descritpion' => 'required',
+            ];
+        }
+        
         $messages = [
             'firstName.required' => 'Your first name is required.',
             'firstName.min' => 'First name should contain at least 2 characters.',
@@ -229,17 +263,32 @@ class PlanManagementController extends Controller
         try {
             $descritpion = json_encode($request->descritpion);
             $planData = Plan::find(\Crypt::decrypt($id));
-            $planData->plan_name = trim($request->plan_name);
-            $planData->slogan = trim($request->slogan);
-            $planData->plan_fee = $request->plan_fee;
-           
-            $planData->interest_rate = trim($request->interest_rate);
-            $planData->view_details_url = trim($request->view_details_url);
-            $planData->duration = trim($request->duration);
-            $planData->time_investment = trim($request->time_investment);
-            $planData->plan_valid_from = trim($request->plan_valid_from);
-            $planData->plan_type = $request->plan_type;
-            $planData->descritpion = $descritpion;
+           // dd($planData->plan_name);
+
+            $investData = InvestmentModel::groupBy('plan_id')->get();
+            // dd($investData);
+            $plans = array();
+            foreach($investData as $invest){
+                $plans[]=$invest->plan_id;
+            }
+            if (in_array(Crypt::decrypt($id), $plans)){
+                $is_disable="1";
+            }else{
+                $is_disable="2";
+            }
+            // dd($is_disable);
+            $planData->plan_name =$request->has('plan_name') ? $request->plan_name : $planData->plan_name;
+            $planData->slogan = $request->has('slogan') ? $request->slogan : $planData->slogan;
+            if($is_disable=='2'){
+                $planData->plan_fee = $request->has('plan_fee') ? $request->plan_fee : $planData->plan_fee;
+                $planData->interest_rate = $request->has('interest_rate') ? $request->interest_rate : $planData->interest_rate;
+                $planData->duration = $request->has('duration') ? $request->duration : $planData->duration;
+                $planData->time_investment = $request->has('time_investment') ? $request->time_investment : $planData->time_investment;
+            }
+            $planData->view_details_url = $request->has('view_details_url') ? $request->view_details_url : $planData->view_details_url;
+            $planData->plan_valid_from = $request->has('plan_valid_from') ? $request->plan_valid_from : $planData->plan_valid_from;
+            $planData->plan_type = $request->has('plan_type') ? $request->plan_type : $planData->plan_type;
+            $planData->descritpion = $request->has('descritpion') ? $descritpion : $planData->descritpion;
             $planData->save();
 
             if ($request->icon != "") {
@@ -252,7 +301,7 @@ class PlanManagementController extends Controller
                 $file = $request->file('icon');
                 $filename = 'plan-' . time() . '.' . $file->getClientOriginalExtension();
                 $file->move('public/uploads/plan_icon', $filename);
-                $plan_save->icon = $filename;
+                $plan_save->icon = $filename; 
                 $plan_save->save();
             }
 

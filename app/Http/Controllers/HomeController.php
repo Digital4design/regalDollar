@@ -24,6 +24,11 @@ class HomeController extends Controller
         $day_before = date( 'Y-m-d H:i:s ', strtotime( $date . ' -1 day' ) );
         InvestmentModel::whereNull('paypal_transaction_id')->where('created_at',$day_before)->delete();
         // $this->middleware('auth');
+    
+        $this->admin = User::whereHas('roles', function($q){
+            $q->where('name', 'admin');
+        })->first();
+    
     }
 
     /**
@@ -80,7 +85,7 @@ class HomeController extends Controller
                 'phone' => $request->phone,
                 'message' => $request->message,
             ]);
-            $user = User::where('id', 1)->first();
+            
             if ($planData) {
                 $notificationData = [
                     "adminName" => $user->name,
@@ -90,7 +95,7 @@ class HomeController extends Controller
                     "message" => $request->message,
                 ];
                 //dd($notificationData);
-                $user->notify(new ContactUs($notificationData));
+                $this->admin->notify(new ContactUs($notificationData));
             }
             return redirect('/contact_us')->with(['status' => 'success', 'message' => 'Form submitted Successfully!']);
         } catch (\Exception $e) {

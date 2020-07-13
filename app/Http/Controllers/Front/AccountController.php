@@ -60,10 +60,10 @@ class AccountController extends Controller
     {
         if ($request->user_id != '') {
             $rules = [
-                //'first_name' => 'required|min:2',
-                //'last_name' => 'required|min:2',
-                //'name' => 'required|unique:users,name,'.$request->user_id,
-               // 'email' => 'required|unique:users,email,'.$request->user_id,
+                // 'first_name' => 'required|min:2',
+                // 'last_name' => 'required|min:2',
+                // 'name' => 'required|unique:users,name,'.$request->user_id,
+                // 'email' => 'required|unique:users,email,'.$request->user_id,
             ];
             $messages = [
                 'first_name.required' => 'Your first name is required.',
