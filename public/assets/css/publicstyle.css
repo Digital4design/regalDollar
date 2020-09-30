@@ -3790,7 +3790,8 @@ section.kode-pagesection {
 .kode-team-section {
 	background-image: url(../images/beach-394503_960_720.jpg) !important;
 	background-size: 100% auto;
-	height: 730px;
+	height: 475px;
+	/* height: 730px; */
 }
 .kode-team-section .container {
 	display: table-cell;
@@ -5710,7 +5711,8 @@ section.mission-section .heading p {
 .plans_section .block{
     margin: 0 1% 10px 0;
     position: relative;
-    height: 710px;
+    /*height: 710px;*/
+	height: 563px;
 }
 .how-option{text-align: center;}
 

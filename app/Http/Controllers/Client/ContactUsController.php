@@ -64,6 +64,7 @@ class ContactUsController extends Controller
                 'name' => $request->name,
 				'email'=>Auth::user()->email,
                 'phone'=>Auth::user()->phoneNumber,
+                'contact_from'=>"registered",
                 'contact_subject' => $request->contact_subject,
                 'contact_option' => $request->contact_option,
                 'message' => $request->message,
@@ -71,7 +72,6 @@ class ContactUsController extends Controller
             $user = User::whereHas('roles', function ($q) {
                 $q->where('name', 'admin');
             })->get()->toArray();
-            // dd($user[0]['name']);
             if ($contactData) {
             $notificationData = [
                 "adminName" => $user[0]['name'],

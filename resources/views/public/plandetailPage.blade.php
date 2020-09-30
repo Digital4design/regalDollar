@@ -1,5 +1,6 @@
 @include('homeheader')
-<?php  // dd($planData['plan_name']);?>
+<?php  // dd($planData['plan_name']);
+?>
 <div class="content">
 	<!--SERVICES SECTION START-->
 	<section class="thumb-with-text plan_detail_page">
@@ -19,10 +20,10 @@
 								<line stroke-linecap="square" stroke="currentColor" stroke-width="1.25" x1="0" y1="0.5em" x2="0.25em" y2="0.25em"></line>
 							</svg>
 							<a class="text-color-current-color" href="#">{{ $planData['plan_name'] }}</a>
-						</div>	
+						</div>
 						<h1 class="heading-text-color">{{ $planData['plan_name'] }}</h1>
 						<p>
-						Build wealth confidently through a mix of </br>cash-flowing and	growth-oriented real&nbsp;estate.
+							Build wealth confidently through a mix of </br>cash-flowing and growth-oriented real&nbsp;estate.
 						</p>
 					</div>
 					<div class="banner_content2">
@@ -46,8 +47,18 @@
 								</div>
 							</div>
 						</div>
-						<div class="btn_top"> 
-							<a class="btn-filled" href="<?php echo url('/front/create-details') . '/' . $planData->id  ?>">Invest now</a>
+						<div class="btn_top">
+							@if($planData['status']  == '1' )
+								@if (Auth::check())
+									<a class="btn-filled" href="<?php echo url('/investment/create-step2') . '/' . $planData->id  ?>">Get Started </a>
+								@else
+									<a class="btn-filled" href="{{ url('/front/create-details') }}">Get Started </a>
+								@endif
+							@else
+								
+								<a class="btn-filled"  data-toggle="modal" data-target="#inactivePlanModal" href="#">Get Started </a>
+								
+							@endif
 							<!-- <button>
 								Invest now
 							</button> -->
@@ -64,7 +75,7 @@
 							Overview
 						</a>
 					</li>
-					<li>
+					<!-- li>
 						<a href="">
 							Return Profile
 						</a>
@@ -88,7 +99,7 @@
 						<a href="">
 							Top Questions
 						</a>
-					</li>
+					</li -->
 				</ul>
 			</div>
 		</div>
@@ -120,74 +131,96 @@
 					<h2 class="text-align-center reversed mt-100-smo line-height-125-md text-color-white-md font-weight-lighter-md beta-md">
 						Aim to realize returns through both <strong class="font-weight-normal-smo">dividends and&nbsp;appreciation</strong>
 					</h2>
-					<img src="{{ URL::asset('public/images/blu.jpg') }}"/>
+					<img src="{{ URL::asset('public/images/blu.jpg') }}" />
 				</div>
 			</div>
 		</div>
+		
 		<div class="Strategy-section" id="Strategy">
 			<div class="container">
-				<div class="marketing-section">
+				<!-- div class="marketing-section">
 					<div class="gamma dark ">Strategy</div>
 					<h2 class="text-align-center">
 						<span class="font-weight-normal">We execute two distinct real estate<br class="display-none-smo">
-						private equity businesses on your&nbsp;behalf.</span>
+							private equity businesses on your&nbsp;behalf.</span>
 					</h2>
-				</div>
-				<div  class="button-group">
+				</div -->
+				<!-- div class="button-group">
 					<a class="button active">
 						Income
 						<span class="stacked-step__button-connector ng-scope"></span>
 					</a>
 					<a class="button">
-						Growth	
+						Growth
 					</a>
-				</div>
+				</div-->
 				<div class="marketing-section2" id="overview">
 					<div class="container">
-						<div class="block-sec">
-							<div class="stacked-step__body col-sec" >
+						<!-- div class="block-sec">
+							<div class="stacked-step__body col-sec">
 								<div class="stacked-step__count ng-binding">1</div>
 								<h3 class="line-height-125 delta beta-md heading-text-color">
-									<strong  class="ng-binding">Acquire</strong>
-									<span class="font-weight-lighter-md ng-binding" >assets that generate consistent cash flow</span>
+									<strong class="ng-binding">Acquire</strong>
+									<span class="font-weight-lighter-md ng-binding">assets that generate consistent cash flow</span>
 								</h3>
-								<p class="delta-md ng-binding" >We invest primarily in assets that generate predictable returns from the moment we make the investment. This could mean lending to the developer of a new property, or buying an existing building with tenants in place.</p>
-								<p  class="zeta muted ng-binding ng-scope">Pictured: New apartment community in Springfield, MO</p>
-							</div>	
+								<p class="delta-md ng-binding">We invest primarily in assets that generate predictable returns from the moment we make the investment. This could mean lending to the developer of a new property, or buying an existing building with tenants in place.</p>
+								<p class="zeta muted ng-binding ng-scope">Pictured: New apartment community in Springfield, MO</p>
+							</div>
 							<div class="img_div col-sec">
 								<img src="{{ URL::asset('public/images/aspen-heights-springfield.jpg') }}" />
 							</div>
-						</div>
-						<div class="block-sec">
+						</div -->
+						<!--div class="block-sec">
 							<div class="img_div col-sec">
 								<img src="{{ URL::asset('public/images/wewew.jpg') }}" />
 							</div>
-							<div class="stacked-step__body col-sec" >
+							<div class="stacked-step__body col-sec">
 								<div class="stacked-step__count ng-binding">2</div>
 								<h3 class="line-height-125 delta beta-md heading-text-color">
-									<strong  class="ng-binding">Improve</strong>
-									<span class="font-weight-lighter-md ng-binding" >the real estate to increase margin of safety</span>
+									<strong class="ng-binding">Improve</strong>
+									<span class="font-weight-lighter-md ng-binding">the real estate to increase margin of safety</span>
 								</h3>
-								<p class="delta-md ng-binding" >To maintain and grow a high-income stream, we prefer to invest in a business plan that improves the value of the property. Investors can more predictably capture above-market returns by increasing the value of a building.</p>
+								<p class="delta-md ng-binding">To maintain and grow a high-income stream, we prefer to invest in a business plan that improves the value of the property. Investors can more predictably capture above-market returns by increasing the value of a building.</p>
 								<p class="zeta muted ng-binding ng-scope">Pictured: Before and after renovations on apartments in Jacksonville, FL</p>
 							</div>
-						</div>
+						</div -->
 						<div class="block-sec">
-							<div class="stacked-step__body col-sec" >
-								<div class="stacked-step__count ng-binding">3</div>
+							<div class="stacked-step__body col-sec">
+								<!--div class="stacked-step__count ng-binding">3</div -->
 								<h3 class="line-height-125 delta beta-md heading-text-color">
-									<strong  class="ng-binding">Realize</strong> 
-									<span class="font-weight-lighter-md ng-binding" > returns over time via rent or interest payments</span>
+									<strong class="ng-binding">Realize</strong>
+									<span class="font-weight-lighter-md ng-binding"> returns over time via rent or interest payments</span>
 								</h3>
-								<p class="delta-md ng-binding" >Unlike in a growth strategy, where returns are typically “back-ended” when the property is sold, investors in an income strategy can look forward to earning consistent distributions over time as we collect rent or interest payments.</p>
+								<p class="delta-md ng-binding">Unlike in a growth strategy, where returns are typically “back-ended” when the property is sold, investors in an income strategy can look forward to earning consistent distributions over time as we collect rent or interest payments.</p>
 							</div>
 							<div class="img_div col-sec">
 								<img src="{{ URL::asset('/public/images/dgees.jpg') }}" />
 							</div>
 						</div>
 					</div>
-					<div> 
-					</section>
+					</div>
+					
+					
+	<div id="inactivePlanModal" class="modal fade" role="dialog">
+		<div class="modal-dialog">
 
-@include('homefooter')
-@include('homescripts')
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Plane Info</h4>
+				</div>
+				<div class="modal-body">
+					<p>You cannot buy this plan because the administrator has made this plan interactive</p>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+
+		</div>
+	</div>
+	</section>
+
+	@include('homefooter')
+	@include('homescripts')

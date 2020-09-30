@@ -3,7 +3,7 @@
 @endsection
 @section('breadcrumb')
 <div class="col-sm-6">
-   <h4 class="page-title">{{ $pageName }}</h4>
+  <h4 class="page-title">{{ $pageName }}</h4>
 </div>
 @endsection
 @section('content')
@@ -17,12 +17,12 @@
 @if(Session::get('status') == "success")
 <div class="alert alert-success alert-dismissible">
   <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-  <i class="icon fa fa-check"></i>  {{ Session::get('message') }}
+  <i class="icon fa fa-check"></i> {{ Session::get('message') }}
 </div>
 @elseif(Session::get('status') == "danger")
 <div class="alert alert-danger alert-dismissible">
   <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-  <i class="icon fa fa-ban"></i>  {{ Session::get('message') }}
+  <i class="icon fa fa-ban"></i> {{ Session::get('message') }}
 </div>
 @endif
 <!-- end row -->

@@ -33,4 +33,9 @@ class InvestmentModel extends Model
      * Return current login user role here.
      * @var string
      */
+
+    public function userPlan()
+    {
+        return $this->hasMany('App\Comment');
+    }
 }

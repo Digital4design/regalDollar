@@ -43,6 +43,18 @@
                         <div class="col-sm-6">
                            <div class="input-group mb-3">
                               <div class="input-group-prepend">
+                                 <label class="input-group-text" for="inputGroupSelect01">Select Plan</label>
+                              </div>
+                              <select id="plan_id" class="form-control" name="plan_id">
+                                 <option value="">Select Plan</option>
+
+                              </select>
+
+                           </div>
+                        </div>
+                        <div class="col-sm-6">
+                           <div class="input-group mb-3">
+                              <div class="input-group-prepend">
                                  <label class="input-group-text" for="inputGroupSelect01">documents_title</label>
                               </div>
                               <input 
@@ -164,5 +176,29 @@
             });
          });	
            
+
+   $("#users_id").change(function() {
+      $('#plan_id').html('');
+      var client_id = this.value;
+      if (client_id !== '') {
+         $.ajax({
+            type: "post", 
+            dataType: 'json',
+            data: {
+               client_id: client_id,
+               _token: "{{csrf_token()}}"
+            },
+            url: "{{url('admin/users-management/get-client-plan-list')}}",
+            success: function(rtnData) {
+             $('#plan_id').html('<option value="">--Please select Investment--</option>');
+               if (rtnData.list.length > 0) {
+                  $.each(rtnData.list, function(index, value) {
+                      $('#plan_id').append('<option value="'+value.id+'">'+value.plan_name+' / '+ value.plan_start_date +'</option>');
+                  });
+               }
+            }
+         });
+      }
+   });
 </script>
 @endsection

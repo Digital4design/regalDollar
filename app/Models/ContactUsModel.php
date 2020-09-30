@@ -21,6 +21,7 @@ class ContactUsModel extends Model
         'phone',
         'contact_subject',
         'contact_option',
+        'contact_from',
         'message',
     ];
     /**

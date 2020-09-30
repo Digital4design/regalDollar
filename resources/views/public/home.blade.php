@@ -1,47 +1,48 @@
 @include('homeheader')
-<?php // dd($activePlan['plan_id']);?>
+<?php // dd($activePlan['plan_id']);
+?>
 <!--CONTENT START-->
 <div class="content">
-<div class="inner-banner kode-team-section overlay movingbg normaltopmargin normalbottommargin light movingbg" data-id="customizer" data-title="Theme Customizer" data-direction='horizontal'>
-      <div class="container">
-         <p>
-            <img src="{{ URL::asset('public/assets/images/peacock.png') }}" style="height:100px;">
-         </p>
-         <h2>Flexible Investments. Guaranteed Returns.<br />Freedom to cancel at any time.</h2>
-         <ol class="breadcrumb">
-            <li style="color:#EFEFEF;">
-               RegalDollars is a money investment company with
-               <span style="text-decoration:underline;">guaranteed</span> returns.<br />
-               <span style="font-size:.75em;">(some restrictions apply)</span>
-            </li>
-         </ol>
-        </div>
-    </div>
+	<div class="inner-banner kode-team-section overlay movingbg normaltopmargin normalbottommargin light movingbg" data-id="customizer" data-title="Theme Customizer" data-direction='horizontal'>
+		<div class="container">
+			<p>
+				<img src="{{ URL::asset('public/assets/images/peacock.png') }}" style="height:100px;">
+			</p>
+			<h2>Flexible Investments. Guaranteed Returns.<br />Freedom to cancel at any time.</h2>
+			<ol class="breadcrumb">
+				<li style="color:#EFEFEF;">
+					RegalDollars is a money investment company with
+					<span style="text-decoration:underline;">guaranteed</span> returns.<br />
+					<span style="font-size:.75em;">(some restrictions apply)</span>
+				</li>
+			</ol>
+		</div>
+	</div>
 
 	<div class="core_plans_section">
 		<div class="container">
 			<div class="heading heading-4">
-				<h2 style="color:#333">Core Plans</h2>				
+				<h2 style="color:#333">Core Plans</h2>
 				<!-- <p style="color:#333">Choose from one of three plans that best fits your goals</p> -->
 				<p style="color:#333">Each plan designed and created with the goal of growing your wealth</p>
 			</div>
-			
+
 			<div class="plans_section">
-				<?php 
-				foreach ($investmentData as $key=>$plan) { 
-					?>
-				<div class="block"> 
-					<div class="image_sec">
-						<img src="{{ asset('public/assets/images') }}/{{ $plan->banner}}" alt="">
-						<div class="icon_sec">
-							<img src="{{ asset('public/assets/images') }}/{{ $plan->icon}}" alt="">
+				<?php
+				foreach ($investmentData as $key => $plan) {
+				?>
+					<div class="block">
+						<div class="image_sec">
+							<img src="{{ asset('public/assets/images') }}/{{ $plan->banner}}" alt="">
+							<div class="icon_sec">
+								<img src="{{ asset('public/assets/images') }}/{{ $plan->icon}}" alt="">
+							</div>
 						</div>
-					</div>
-					<div class="detail_sec">
-						<h2 class="title">{{ $plan->plan_name}}</h2>
-						<p>{{ $plan->description}}</p>
-						
-						<div class="progress_bar Supplemental_track">
+						<div class="detail_sec">
+							<h2 class="title">{{ $plan->plan_name}}</h2>
+							<p>{{ $plan->description}}</p>
+
+							<!--div class="progress_bar Supplemental_track">
 							<div class="row">
 								<span class="bar_title">Dividends</span>
 								<div class="track">
@@ -60,19 +61,20 @@
 									<span class="show_result"></span>
 								</div>
 							</div>
+						</div -->
+							<br /><br /><br />
+								<a class="btn " href="<?php echo url('/plan-detail-page') . '/' . $plan->id  ?>">View detail</a>
+							<br /><br />
+							<!-- <a class="get_started" href="<?php // echo url('/front/create-details') . '/' . $plan->id  
+																?>">Get Started </a> -->
 						</div>
-						<br/><br/><br/>
-						<a  class="btn" href="<?php echo url('/plan-detail-page') . '/' . $plan->id  ?>">View detail</a>
-						<br/><br/>
-						<a class="get_started" href="<?php echo url('/front/create-details') . '/' . $plan->id  ?>">Get Started </a>
 					</div>
-				</div>
 				<?php } ?>
 			</div>
 		</div>
 	</div>
 
-	
+
 	<section class="causes-section overlay">
 		<div class="container">
 			<!--HEADER SECTION START-->
@@ -101,47 +103,47 @@
 	<section class="why-us-section">
 		<div class="container">
 			<div class="heading heading-4">
-				<h2 style="color:#333">Why Us</h2> 
+				<h2 style="color:#333">Why Us</h2>
 				<p>Here’s What You Get When You choose Regal Dollars.</p>
 			</div>
 			<div class="why-us-option">
 				<div class="row">
-				<div class="col-md-4">
+					<div class="col-md-4">
 						<img src="{{ asset('public/assets/images/percent.png') }}">
-						<h3>Guaranteed Return</h3>	
+						<h3>Guaranteed Return</h3>
 						<p>Lock in a fixed rate so you know exactly how much interest you'll earn</p>
 					</div>
-					
+
 					<div class="col-md-4">
 						<img src="{{ asset('public/assets/images/calaender.png') }}">
-						<h3>Flexible Plans</h3>	
+						<h3>Flexible Plans</h3>
 						<p>Terms that work on your schedule</p>
 					</div>
-					
+
 					<div class="col-md-4">
 						<img src="{{ asset('public/assets/images/balance.png') }}">
-						<h3>Competitive rates and terms</h3>	
+						<h3>Competitive rates and terms</h3>
 						<p>Many options for reaching your financial goals</p>
 					</div>
-					
+
 					<div class="col-md-4">
 						<img src="{{ asset('public/assets/images/adjust.png') }}">
-						<h3>Full control</h3>	
+						<h3>Full control</h3>
 						<p>Freedom to cancel at any time</p>
 					</div>
-					
+
 					<div class="col-md-4">
 						<img src="{{ asset('public/assets/images/start.png') }}">
-						<h3>Low minimum to start</h3>	
+						<h3>Low minimum to start</h3>
 						<p>Only $5,000 to start</p>
 					</div>
-					
+
 					<div class="col-md-4">
 						<img src="{{ asset('public/assets/images/cash.png') }}">
-						<h3>Cash flow</h3>	
-						<p>Withdraw your earning monthly</p> 
+						<h3>Cash flow</h3>
+						<p>Withdraw your earning monthly</p>
 					</div>
-					
+
 				</div>
 			</div>
 		</div>
@@ -151,26 +153,26 @@
 	<section class="how-section">
 		<div class="container">
 			<div class="heading heading-4">
-				<h2 style="color:#333">How it works</h2> 
+				<h2 style="color:#333">How it works</h2>
 				<p>It only takes a few minutes to start saving for futur.</p>
 			</div>
 			<div class="how-option">
 				<div class="row">
 					<div class="col-md-4">
 						<img src="{{ asset('public/assets/images/one.png') }}">
-						<h1>Signup</h1>	
+						<h1>Signup</h1>
 						<!-- <p>Begin our secure ( and fast ) account opening process.Choose term from months to years.</p> -->
 						<p>Inter your info</p>
 					</div>
 					<div class="col-md-4">
 						<img src="{{ asset('public/assets/images/two.png') }}">
-						<h1>Fund</h1>	
+						<h1>Fund</h1>
 						<!-- <p>Including your name, address, date of birth and Social Security Number.</p> -->
 						<p>contribute to a plan</p>
 					</div>
 					<div class="col-md-4">
 						<img src="{{ asset('public/assets/images/three.png') }}">
-						<h1>Earn</h1>	
+						<h1>Earn</h1>
 						<!-- <p>Link to your account at another bank.</p> -->
 						<p>enjoy your return</p>
 					</div>
@@ -178,6 +180,9 @@
 			</div>
 		</div>
 	</section>
+
+
+
 	<!------->
 	<!-- <section class="kode-pagesection">
 		<div class="container">

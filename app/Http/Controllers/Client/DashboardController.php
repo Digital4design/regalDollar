@@ -15,6 +15,7 @@ use App\Models\Plan;
 use Validator;
 use DB;
 use Carbon\Carbon;
+use DataTables;
 use DateTime;
 
 class DashboardController extends Controller
@@ -27,70 +28,56 @@ class DashboardController extends Controller
     public function __construct()
     {
         $this->middleware(['auth']);
-        
     }
     public function index()
     {
         $user_id = Auth::user()->id;
-        if(Auth::user()->is_verify =="pending"){
-            return redirect('/investment/create-step2');
-            // return redirect('/front/create-step2');
+        if (Auth::user()->is_verify == "pending") {
+            return redirect('/core-plans');
         }
-        $investmentData = InvestmentModel::where('user_id',$user_id)
-        //->where('paypal_transaction_id','!=', '')
-        ->orderBy('id', 'DESC')
-        ->first();
-        
-        $plan_id = $investmentData['plan_id'];
-        $planData = Plan::where('id',$plan_id)->first();
-        $investData = DB::table('investment')
-              ->select('investment.*','plans.interest_rate','plans.plan_name','plans.time_investment','plans.plan_fee')
-              ->join('plans','plans.id','=','investment.plan_id')
-              ->where('investment.user_id', $user_id)
-              ->where('investment.paypal_transaction_id','!=', '')
-              ->get();
+        $investmentData = InvestmentModel::where('user_id', $user_id)
+            //->where('paypal_transaction_id','!=', '')
+            ->orderBy('id', 'DESC')
+            ->first();
 
-       
-		$chartData[]=  $this->getUsersPlanName($investData);
-		
-		
-		
-        // dd($chartData);
-        foreach($investData as $key=>$invest){
-            //dd($invest);
+        $plan_id = $investmentData['plan_id'];
+        $planData = Plan::where('id', $plan_id)->first();
+        $investData = DB::table('investment')
+            ->select('investment.*', 'plans.interest_rate', 'plans.plan_name', 'plans.time_investment', 'plans.plan_fee')
+            ->join('plans', 'plans.id', '=', 'investment.plan_id')
+            ->where('investment.user_id', $user_id)
+            ->where('investment.paypal_transaction_id', '!=', '')
+			->orderBy('id', 'DESC')
+            ->get();
+        // dd($investData);
+
+		/*
+        $chartData[] =  $this->getUsersPlanName($investData);
+        foreach ($investData as $key => $invest) {
+
             $datetime1 = new DateTime(date("Y-m-d"));
             $datetime2 = new DateTime($invest->plan_start_date);
             $interval = $datetime1->diff($datetime2);
-            //dd($interval);
             $fee = $invest->plan_fee;
             $amount = $invest->amount;
-            $time_investment = $invest->time_investment; 
-            if($interval->m > 0){
-                for($i=1; $i<=$interval->m; $i++){
+            $time_investment = $invest->time_investment;
+            if ($interval->m > 0) {
+                for ($i = 1; $i <= $interval->m; $i++) {
                     $instrData = $amount * $invest->interest_rate * $i / 100;
-					
-                    $gainData = $amount+$instrData -$fee ;
-                     //dd($gainData);
-                    $chartData[]=array($i,(int)$gainData);
+
+                    $gainData = $amount + $instrData - $fee;
+                    //dd($gainData);
+                    $chartData[] = array($i, (int)$gainData);
                 }
-//dd($chartData);
-                // $instrData = $amount * $invest->interest_rate / $interval->m;
-                // $gainData = $amount+$instrData;
-                // dd($gainData);
-               // $chartData=[$key,$invest->plan_name,(int)$gainData];
-            }else{
-                $chartData[]=array($key,(int)$invest->amount);
+            } else {
+                $chartData[] = array($key, (int)$invest->amount);
             }
-            //dd($chartData);
-        }
-      // dd($chartData);
-       // $chartData= json_encode($chartData);
-        // dd($chartData);
-        
-        $graphData=array();
-        $totalgainData=0;
-        foreach($investData as $invData){
-           // dd($invData);
+        }*/
+
+	/*
+        $graphData = array();
+        $totalgainData = 0;
+        foreach ($investData as $invData) {
             $datetime1 = new DateTime(date("Y-m-d"));
             $datetime2 = new DateTime($invData->plan_start_date);
             $interval = $datetime1->diff($datetime2);
@@ -98,323 +85,404 @@ class DashboardController extends Controller
             $amount = $invData->amount;
             $time_investment = $invData->time_investment;
 
-            if($interval->m > 0){
+            if ($interval->m > 0) {
+
                 $inst = $amount * $invData->interest_rate * $interval->m / 100;
-                $gains = $amount+$inst;
+                $gains = $amount + $inst;
                 $totalgainData += $gains - $fee;
-                
-                
-                // for($i=1; $i<=$interval->m; $i++){
-                //     $instrData = $amount * $invData->interest_rate / $i;
-                //     $gainData = $amount+$instrData;
-                //     //dd($gainData);
-                //     // $totalgain += $gain - $fee;
-                    
-                // }
-                $graphData[]=[                    
-                    'investId'=>$invData->id,
-                    'plan_name'=>$invData->plan_name,
-                    'baseamount'=>$amount,
-                    'netgrouth'=>$gainData
+                $graphData[] = [
+                    'investId' => $invData->id,
+                    'plan_name' => $invData->plan_name,
+                    'baseamount' => $amount,
+                    'netgrouth' => $gainData
                 ];
-            }else{
-                $graphData[]=[
-                    'investId'=>$invData->id,
-                    'plan_name'=>$invData->plan_name,
-                    'baseamount'=>$amount,
-                    'netgrouth'=>$amount
+            } else {
+                $graphData[] = [
+                    'investId' => $invData->id,
+                    'plan_name' => $invData->plan_name,
+                    'baseamount' => $amount,
+                    'netgrouth' => $amount
                 ];
             }
         }
         // $graphData =json_encode($graphData);
-        
+
         //dd($graphData);
-        $totalgain=0;
-        foreach($investData as $invest){
+	*/
+	
+        $totalgain = 0;
+        $nextMonthEarning = 0;
+        foreach ($investData as $invest) {
             // dd($invest->plan_fee);
             $datetime1 = new DateTime(date("Y-m-d"));
             $datetime2 = new DateTime($invest->plan_start_date);
             $interval = $datetime1->diff($datetime2);
-            //dd($interval);
             $fee = $invest->plan_fee;
-            // dd($fee);
             $amount = $invest->amount;
+            $month = $interval->m + 1;
+           
             $time_investment = $invest->time_investment;
-            // dd($interval->m);
-            if($interval->m > 0){
-                // $instr = $amount * $invest->interest_rate / $time_investment;
-                $instr = $amount * $invest->interest_rate / $interval->m;
-                $gain = $amount+$instr;
-                $totalgain += $gain - $fee;
-                
-            }else{
-                $totalgain +=$amount;
+
+            if ($month) {
+                $ins = $amount * $invest->interest_rate / $month;
+                $gainA = $amount + $ins;
+                $nextMonthEarning += $gainA - $fee;
             }
+
+            if ($interval->m > 0) {
+                $instr = $amount * $invest->interest_rate / $interval->m;
+                $gain = $amount + $instr;
+                $totalgain += $gain - $fee;
+            } else {
+
+                $totalgain += $amount;
+            }
+
             
         }
-		
-		
-		$chartData = $this->genrateLineChartData();
-       
+        $chartData = $this->genrateLineChartData();
+
         $result = array(
             'pageName'      => 'Dashboard',
             'activeMenu'    => 'dashboard',
             'activePlan'    => $planData,
-            'investAmount'  => $investmentData['amount'],
+            'investAmount'  => number_format((float)$investmentData['amount'], 2, '.', ''),
             'matureDate'    => $investmentData['plan_end_date'],
             'investData'    => $investData,
-            'totalgain'     => $totalgain,
+            'totalgain'     => number_format((float)$totalgain, 2, '.', ''),
+            'nextMonthEarning' => number_format((float)$nextMonthEarning, 2, '.', ''),
             'activeInvest'  => $investmentData,
-            'graphData'     => $graphData,
+           // 'graphData'     => $graphData,
             'chartData'     => $chartData
         );
         return view('client.dashboard.dashboard', $result);
     }
-	
-	/*
+
+    public function getInvestmentData()
+    {
+        $investData = DB::table('investment')
+            ->select('investment.*', 'plans.interest_rate', 'plans.plan_name', 'plans.time_investment', 'plans.plan_fee', 'users.name')
+            ->join('plans', 'plans.id', '=', 'investment.plan_id')
+            ->join('users', 'users.id', '=', 'investment.user_id')
+            ->where('investment.amount', '!=', '')
+            ->where('investment.paypal_transaction_id', '!=', '')
+            ->where('investment.user_id', Auth::user()->id)
+            ->get();
+        $newData = array();
+        foreach ($investData as $investment) {
+            $date = date_create(date($investment->created_at));
+            $secendDate = date_format($date, "M d,Y");
+            $mData =  date_format($date, "M");
+            $investment->created_at = $secendDate;
+            $investment->type = '<div>Monthly Dividend (' . $mData . ')<i class="fa fa-arrow-alt-circle-right"></i></div>';
+            array_push($newData, $investment);
+        }
+        // dd($newData);
+        return Datatables::of($newData)
+            ->addColumn('action', function ($newData) {
+                return '<a href ="' . url('/client/dashboard-investment-management/view') . '/' . $newData->id . '"  class="btn btn-xs btn-primary edit"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Investment Growth</a>';
+            })->make(true);
+    }
+
+    public function getInvestmentSingle($invest_id)
+    {
+        $investData = DB::table('investment')
+            ->select('investment.*', 'plans.interest_rate', 'plans.plan_name', 'plans.time_investment', 'plans.plan_fee', 'users.name')
+            //->select('investment.*','plans.plan_name','users.name')
+            ->join('plans', 'plans.id', '=', 'investment.plan_id')
+            ->join('users', 'users.id', '=', 'investment.user_id')
+            ->where('investment.amount', '!=', '')
+            ->where('investment.paypal_transaction_id', '!=', '')
+            ->where(['investment.id' => $invest_id])
+            ->get();
+        dd($investData);
+        $totalgain = 0;
+        $newArray[] = array();
+        foreach ($investData  as $key => $invest) {
+
+            $datetime1 = new DateTime(date("Y-m-d"));
+            $datetime2 = new DateTime($invest->plan_start_date);
+            $interval = $datetime1->diff($datetime2);
+            $yearTomont = $interval->y * 12;
+            $totalMonth = $yearTomont + $interval->m;
+            $fee = $invest->plan_fee;
+            $amount = $invest->amount;
+            for ($i = 1; $i <= $totalMonth; $i++) {
+                if ($i < 1) {
+                    $totalgain += $amount;
+					 $date = strtotime($invest->plan_start_date);
+                    $month = date("M/Y", strtotime("+" . $i . " month", $date));
+                } else {
+                    $instr = $amount * $invest->interest_rate / $i;
+                    $gain = $amount + $instr;
+                    $totalgain += $gain - $fee;
+					 $date = strtotime($invest->plan_start_date);
+                    $month = date("M/Y", strtotime("+" . $i . " month", $date));
+                }
+                $newArray[$i] = [
+                    'month' => $month,
+                    'gowth' => $totalgain
+                ];
+            }
+        }
+        $newMonth = array();
+        foreach ($newArray as $array) {
+            if ($array != []) {
+                array_push($newMonth, $array);
+            }
+        }
+		// dd($newMonth);
+        $result = array(
+            'pageName'         => $investData[0]->plan_name,
+            'activeMenu'    => 'dashboard',
+            'growthData' => $newMonth,
+            'amount'=>$investData[0]->amount
+
+        );
+        return view('client.dashboard.growth', $result);
+    }
+
+    /*
 	|------------
 	| Description : this will return json data which is used to generate line chart;
 	| @prams	  : $investData array
 	| @return     : array
 	*/
-	
-	public function genrateLineChartData(){
-		
-		$user_id = Auth::user()->id;
-		
-		// get user first investment 
-			$getUserFirstInvestment = InvestmentModel::where('investment.user_id', $user_id)
-										->where('investment.paypal_transaction_id','!=', '')
-										->orderBy('investment.plan_start_date', 'Asc')
-										->first();
-										
-		if($getUserFirstInvestment){
-			// get user all investments 
-			
-			$allInvestments = DB::table('investment')
-								->select('investment.*','plans.interest_rate','plans.plan_name','plans.time_investment','plans.plan_fee')
-								->join('plans','plans.id','=','investment.plan_id')
-								->where('investment.user_id', $user_id)
-								->where('investment.paypal_transaction_id','!=', '')
-								->orderBy('investment.plan_start_date', 'Asc')
-								->get();
-		
-		
-		 
-			// set month and plan name in array
-				$chartData[]= $onlyPlans =  $this->getUsersPlanName($allInvestments);
-			
-			// get time difference
-				$currentDate 				= new DateTime(date("Y-m-d"));
-				$firstInvestmentStartFrom 	= new DateTime($getUserFirstInvestment->plan_start_date);
-				$totalInvestmentMonths 		= $currentDate->diff($firstInvestmentStartFrom);
-			
-				$allMonths = $this->get_months($getUserFirstInvestment->plan_start_date, date("Y-m-d"));
-			
-				// get total months
-			
-					if(count($allMonths) > 0){
-						// remove 0 index from plan name array
-						array_splice($onlyPlans, 0, 1);
-						
-						if(count($onlyPlans) > 0 ){
-							
-							foreach($allMonths as $month){
-								$chartData[] = $this->calculatePlanMonthlyInvestProfit($allInvestments, $getUserFirstInvestment->plan_start_date, $month  );
-							}
-							
-						}else{
-							$chartData[] = array(null);
-						}
-					}else{
-						$chartData[] = array(date("F"), (int)$getUserFirstInvestment->amount);
-					}
 
-		}else{
-			$chartData = array( array('Month', 'No Investment'), array(date("F"), 0) );
-			
-		}								
-		
-		//dd($chartData);
-		return  json_encode($chartData);
-	  
+    public function genrateLineChartData()
+    {
+
+        $user_id = Auth::user()->id;
+
+        // get user first investment 
+        $getUserFirstInvestment = InvestmentModel::where('investment.user_id', $user_id)
+            ->where('investment.paypal_transaction_id', '!=', '')
+            ->orderBy('investment.plan_start_date', 'Asc')
+            ->first();
+
+        if ($getUserFirstInvestment) {
+            // get user all investments 
+
+            $allInvestments = DB::table('investment')
+                ->select('investment.*', 'plans.interest_rate', 'plans.plan_name', 'plans.time_investment', 'plans.plan_fee')
+                ->join('plans', 'plans.id', '=', 'investment.plan_id')
+                ->where('investment.user_id', $user_id)
+                ->where('investment.paypal_transaction_id', '!=', '')
+                ->orderBy('investment.plan_start_date', 'Asc')
+                ->get();
+
+
+
+            // set month and plan name in array
+            $chartData[] = $onlyPlans =  $this->getUsersPlanName($allInvestments);
+
+            // get time difference
+            $currentDate                 = new DateTime(date("Y-m-d"));
+            $firstInvestmentStartFrom     = new DateTime($getUserFirstInvestment->plan_start_date);
+            $totalInvestmentMonths         = $currentDate->diff($firstInvestmentStartFrom);
+
+            $allMonths = $this->get_months($getUserFirstInvestment->plan_start_date, date("Y-m-d"));
+
+            // get total months
+
+            if (count($allMonths) > 0) {
+                // remove 0 index from plan name array
+                array_splice($onlyPlans, 0, 1);
+
+                if (count($onlyPlans) > 0) {
+
+                    foreach ($allMonths as $month) {
+                        $chartData[] = $this->calculatePlanMonthlyInvestProfit($allInvestments, $getUserFirstInvestment->plan_start_date, $month);
+                    }
+                } else {
+                    $chartData[] = array(null);
+                }
+            } else {
+                $chartData[] = array(date("F"), (int)$getUserFirstInvestment->amount);
+            }
+        } else {
+            $chartData = array(array('Month', 'No Investment'), array(date("F"), 0));
+        }
+
+        //dd($chartData);
+        return  json_encode($chartData);
     }
-	
-	
-	/*
+
+
+    /*
 	|--------------
 	| Description : this will return all plan name
 	| @prams	  : $investData array
 	| @return     : array
 	|--------------
 	*/
-		
-		public function calculatePlanMonthlyInvestProfit($allInvestments, $firstInvestmentStartFrom,  $monthYearName ){
-			
-		
-			$monthlyAllPlanData = array(date('F', strtotime($monthYearName)));
-			
-			foreach($allInvestments as $k => $v){
 
-				if($this->isInvestmentExistBetweenStartANDCurrentDate($firstInvestmentStartFrom, $v->plan_start_date, $v->plan_end_date, $monthYearName )){
-					
-					if( $this->isMonthLieBetweenInvestmentStartEndDates($v->plan_start_date, $v->plan_end_date, $monthYearName ) ){
-						
-						// GET ALL MONTHS OF CURRENT INVESTMENTS 
-						$getTotalMonths = $this->get_months($v->plan_start_date, date("Y-m-d"));	
-						
-						if($getTotalMonths){
-							
-							// SEARCH MONTH IN ALL MONTHS ARRAY
-								$pos = array_search($monthYearName,$getTotalMonths);
+    public function calculatePlanMonthlyInvestProfit($allInvestments, $firstInvestmentStartFrom,  $monthYearName)
+    {
 
-							// REMOVED THE KEY VALUES AFTER RESULT FOUND IN MONTHS ARRAY 
-								$totalMonthsAfterSlice  = array_slice($getTotalMonths,  0,  $pos+1, true);
-							
-								$finalArrayMonth = array_reverse($totalMonthsAfterSlice);
 
-								$investmentMonthNumber = array_keys($finalArrayMonth);
-							
-							
-							if(count($investmentMonthNumber) == 1 && $investmentMonthNumber[0] == 0 ){
-								
-								$monthlyAllPlanData[] = (int)$v->amount;
-								
-							}else{
-								
-								if($investmentMonthNumber[0] == 0  ){
-									$investmentMonthNumber = array_reverse($investmentMonthNumber);
-								}
-							
-								$monthlyAllPlanData[] = $this->calculateSingleInvestmentProfitByMonth($v, $investmentMonthNumber[0]);
-							}
-									
-						}else{
-							$monthlyAllPlanData[] = (int)$v->amount;
-						}
-						
-					}else{
-						$monthlyAllPlanData[] = null;
-						
-					}
-				}else{
-					 $monthlyAllPlanData[] = null;
-				}
-			}
-			
-			return $monthlyAllPlanData;
-			
-		}
-	
-	
-		public function isInvestmentExistBetweenStartANDCurrentDate($firstInvestmentStartDate, $currentInvestmentStartDate, $currentInvestmentEndDate, $loopMonth){
-				
-			$investDateBegin = date('Y-m-d', strtotime($firstInvestmentStartDate));
-			$currentDate	 = date('Y-m-d', strtotime(date('Y-m-d')));
-			
-			$endDay	 		 = date('d', strtotime(date($currentInvestmentEndDate)));
-			$loopMonthDate   = date('Y-m-d', strtotime(date($loopMonth.'-'.$endDay)));
-			
-			if (($currentInvestmentStartDate >= $investDateBegin) && ($currentInvestmentStartDate <= $currentDate) ){
-				
-				if( ($loopMonthDate > $currentInvestmentEndDate ) ){
-					return false;
-				}else{
-					return true;
-				}
-				
-			}else{
-				return false;
-			}
-		}	
-	
-		public function isMonthLieBetweenInvestmentStartEndDates($currentInvestmentStartDate, $currentInvestmentEndDate, $monthYear ){
-				
-			$investMonth 	= date('Y-m', strtotime($monthYear));
-			$startDate 		= date('Y-m', strtotime($currentInvestmentStartDate));
-			$endDate 		= date('Y-m', strtotime($currentInvestmentEndDate));
+        $monthlyAllPlanData = array(date('F', strtotime($monthYearName)));
 
-			if (( $investMonth >= $startDate ) && ($investMonth <= $endDate) ){
-				return true;
-			}else{
-				return false;
-			}
-		}
-		
-	/*
+        foreach ($allInvestments as $k => $v) {
+
+            if ($this->isInvestmentExistBetweenStartANDCurrentDate($firstInvestmentStartFrom, $v->plan_start_date, $v->plan_end_date, $monthYearName)) {
+
+                if ($this->isMonthLieBetweenInvestmentStartEndDates($v->plan_start_date, $v->plan_end_date, $monthYearName)) {
+
+                    // GET ALL MONTHS OF CURRENT INVESTMENTS 
+                    $getTotalMonths = $this->get_months($v->plan_start_date, date("Y-m-d"));
+
+                    if ($getTotalMonths) {
+
+                        // SEARCH MONTH IN ALL MONTHS ARRAY
+                        $pos = array_search($monthYearName, $getTotalMonths);
+
+                        // REMOVED THE KEY VALUES AFTER RESULT FOUND IN MONTHS ARRAY 
+                        $totalMonthsAfterSlice  = array_slice($getTotalMonths,  0,  $pos + 1, true);
+
+                        $finalArrayMonth = array_reverse($totalMonthsAfterSlice);
+
+                        $investmentMonthNumber = array_keys($finalArrayMonth);
+
+
+                        if (count($investmentMonthNumber) == 1 && $investmentMonthNumber[0] == 0) {
+
+                            $monthlyAllPlanData[] = (int)$v->amount;
+                        } else {
+
+                            if ($investmentMonthNumber[0] == 0) {
+                                $investmentMonthNumber = array_reverse($investmentMonthNumber);
+                            }
+
+                            $monthlyAllPlanData[] = $this->calculateSingleInvestmentProfitByMonth($v, $investmentMonthNumber[0]);
+                        }
+                    } else {
+                        $monthlyAllPlanData[] = (int)$v->amount;
+                    }
+                } else {
+                    $monthlyAllPlanData[] = null;
+                }
+            } else {
+                $monthlyAllPlanData[] = null;
+            }
+        }
+
+        return $monthlyAllPlanData;
+    }
+
+
+    public function isInvestmentExistBetweenStartANDCurrentDate($firstInvestmentStartDate, $currentInvestmentStartDate, $currentInvestmentEndDate, $loopMonth)
+    {
+
+        $investDateBegin = date('Y-m-d', strtotime($firstInvestmentStartDate));
+        $currentDate     = date('Y-m-d', strtotime(date('Y-m-d')));
+
+        $endDay              = date('d', strtotime(date($currentInvestmentEndDate)));
+        $loopMonthDate   = date('Y-m-d', strtotime(date($loopMonth . '-' . $endDay)));
+
+        if (($currentInvestmentStartDate >= $investDateBegin) && ($currentInvestmentStartDate <= $currentDate)) {
+
+            if (($loopMonthDate > $currentInvestmentEndDate)) {
+                return false;
+            } else {
+                return true;
+            }
+        } else {
+            return false;
+        }
+    }
+
+    public function isMonthLieBetweenInvestmentStartEndDates($currentInvestmentStartDate, $currentInvestmentEndDate, $monthYear)
+    {
+
+        $investMonth     = date('Y-m', strtotime($monthYear));
+        $startDate         = date('Y-m', strtotime($currentInvestmentStartDate));
+        $endDate         = date('Y-m', strtotime($currentInvestmentEndDate));
+
+        if (($investMonth >= $startDate) && ($investMonth <= $endDate)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /*
 	|------------
 	| Description : It help to calculate Gain Amount based on month
 	| @prams	  : $investmentArray array/ $month int ( number of months )
 	| @return     : int final gain amount
 	*/
-		
-		public function calculateSingleInvestmentProfitByMonth($investmentArray, $month){
-			
-			(int)$feeAmount		= $investmentArray->plan_fee;
-			(int)$investedAmount= $investmentArray->amount;
-			$intrestAmount 		= $investedAmount * $investmentArray->interest_rate * $month / 100;
-            $gainAmount 		= ($investedAmount + $intrestAmount) - $feeAmount ;
-			return (int)$gainAmount;
-		}
-	
-	
-	
-	/*
+
+    public function calculateSingleInvestmentProfitByMonth($investmentArray, $month)
+    {
+
+        (int)$feeAmount        = $investmentArray->plan_fee;
+        (int)$investedAmount = $investmentArray->amount;
+        $intrestAmount         = $investedAmount * $investmentArray->interest_rate * $month / 100;
+        $gainAmount         = ($investedAmount + $intrestAmount) - $feeAmount;
+        return (int)$gainAmount;
+    }
+
+
+
+    /*
 	|------------
 	| Description : this will return all plan name
 	| @prams	  : $investData array
 	| @return     : array
 	*/
-	
-	public function getUsersPlanName($investData){
-        $buff=array('Month');
-        if(!empty($investData)){
-            foreach($investData as $key=>$invest){
+
+    public function getUsersPlanName($investData)
+    {
+        $buff = array('Month');
+        if (!empty($investData)) {
+            foreach ($investData as $key => $invest) {
                 $buff[] = $invest->plan_name;
             }
             return $buff;
         }
     }
-	
-		
-	/*
+
+
+    /*
 	|------------
 	| Description : this will array of month from start date to end date
 	| @prams	  : @date1 (start date ) / date2 (end date)
 	| @return     : array
 	*/
-	
-	function get_months($date1, $date2) {
-		
-		
-	   $time1  = strtotime($date1);
-	   $time2  = strtotime($date2);
-	   $my     = date('mY', $time2);
-	   
-		if(date('Y-m',$time1) == date('Y-m',$time2)){
-		   return array();
-		}
-	   
-	   $months = array(date('Y-m', $time1));
+
+    function get_months($date1, $date2)
+    {
 
 
-	   while($time1 < $time2) {
-		  $time1 = strtotime(date('Y-m-d', $time1).' +1 month');
-		  if(date('mY', $time1) != $my && ($time1 < $time2))
-			 $months[] = date('Y-m', $time1);
-	   }
-		
-		if($date1< $date2){
-			$months[] = date('Y-m', $time2);
-		}
-		
-	   return $months;
-	}
-	
-	
+        $time1  = strtotime($date1);
+        $time2  = strtotime($date2);
+        $my     = date('mY', $time2);
+
+        if (date('Y-m', $time1) == date('Y-m', $time2)) {
+            return array();
+        }
+
+        $months = array(date('Y-m', $time1));
+
+
+        while ($time1 < $time2) {
+            $time1 = strtotime(date('Y-m-d', $time1) . ' +1 month');
+            if (date('mY', $time1) != $my && ($time1 < $time2))
+                $months[] = date('Y-m', $time1);
+        }
+
+        if ($date1 < $date2) {
+            $months[] = date('Y-m', $time2);
+        }
+
+        return $months;
+    }
+
+
     public function myAccount()
     {
-      if (!empty(Auth::user()->state_id)) {
+        if (!empty(Auth::user()->state_id)) {
             $states = State::find(Auth::user()->state_id);
         } else {
             $states = '';
@@ -541,5 +609,4 @@ class DashboardController extends Controller
     {
         //
     }
-
 }

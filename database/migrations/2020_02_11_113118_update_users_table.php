@@ -56,7 +56,7 @@ class UpdateUsersTable extends Migration
             $table->dropColumn('social_security_number')->after('birthday')->nullable();
             $table->dropColumn('country_citizenship')->after('social_security_number')->nullable();
             $table->dropColumn('country_residence')->after('country_citizenship')->nullable();
-            $table->dropColumn('indicateagreement')->after('country_residence')->nullable();
+            $table->dropColumn('indicateagreement')->after('country_residence')->nullable(); 
         });
     }
 }

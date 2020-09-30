@@ -7,18 +7,21 @@
 </div>
 @endsection
 @section('content')
+<?php // dd($investmentData);
+?>
 <div class="row">
    <div class="col-lg-12 view_user_data">
       <div class="card">
          <div class="card-body">
-         <?php // dd($user); ?>
+            <?php // dd($user); 
+            ?>
             <!-- end row -->
             <div class="row">
                <div class="col-xl-8">
                   <h4>User Information</h4>
                   @if(Session::has('status'))
                   <div class="alert alert-{{ Session::get('status') }} clearfix">{{ Session::get('message') }}</div>
-                  @endif 	
+                  @endif
                   <div class="row">
                      <div class="col-sm-6">
                         <div class="input-group mb-3">
@@ -28,7 +31,7 @@
                            <input class="form-control" name="first_name" disabled value="{{ $user->first_name }}" />
                            @if ($errors->has('first_name'))
                            <span style="display:initial;" class="invalid-feedback" role="alert">
-                           <strong>{{ $errors->first('first_name') }}</strong>
+                              <strong>{{ $errors->first('first_name') }}</strong>
                            </span>
                            @endif
                         </div>
@@ -41,7 +44,7 @@
                            <input class="form-control" name="last_name" value="{{ $user->last_name}}" disabled />
                            @if ($errors->has('last_name'))
                            <span style="display:initial;" class="invalid-feedback" role="alert">
-                           <strong>{{ $errors->first('last_name') }}</strong>
+                              <strong>{{ $errors->first('last_name') }}</strong>
                            </span>
                            @endif
                         </div>
@@ -53,7 +56,7 @@
                            <div class="input-group-prepend">
                               <label class="input-group-text" for="inputGroupSelect01">Address</label>
                            </div>
-                           <input class="form-control" name="info_addr1" placeholder=""  value="{{ $user->address}}" disabled />
+                           <input class="form-control" name="info_addr1" placeholder="" value="{{ $user->address}}" disabled />
                         </div>
                      </div>
                      <div class="col-sm-12">
@@ -72,7 +75,7 @@
                            <input class="form-control" name="country_citizenship" disabled value="{{ $user->country_citizenship }}" />
                            @if ($errors->has('country_citizenship'))
                            <span style="display:initial;" class="invalid-feedback" role="alert">
-                           <strong>{{ $errors->first('country_citizenship') }}</strong>
+                              <strong>{{ $errors->first('country_citizenship') }}</strong>
                            </span>
                            @endif
                         </div>
@@ -85,7 +88,7 @@
                            <input class="form-control" name="state" disabled value="{{ $user->state }}" />
                            @if ($errors->has('state'))
                            <span style="display:initial;" class="invalid-feedback" role="alert">
-                           <strong>{{ $errors->first('state') }}</strong>
+                              <strong>{{ $errors->first('state') }}</strong>
                            </span>
                            @endif
                         </div>
@@ -98,7 +101,7 @@
                            <input class="form-control" name="firstName" disabled value="{{ $user->city }}" />
                            @if ($errors->has('info_city'))
                            <span style="display:initial;" class="invalid-feedback" role="alert">
-                           <strong>{{ $errors->first('info_city') }}</strong>
+                              <strong>{{ $errors->first('info_city') }}</strong>
                            </span>
                            @endif
                         </div>
@@ -111,9 +114,52 @@
                            <input class="form-control" type="text" name="info_zip" placeholder="" value="{{ $user->zipcode }}" disabled />
                            @if ($errors->has('info_zip'))
                            <span style="display:initial;" class="invalid-feedback" role="alert">
-                           <strong>{{ $errors->first('info_zip') }}</strong>
+                              <strong>{{ $errors->first('info_zip') }}</strong>
                            </span>
                            @endif
+                        </div>
+                     </div>
+                  </div>
+                  <div class="row">
+                     <div class="col-xl-12">
+                        <h4>User Plan Information</h4>
+                        <div class="table-responsive m-t-40">
+                           <table id="dataTable" class="table table-striped table-bordered table-hover dataTable  dtr-inline ">
+                              <!--	<table id="myTable" class="table table-bordered table-striped"> -->
+                              <thead>
+                                 <tr>
+                                    <th>SN</th>
+                                    <th>Plan</th>
+                                    <th>Plan Amount</th>
+                                    <th>Paypal Transaction Id</th>
+                                    <th>Plan Start</th>
+                                    <th>Plan End</th>
+                                 </tr>
+                              </thead>
+                              <?php
+                              $i = 1;
+                              ?>
+                              <tbody>
+                                 @foreach($investmentData as $investment)
+                                 <tr>
+                                    <td>{{ $i }}</td>
+                                    <td>{{ $investment->plan_name}}</td>
+                                    <td>{{ $investment->amount}}</td>
+                                    <td>{{ $investment->paypal_transaction_id}}</td>
+                                    <td><?php $date = date_create(date($investment->plan_start_date));
+                                          echo $mData =  date_format($date, "M d,Y"); ?></td>
+                                    <td><?php $date = date_create(date($investment->plan_end_date));
+                                          echo $mData =  date_format($date, "M d,Y"); ?></td>
+
+                                 </tr>
+                                 <?php $i++;
+                                 ?>
+                                 @endforeach
+                              </tbody>
+
+
+
+                           </table>
                         </div>
                      </div>
                   </div>
@@ -128,51 +174,56 @@
 @section('script')
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script>
-   $( "#country" ).change(function() {
-               $('#states').html('');
-               var countyid =  this.value;
-               if(countyid !==''){
-                   $.ajax({
-   	               type:"POST",
-   	               dataType: 'json',
-   	               data:{country_id:countyid,_token:"{{csrf_token()}}"},
-   	               url:"{{url('admin/states')}}",
-   	               success: function(success){
-   				    console.log(success);
-   				    if(success.data.length > 0){
-   			           $.each( success.data, function( index, value ){
-                                optionText = value.name; 
-                                optionValue = value.id;
-                            $('#states').append(`<option value="${optionValue}">${optionText}</option>`);
-                           });
-   			        }
-   			       }
-   	             });
-              }  
-           });
-           
-           $( "#states" ).change(function() {
-               $('#cities').html('');
-               var id =  this.value;
-               if(id !==''){
-                   $.ajax({
-   	               type:"POST",
-   	               dataType: 'json',
-   	               data:{id:id,_token:"{{csrf_token()}}"},
-   	               url:"{{url('admin/cities')}}",
-   	               success: function(success){
-   				    console.log(success);
-   				    if(success.data.length > 0){
-   			           $.each( success.data, function( index, value ){
-                                optionText = value.name; 
-                                optionValue = value.id;
-                            $('#cities').append(`<option value="${optionValue}">${optionText}</option>`);
-                           });
-   			        }
-   			       }
-   	             });
-              }  
-           });	
-           
+   $("#country").change(function() {
+      $('#states').html('');
+      var countyid = this.value;
+      if (countyid !== '') {
+         $.ajax({
+            type: "POST",
+            dataType: 'json',
+            data: {
+               country_id: countyid,
+               _token: "{{csrf_token()}}"
+            },
+            url: "{{url('admin/states')}}",
+            success: function(success) {
+               console.log(success);
+               if (success.data.length > 0) {
+                  $.each(success.data, function(index, value) {
+                     optionText = value.name;
+                     optionValue = value.id;
+                     $('#states').append(`<option value="${optionValue}">${optionText}</option>`);
+                  });
+               }
+            }
+         });
+      }
+   });
+
+   $("#states").change(function() {
+      $('#cities').html('');
+      var id = this.value;
+      if (id !== '') {
+         $.ajax({
+            type: "POST",
+            dataType: 'json',
+            data: {
+               id: id,
+               _token: "{{csrf_token()}}"
+            },
+            url: "{{url('admin/cities')}}",
+            success: function(success) {
+               console.log(success);
+               if (success.data.length > 0) {
+                  $.each(success.data, function(index, value) {
+                     optionText = value.name;
+                     optionValue = value.id;
+                     $('#cities').append(`<option value="${optionValue}">${optionText}</option>`);
+                  });
+               }
+            }
+         });
+      }
+   });
 </script>
 @endsection

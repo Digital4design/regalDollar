@@ -28,6 +28,7 @@ class Plan extends Model
         'interest_rate',
         'plan_fee',
         'view_details_url',
+        'status',
     ];
     /**
      * Return current login user role here.

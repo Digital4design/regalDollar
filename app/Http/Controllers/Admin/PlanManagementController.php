@@ -11,7 +11,7 @@ use App\Models\State;
 use App\Role;
 use App\User;
 use Crypt;
-use DataTables; 
+use DataTables;
 use Illuminate\Http\Request;
 use Mail;
 use Redirect;
@@ -45,28 +45,41 @@ class PlanManagementController extends Controller
     }
     public function PlanData()
     {
-        $userList = Plan::orderBy('id', 'desc')->get(); 
-        
+        $userList = Plan::orderBy('id', 'desc')->get();
+
         $investData = InvestmentModel::groupBy('plan_id')->get();
         $plans = array();
-        foreach($investData as $invest){
-            $plans[]=$invest->plan_id;
+        foreach ($investData as $invest) {
+            $plans[] = $invest->plan_id;
         }
-    
+
         return Datatables::of($userList)
-            ->addColumn('action', function ($userList) use($plans) {
-                if (in_array($userList->id, $plans)){
+            ->addColumn('action', function ($userList) use ($plans) {
+                if (in_array($userList->id, $plans)) {
                     return '<a href ="' . url('/admin/plan-management/edit') . '/' . Crypt::encrypt($userList->id) . '"  class="btn btn-xs btn-primary edit"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</a>
                     <a data-id =' . Crypt::encrypt($userList->id) . ' class="btn btn-xs btn-danger" data-toggle="modal" data-target="#myModal" style="color:#fff"><i class="fa fa-trash" aria-hidden="true"></i> Delete</a>';
-                }else{
+                } else {
                     return '<a href ="' . url('/admin/plan-management/edit') . '/' . Crypt::encrypt($userList->id) . '"  data-role="disabled" class="btn btn-xs btn-primary edit"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</a>
 				    <a data-id =' . Crypt::encrypt($userList->id) . ' class="btn btn-xs btn-danger delete" style="color:#fff"><i class="fa fa-trash" aria-hidden="true"></i> Delete</a>';
                 }
-                
-            })->make(true);
+            })
+            // ->addColumn('status', function ($userList){
+            //     if($userList['status'] == 1){
+            //         $approval_class = "fa-check-circle text-success";   
+            //     }
+            //     if($userList['status'] == 0){
+            //         $approval_class = "fa-circle text-danger";
+            //     }
+            //     return "<a href='#' data-id='".$userList['id']."' class='approve-unapprove' style='padding-left:25px;'><i class='far ".$approval_class."'</i></a>";
+            // })
+            // ->rawColumns([
+            //     'status' => 'status',
+            //      'action' => 'action',
+            // ])
+            ->make(true);
     }
-    
-   
+
+
     /***
      * Crate New Plan
      **/
@@ -82,9 +95,9 @@ class PlanManagementController extends Controller
     /*
      * Crate New Plan
      */
-    public function storePlan(Request $request)  
+    public function storePlan(Request $request)
     {
-        
+
         $rules = [
             'plan_name' => 'required|min:4',
             'slogan' => 'required|min:2',
@@ -96,7 +109,7 @@ class PlanManagementController extends Controller
             'descritpion' => 'required',
         ];
         if (empty($_POST['descritpion'][0])) {
-            $rules['descritpion'] = 'required|min:4'; 
+            $rules['descritpion'] = 'required|min:4';
         }
         $messages = [
             'plan_name.required' => 'Plan name is required.',
@@ -114,10 +127,11 @@ class PlanManagementController extends Controller
                 'interest_rate' => $request->interest_rate,
                 'view_details_url' => $request->view_details_url,
                 'duration' => $request->duration,
-                'plan_fee'=>$request->plan_fee,
+                'plan_fee' => $request->plan_fee,
                 'plan_type' => $request->plan_type,
                 'time_investment' => $request->time_investment,
                 'plan_valid_from' => $request->plan_valid_from,
+                'status' => $request->status,
                 'descritpion' => $descritpion,
             ]);
             if ($request->icon != "") {
@@ -135,10 +149,10 @@ class PlanManagementController extends Controller
             }
             if ($request->plan_doc != "") {
                 foreach ($request->plan_doc as $photo) {
-					$filename = $photo->getClientOriginalName();
-					// $filename = $photo->getClientOriginalName() . $photo->getClientOriginalExtension();
+                    $filename = $photo->getClientOriginalName();
+                    // $filename = $photo->getClientOriginalName() . $photo->getClientOriginalExtension();
                     // $filename = 'docs-' . time() .'-'. rand(15,35) .'.' . $photo->getClientOriginalExtension();
-                    $updaloadFile = $photo->move('public/uploads/documents_management',$filename);
+                    $updaloadFile = $photo->move('public/uploads/documents_management', $filename);
                     DocumentManagemetModel::create([
                         'plan_id' => $planData->id,
                         'documents_path' => $filename
@@ -184,23 +198,23 @@ class PlanManagementController extends Controller
         }
     }
 
-     /*
+    /*
      *  @edit Plan View
      */
     public function editViewPlan($id)
     {
         try {
             $plan = Plan::find(Crypt::decrypt($id));
-            $planDocs = DocumentManagemetModel::where('plan_id',Crypt::decrypt($id))->get();
+            $planDocs = DocumentManagemetModel::where('plan_id', Crypt::decrypt($id))->get();
             $investData = InvestmentModel::groupBy('plan_id')->get();
             $plans = array();
-            foreach($investData as $invest){
-                $plans[]=$invest->plan_id;
+            foreach ($investData as $invest) {
+                $plans[] = $invest->plan_id;
             }
-            if (in_array(Crypt::decrypt($id), $plans)){
-                $is_disable="1";
-            }else{
-                $is_disable="2";
+            if (in_array(Crypt::decrypt($id), $plans)) {
+                $is_disable = "1";
+            } else {
+                $is_disable = "2";
             }
             // dd($is_disable);
             $data = array(
@@ -208,9 +222,9 @@ class PlanManagementController extends Controller
                 'activeMenu' => 'plan-management',
                 'planData' => $plan,
                 'planDocs' => $planDocs,
-                'is_disable'=>$is_disable,
+                'is_disable' => $is_disable,
             );
-            
+
             $data['roles'] = Role::get();
             return view('admin.plans.plan_edit', $data);
         } catch (\Exception $e) {
@@ -222,36 +236,37 @@ class PlanManagementController extends Controller
      */
     public function updatePlans(Request $request, $id)
     {
-
         $investData = InvestmentModel::groupBy('plan_id')->get();
+
         $plans = array();
-        foreach($investData as $invest){
-            $plans[]=$invest->plan_id;
+        foreach ($investData as $invest) {
+            $plans[] = $invest->plan_id;
         }
-        if (in_array(Crypt::decrypt($id), $plans)){
-            $is_disable="1";
-        }else{
-            $is_disable="2";
+        if (in_array(Crypt::decrypt($id), $plans)) {
+
+            $is_disable = "1";
+        } else {
+
+            $is_disable = "2";
         }
+        if ($is_disable == "2") {
 
-
-        if($is_disable=="2"){
             $rules = [
                 'plan_name' => 'required',
                 'slogan' => 'required',
                 'plan_fee' => 'required',
-                 'duration' => 'required',
+                'duration' => 'required',
                 'time_investment' => 'required',
-                'descritpion' => 'required',
+                'status' => 'required',
             ];
-        }else{
+        } else {
             $rules = [
                 'plan_name' => 'required',
                 'slogan' => 'required',
                 'descritpion' => 'required',
             ];
         }
-        
+
         $messages = [
             'firstName.required' => 'Your first name is required.',
             'firstName.min' => 'First name should contain at least 2 characters.',
@@ -260,26 +275,27 @@ class PlanManagementController extends Controller
         if ($validator->fails()) {
             return back()->withErrors($validator)->withInput();
         }
+        //dd($validator);
         try {
             $descritpion = json_encode($request->descritpion);
             $planData = Plan::find(\Crypt::decrypt($id));
-           // dd($planData->plan_name);
+            // dd($planData->plan_name);
 
             $investData = InvestmentModel::groupBy('plan_id')->get();
             // dd($investData);
             $plans = array();
-            foreach($investData as $invest){
-                $plans[]=$invest->plan_id;
+            foreach ($investData as $invest) {
+                $plans[] = $invest->plan_id;
             }
-            if (in_array(Crypt::decrypt($id), $plans)){
-                $is_disable="1";
-            }else{
-                $is_disable="2";
+            if (in_array(Crypt::decrypt($id), $plans)) {
+                $is_disable = "1";
+            } else {
+                $is_disable = "2";
             }
             // dd($is_disable);
-            $planData->plan_name =$request->has('plan_name') ? $request->plan_name : $planData->plan_name;
+            $planData->plan_name = $request->has('plan_name') ? $request->plan_name : $planData->plan_name;
             $planData->slogan = $request->has('slogan') ? $request->slogan : $planData->slogan;
-            if($is_disable=='2'){
+            if ($is_disable == '2') {
                 $planData->plan_fee = $request->has('plan_fee') ? $request->plan_fee : $planData->plan_fee;
                 $planData->interest_rate = $request->has('interest_rate') ? $request->interest_rate : $planData->interest_rate;
                 $planData->duration = $request->has('duration') ? $request->duration : $planData->duration;
@@ -289,6 +305,7 @@ class PlanManagementController extends Controller
             $planData->plan_valid_from = $request->has('plan_valid_from') ? $request->plan_valid_from : $planData->plan_valid_from;
             $planData->plan_type = $request->has('plan_type') ? $request->plan_type : $planData->plan_type;
             $planData->descritpion = $request->has('descritpion') ? $descritpion : $planData->descritpion;
+            $planData->status = $request->has('status') ? $request->status : $planData->status;
             $planData->save();
 
             if ($request->icon != "") {
@@ -301,45 +318,44 @@ class PlanManagementController extends Controller
                 $file = $request->file('icon');
                 $filename = 'plan-' . time() . '.' . $file->getClientOriginalExtension();
                 $file->move('public/uploads/plan_icon', $filename);
-                $plan_save->icon = $filename; 
+                $plan_save->icon = $filename;
                 $plan_save->save();
             }
 
             if ($request->plan_doc != "") {
                 $docData = DocumentManagemetModel::where('plan_id', $planData->id)->count();
-                if($docData > 0) {
+                if ($docData > 0) {
                     // DocumentManagemetModel::where('plan_id', $planData->id)->delete();
                     foreach ($request->plan_doc as $photo) {
-						$filename = $photo->getClientOriginalName();
-						// $filename = $photo->getClientOriginalName() . $photo->getClientOriginalExtension();
+                        $filename = $photo->getClientOriginalName();
+                        // $filename = $photo->getClientOriginalName() . $photo->getClientOriginalExtension();
                         //$filename = 'docs-' . time() .'-'. rand(15,35) .'.' . $photo->getClientOriginalExtension();
-                        $updaloadFile = $photo->move('public/uploads/documents_management',$filename);
+                        $updaloadFile = $photo->move('public/uploads/documents_management', $filename);
                         DocumentManagemetModel::create([
                             'plan_id' => $planData->id,
                             'documents_path' => $filename
-                            ]);
-                        }
-                    }else{
-
-                        //DocumentManagemetModel::where('plan_id', $planData->id)->delete();
-                        foreach ($request->plan_doc as $photo) {
-							$filename = $photo->getClientOriginalName();
-							// $filename = $photo->getClientOriginalName() . $photo->getClientOriginalExtension();
-                            //$filename = 'docs-' . time() .'-'. rand(15,35) .'.' . $photo->getClientOriginalExtension();
-                            $updaloadFile = $photo->move('public/uploads/documents_management',$filename);
-                            DocumentManagemetModel::create([
-                                'plan_id' => $planData->id,
-                                'documents_path' => $filename
-                                ]);
-                            }
-                        }
+                        ]);
                     }
-                    return redirect('/admin/plan-management/')->with(['status' => 'success', 'message' => 'Update record successfully.']);
-                } catch (\exception $e) {
-                    return back()->with(['status' => 'danger', 'message' => $e->getMessage()]);
+                } else {
+                    //DocumentManagemetModel::where('plan_id', $planData->id)->delete();
+                    foreach ($request->plan_doc as $photo) {
+                        $filename = $photo->getClientOriginalName();
+                        // $filename = $photo->getClientOriginalName() . $photo->getClientOriginalExtension();
+                        //$filename = 'docs-' . time() .'-'. rand(15,35) .'.' . $photo->getClientOriginalExtension();
+                        $updaloadFile = $photo->move('public/uploads/documents_management', $filename);
+                        DocumentManagemetModel::create([
+                            'plan_id' => $planData->id,
+                            'documents_path' => $filename
+                        ]);
+                    }
                 }
             }
-    
+            return redirect('/admin/plan-management/')->with(['status' => 'success', 'message' => 'Update record successfully.']);
+        } catch (\exception $e) {
+            return back()->with(['status' => 'danger', 'message' => $e->getMessage()]);
+        }
+    }
+
     /**
      * Genearate Randam Code
      */
@@ -365,11 +381,14 @@ class PlanManagementController extends Controller
     public function userReportMail($message, $EmailAddress)
     {
         try {
-            $result = Mail::send('mail.verify', array('content' => $message),
+            $result = Mail::send(
+                'mail.verify',
+                array('content' => $message),
                 function ($title) use ($EmailAddress) {
                     $title->to($EmailAddress)
                         ->subject('hai this is testing');
-                });
+                }
+            );
             if (count(Mail::failures()) > 0) {
                 return $errors = 'Failed to send email, please try again.';
             }
@@ -388,5 +407,4 @@ class PlanManagementController extends Controller
     {
         Plan::find(Crypt::decrypt($id))->delete();
     }
-
 }

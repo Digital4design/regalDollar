@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
+use App\Models\CmsPages;
+use App\Models\FooterModel;
+use App\Models\FooterContent;
+
 class VeltrixController extends Controller{
     /**
      *  Display a listing of the resource.
@@ -10,13 +14,29 @@ class VeltrixController extends Controller{
 
     public function index($id)
     {
-        if (view()->exists($id)) {
-            $result = array('pageclass'=>$id);
+		$result = array('pageclass'=>$id);
+		$result['footerdata'] = FooterModel::get();
+		$result['sectiondata'] = FooterModel::select('section')->distinct()->get();
+		$result['footerContent'] = FooterContent::get()->toArray();
+		
+		$pageData = CmsPages::where('page_slug', $id)
+                            ->where('status','Active')
+                            ->orderBy('created_at', 'DESC')
+                            ->first();
+							
+     						
+		if(!empty($pageData)){
+			
+			$result['pageData'] = $pageData;
+			
+			return view('cms_pages',$result);
+			
+		}else if (view()->exists($id)) {
+            
             return view($id,$result);
         } else {
             return view('pages-404');
-
-        }
+		}
 
     }
     /**

@@ -2,6 +2,65 @@
 @section('css')
 <!--Chartist Chart CSS -->
 <link rel="stylesheet" href="{{ URL::asset('plugins/chartist/css/chartist.min.css') }}">
+<style type="text/css">
+.dataTables_length{
+float: left !important;
+}
+.dataTables_filter, .dataTables_paginate{
+    float: right !important;
+    text-align: right !important;
+}
+.dataTables_filter label input{
+   margin-left: 5px !important;
+}
+
+.dataTables_paginate .paginate_button{
+   box-sizing: border-box !important;
+    display: inline-block !important;
+    min-width: 1.5em !important;
+    padding: 0.5em 1em !important;
+    margin-left: 2px !important;
+    text-align: center !important;
+    text-decoration: none !important;
+    cursor: pointer;
+    color: #333 !important;
+    border: 1px solid transparent !important;
+    border-radius: 2px !important;
+}
+.dataTables_length label select{
+   background: transparent !important;
+    height: auto !important;
+    margin: 0;
+    padding: 5px 5px !important;
+    border: 1px solid #ddd !important;
+    border-radius: 4px !important;
+}
+.dataTables_paginate span a.paginate_button {
+    height: auto;
+    padding: 0 5px !important;
+    background: #fff !important;
+    border: 1px solid #ddd !important;
+    border-radius: 4px !important;
+    font-size: 14px !important;
+}
+.dataTables_paginate span a.paginate_button.current{
+   background: #626ed4 !important;
+   color: #fff !important;
+}
+.dataTables_wrapper .dataTables_paginate .paginate_button:hover{
+   color: white !important;
+    border: 1px solid #111 !important;
+    background-color: #585858 !important;
+    background: linear-gradient(to bottom, #585858 0%, #111 100%) !important;
+}
+ .dataTables_wrapper .dataTables_paginate .paginate_button.current:hover{
+    color: #333 !important;
+    border: 1px solid #979797 !important;
+    background-color: white !important;
+   background: linear-gradient(to bottom, #fff 0%, #dcdcdc 100%) !important;
+}
+</style>
+
 @endsection
 @section('breadcrumb')
 <div class="col-sm-6">
@@ -13,9 +72,11 @@
 @endsection
 @section('content')
 @php
-   $date=date_create(date('Y-m-d'));
-   $mData=  date_format($date,"M d,Y");
+$date=date_create(date('Y-m-d'));
+$mData= date_format($date,"M d,Y");
 @endphp
+<?php // dd($investData);
+?>
 <div class="row">
    <div class="col-xl-12">
       <div class="card">
@@ -23,10 +84,10 @@
             <h4 class="mt-0 header-title mb-5">Monthly Sales</h4>
             <div class="row">
                <div class="col-lg-8">
-                  
-						<div id="curve_chart" class="ct-chart earning ct-golden-section"></div>
-						<!-- <div id="chartContainer" class="ct-chart earning ct-golden-section"></div> -->
-						<!-- <div id="chart-with-area" class="ct-chart earning ct-golden-section"></div> -->
+
+                  <div id="curve_chart" class="ct-chart earning ct-golden-section"></div>
+                  <!-- <div id="chartContainer" class="ct-chart earning ct-golden-section"></div> -->
+                  <!-- <div id="chart-with-area" class="ct-chart earning ct-golden-section"></div> -->
                </div>
                <div class="col-lg-4">
                   <div class="row">
@@ -36,8 +97,8 @@
                            <h4>${{$totalgain}}</h4>
                            <p class="text-muted mb-5">You will receive a dividend on {{ $mData }}.</p>
                            <hr />
-                           <p class="text-muted mb-3">Your total earnings to date are: 
-                           <h4>${{$totalgain}}</h4>
+                           <p class="text-muted mb-3">Your total earnings to date are:
+                              <h4>${{$totalgain}}</h4>
                            </p>
                         </div>
                      </div>
@@ -66,17 +127,28 @@
       </div>
    </div> -->
 </div>
+
+
+
+
+
+
+
+
+
+
 <!-- end row -->
 <div class="row">
    <div class="col-xl-12">
       <div class="card">
          <div class="card-body">
             <h4 class="mt-0 header-title mb-4">Transaction History Snapshot ({{date('M, Y')}})</h4>
-            <div class="table-responsive">
+            <!-- div class="table-responsive">
                <table class="table table-hover">
                   <thead>
                      <tr>
-                        <th scope="col">(#) Id</th>
+                        <th scope="col">(#) SN</th>
+                        <th scope="col">User</th>
                         <th scope="col">Type</th>
                         <th scope="col">Date</th>
                         <th scope="col">Amount</th>
@@ -84,16 +156,22 @@
                      </tr>
                   </thead>
                   <tbody>
-                     <?php $i=1; ?>
+                     <?php $i = 1; ?>
                      @forelse($investData as $invest)
                      <tr>
                         <th scope="row">#{{ $i }}</th>
+                        <td>{{ $invest->name }}</td>
                         <td>
                            <div>
                               <i class="fa fa-arrow-alt-circle-left"></i> Monthly Dividend (December)
                            </div>
                         </td>
-                        <td>{{ $invest->created_at }}</td>
+                        <td>
+                           <?php
+                           $date = date_create(date($invest->created_at));
+                           echo $mData =  date_format($date, "M d,Y");
+                           ?>
+                        </td>
                         <td>${{ $invest->amount }}</td>
                         <td><span class="badge badge-success">Delivered</span></td>
                      </tr>
@@ -104,60 +182,41 @@
                         <td></td>
                         <td>No data found </td>
                         <td></td>
-                        <td></td> 
+                        <td></td>
                      </tr>
                      @endforelse
-                     <!-- <tr>
-                        <th scope="row">#14256</th>
-                        <td>
-                           <div>
-                              Added Money to Investment <i class="fa fa-arrow-alt-circle-right"></i>
-                           </div>
-                        </td>
-                        <td>Nov 30, 2019</td>
-                        <td>$10,000</td>
-                        <td><span class="badge badge-warning">Pending</span></td>
-                     </tr>
-                     <tr>
-                        <th scope="row">#14214</th>
-                        <td>
-                           <div>
-                              <i class="fa fa-arrow-alt-circle-left"></i> Monthly Dividend (November)
-                           </div>
-                        </td>
-                        <td>Nov 12, 2019</td>
-                        <td>$115.21</td>
-                        <td><span class="badge badge-success">Delivered</span></td>
-                     </tr>
-                     <tr>
-                        <th scope="row">#14201</th>
-                        <td>
-                           <div>
-                              <i class="fa fa-arrow-alt-circle-left"></i> Monthly Dividend (October)
-                           </div>
-                        </td>
-                        <td>Oct 12, 2019</td>
-                        <td>$115.21</td>
-                        <td><span class="badge badge-success">Delivered</span></td>
-                     </tr>
-                     <tr>
-                        <th scope="row">#14152</th>
-                        <td>
-                           <div>
-                              Initiated 24 Month Investment Plan <i class="fa fa-arrow-alt-circle-right"></i>
-                           </div>
-                        </td>
-                        <td>Sept 11, 2019</td>
-                        <td>$10,000.00</td>
-                        <td><span class="badge badge-success">Delivered</span></td>
-                     </tr>-->
+
                   </tbody>
                </table>
-            </div>
+
+            </div-->
+            <table class="table table-striped table-bordered table-hover dataTable  dtr-inline " id="myTable">
+               <!--	<table id="myTable" class="table table-bordered table-striped"> -->
+               <thead>
+                  <tr>
+                     <!-- <th>Sr.No</th> -->
+                     <th>Name</th>
+                     <th>created at</th>
+                     <!-- <th>Type</th> -->
+                     <th>Amount</th>
+                     <th>Action</th>
+                  </tr>
+               </thead>
+               <tfoot>
+                  <tr>
+                     <!-- <th></th>
+                        <th></th>
+                        <th></th> -->
+                     <!-- <th class="remove_input"></th> -->
+                  </tr>
+               </tfoot>
+            </table>
          </div>
       </div>
    </div>
 </div>
+
+
 <!-- end row -->
 @endsection
 @section('script')
@@ -169,29 +228,82 @@
 <script src="{{ URL::asset('assets/pages/dashboard.js') }}"></script>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script type="text/javascript">
-      google.charts.load('current', {'packages':['corechart']});
-      google.charts.setOnLoadCallback(drawChart);
+   google.charts.load('current', {
+      'packages': ['corechart']
+   });
+   google.charts.setOnLoadCallback(drawChart);
 
-	   var chartData = <?php echo $chartData; ?>;
-      console.log(chartData);
-	  function drawChart() {
-            // Define the chart to be drawn.
-			var data = google.visualization.arrayToDataTable(chartData);
-            /*var data = google.visualization.arrayToDataTable([
-               ['Month', 'Supplemented income', 'Balanced plan','Growth plan', 'Wealth plan'],
-               ['Jan',  10,      5, 10, 2  ],
-               ['Feb',  05,      8, 15, 5  ],
-               ['March',  15,    15, 20, 10 ],
-               ['April',  8,     20, 22, 5 ],
-               ['May',  20,      40, 30, 25 ]
-            ]);*/
+   var chartData = <?php echo $chartData; ?>;
+   console.log(chartData);
 
-            var options = {title: 'Plan Monthly Sale'};  
+   function drawChart() {
+      // Define the chart to be drawn.
+      var data = google.visualization.arrayToDataTable(chartData);
+      var options = {
+         title: 'Plan Monthly Sale'
+      };
+      // Instantiate and draw the chart.
+      var chart = new google.visualization.ColumnChart(document.getElementById('curve_chart'));
+      chart.draw(data, options);
+   }
+   google.charts.setOnLoadCallback(drawChart);
+</script>
 
-            // Instantiate and draw the chart.
-            var chart = new google.visualization.ColumnChart(document.getElementById('curve_chart'));
-            chart.draw(data, options);
+<script>
+   $(function() {
+      $('#myTable').DataTable({
+         processing: true,
+         serverSide: true,
+         lengthMenu: [10, 25, 50, 100],
+         order: [
+            [1, 'desc']
+         ],
+         ajax: '{!! url("/admin/dashboard-investment-management/investment-data") !!}',
+         columns: [{
+               data: 'name',
+               name: 'name',
+               orderable: true,
+               searchable: true
+            },
+            {
+               data: 'created_at',
+               name: 'created_at',
+               orderable: true,
+               searchable: true
+            },
+            {
+               data: 'amount',
+               name: 'amount',
+               orderable: true,
+               searchable: true
+            },
+            {
+               data: 'action',
+               name: 'action',
+               orderable: false,
+               searchable: false
+            },
+         ],
+         dom: 'Blfrptip',
+         buttons: [{
+            extend: 'colvis',
+            text: 'Show/Hide Columns'
+         }],
+         oLanguage: {
+            sProcessing: "<img height='80' width='80' src='{{ url('public/images/loading.gif') }}' alt='loader'/>"
+         },
+         initComplete: function() {
+            this.api().columns().every(function() {
+               var column = this;
+               var input = document.createElement("input");
+               $(input).appendTo($(column.footer()).empty())
+                  .on('change', function() {
+                     column.search($(this).val(), false, false, true).draw();
+                  });
+            });
          }
-         google.charts.setOnLoadCallback(drawChart);
-    </script>
+      });
+
+   });
+</script>
 @endsection
