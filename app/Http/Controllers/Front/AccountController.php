@@ -2,38 +2,37 @@
 
 namespace App\Http\Controllers\Front;
 
-use App\Http\Controllers\Controller;
-use App\Models\Country;
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Models\DocumentManagemetModel;
+use App\Http\Controllers\Controller;
+use App\Models\UserRoleRelation;
+use App\Models\InvestmentModel;
+use App\Models\FooterContent;
+use Illuminate\Http\Request;
+use App\Models\FooterModel;
+use App\Models\Country;
+use App\Models\State;
 use App\Models\Plan;
 use App\Models\Role;
-use App\Models\State;
-use App\Models\UserRoleRelation; 
-use App\Models\InvestmentModel;
+use Validator;
 use App\User;
 use Auth;
 use Crypt;
 use Hash;
-use Illuminate\Foundation\Auth\RegistersUsers;
-use Illuminate\Foundation\Auth\AuthenticatesUsers;
-use Illuminate\Http\Request;
-use Validator;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 
-class AccountController extends Controller 
+
+class AccountController extends Controller
 {
     use RegistersUsers;
-
     /**
      * Display a listing of the resource.
      * @return \Illuminate\Http\Response
      */
-    public function index($id, Request $request) 
+    public function index(Request $request)
     {
-        
         $userData = $request->session()->get('userData');
-        //dd($userData['userData']);
-        //dd(Auth::user());
         if ($userData) {
             $userData = User::find($userData->id);
         } else {
@@ -43,27 +42,24 @@ class AccountController extends Controller
             'pageName' => 'User Listing',
             'activeMenu' => 'user-management',
         );
-        $planData = Plan::find($id);
-       // $date = $planData->plan_start_date;
-        $date = date('Y-m-d');
-        $date = strtotime($date);
-        $new_date = strtotime('+ ' . $planData->time_investment . ' month', $date);
-        $valid_till = date('Y-m-d', $new_date);
+        $footerdata = FooterModel::get();
+        $sectiondata =  FooterModel::select('section')->distinct()->get();
+        $footerContent = FooterContent::get()->toArray();
         $data['roles'] = Role::get();
         $data['countryData'] = Country::get();
-        $data['userData'] = $userData;
-        $data['planData'] = $planData;
-        $data['valid_till'] = $valid_till;
+        $data['footerdata'] = $footerdata;
+        $data['sectiondata'] = $sectiondata;
+        $data['footerContent'] = $footerContent;
         return view('front.users.create-step1', $data);
     }
     public function postCreateStep1(Request $request)
     {
         if ($request->user_id != '') {
             $rules = [
-                //'first_name' => 'required|min:2',
-                //'last_name' => 'required|min:2',
-                //'name' => 'required|unique:users,name,'.$request->user_id,
-               // 'email' => 'required|unique:users,email,'.$request->user_id,
+                // 'first_name' => 'required|min:2',
+                // 'last_name' => 'required|min:2',
+                // 'name' => 'required|unique:users,name,'.$request->user_id,
+                // 'email' => 'required|unique:users,email,'.$request->user_id,
             ];
             $messages = [
                 'first_name.required' => 'Your first name is required.',
@@ -71,7 +67,7 @@ class AccountController extends Controller
                 'last_name.required' => 'Your first name is required.',
                 'last_name.min' => 'last name should contain at least 2 characters.',
                 'name.required' => 'User name is required.',
-                'email.required' => 'email is required.',                
+                'email.required' => 'email is required.',
             ];
             $validator = Validator::make($request->all(), $rules, $messages);
             if ($validator->fails()) {
@@ -80,39 +76,25 @@ class AccountController extends Controller
             }
             try {
                 $userData = User::find($request->user_id);
-                //$userData->first_name = trim($request->first_name);
-                //$userData->last_name = trim($request->last_name);
-                //$userData->name = trim($request->name);
-                //$userData->email = trim($request->email);
+                // $userData->first_name = trim($request->first_name);
+                // $userData->last_name = trim($request->last_name);
+                // $userData->name = trim($request->name);
+                // $userData->email = trim($request->email);
                 $userData->is_verify = "pending";
                 $userData->save();
                 $userData = User::find($request->user_id);
                 $userData = $request->session()->put('userData', $userData);
                 $userData = $request->session()->get('userData');
-
-                $planData = Plan::find($request->plan_id);
-                //$date = $planData['plan_valid_from'];
                 $date = date('Y-m-d');
                 $date = strtotime($date);
-                $new_date = strtotime('+ ' . $planData["time_investment"] . ' month', $date);
-                $valid_till = date('Y-m-d', $new_date);
 
-                $InvestmentData =InvestmentModel::create([
-                    'user_id' => $userData->id,
-                    'plan_id' => $request->plan_id,
-                    'plan_start_date'=>date('Y-m-d'),
-                    'plan_end_date'=>$valid_till,
-                ]);
-
-                $userData['plan_id']=$request->plan_id;
-                $userData['investmentId']=$InvestmentData['id'];
                 Auth::loginUsingId($userData->id);
                 $request->session()->put('userData', $userData);
 
                 return redirect('/front/create-step2');
             } catch (\Exception $e) {
                 return back()->with(array('status' => 'danger', 'message' => $e->getMessage()));
-               // echo $e->getMessage();
+                // echo $e->getMessage();
             }
         } else {
             $rules = [
@@ -137,12 +119,13 @@ class AccountController extends Controller
                 return back()->withErrors($validator)->withInput();
             }
             try {
-                $planData = Plan::find($request->plan_id);
-               // $date = $planData['plan_valid_from'];
-                $date= date('Y-m-d');
-                $date = strtotime($date);
-                $new_date = strtotime('+ ' . $planData["time_investment"] . ' month', $date);
-                $valid_till = date('Y-m-d', $new_date);
+                $referralCode = $this->generateReferralCode();
+                // $planData = Plan::find($request->plan_id);
+                // $date = $planData['plan_valid_from'];
+                // $date = date('Y-m-d');
+                // $date = strtotime($date);
+                // $new_date = strtotime('+ ' . $planData["time_investment"] . ' month', $date);
+                // $valid_till = date('Y-m-d', $new_date);
                 $userData = User::create([
                     'first_name' => $request->first_name,
                     'last_name' => $request->last_name,
@@ -151,77 +134,83 @@ class AccountController extends Controller
                     'country_citizenship' => $request->country_citizenship,
                     'country_residence' => $request->country_residence,
                     'password' => Hash::make($request->password),
+                    'ref_code' => $referralCode,
+                    'ref_by' => $request->ref_by ?? null,
                     'is_verify' => "pending",
                 ]);
-                if($userData instanceof MustVerifyEmail){
+                if ($userData instanceof MustVerifyEmail) {
                     $userData->sendEmailVerificationNotification();
                 }
-                
-                $InvestmentData =InvestmentModel::create([
-                    'user_id' => $userData->id,
-                    'plan_id' => $request->plan_id,
-                    'plan_start_date'=>date('Y-m-d'),
-                    'plan_end_date'=>$valid_till,
-                ]);
+
+                // $InvestmentData = InvestmentModel::create([
+                //     'user_id' => $userData->id,
+                //     'plan_id' => $request->plan_id,
+                //     'plan_start_date' => date('Y-m-d'),
+                //     'plan_end_date' => $valid_till,
+                // ]);
                 $roleArray = array(
                     'user_id' => $userData->id,
                     'role_id' => 2, // customer role Id
                 );
                 UserRoleRelation::insert($roleArray);
-                $userData['plan_id']=$request->plan_id;
-                $userData['investmentId']=$InvestmentData['id'];
+                // $userData['plan_id'] = $request->plan_id;
+                // $userData['investmentId'] = $InvestmentData['id'];
                 Auth::loginUsingId($userData->id);
                 $request->session()->put('userData', $userData);
                 return redirect('/email/verify');
-                return redirect('/investment/create-step2');
             } catch (\Exception $e) {
                 return back()->with(array('status' => 'danger', 'message' => $e->getMessage()));
-                // echo $e->getMessage();
             }
         }
     }
-    public function updateUserData(Request $request){
-        //dd( $request->all());
+    public function updateUserData(Request $request)
+    {
         $userData = User::find($request->userid);
-        if($request->first_name){
+        if ($request->first_name) {
             $userData->first_name = $request->first_name;
         }
-        if($request->address){
+        if ($request->address) {
             $userData->address = $request->address;
         }
-        if($request->city){
+        if ($request->city) {
             $userData->city = $request->city;
-        }   
-        if($request->state){
+        }
+        if ($request->state) {
             $userData->state = $request->state;
         }
-        if($request->zipcode){
+        if ($request->zipcode) {
             $userData->zipcode = $request->zipcode;
-        } 
-        if($request->phoneNumber){
+        }
+        if ($request->phoneNumber) {
             $userData->phoneNumber = $request->phoneNumber;
-        }   
+        }
         $userData->save();
         $userData = User::find($request->userid);
         echo json_encode(array('status' => 'success', 'data' => $userData));
-       
     }
     public function createStep2(Request $request)
     {
         $userData = $request->session()->get('userData');
-        
+
         $userData = User::find(Auth::user()->id);
         $userData->is_verify = "done";
         $userData->save();
         $userData = $request->session()->get('userData');
         $userData = $request->session()->put('userData', $userData);
         $userData = $request->session()->get('userData');
-        // dd($userData);
+        $footerdata = FooterModel::get();
+        $sectiondata =  FooterModel::select('section')->distinct()->get();
+        $footerContent = FooterContent::get()->toArray();
+
+        $data['countryData'] = Country::get();
+        $data['footerdata'] = $footerdata;
+        $data['sectiondata'] = $sectiondata;
+        $data['footerContent'] = $footerContent;
         return view('front.users.create-step2', compact('userData', $userData));
     }
     public function postCreateUpdate(Request $request)
     {
-        
+
         $rules = [
             'accountType' => 'required',
         ];
@@ -229,7 +218,7 @@ class AccountController extends Controller
             'accountType.required' => 'Account Type is required.',
         ];
         $validator = Validator::make($request->all(), $rules, $messages);
-       // dd($validator);
+        // dd($validator);
         if ($validator->fails()) {
             return back()->withErrors($validator)->withInput();
         }
@@ -240,10 +229,13 @@ class AccountController extends Controller
             $userData = User::find($request->user_id);
             $userData['plan_id'] = $request->plan_id;
             $userData['investmentId'] = $request->investmentId;
-            $userData['status']='success';
+            $userData['status'] = 'success';
             $userData = $request->session()->put('userData', $userData);
             $userData['userData'] = $request->session()->get('userData');
             $userData['stateData'] = State::where('country_id', '231')->get();
+            $footerdata = FooterModel::get();
+            $sectiondata =  FooterModel::select('section')->distinct()->get();
+            $footerContent = FooterContent::get()->toArray();
             // return response()->json($userData);
             // dd($userData);
             return view('front.users.create-step3', $userData);
@@ -319,14 +311,14 @@ class AccountController extends Controller
             return back()->withErrors($validator)->withInput();
         }
         try {
-            InvestmentModel::where('id',$request->investmentId)->update(['amount' => $request->amount,]);
-            $investmentData = InvestmentModel::where('id',$request->investmentId)->get();
+            InvestmentModel::where('id', $request->investmentId)->update(['amount' => $request->amount,]);
+            $investmentData = InvestmentModel::where('id', $request->investmentId)->get();
             $userData = User::find($request->user_id);
             $userData['plan_id'] = $request->plan_id;
             $userData['investmentId'] = $request->investmentId;
             $userData = $request->session()->put('userData', $userData);
             $userData = $request->session()->get('userData');
-            $documentData = DocumentManagemetModel::where('plan_id',$request->plan_id)->get();
+            $documentData = DocumentManagemetModel::where('plan_id', $request->plan_id)->get();
             // dd($documentData);
             $data['userData'] = $userData;
             $data['documentData'] = $documentData;
@@ -340,7 +332,7 @@ class AccountController extends Controller
     }
     public function postDocsUpdate(Request $request)
     {
-         $rules = [
+        $rules = [
             'indicateagreement' => 'required',
             'reinvestment' => 'required',
         ];
@@ -353,20 +345,20 @@ class AccountController extends Controller
             return back()->withErrors($validator)->withInput();
         }
         try {
-            if($request->signature){
+            if ($request->signature) {
                 $imagedata = base64_decode($request->signature);
                 $filename = md5(date("dmYhisA"));
-                $file_path = 'public/uploads/signature'.'/'.$filename.'.png';
-                file_put_contents($file_path,$imagedata);
+                $file_path = 'public/uploads/signature' . '/' . $filename . '.png';
+                file_put_contents($file_path, $imagedata);
             }
             $indicate = json_encode($request->indicateagreement);
             $userData = User::find($request->user_id);
             $investmentData = InvestmentModel::find($request->investmentId);
-            
+
             $investmentData->indicateagreement = $indicate;
             $investmentData->reinvestment = $request->reinvestment;
-            if($request->signature){
-                $investmentData->signature=$filename.'.png';
+            if ($request->signature) {
+                $investmentData->signature = $filename . '.png';
             }
             $investmentData->save();
             $investmentData = InvestmentModel::find($request->investmentId);
@@ -377,8 +369,8 @@ class AccountController extends Controller
             $userData['investmentId'] = $request->investmentId;
             $userData = $request->session()->put('userData', $userData);
             $userData = $request->session()->get('userData');
-            $documentData = DocumentManagemetModel::where('plan_id',$request->plan_id)->get();
-            $data['planData'] = Plan::where('id',$userData['plan_id'])->first();
+            $documentData = DocumentManagemetModel::where('plan_id', $request->plan_id)->get();
+            $data['planData'] = Plan::where('id', $userData['plan_id'])->first();
             $data['userData'] = $userData;
             $data['documentData'] = $documentData;
             return view('front.users.create-step6', $data);
@@ -390,7 +382,7 @@ class AccountController extends Controller
     public function updateAgreements(Request $request)
     {
         $userData = User::find($request->user_id);
-        $investData = InvestmentModel::where('id',$request->investmentId)->first();
+        $investData = InvestmentModel::where('id', $request->investmentId)->first();
         $userData['investmentId']   = $request->investmentId;
         $userData['plan_id']        = $request->plan_id;
         $userData['amount']         = $investData['amount'];
@@ -399,6 +391,22 @@ class AccountController extends Controller
         $data['userData']           = $userData;
         return view('front.users.payment', $data);
     }
-    
-   
+
+    public function generateReferralCode()
+    {
+        $acceptablePasswordChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+        $generateCode = "";
+        for ($i = 0; $i < 6; $i++) {
+            // for generate password
+            $generateCode .= substr($acceptablePasswordChars, rand(0, strlen($acceptablePasswordChars) - 1), 1);
+        }
+        // dd($generateCode);
+        //$generateCode = rand(1000, 9999);
+        $referralCode = User::where('ref_code', $generateCode)->get()->toArray();
+        if (count($referralCode) > 0) {
+            return $this->generateReferralCode();
+        } else {
+            return $generateCode;
+        }
+    }
 }

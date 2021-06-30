@@ -23,7 +23,8 @@ class AdditionalPlanManagmentController extends Controller
     public function index($id, Request $request)
     {
         $planData = Plan::where('plan_type', '1')->orderBy('id', 'desc')->get();
-        $result = array('pageName' => 'Dashboard',
+        $result = array(
+            'pageName' => 'Dashboard',
             'activeMenu' => 'create-account',
             'selected' => $id,
             'planData' => $planData,
@@ -46,7 +47,7 @@ class AdditionalPlanManagmentController extends Controller
         $investmentdata = InvestmentModel::create([
             'user_id' => Auth::user()->id,
             'plan_id' => $request->plan_id,
-			'admin_notes'=>'',
+            'admin_notes' => '',
             'plan_start_date' => date("Y-m-d"),
             'plan_end_date' => $valid_till,
             'amount' => $planData['price'],
@@ -56,7 +57,6 @@ class AdditionalPlanManagmentController extends Controller
             'pageName' => 'Dashboard',
             'activeMenu' => 'create-account',
             'investmentId' => $investmentdata['id'],
-
         );
         return view('client.newPlanManagment.amountSelection', $result);
         //return view('client.newPlanManagment.aggrement', $result);
@@ -64,7 +64,6 @@ class AdditionalPlanManagmentController extends Controller
 
     public function updateAmount(Request $request)
     {
-
         $rules = [
             'finalamount' => 'required',
             //'amount' => 'required',
@@ -82,7 +81,6 @@ class AdditionalPlanManagmentController extends Controller
             $investmentData = $request->session()->put('investmentData', $investmentData);
             $investmentData['userData'] = $request->session()->get('investmentData');
             return Redirect::to('client/purchase-new-plan/agreement');
-
         } catch (\Exception $e) {
             return back()->with(array('status' => 'danger', 'message' => $e->getMessage()));
             echo $e->getMessage();
@@ -91,16 +89,13 @@ class AdditionalPlanManagmentController extends Controller
     public function agreement(Request $request)
     {
         $investmentdata = $request->session()->get('investmentData');
-
         $documentData = DocumentManagemetModel::where('plan_id', $investmentdata['plan_id'])->get();
         // dd($documentData);
-
         $result = array(
             'pageName' => 'Dashboard',
             'activeMenu' => 'create-account',
             'investmentId' => $investmentdata['id'],
             'documentData' => $documentData,
-
         );
         return view('client.newPlanManagment.aggrement', $result);
     }
@@ -129,52 +124,46 @@ class AdditionalPlanManagmentController extends Controller
             return back()->withErrors($validator)->withInput();
         }
         try {
-
-        if ($request->signature) {
-            $imagedata = base64_decode($request->signature);
-            $filename = md5(date("dmYhisA"));
-            $file_path = 'public/uploads/signature' . '/' . $filename . '.png';
-            file_put_contents($file_path, $imagedata);
+            if ($request->signature) {
+                $imagedata = base64_decode($request->signature);
+                $filename = md5(date("dmYhisA"));
+                $file_path = 'public/uploads/signature' . '/' . $filename . '.png';
+                file_put_contents($file_path, $imagedata);
+            }
+            $indicate = json_encode($request->indicateagreement);
+            $userData = InvestmentModel::find($request->investmentId);
+            $userData->indicateagreement = $indicate;
+            $userData->reinvestment = $request->reinvestment;
+            if ($request->signature) {
+                $userData->signature = $filename . '.png';
+            }
+            $userData->save();
+            $investmentdata = InvestmentModel::find($request->investmentId);
+            $investmentdata = $request->session()->put('investmentdata', $investmentdata);
+            $investmentdata = $request->session()->get('investmentdata');
+            $result = array(
+                'pageName' => 'Dashboard',
+                'activeMenu' => 'create-account',
+                'investmentdata' => $investmentdata,
+            );
+            return view('client.newPlanManagment.paymentProcess', $result);
+        } catch (\Exception $e) {
+            return back()->with(array('status' => 'danger', 'message' => $e->getMessage()));
+            // echo $e->getMessage();
         }
-        $indicate = json_encode($request->indicateagreement);
-        $userData = InvestmentModel::find($request->investmentId);
-        $userData->indicateagreement = $indicate;
-        $userData->reinvestment = $request->reinvestment;
-        if ($request->signature) {
-            $userData->signature = $filename . '.png';
-        }
-        $userData->save();
-        $investmentdata = InvestmentModel::find($request->investmentId);
-        $investmentdata = $request->session()->put('investmentdata', $investmentdata);
-        $investmentdata = $request->session()->get('investmentdata');
-        $result = array(
-            'pageName' => 'Dashboard',
-            'activeMenu' => 'create-account',
-            'investmentdata' => $investmentdata,
-        );
-        return view('client.newPlanManagment.paymentProcess', $result);
-    } catch (\Exception $e) {
-        return back()->with(array('status' => 'danger', 'message' => $e->getMessage()));
-        // echo $e->getMessage();
-    }
     }
     public function updatePayment($id, Request $request)
     {
         $investmentdata = $request->session()->get('investmentdata');
-
         $userInvestData = InvestmentModel::find($investmentdata['id']);
         $userInvestData->paypal_transaction_id = $id;
         $userInvestData->save();
         $investmentdata = InvestmentModel::find($investmentdata['id']);
-
-
         $userData = User::find(Auth::user()->id);
         $investData = InvestmentModel::find($investmentdata['id']);
         $planData = Plan::where('id', $investmentdata['plan_id'])->first();
-
         $date = date_create($investData['plan_end_date']);
         $completeDate = date_format($date, "M d,Y");
-
         // dd(Auth::user()->first_name);
         $notificationData = [
             "user" => $userData['name'],
@@ -182,11 +171,8 @@ class AdditionalPlanManagmentController extends Controller
             "investmentId" => $investData['id'],
         ];
         //dd($notificationData);
-
         //$userData->notify(new WithdrawReaction($notificationData));
         $userData->notify(new InvestmentConformationMail($notificationData));
-
         return redirect('/client');
     }
-
 }

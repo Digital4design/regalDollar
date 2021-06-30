@@ -26,19 +26,42 @@ class UserInvestmentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function createStep2(Request $request)
+    public function createStep2($id, Request $request)
     {
         $userData = $request->session()->get('userData');
-        if (isset($userData->plan_id) && isset($userData->investmentId) && isset($userData->id)) {
-            $userData['paypal_transaction_id'] = '';
-            $userData['amount'] = '';
-            $userData = $request->session()->put('userData', $userData);
-            $userData = $request->session()->get('userData');
-            // dd($userData);
-            return view('front.users.create-step2', compact('userData', $userData));
-        } else {
-            return view('pages-404');
-        }
+        $planData = Plan::find($id);
+        $date = $planData['plan_valid_from'];
+        $date = date('Y-m-d');
+        $date = strtotime($date);
+        $new_date = strtotime('+ ' . $planData["time_investment"] . ' month', $date);
+        $valid_till = date('Y-m-d', $new_date);
+
+        $InvestmentData = InvestmentModel::create([
+            'user_id' => $userData->id,
+            'plan_id' => $id,
+            'plan_start_date' => date('Y-m-d'),
+            'plan_end_date' => $valid_till,
+        ]);
+
+        $userData['plan_id'] = $request->plan_id;
+        $userData['investmentId'] = $InvestmentData['id'];
+
+        $userData['plan_id'] = $id;
+        $userData = $request->session()->put('userData', $userData);
+        $userData = $request->session()->get('userData');
+        // dd($userData);
+        return view('front.users.create-step2', compact('userData', $userData));
+        // dd($userData);
+        // if (isset($userData->plan_id) && isset($userData->investmentId) && isset($userData->id)) {
+        //     $userData['paypal_transaction_id'] = '';
+        //     $userData['amount'] = '';
+        //     $userData = $request->session()->put('userData', $userData);
+        //     $userData = $request->session()->get('userData');
+        //     // dd($userData);
+        //     return view('front.users.create-step2', compact('userData', $userData));
+        // } else {
+        //     return view('pages-404');
+        // }
     }
     /**
      * Show the form for creating a new resource.
@@ -97,21 +120,21 @@ class UserInvestmentController extends Controller
     public function createStep3(Request $request)
     {
         $sessionData = $request->session()->get('userData');
-        //dd($sessionData);
+        // dd($sessionData);
 
-        if (isset($sessionData->plan_id) && isset($sessionData->investmentId) && isset($sessionData->id)) {
-            if (is_null(Auth::user()->accountType)) {
-                return Redirect::to('/investment/create-step2');
-            }
-            $userData['investmentData'] = InvestmentModel::where('id', $sessionData->investmentId)->first();
-            $userData['userData'] = User::where('id', $sessionData->id)->first();
-            $userData['stateData'] = State::where('country_id', '231')->get();
-            $userData['planData'] = Plan::where('id', $sessionData->plan_id)->first();
-            // dd($userData);
-            return view('front.users.create-step3', $userData);
-        } else {
-            return view('pages-404');
-        }
+        // if (isset($sessionData->plan_id) && isset($sessionData->investmentId) && isset($sessionData->id)) {
+        //     if (is_null(Auth::user()->accountType)) {
+        //         return Redirect::to('/investment/create-step2');
+        //     }
+        $userData['investmentData'] = InvestmentModel::where('id', $sessionData->investmentId)->first();
+        $userData['userData'] = User::where('id', $sessionData->id)->first();
+        $userData['stateData'] = State::where('country_id', '231')->get();
+        $userData['planData'] = Plan::where('id', $sessionData->plan_id)->first();
+        // dd($userData);
+        return view('front.users.create-step3', $userData);
+        // } else {
+        //     return view('pages-404');
+        // }
     }
 
     public function updateAddress(Request $request)
@@ -187,7 +210,8 @@ class UserInvestmentController extends Controller
     {
         $sessionData = $request->session()->get('userData');
         if (isset($sessionData->plan_id) && isset($sessionData['investmentId']) && isset($sessionData->id)) {
-            if (is_null(Auth::user()->address)
+            if (
+                is_null(Auth::user()->address)
                 || is_null(Auth::user()->address2)
                 || is_null(Auth::user()->city)
                 || is_null(Auth::user()->state)
@@ -256,12 +280,13 @@ class UserInvestmentController extends Controller
         $userData = $request->session()->get('userData');
         // dd($userData); // working here
         InvestmentModel::where('id', $userData['investmentId'])
-        //->where('plan_id',$userData['plan_id'])
+            //->where('plan_id',$userData['plan_id'])
             ->update(
                 [
                     'amount' => $amount,
                     'paypal_transaction_id' => $paymentId,
-                ]);
+                ]
+            );
         $invest = InvestmentModel::where('id', $userData['investmentId'])->first();
 
         $userData = User::find(Auth::user()->id);
@@ -295,7 +320,8 @@ class UserInvestmentController extends Controller
         $userData = $request->session()->get('userData');
         if (isset($userData->plan_id) && isset($userData->investmentId) && isset($userData->id)) {
             $investmentData = InvestmentModel::where('id', $userData['investmentId'])->first();
-            if (is_null($investmentData['paypal_transaction_id'])
+            if (
+                is_null($investmentData['paypal_transaction_id'])
                 || is_null($investmentData['amount'])
             ) {
                 return Redirect::to('/investment/create-step4');
@@ -314,7 +340,6 @@ class UserInvestmentController extends Controller
 
     public function updateSignature(Request $request)
     {
-        // dd($request->all());
         $rules = [
             'indicateagreement' => 'required',
             'reinvestment' => 'required',
@@ -387,7 +412,8 @@ class UserInvestmentController extends Controller
             //     return Redirect::to('/investment/create-step5');
             // }
 
-            if (is_null($investmentData['indicateagreement'])
+            if (
+                is_null($investmentData['indicateagreement'])
                 || is_null($investmentData['reinvestment'])
             ) {
                 return Redirect::to('/investment/create-step5');
@@ -485,5 +511,4 @@ class UserInvestmentController extends Controller
         }
         dd($useData['steps_done']);
     }
-
 }

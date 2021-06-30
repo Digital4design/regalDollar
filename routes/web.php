@@ -2,9 +2,16 @@
 
 
 Route::get('/', 'HomeController@getPlanData');
+Route::get('/core-plans', 'HomeController@getCorePlans');
+Route::get('/contact_us', 'HomeController@getContactDetails');
+Route::get('/get-investment-days', 'HomeController@getAllInvestmentWithDays');
 Route::post('/contact', 'HomeController@contactUs');
-
+Route::get('/referral', 'UsersReferralController@index');
+Route::post('/user-referral', 'UsersReferralController@referralRequest');
 Route::get('/plan-detail-page/{id}', 'HomeController@getPlanDetails');
+Route::get('/faq', 'HomeController@getFQA');
+Route::get('/about_us', 'HomeController@getAboutUs');
+
 
 // Route::get('/forget-password', function () {
 //     return view('pages-recoverpw');
@@ -13,15 +20,16 @@ Route::get('/plan-detail-page/{id}', 'HomeController@getPlanDetails');
 //     return view('admindashboard');
 // });
 
-Route::get('markAsRead',function(){
+Route::get('markAsRead', function () {
     auth()->user()->unreadNotifications->markAsRead();
     return redirect()->back();
 })->name('markRead');
 // Auth::routes();
 Auth::routes(['verify' => true]);
 
-Route::group(['prefix' => 'front' ], function () {
-    Route::get('/create-details/{id}', 'Front\AccountController@index');    
+Route::group(['prefix' => 'front'], function () {
+    Route::get('/create-details', 'Front\AccountController@index');
+    //Route::get('/create-details/{id}', 'Front\AccountController@index');    
     Route::post('/create-step1', 'Front\AccountController@postCreateStep1');
     Route::get('/create-step2', 'Front\AccountController@createStep2');
     Route::post('/upadate-user-data', 'Front\AccountController@updateUserData');
@@ -34,23 +42,22 @@ Route::group(['prefix' => 'front' ], function () {
     //  Route::get('/payment-update/{id}', 'PaymentController@paymentProcess');
 });
 
-Route::group(['prefix' => 'investment','middleware' => ['client']], function () {
-    Route::get('/create-step2', 'Client\UserInvestmentController@createStep2');
+Route::group(['prefix' => 'investment', 'middleware' => ['client']], function () {
+    Route::get('/create-step2/{id}', 'Client\UserInvestmentController@createStep2');
     Route::post('/update-account', 'Client\UserInvestmentController@postCreateUpdate');
     Route::get('/create-step3', 'Client\UserInvestmentController@createStep3');
     Route::post('/update-address', 'Client\UserInvestmentController@updateAddress');
     Route::get('/create-step4', 'Client\UserInvestmentController@createStep4');
-    Route::post('/update-amount','Client\UserInvestmentController@updateAmount');
+    Route::post('/update-amount', 'Client\UserInvestmentController@updateAmount');
     Route::get('/create-step5', 'Client\UserInvestmentController@createStep5');
-    Route::post('/update-sign','Client\UserInvestmentController@updateSignature');
+    Route::post('/update-sign', 'Client\UserInvestmentController@updateSignature');
     Route::get('/create-step6', 'Client\UserInvestmentController@createStep6');
     Route::post('/create-step7', 'Client\UserInvestmentController@updateAgreements');
     Route::get('/payment-update/{id}/{amount}', 'Client\UserInvestmentController@paymentProcess');
-    //Route::get('/payment-update/{id}', 'PaymentController@paymentProcess');
 
 });
 /**** ================================Admin Routes Start =================================== */
-Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin','verified']], function () {
+Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin', 'verified']], function () {
     Route::get('/', 'Admin\DashboardController@index');
     Route::post('/states', 'Admin\DashboardController@states');
     Route::post('/cities', 'Admin\DashboardController@cities');
@@ -59,6 +66,13 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin','verified']]
         Route::post('/edit', 'Admin\DashboardController@editAccount');
         Route::post('/edit-password', 'Admin\DashboardController@editAccountPassword');
     });
+
+   
+    Route::group(['prefix' => 'dashboard-investment-management'], function () {
+        Route::get('/investment-data', 'Admin\DashboardController@getInvestmentData');
+        Route::get('/view/{id}', 'Admin\DashboardController@getInvestmentSingle');
+        
+    });
     /**  
      * User Management routes here
      **/
@@ -66,9 +80,14 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin','verified']]
         Route::get('/', 'Admin\UserManagementController@index');
         Route::get('/view/{id}', 'Admin\UserManagementController@singleuser');
         Route::get('/user-data', 'Admin\UserManagementController@UserData');
+        Route::get('/add-user', 'Admin\UserManagementController@createUser');
+        Route::post('/save-user', 'Admin\UserManagementController@saveUser');
         Route::get('/edit/{id}', 'Admin\UserManagementController@editViewUser');
         Route::post('/update/{id}', 'Admin\UserManagementController@updateUsers');
         Route::get('/delete/{id}', 'Admin\UserManagementController@deleteUser');
+       
+		Route::post('/get-client-plan-list', 'Admin\UserManagementController@getClientUserInvestmentPlanListHTML');
+        
     });
     Route::group(['prefix' => 'plan-management'], function () {
         Route::get('/', 'Admin\PlanManagementController@index');
@@ -79,6 +98,18 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin','verified']]
         Route::post('/saveplan', 'Admin\PlanManagementController@storePlan');
         Route::post('/update/{id}', 'Admin\PlanManagementController@updatePlans');
         Route::get('/delete/{id}', 'Admin\PlanManagementController@deletePlan');
+		
+		
+		
+    });
+
+    Route::group(['prefix' => 'contact-page-settings'], function () {
+        Route::get('/', 'Admin\ContactPageSettingsController@index');
+        Route::get('/setting-data', 'Admin\ContactPageSettingsController@getSettingData');
+        Route::get('/edit/{id}', 'Admin\ContactPageSettingsController@editViewSetting');
+        Route::post('/saveplan', 'Admin\ContactPageSettingsController@storePlan');
+        Route::post('/update/{id}', 'Admin\ContactPageSettingsController@updateSetting');
+        Route::get('/delete/{id}', 'Admin\ContactPageSettingsController@deleteSetting');
     });
     Route::group(['prefix' => 'fqa-management'], function () {
         Route::get('/', 'Admin\FQAManagementController@index');
@@ -109,27 +140,77 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin','verified']]
         Route::get('/delete/{id}', 'Admin\DocumentsManagementController@destroy');
     });
 
-    Route::group(['prefix' => 'withdraw-request-managment' ], function () {
+    Route::group(['prefix' => 'withdraw-request-managment'], function () {
         Route::get('/', 'Admin\WithdrowManagementController@index');
         Route::get('/withdraw-data', 'Admin\WithdrowManagementController@withdrawData');
         Route::get('/edit/{id}', 'Admin\WithdrowManagementController@edit');
         Route::post('/update/{id}', 'Admin\WithdrowManagementController@update');
     });
 
-    Route::group(['prefix' => 'notifications-managment' ], function () {
+    Route::group(['prefix' => 'notifications-managment'], function () {
         Route::get('/', 'Admin\NotificationsManagementController@index');
         Route::get('/notification-data', 'Admin\NotificationsManagementController@notificationData');
     });
+	
+	/*
+	|-----------------------------------
+	| Pages	Management	routes	here
+	|-----------------------------------
+	*/
+	Route::group(['prefix' => 'page-management'], function () {
+		Route::get('/', 'Admin\CmsPageManagementController@index');
+		Route::get('page-data', 'Admin\CmsPageManagementController@pageData');
+		Route::get('create', 'Admin\CmsPageManagementController@create');
+		Route::post('/save-page', 'Admin\CmsPageManagementController@store');
+		Route::get('{id}/view', 'Admin\CmsPageManagementController@show');
+		Route::get('{id}/edit', 'Admin\CmsPageManagementController@edit');
+		Route::post('{id}/update', 'Admin\CmsPageManagementController@update');
+		Route::get('delete/{id}', 'Admin\CmsPageManagementController@destroy');
+    });
+    
+    /*
+	|-----------------------------------
+	| Footer menu management routes	here
+	|-----------------------------------
+	*/
+	Route::group(['prefix' => 'footer-menu-management'], function () {
 
+        Route::get('/', 'Admin\FooterMenuManagementController@index');
+        Route::get('menu-data', 'Admin\FooterMenuManagementController@menuData');
+        Route::get('/add-footer-menu', 'Admin\FooterMenuManagementController@createFooterMenu');
+        Route::get('/plan-data', 'Admin\FooterMenuManagementController@PlanData');
+        Route::get('/edit/{id}', 'Admin\FooterMenuManagementController@editViewPlan');
+        Route::post('/saveFooterMenu', 'Admin\FooterMenuManagementController@store');
+        Route::post('/update/{id}', 'Admin\FooterMenuManagementController@update');
+        Route::get('/delete/{id}', 'Admin\FooterMenuManagementController@destroy');
+    });
+
+    Route::group(['prefix' => 'users-investment-growth'], function () {
+
+        Route::get('/', 'Admin\UserMonthlyGrowthController@index');
+        Route::get('menu-data', 'Admin\FooterMenuManagementController@menuData');
+        Route::get('/add-footer-menu', 'Admin\FooterMenuManagementController@createFooterMenu');
+        Route::get('/plan-data', 'Admin\FooterMenuManagementController@PlanData');
+        Route::get('/edit/{id}', 'Admin\FooterMenuManagementController@editViewPlan');
+        Route::post('/saveFooterMenu', 'Admin\FooterMenuManagementController@store');
+        Route::post('/update/{id}', 'Admin\FooterMenuManagementController@update');
+        Route::get('/delete/{id}', 'Admin\FooterMenuManagementController@destroy');
+
+        
+	});
+	
+	
+	
 });
-/****=================================== Admin Routes End ======================================*/
+/*=================================== Admin Routes End ======================================*/
 
 
-/**** ================================Client Routes Start =================================== */
+/*================================ Client Routes Start =================================== */
 
-Route::group(['prefix' => 'client', 'middleware' => ['auth', 'client','verified']], function () {
+Route::group(['prefix' => 'client', 'middleware' => ['auth', 'client', 'verified']], function () {
     Route::get('/', 'Client\DashboardController@index');
     Route::post('/states', 'Client\DashboardController@states');
+    Route::get('/selected_client', 'Client\DashboardController@getSelectClientPlan');
     Route::post('/cities', 'Client\DashboardController@cities');
     Route::group(['prefix' => 'account'], function () {
         Route::get('/', 'Client\DashboardController@myAccount');
@@ -150,14 +231,20 @@ Route::group(['prefix' => 'client', 'middleware' => ['auth', 'client','verified'
         Route::get('/view/{id}', 'Client\PlansManagementController@singleDocuments');
     });
 
-    
+    Route::group(['prefix' => 'dashboard-investment-management'], function () {
+        Route::get('/investment-data', 'Client\DashboardController@getInvestmentData');
+        Route::get('/view/{id}', 'Client\DashboardController@getInvestmentSingle');
+        
+    });
+
+
     Route::group(['prefix' => 'receive_money', 'middleware' => ['auth', 'client']], function () {
         Route::get('/', 'Client\RecieveMoneyManagementController@index');
         Route::get('/documents-data', 'Client\RecieveMoneyManagementController@documentsData');
         Route::get('/view/{id}', 'Client\RecieveMoneyManagementController@singleDocuments');
-    }); 
+    });
 
-    Route::group(['prefix' => 'create-account', 'middleware' => ['auth', 'client']], function () { 
+    Route::group(['prefix' => 'create-account', 'middleware' => ['auth', 'client']], function () {
         Route::get('/', 'Client\UserManagementController@index');
         Route::get('/documents-data', 'Client\UserManagementController@documentsData');
         Route::get('/view/{id}', 'Client\UserManagementController@singleDocuments');
@@ -167,7 +254,7 @@ Route::group(['prefix' => 'client', 'middleware' => ['auth', 'client','verified'
         Route::get('/', 'Client\WithdrawManagamentController@index');
         Route::get('/documents-data', 'Client\WithdrawManagamentController@documentsData');
         Route::get('/view/{id}', 'Client\WithdrawManagamentController@singleDocuments');
-        Route::post('/withdrowRequest', 'Client\WithdrawManagamentController@withdrowRequest'); 
+        Route::post('/withdrowRequest', 'Client\WithdrawManagamentController@withdrowRequest');
     });
 
     Route::group(['prefix' => 'withdraw-request-managment', 'middleware' => ['auth', 'client']], function () {
@@ -176,7 +263,7 @@ Route::group(['prefix' => 'client', 'middleware' => ['auth', 'client','verified'
         Route::get('/view/{id}', 'Client\WithdrawManagamentController@singleDocuments');
         Route::post('/withdrowRequest', 'Client\WithdrawManagamentController@withdrowRequest');
     });
-    
+
     Route::group(['prefix' => 'bank-account-management', 'middleware' => ['auth', 'client']], function () {
         Route::get('/', 'Client\BankAccountManagamentController@index');
         Route::post('/save-data', 'Client\BankAccountManagamentController@store');
@@ -198,16 +285,20 @@ Route::group(['prefix' => 'client', 'middleware' => ['auth', 'client','verified'
         Route::get('/update-plan-payment/{id}', 'Client\AdditionalPlanManagmentController@updatePayment');
     });
 
-    Route::group(['prefix' => 'notifications-managment' ], function () {
+    Route::group(['prefix' => 'notifications-managment'], function () {
         Route::get('/', 'Client\NotificationsManagementController@index');
         Route::get('/notification-data', 'Client\NotificationsManagementController@notificationData');
     });
 
-    Route::group(['prefix' => 'pages-faq' ], function () {
+    Route::group(['prefix' => 'pages-faq'], function () {
         Route::get('/', 'Client\FQAManagementController@index');
         Route::get('/notification-data', 'Client\NotificationsManagementController@notificationData');
     });
-    
+
+    Route::group(['prefix' => 'share-freind-management', 'middleware' => ['auth', 'client']], function () {
+        Route::get('/', 'Client\ShareReferralController@index');
+        Route::post('/save-data', 'Client\ShareReferralController@store');
+    });
 });
 
 /****=================================== Client Routes End ======================================*/
@@ -215,7 +306,7 @@ Route::group(['prefix' => 'client', 'middleware' => ['auth', 'client','verified'
 Route::get('/signup-login', function () {
     return view('pages-login');
 });
-Route::get('/reg', function () { 
+Route::get('/reg', function () {
     return view('pages-register');
 });
 Route::get('/select-plan/{id}', 'RegalDollarsController@plan')->where('id', '[0-9]+');

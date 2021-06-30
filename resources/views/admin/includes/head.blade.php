@@ -10,3 +10,7 @@
 <link href="{{ URL::asset('public/assets/css/metismenu.min.css') }}" rel="stylesheet" type="text/css">
 <link href="{{ URL::asset('public/assets/css/icons.css') }}" rel="stylesheet" type="text/css" />
 <link href="{{ URL::asset('public/assets/css/style.css') }}" rel="stylesheet" type="text/css" />
+
+<!-- summernotes CSS -->
+    <link href="{{ url('public/plugins/summernote/summernote.css') }}" rel="stylesheet" />
+

@@ -40,16 +40,17 @@
 									 <th>Interest rate </th> 
                                     <th>Time Investment</th>
                                     <th>Plan Type</th>
+                                    <th>Status</th>
 									<th>Action</th>
 								</tr>
 							</thead>
 						<tfoot>
                             <tr>
-                                <th></th>
                                 <!-- <th></th> -->
-                                <th></th>
-                                <th></th>
-                                <th class="remove_input"></th>
+                                <!-- <th></th> -->
+                                <!-- <th></th>
+                                <th></th> -->
+                                <!-- <th class="remove_input"></th> -->
                             </tr>
                         </tfoot>
                     </table>
@@ -62,6 +63,26 @@
     </div>
     
     <!-- end row -->
+	
+	   <!-- Modal -->
+<div id="myModal" class="modal fade plan_model" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header ">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Plan Instruction</h4>
+      </div>
+      <div class="modal-body">
+        <p>Plan has alraedy purches by user. You can't delete or update now</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
 @endsection
 
 @section('script')
@@ -96,12 +117,22 @@ $(function() {
                     return '<span class="label label-'+status+'"> '+text+' </span>';
                 } 
             },
+           // { data: 'status', name: 'status', orderable: true , searchable: true},
+            { data: 'status',	name: 'status', orderable: true, render: function ( data, type, row ){
+				if(row.status ==  1  ){ 
+                    var status= 'success'; var text	=	'Active'; 
+				}else {
+					var status	= 'danger'; var text	=	'Disabled';
+				}
+                    return '<span class="badge badge-'+status+'"> '+text+' </span>';
+                } 
+            },
             { data: 'action', name: 'action', orderable: false, searchable: false},
         ],
         dom: 'Blfrptip',
         buttons: [
                 {
-                     extend: 'colvis',text: 'Show/Hide Columns'
+                     extend: 'colvis',text: 'Show / Hide Columns'
                 }
         ],
         oLanguage: {

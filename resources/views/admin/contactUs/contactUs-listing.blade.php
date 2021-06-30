@@ -43,6 +43,7 @@
                                     <th>Phone</th>
                                     <th>Message</th>
 									<th>Contact Subject</th>
+                                    <th>Contact From</th>
 									<th>Action</th>
 								</tr>
 							</thead>
@@ -52,6 +53,7 @@
                                 <th></th>
                                 <th></th>
 								<th></th>
+                                <th></th>
                                 <th class="remove_input"></th>
                             </tr>
                         </tfoot>
@@ -73,7 +75,7 @@
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <!--<script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.20/datatables.min.js"></script>  -->
 <script>
-//$('#myTable').DataTable();
+
  
 $(function() {
 	$('#myTable').DataTable({
@@ -87,7 +89,8 @@ $(function() {
             { data: 'email', name: 'email', orderable: true , searchable: true},
             { data: 'phone', name: 'phone', orderable: true , searchable: true},
             { data: 'message', name: 'message', orderable: true , searchable: true},
-			{ data: 'contact_subject', name: 'contact_subject', orderable: false, searchable: false},			
+            { data: 'contact_subject', name: 'contact_subject', orderable: false, searchable: false},
+			{ data: 'contact_from', name: 'contact_from', orderable: false, searchable: false},			
             { data: 'action', name: 'action', orderable: false, searchable: false},
         ],
         dom: 'Blfrptip',

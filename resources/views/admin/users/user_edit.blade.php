@@ -21,11 +21,7 @@
                     <!-- end row -->
 
                     <div class="row">
-                        <?php 
-                        // foreach($stateData as $state){
-                        //     dd($state['name']);
-                        // }
-                        ?>
+                        
 						
 						<div class="col-xl-8">
                             <h4>User Information</h4>
@@ -140,6 +136,24 @@
                                         @if ($errors->has('info_zip'))
 											<span style="display:initial;" class="invalid-feedback" role="alert">
 												<strong>{{ $errors->first('info_zip') }}</strong>
+											</span>
+										@endif
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <label class="input-group-text" for="inputGroupSelect01">User Status</label>
+                                        </div>
+                                        <select name="is_block" id="is_block" class="form-control">
+                                            <option value="">Select status</option>
+                                            <option value="true" {{ "true" == $user->is_block ? 'selected="selected"' : '' }}>True</option>
+                                            <option value="false" {{ "false" == $user->is_block ? 'selected="selected"' : '' }}>FALSE</option>
+                                        </select>
+                                        <!-- <input class="form-control" type="text" name="is_block" placeholder="" value="{{ $user->zipcode }}" /> -->
+                                        @if ($errors->has('is_block'))
+											<span style="display:initial;" class="invalid-feedback" role="alert">
+												<strong>{{ $errors->first('is_block') }}</strong>
 											</span>
 										@endif
                                     </div>

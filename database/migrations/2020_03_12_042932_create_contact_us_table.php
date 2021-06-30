@@ -20,6 +20,7 @@ class CreateContactUsTable extends Migration
             $table->string('phone')->nullable();
             $table->string('contact_subject')->nullable();
             $table->string('contact_option')->nullable();
+            $table->enum('contact_from', ['visitor', 'registered'])->default('visitor')->comment = 'visitor, registered';
             $table->longText('message')->nullable();
             $table->timestamps();
         });

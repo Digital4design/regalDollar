@@ -14,6 +14,9 @@
 	<script type="text/javascript" src="{{ url('public/js/data-tables/dataTables.buttons.min.js') }}"></script>
 	<script type="text/javascript" src="{{ url('public/js/data-tables/buttons.html5.min.js') }}"></script>
 	<script type="text/javascript" src="{{ url('public/js/data-tables/buttons.colVis.min.js') }}"></script>
+	
+	    <!-- summernotes JS -->
+    <script src="{{ asset('public/plugins/summernote/summernote.min.js') }}"></script>
 
 @yield('script-bottom')
 

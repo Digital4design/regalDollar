@@ -254,6 +254,24 @@
                            </div>
                         </div>
                      </div>
+                     <div class="col-sm-6">
+                        <div class="input-group mb-3">
+                           <div class="input-group-prepend">
+                              <label class="input-group-text" for="inputGroupSelect01">Plan Status</label>
+                           </div>
+                           <select name="status" id="plan_status" class="form-control">
+                              <option value="1">Active</option>
+                              <option value="0">Deactive</option>
+                           </select>
+
+
+                           @if ($errors->has('status'))
+                           <span style="display:initial;" class="invalid-feedback" role="alert">
+                              <strong>{{ $errors->first('status') }}</strong>
+                           </span>
+                           @endif
+                        </div>
+                     </div>
                      <button class="btn btn-primary" type="submit">Save Plan</button>
                   </form>
                </div>

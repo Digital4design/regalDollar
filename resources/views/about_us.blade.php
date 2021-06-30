@@ -3,7 +3,7 @@
 @include('homeheader')
 
 <div class="content">
-<div class="inner-banner kode-team-section overlay movingbg normaltopmargin normalbottommargin light movingbg" data-id="customizer" data-title="Theme Customizer" data-direction='horizontal'>
+	<?php /* <div class="inner-banner kode-team-section overlay movingbg normaltopmargin normalbottommargin light movingbg" data-id="customizer" data-title="Theme Customizer" data-direction='horizontal'>
       <div class="container">
          <p>
             <img src="{{ URL::asset('public/assets/images/peacock.png') }}" style="height:100px;">
@@ -18,6 +18,7 @@
          </ol>
         </div>
     </div> 
+	*/ ?>
 <!--SERVICES SECTION START-->
 <section class="thumb-with-text">
 
@@ -163,7 +164,7 @@
    
    
    
-   <div class="join_us_section">
+   <!-- div class="join_us_section">
       <img src="{{ URL::asset('public/assets/images/internal_banner.jpg') }}" />
       <div class="overlay"></div>
          <div class="container">
@@ -172,23 +173,16 @@
             </div>
          </div>
 
-      </div>
+      </div -->
 
       </div>
 
    <div class="team_section">
-         <!-- <div clasS="banner">
-            <img src="{{ URL::asset('public/assets/images/internal_banner.jpg') }}" />
-         </div> -->
-      <div class="container">         
-         <div class="show_team_member">
-            <!-- <h2>Meet The Team</h2> -->
+   <div class="container">         
+         <!-- div class="show_team_member">
             <h2>Partners and Associates</h2>
-            <!-- <p>Our backgrounds encompass real estate, finance, technology, and design.</p> -->
-
-            <div class="team">
-
-               <div class="block">
+			<div class="team">
+			<div class="block">
                   <div class="user_img">
                       <img src="{{ URL::asset('public/assets/images/user_1.jfif') }}" />
                   </div>
@@ -253,9 +247,9 @@
                </div>
 
             </div>
-         </div>
-      </div>      
-   </div>
+         </div -->
+      </div >      
+   </div >
 
    <div class="join_us_section joins">
 

@@ -37,7 +37,7 @@ class DocumentsManagementController extends Controller
             ->select('documents_management.*', 'users.name')
             ->join('users', 'users.id', '=', 'documents_management.users_id')
             ->get();
-            //dd($userList);
+        //dd($userList);
         return Datatables::of($userList)
             ->addColumn('action', function ($userList) {
                 return '<a href ="' . url('/admin/documents-management/edit') . '/' . Crypt::encrypt($userList->id) . '"  class="btn btn-xs btn-primary edit"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</a>
@@ -53,8 +53,8 @@ class DocumentsManagementController extends Controller
     public function createDocuments()
     {
         $clients = User::whereHas('roles', function ($q) {
-                $q->where('name', 'client');
-            })->get()->toArray();
+            $q->where('name', 'client');
+        })->get()->toArray();
         $result = array(
             'pageName' => 'New Documents',
             'activeMenu' => 'documents-management',
@@ -71,13 +71,16 @@ class DocumentsManagementController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request->all());
         $rules = [
             'users_id' => 'required',
+            'plan_id' => 'required',
             'documents_title' => 'required',
             'message' => 'required',
         ];
         $messages = [
             'documents_title.required' => 'documents name is required.',
+            'plan_id.required' => 'plan is required.',
             'documents_title.min' => 'documents name should contain at least 4 characters.',
         ];
         $validator = Validator::make($request->all(), $rules, $messages);
@@ -87,6 +90,7 @@ class DocumentsManagementController extends Controller
         try {
             $planData = DocumentManagemetModel::create([
                 'users_id' => $request->users_id,
+                'plan_id' => $request->plan_id,
                 'documents_title' => $request->documents_title,
                 'message' => $request->message,
             ]);
@@ -128,10 +132,10 @@ class DocumentsManagementController extends Controller
      */
     public function editViewDocs($id)
     {
-        
+
         try {
             $document = DocumentManagemetModel::find(Crypt::decrypt($id));
-            
+
             $clients = User::whereHas('roles', function ($q) {
                 $q->where('name', 'client');
             })->get()->toArray();
@@ -139,11 +143,11 @@ class DocumentsManagementController extends Controller
             $data = array(
                 'pageName' => 'Edit Docs',
                 'activeMenu' => 'documents-management',
-                'clients'=>$clients,
+                'clients' => $clients,
             );
             $data['documentData'] = $document;
             $data['roles'] = Role::get();
-            
+
             return view('admin.documentsManagement.document_edit', $data);
         } catch (\Exception $e) {
             return back()->with(['status' => 'danger', 'message' => $e->getMessage()]);
@@ -161,12 +165,14 @@ class DocumentsManagementController extends Controller
     {
         $rules = [
             'users_id' => 'required',
+            'plan_id' => 'required',
             'documents_title' => 'required',
             'message' => 'required',
             'documents_path' => 'required',
         ];
         $messages = [
             'documents_title.required' => 'documents title is required.',
+            'plan_id.required' => 'plan is required.',
             'message.min' => 'message should contain at least 2 characters.',
         ];
         $validator = Validator::make($request->all(), $rules, $messages);
@@ -176,6 +182,7 @@ class DocumentsManagementController extends Controller
         try {
             $planData = DocumentManagemetModel::find(\Crypt::decrypt($id));
             $planData->users_id = trim($request->users_id);
+            $planData->plan_id = trim($request->plan_id);
             $planData->documents_title = trim($request->documents_title);
             $planData->message = trim($request->message);
             $planData->save();

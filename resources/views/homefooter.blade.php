@@ -1,20 +1,40 @@
+<?php //dd($footerdata);
+?>
+
 <footer>
     <div class="container">
         <div class="footer_nav">
             <div class="block logo_section">
-            <img src="{{ asset('public/assets/images/peacock.png') }}">
-            <img src="{{ asset('public/assets/images/logo.png') }}" alt="">
+                <img src="{{ asset('public/assets/images/peacock.png') }}">
+                <img src="{{ asset('public/assets/images/logo.png') }}" alt="footer logo">
             </div>
+            @if(isset($sectiondata )))
+            @foreach($sectiondata as $section)
+            <div class="block bottom_nav">
+                <h2 class="nav_title">{{ $section['section'] }}</h2>
+                <ul>
+                    @foreach($footerdata as $footer)
+                    @if($section['section'] ==$footer['section'])
+                    <li><a href="{{ $footer['link']}}">{{ $footer['menu_name']}}</a></li>
+                    @endif
+                    @endforeach
+                    <!-- <li><a href="#">eDirect Technology</a></li>
+                    <li><a href="#">Historical Performance</a></li> -->
+                </ul>
+            </div>
+            @endforeach
+            @else
             <div class="block bottom_nav">
                 <h2 class="nav_title">Why Regal Dollar</h2>
                 <ul>
                     <li><a href="#">The Service</a></li>
                     <li><a href="#">eDirect Technology</a></li>
                     <li><a href="#">Historical Performance</a></li>
+                    <li><a href="#">Articles122</a></li>
                 </ul>
             </div>
             <div class="block bottom_nav">
-                <h2 class="nav_title">Plans</h2> 
+                <h2 class="nav_title">Plans</h2>
                 <ul>
                     <li><a href="#">Starter</a></li>
                     <li><a href="#">Supplemental Income</a></li>
@@ -25,7 +45,7 @@
             <div class="block bottom_nav">
                 <h2 class="nav_title">Company</h2>
                 <ul>
-                    <li><a href="{{ url('/') }}/about_us">About</a></li>
+                    <li><a href="{{ url('/about_us') }}">About Us</a></li>
                     <li><a href="#">Team</a></li>
                     <li><a href="#">Careers</a></li>
                     <li><a href="#">Press</a></li>
@@ -34,18 +54,48 @@
             <div class="block bottom_nav">
                 <h2 class="nav_title">Resources</h2>
                 <ul>
+                    <li><a href="#">Terms and Conditions</a></li>
                     <li><a href="{{ url('/') }}/faq">Help & FAQs</a></li>
                     <li><a href="#">Articles</a></li>
                 </ul>
             </div>
-        </div>
+            @endif
 
+            <!-- <div class="block bottom_nav">
+                <h2 class="nav_title">Plans</h2>
+                <ul>
+                    <li><a href="#">Starter</a></li>
+                    <li><a href="#">Supplemental Income</a></li>
+                    <li><a href="#">Balanced Investing</a></li>
+                    <li><a href="#">Long-Term Growth</a></li>
+                </ul>
+            </div>
+            <div class="block bottom_nav">
+                <h2 class="nav_title">Company</h2>
+                <ul>
+                    <li><a href="{{ url('/about_us') }}">About Us</a></li>
+                    <li><a href="#">Team</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="#">Press</a></li>
+                </ul>
+            </div>
+            <div class="block bottom_nav">
+                <h2 class="nav_title">Resources</h2>
+                <ul>
+                    <li><a href="#">Terms and Conditions</a></li>
+                    <li><a href="{{ url('/') }}/faq">Help & FAQs</a></li>
+                    <li><a href="#">Articles</a></li>
+                </ul>
+            </div>-->
+        </div>
+        <?php // dd($footerContent); 
+        ?>
         <div class="social_icon">
             <div class="contact_detail">
-                <span class="mail"> <i class="fa fa-envelope-o" aria-hidden="true"></i>contact@regaldollar.com</span>
+                <span class="mail"> <i class="fa fa-envelope-o" aria-hidden="true"></i>@if(isset($footerContent[0]['footer_email'])){{$footerContent[0]['footer_email']}}@else contact@regaldollar.com @endif</span>
             </div>
             <div class="location_detail">
-                <span class="address"><i class="fa fa-map-marker" aria-hidden="true"></i>11 Dupont Circle NW, 9th Floor, Washington, DC 20036</span>
+                <span class="address"><i class="fa fa-map-marker" aria-hidden="true"></i> @if(isset($footerContent[0]['footer_address'])) {{$footerContent[0]['footer_address']}}@else 11 Dupont Circle NW, 9th Floor, Washington, DC 20036 @endif</span>
             </div>
             <div class="icon_right_section">
                 <ul>
@@ -55,17 +105,19 @@
                     <li><i class="fa fa-twitter" aria-hidden="true"></i></li>
                 </ul>
                 <span class="app_store_img">
-                    <img src="{{ asset('public/assets/images/gallery/white_app_store.png') }}"/>
+                    <img src="{{ asset('public/assets/images/gallery/white_app_store.png') }}" />
                 </span>
             </div>
         </div>
 
         <div class="copy_right_section">
-            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+            <p> @if(isset($footerContent[0]['footer_content']))
+                {{$footerContent[0]['footer_content']}}
+                @else
+                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.
+             @endif</p>
 
-            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.</p>
-
-            <p>© 2020 Regal Dollar, LLC. All Rights Reserved. Proudly designed and coded by D4D.</p>
+            <p>© 2019-{{ date('Y') }} @if(isset($footerContent[0]['footer_copy_right'])) {{$footerContent[0]['footer_copy_right']}}@else Regal Dollar, LLC. All Rights Reserved. Proudly designed and coded by D4D. @endif</p>
         </div>
 
     </div>

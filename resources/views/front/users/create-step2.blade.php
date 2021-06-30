@@ -50,8 +50,9 @@
                      </span>
                      @endif
                      </div>
+                     <a href="#"  class="btn btn-primary">Back</a>
               
-               <a href="{{ url('investment/create-step2') }}"  class="btn btn-primary">Back</a>
+               <!-- <a href="{{ url('investment/create-step2') }}"  class="btn btn-primary">Back</a> -->
                <button type="submit" id="send_button" class="btn btn-primary send_button">Next</button>
             </form>
          </div>
